@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+// minimal css
+@import "./partials/bulma";
+@import "./partials/functions.scss";
+@import "./partials/has-image-centered.scss";
+
+.shpr-brand {
+    .navbar-item {
+      
+      // Uncomment bellow in case of brand logo
+      // background-image: image("logo.png");
+      // color: transparent !important; // is !important because of too much specific selectors in bulma
+      // background-size: 250px;
+      // background-repeat: no-repeat;
+      // width: 125px;
+      // height: 39px;
+
+      overflow: hidden;
+      margin-left: 0.5rem;
+      align-self: center;
+    }
+  }
+  
+  .navbar-menu li {
+    text-transform: uppercase;
+  }
+  
+  .shpr-icon {
+    border: 1px solid $light;
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+  }
+  
+  .shpr-menu {
+    margin-bottom: 50px;
+    li {
+      display: block;
+      border-left: 1px solid rgba(0, 0, 0, 0);
+      font-family: $family-secondary;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+  
+      a {
+        color: inherit;
+        margin-bottom: 20px;
+        height: 21px;
+      }
+    }
+  }
+  
+  .no-link-color {
+    a {
+      color: inherit;
+    }
+  }
+  
+  .title {
+    font-family: $family-secondary;
+  }
+  
+  .button, .button.is-primary, .button:active, .button:hover {
+    border-color: $white;
+    border-radius: 1px;
+    text-transform: uppercase;
+  }
+  
+  .icon {
+    &.is-ultra-large {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+  

@@ -1,0 +1,65 @@
+{# Import macros #}
+{% import "partials/_macros.twig" as m %}
+
+{% spaceless %}
+	{% set routeParams = app.request.get('_route_params') %}
+	{% set contentTypeSlug = routeParams.contenttypeslug is defined ? routeParams.contenttypeslug : 'homepage' %}
+
+	{% set script = 'dist/js/' ~ contentTypeSlug ~ '-bundle.js' %}
+	{% set style = 'dist/css/' ~ contentTypeSlug ~ '-bundle.css' %}
+{% endspaceless %}
+<!DOCTYPE html>
+{# 
+<pre>
+	{{ dump(routeParams) }}
+</pre> #}
+
+<html lang="{{ htmllang() }}" class="has-navbar-fixed-top">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		{# make sure symlink to '../dist' is created #}
+		<style>{{ source('dist/css/minimal-bundle.css') }}</style>
+		{{ m.stylesheet('dist/css/woff.css') }}
+		{% block stylesheet %}
+			{# Defer loading of non-critical styles #}
+			{{ m.stylesheet(style) }}
+		{% endblock %}
+		<link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
+		
+		{# make sure we always display a proper title: The record's title if there is one, appended with the #}
+		{# sitename. If there is no title, we append the sitename with the payoff, if there is one.  #}
+
+		<title>{{ seo.title() }}</title>
+    	{{ seo.metatags() }}
+	</head>
+	<body id="top">
+
+		<header role="banner" class="header">
+			{{ include('partials/_navbar.twig') }}
+			{# {{ include('partials/_header.twig') }} #}
+		</header>
+
+		{% block content %}
+
+			Content goes here
+
+		{% endblock content %}
+
+		{# Standard FOOTER #}
+		{{ include('partials/_footer.twig') }}
+
+		<script>
+			var paths = {
+				theme: '{{ paths.theme }}'
+			};
+		</script>
+		{% block scripts %}			
+
+			{{ m.script(script) }}
+
+		{% endblock %}
+	</body>
+</html>

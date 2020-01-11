@@ -1,0 +1,19 @@
+homepage: homepage
+homepage_template: index.twig
+
+# template_directory: twig
+
+thumbnails:
+  aliases:
+    square-small:
+      size: [256, 256]
+      cropping: crop
+    square:
+      size: [512, 512]
+      cropping: crop
+    index-gallery:
+      size: [100, 100]
+      cropping: crop
+    index-small:
+      size: [425]
+      cropping: crop

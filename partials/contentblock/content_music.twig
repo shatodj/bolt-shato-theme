@@ -1,0 +1,29 @@
+{% extends "partials/contentblock/content.twig" %}
+{% import "partials/_macros.twig" as m %}
+
+{% block beforetitle %}
+    {% if content.image is defined %}
+        <p>
+            <a href="{{ content.link() }}">
+                {{ m.lazyimage(content.image|thumbnail('square'), content.title|default(), "100%", "auto", "shpr-music-cover") }}
+            </a>
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% set titleClass = "subtitle is-5 has-text-centered" %}
+    {{ parent() }}
+{% endblock %}
+
+{% block teaser %}
+    {# <p class="no-link-color">
+        <a href="{{ content.link() }}">
+            {% spaceless %}
+                {{ content.description|default('')|excerpt(220) }}
+            {% endspaceless %}
+        </a>
+    </p> #}
+{% endblock %}
+
+{% block actions %}{% endblock %}

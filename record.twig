@@ -1,0 +1,55 @@
+{% extends 'partials/_master.twig' %}
+{% import "partials/_macros.twig" as m %}
+
+{% block stylesheet %}
+    {# Defer loading of non-critical styles #}
+    {{ m.stylesheet('dist/css/record-bundle.css') }}
+{% endblock %}
+
+{% block scripts %}
+    {{ m.script('dist/js/record-bundle.js') }}
+{% endblock %}
+
+
+{% block content %}
+	{% if record is defined %}
+        <article>
+            <header class="hero is-primary">
+                <div class="hero-body">
+					<div class="container content">
+                        {% block header %}
+                            <h1 class="title is-3 is-spaced">{{ record.title }}</h1>
+                            {% include 'partials/_record_meta.twig' with {'extended': false} %}
+                            <p class="subtitle is-5">{{ record.datepublish|date('d.m.Y') }}</p>
+                        {% endblock %}
+					</div>
+				</div>
+            </header>
+
+            {% block body %}
+                <section class="section">
+                    <div class="container content">
+                        {# Output all fields, in the order as defined in the contenttype.
+                        To change the generated html and configure the options, see:
+                        https://docs.bolt.cm/templating #}
+                        {% with { 'record': record, 'extended': true, 'repeaters': true, 'blocks': true } %}
+                        {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+                        {% endwith %}
+
+                        {{ include('partials/_recordfooter.twig', { 'record': record, 'extended': true }) }}
+                    </div>
+                </section>
+            {% endblock %}
+        </article>
+	{% endif %}
+
+	{# Standard SECTIONS #}
+	{% block sections %}
+		{{ m.section("record") }}
+	{% endblock %}
+
+    {# {% block recent %}
+	    {% include "partials/_sub_recent_records.twig" %} 
+    {% endblock %} #}
+
+{% endblock content %}

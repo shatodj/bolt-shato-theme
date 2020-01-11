@@ -1,0 +1,9 @@
+{
+    "eslint.autoFixOnSave": true,
+    "emmet.includeLanguages": {
+        "twig": "html"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
+}

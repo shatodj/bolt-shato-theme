@@ -1,0 +1,17 @@
+{% extends "record.twig" %}
+
+
+{% block stylesheet %}
+    {# Defer loading of non-critical styles #}
+    {{ m.stylesheet('dist/css/page-bundle.css') }}
+{% endblock %}
+
+{% block scripts %}
+    {{ m.script('dist/js/page-bundle.js') }}
+{% endblock %}
+
+{# Standard SECTIONS #}
+{% block sections %}
+    {{ m.section("page") }}
+{% endblock %}
+

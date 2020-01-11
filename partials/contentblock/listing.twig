@@ -1,0 +1,31 @@
+
+
+{% set columnClass = 'column is-one-third' %}
+{% set listClass = 'columns slider' %}
+
+{# Contentlink Listing content #}
+{# Content of contentype 'block' and 'contentlink' filed for ITERABLE content #}
+{% block contentlink_list %}
+	{% if content|length > 0 %}
+
+		{% set columnClass = 'column is-one-third' %}
+
+		<ul class="{{ listClass }}">
+			{%- for entry in content -%}
+                {% block list_item %}
+                    <li class="{{ columnClass }}">
+                        {% set template = 'partials/contentblock/content.twig' %}
+                        {% include template with { content: entry } %}
+                    </li>
+                {% endblock %}
+			{%- endfor -%}
+		</ul>
+
+	{% else %}
+		<article class="message">
+			<div class="message-body">
+				{{ __('There is no content yet.') }}
+			</div>
+		</article>
+	{% endif %}
+{% endblock %}

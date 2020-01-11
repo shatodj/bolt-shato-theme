@@ -1,0 +1,70 @@
+{% extends 'partials/_master.twig' %}
+{% use "partials/_blocks.twig" %}
+
+{% block content %}
+	{% if record is defined %}
+		<article>
+			<header class="hero is-primary">
+				<div class="hero-body">
+					<div class="container content">
+						<h1 class="title is-3 is-spaced">{{ record.title }}</h1>
+						{% include 'partials/_record_meta.twig' with {'extended': false} %}
+						<p class="subtitle is-5">{{ record.datepublish|date('d.m.Y') }}</p>
+					</div>
+				</div>
+			</header>
+			<section class="section">
+				<div class="container content">
+					{{ record.teaser }}
+				</div>
+			</section>
+			
+			{% if record.video is not empty %}
+				<section class="section shpr-section is-section-light">
+					<div class="container content">
+						{% if record.video is not empty %}
+							{{ record.video.responsive }}
+						{% endif %}
+					</div>
+				</section>
+			{% elseif record.image %}
+				<section class="section shpr-section is-section-light">
+					<div class="container content">
+						<figure class="image has-image-centered has-text-centered is-256x256 shpr-gallery">
+							{{ popup(record.image, 512, 512) }}
+							<figcaption>
+								{{ record.values.image.title|default() }}
+							</figcaption>
+						</figure>
+					</div>
+				</section>
+			{% endif %}
+
+			<section class="section">
+				<div class="container content">
+
+					{{ record.body }}
+
+				</div>
+			</section>
+		</article>
+
+		{# Standard SECTIONS #}
+		{% block sections %}
+
+			{# Get All blocks by Entry group #}
+			{% setcontent sections = "blocks" where { groups: "entry" } %}
+
+			{% set sectionColors = ['primary', 'light', 'primary', 'dark'] %}
+
+			<section class="section shpr-section is-section-primary">
+				<div class="container">
+					<h2 class="title is-3">{{ __('More entries') }}</h2>
+					{% setcontent entries = 'entries' %}
+
+					{% include 'partials/contentblock/listing.twig' with { content: entries } %}
+				</div>
+			</section>
+		{% endblock %}
+	{% endif %}
+{% endblock %}

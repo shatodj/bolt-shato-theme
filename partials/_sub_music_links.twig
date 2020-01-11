@@ -1,0 +1,23 @@
+{# Generate className for link by its title #}
+{% macro linkIcon(title, extraClassIcon) %}
+    {% set brands = ['soundcloud', 'facebook', 'spotify', 'youtube', 'mixcloud', 'itunes'] %}
+    {% set icon = (title|lower in brands) ? 'fab fa-' ~ title|lower : 'fa fa-link' %}
+
+    <i class="{{ icon }} {{ extraClassIcon }}"></i>
+{% endmacro %}
+
+
+{# Make the macro available for use #}
+{% from _self import linkIcon %}
+
+{% block music_links %}
+    <div class="no-link-color">
+        <p class="subtitle is-5"> {{ __("Download / Stream") }}</p>
+        {% for link in links %}
+            {% set title = link.title|default('')|escape %}
+            <a href="{{ link.contentlink }}" target="_blank" title='{{ title }}' class='icon shpr-icon {{ extraClass|default('') }}'>
+                {{ linkIcon(title, extraClassIcon|default('')) }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

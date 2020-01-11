@@ -1,0 +1,53 @@
+
+
+/// Custom Section Modifiers
+/// Sections will loop through the colors to style them accordingly
+$section-colors: 'light', 'primary', 'dark', 'black';
+$section-colors-background: $light, $primary, $dark, $black;
+$section-colors-text: $dark, $light, $light, $primary;
+
+.shpr-section {
+
+    // anchor <a href="#"> before each section
+    .shpr-section-anchor {
+        position: absolute;
+        top: -150px
+    }
+
+    &.is-section-dark {
+        strong {
+            color: $light;
+        }
+    }
+
+    $i: 1;
+    @each $color in $section-colors {
+        &.is-section-#{$color} {
+            &::before {
+                content: '';
+                background-color: nth($section-colors-background, $i);
+                position: absolute;
+                top: 0; bottom: 0; left: 0; right: 0;
+            }
+            position: relative;
+            color: nth($section-colors-text, $i);
+
+            .title, .subtitle, .slick-arrow::before {
+                color: nth($section-colors-text, $i);
+            }
+
+            .slick-dots button:before {
+                color: nth($section-colors-text, $i);
+            }
+
+            // .button {
+
+            // }
+        }
+        $i: $i + 1;
+    }
+}
+
+.shpr-actions {
+    padding: 4rem 0rem 1rem 0rem;
+}

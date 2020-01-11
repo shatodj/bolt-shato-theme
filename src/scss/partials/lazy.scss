@@ -1,0 +1,15 @@
+@import "./functions.scss";
+
+/// Lazy Images Styles
+.lazy {
+  background-image: image('loading.gif');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+
+  display: block;
+
+  &.is-loaded {
+      background-image: none;
+  }
+}

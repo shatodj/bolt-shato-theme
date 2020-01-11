@@ -1,0 +1,36 @@
+{% extends 'partials/_master.twig' %}
+{% import "partials/_macros.twig" as m %}
+
+{% block content %}
+	{% setcontent homepage = "homepage" limit 1 returnsingle %}
+
+	{% if homepage %}
+
+		{% set title = homepage.title is not defined or homepage.title is empty ? app.config.get('general/sitename') : homepage.title %}
+		{% set teaser = homepage.teaser is not defined or homepage.teaser is empty ? app.config.get('general/payoff') : homepage.teaser %}
+
+		{# Section HERO #}
+		{% set bgImages = homepage.image|thumbnail('index-small') ~ ';' ~ homepage.image|image  %}
+
+		<section class="hero is-medium is-primary is-bold is-fullheight is-header shpr-lazy-background" {% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
+			<div class="shpr-background shpr-background-overlay"></div>
+			<div class="hero-body">
+				<div class="container">
+					<div class="shpr-logo">
+						<h1 class="title is-1">{{ homepage.title }}</h1>
+					</div>
+					<div class="shpr-logo">
+						<p class="subtitle is-3">{{ homepage.teaser }}</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endif %}
+
+	{# Standard SECTIONS #}
+	{% block sections %}
+
+		{{ m.section("homepage") }}
+
+	{% endblock %}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% use 'partials/_blocks.twig' %}
+
+{% macro footer_content(group) %}
+	{% setcontent blcks = "blocks" where { groups: group } %}
+	
+	{% for blck in blcks %}
+		{% with { 
+			blk: blck, 
+			title_class: 'is-5' 
+		}%}
+		{{ block('content_block') }}
+		{%- endwith -%}
+	{% endfor %}
+
+{% endmacro %}
+
+
+{% macro footer_menu(identifier, template = 'partials/_sub_menu_social.twig') %}
+	{{ menu(
+		identifier,
+		template,
+		params = { extraClass: 'is-ultra-large', extraClassIcon: 'fa-3x'}
+	) }}
+{% endmacro %}
+
+{% from _self import footer_content %}
+{% from _self import footer_menu %}
+
+{# Footer #}
+<footer id="contact" role="contentinfo">
+	<div class="section shpr-section is-section-dark">
+		<div class="container">
+			<div class="columns" role="navigation" aria-label="footer navigation">
+				<div class="column is-half content no-link-color">
+					<h2 class="title is-3">{{ __('Contact') }}</h2>
+					{{ footer_content('footer-left') }}
+				</div>
+				<div class="column is-half content no-link-color">
+					
+					{# Uncomment if you want to render social icons menu #}
+					{# <h3 class="title is-5">
+						{{ __("Follow on") }}
+					</h3>
+					{{ footer_menu('social', 'partials/_sub_menu_social.twig') }} #}
+					{{ footer_content('footer-right') }}
+				</div>
+			</div>
+			{{ widgets('footer') }}
+		</div>
+	</div>
+	<div class="section shpr-section is-section-black copyright">
+		<div class="container">
+			{% setcontent copyright = 'block/copyright' %}
+			{% if copyright.content is not empty %}
+				{{ copyright.content }}
+			{% endif %}
+		</div>
+	</div>
+</footer>
+{# 
+<script src="{{ asset('js/normalizeBrightness.js', 'theme') }}"></script>
+<script src="{{ asset('js/app.js', 'theme') }}"></script> #}

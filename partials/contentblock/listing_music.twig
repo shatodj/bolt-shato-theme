@@ -1,0 +1,18 @@
+{% extends "partials/contentblock/listing.twig" %}
+
+
+{% block contentlink_list %} 
+    {# change listing class - no slider for music listing #}
+    {% set listClass = 'shpr-music-list columns is-mobile is-multiline' %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block list_item %}
+    {% set columnClass = 'column is-3-desktop is-3-tablet is-6-mobile' %}
+
+    <li class="{{ columnClass }}">
+        {% set template = 'partials/contentblock/content_music.twig' %}
+        {% include template with { content: entry } %}
+    </li> 
+{% endblock %}
