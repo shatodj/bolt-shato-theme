@@ -41,18 +41,27 @@
         {{ block('markdown_field') }}
     {% endif %}
 
+{% endblock %}
+
+{# Media fields with images and videos #}
+{% block media_fields %}
     {# Image fields #}
     {% if fieldtype == "image" and value.file|default is not empty %}
-        {{ value|showimage(752, 400) }}
+        {% import "partials/_macros.twig" as m %}
+        <figure class="image">
+            {{ m.lazyImage(value.file|thumbnail('record-image'), value.title|default(value.file), 752, 400) }}
+            {% if value.title|default is not empty %}
+                <figcaption>{{ value.title }}</figcaption>
+            {% endif %}
+        </figure>
     {% endif %}
 
     {# Video fields #}
     {% if fieldtype == "video" and value.responsive|default is not empty %}
-        <div class="flex-video {{ value.ratio|default(1) > 1.5 ? 'widescreen' }}">
+        <figure class="flex-video {{ value.ratio|default(1) > 1.5 ? 'widescreen' }}">
             {{ value.responsive }}
-        </div>
+        </figure>
     {% endif %}
-
 {% endblock %}
 
 {# Block for other field types, like Geo, Select, Checkbox and others. #}

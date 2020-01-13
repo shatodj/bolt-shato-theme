@@ -37,6 +37,12 @@
         {% if exclude|default is iterable %}
             {% set omittedkeys = omittedkeys|merge(exclude) %}
         {% endif %}
+        
+        {# Initialize content swithers #}
+        {% set common = common is defined ? common : true %}
+        {% set media = media is defined ? media : true %}
+        {% set extended = extended is defined ? extended : false %}
+        {% set repeaters = repeaters is defined ? repeaters : false %}
     {% endspaceless -%}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
@@ -45,9 +51,8 @@
         {# Is the field allowed to contain Twig functions #}
         {% set allowtwig = record.contenttype.fields[key].allowtwig|default(false) %}
 
-        {# Fields that are considered 'common': 'html', 'markdown', 'textarea',
-           'text', 'image', 'video' and 'imagelist' #}
-        {% if common|default(true) and (key not in exclude|default([])) %}
+        {# Fields that are considered 'common': 'html', 'markdown', 'textarea', 'text' #}
+        {% if common and (key not in exclude|default([])) %}
 
             {% set fieldtype = record.fieldtype(key) %}
             {% set value = record.get(key) %}
@@ -55,8 +60,17 @@
 
         {% endif %}
 
+        {# Fields that are considered as 'media': 'image', 'imagelist', 'video' #}
+        {% if media and (key not in exclude|default([])) %}
+
+            {% set fieldtype = record.fieldtype(key) %}
+            {% set value = record.get(key) %}
+            {{ block('media_fields') }}
+
+        {% endif %}
+
         {# The rest of the built-in fieldtypes #}
-        {% if extended|default(false) and (key not in exclude|default([])) %}
+        {% if extended and (key not in exclude|default([])) %}
 
             {% set fieldtype = record.fieldtype(key) %}
             {{ block('extended_fields') }}
@@ -64,7 +78,7 @@
         {% endif %}
 
         {# Finally, the repeaters and blocks #}
-        {% if (repeaters|default(false) == true and record.fieldtype(key) == "repeater") or
+        {% if (repeaters and record.fieldtype(key) == "repeater") or
               (blocks|default(false) == true and record.fieldtype(key) ==  "block") %}
 
             {# Get the current route from either '_internal_route' or '_route' #}
@@ -78,6 +92,7 @@
                         {% set fieldtype = repeaterfield.fieldtype() %}
                         {% set value = repeaterfield.value() %}
                         {{ block('common_fields') }}
+                        {{ block('media_fields') }}
                         {{ block('extended_fields') }}
 
                     {% endfor %}
@@ -112,6 +127,7 @@
 
             {% set fieldtype = attribute(attribute(templatefields_field_types, key), 'type')  %}
             {{ block('common_fields') }}
+            {{ block('media_fields') }}
             {{ block('extended_fields') }}
 
         {% endfor %}

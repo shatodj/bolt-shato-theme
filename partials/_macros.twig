@@ -21,7 +21,8 @@
 {% endmacro %}
 
 {# Section macro #}
-{% macro section(groupName, isParalax = false, sectionColorsList = ['light', 'primary', 'dark', 'primary'] ) %}
+{# Create section from Block content type by the group taxonomy #}
+{% macro section(groupName, isParalax = false, sectionColorsList = ['light', 'primary', 'light', 'dark'] ) %}
 	{# Get All blocks by homepage group #}
 	{% setcontent sections = "blocks" where { groups: groupName } %}
 
@@ -43,7 +44,7 @@
 			{# Actual section with content #}
 			<section class="section is-medium shpr-section is-section-{{ currentColor }}">
 				<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
-				<div class="container">
+				<div class="container has-text-centered">
 					{% with { blk: section }%}
 					{{ block('content_block') }}
 					{%- endwith -%}	

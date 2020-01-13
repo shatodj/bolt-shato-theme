@@ -3,7 +3,7 @@
 {% block contentlink_list %}
     {% set listClass = 'columns' %}
     {% set columnClass = 'column is-one-third' %}
-    {% set columnTemplate = 'partials/contentblock/content_page.twig' %}
+    {% set columnTemplate = 'partials/contentblock/content_gallery.twig' %}
 
     {% set content = content is not empty and content|length >= 3 ? content|slice(0, 3) : content %}
 

@@ -1,6 +1,11 @@
 @charset "utf-8";
 
 .navbar {
+
+  .title {
+    margin: 0;
+  }
+
   .navbar-link {
     &.is-active,
     &:hover {
@@ -23,6 +28,15 @@
 
     .navbar-link {
       color: $light;
+    }
+  }
+  &.is-light {
+    .navbar-menu a {
+      color: $dark;
+    }
+
+    .navbar-link {
+      color: $dark;
     }
   }
 }

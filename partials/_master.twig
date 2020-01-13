@@ -20,11 +20,12 @@
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		{# make sure symlink to '../dist' is created #}
+		{# minimal styles #}
 		<style>{{ source('dist/css/minimal-bundle.css') }}</style>
 		{{ m.stylesheet('dist/css/woff.css') }}
+		
+		{# Defer loading of non-critical styles #}
 		{% block stylesheet %}
-			{# Defer loading of non-critical styles #}
 			{{ m.stylesheet(style) }}
 		{% endblock %}
 		<link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>

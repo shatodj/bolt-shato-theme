@@ -4,6 +4,8 @@ import 'slick-carousel';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
 
+const DEFAULT_SLIDER_COUNT = 2;
+
 /**
  *
  * @param {HTMLElement} sliderElement
@@ -13,16 +15,16 @@ const slider = (sliderElement) => {
   const slidesCount = sliderElement.childElementCount;
 
   const config = {
-    slidesToShow: slidesCount < 3 ? 1 : 3,
+    slidesToShow: slidesCount < DEFAULT_SLIDER_COUNT ? 1 : DEFAULT_SLIDER_COUNT,
     slidesToScroll: 1,
-    infinite: slidesCount > 3,
+    infinite: slidesCount > DEFAULT_SLIDER_COUNT,
     dots: true,
     speed: 1000,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: slidesCount < 3 ? 1 : 3,
+          slidesToShow: slidesCount < DEFAULT_SLIDER_COUNT ? 1 : DEFAULT_SLIDER_COUNT,
         },
       },
       {

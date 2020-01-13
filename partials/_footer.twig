@@ -8,7 +8,9 @@
 			blk: blck, 
 			title_class: 'is-5' 
 		}%}
-		{{ block('content_block') }}
+		<div class="shpr-footer-block is-pulled-left">
+			{{ block('content_block') }}
+		</div>
 		{%- endwith -%}
 	{% endfor %}
 
@@ -28,27 +30,16 @@
 
 {# Footer #}
 <footer id="contact" role="contentinfo">
-	<div class="section shpr-section is-section-dark">
+	<div class="section is-medium shpr-section is-section-light">
 		<div class="container">
-			<div class="columns" role="navigation" aria-label="footer navigation">
-				<div class="column is-half content no-link-color">
-					<h2 class="title is-3">{{ __('Contact') }}</h2>
-					{{ footer_content('footer-left') }}
-				</div>
-				<div class="column is-half content no-link-color">
-					
-					{# Uncomment if you want to render social icons menu #}
-					{# <h3 class="title is-5">
-						{{ __("Follow on") }}
-					</h3>
-					{{ footer_menu('social', 'partials/_sub_menu_social.twig') }} #}
-					{{ footer_content('footer-right') }}
-				</div>
+			<div class="is-clearfix" role="navigation" aria-label="footer navigation">
+				{{ footer_content('footer-left') }}
+				{{ footer_content('footer-right') }}
 			</div>
 			{{ widgets('footer') }}
 		</div>
 	</div>
-	<div class="section shpr-section is-section-black copyright">
+	<div class="section shpr-section is-section-white has-text-centered copyright">
 		<div class="container">
 			{% setcontent copyright = 'block/copyright' %}
 			{% if copyright.content is not empty %}
@@ -57,6 +48,3 @@
 		</div>
 	</div>
 </footer>
-{# 
-<script src="{{ asset('js/normalizeBrightness.js', 'theme') }}"></script>
-<script src="{{ asset('js/app.js', 'theme') }}"></script> #}

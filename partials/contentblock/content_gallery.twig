@@ -1,0 +1,20 @@
+{% extends "partials/contentblock/content.twig" %}
+{% import "partials/_macros.twig" as m %}
+
+{% block title %}
+    {% set titleClass = "subtitle is-5 has-text-centered" %}
+    {{ parent() }}
+{% endblock %}
+
+{% block teaser %}
+    TBA
+    {# <p class="no-link-color">
+        <a href="{{ content.link() }}">
+            {% spaceless %}
+                {{ content.description|default('')|excerpt(220) }}
+            {% endspaceless %}
+        </a>
+    </p> #}
+{% endblock %}
+
+{% block actions %}{% endblock %}

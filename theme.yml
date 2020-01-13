@@ -17,3 +17,12 @@ thumbnails:
     index-small:
       size: [425]
       cropping: crop
+    listing:
+      size: [128, 128]
+      cropping: crop
+    card:
+      size: [300, 200]
+      corpping: crop
+    record-image:
+      size: [752, 400]
+      cropping: crop

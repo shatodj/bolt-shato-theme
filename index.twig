@@ -12,16 +12,16 @@
 		{# Section HERO #}
 		{% set bgImages = homepage.image|thumbnail('index-small') ~ ';' ~ homepage.image|image  %}
 
-		<section class="hero is-medium is-primary is-bold is-fullheight is-header shpr-lazy-background" {% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
+		<section class="hero is-medium is-primary is-bold is-header shpr-lazy-background" {% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
 			<div class="shpr-background shpr-background-overlay"></div>
 			<div class="hero-body">
-				<div class="container">
-					<div class="shpr-logo">
-						<h1 class="title is-1">{{ homepage.title }}</h1>
-					</div>
-					<div class="shpr-logo">
-						<p class="subtitle is-3">{{ homepage.teaser }}</p>
-					</div>
+				<div class="container has-text-centered">
+					{# Title and teaser is hidden - requested by client #}
+					{# <h1 class="title is-1">{{ homepage.title }}</h1>
+					<div class="subtitle is-3">
+						{{ homepage.teaser }}
+					</div> #}
+					<a href="#nase-sluzby" class="button is-large is-primary is-inverted is-outlined" style="margin-top: 200px">{{ __('Zjistit více') }}</a>
 				</div>
 			</div>
 		</section>

@@ -20,6 +20,13 @@ $section-colors-text: $dark, $light, $light, $primary;
         }
     }
 
+    &.is-section-dark, &.is-section-primary {
+        .button {
+            background-color: transparent;
+            color: $light;
+        }
+    }
+
     $i: 1;
     @each $color in $section-colors {
         &.is-section-#{$color} {

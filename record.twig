@@ -1,6 +1,8 @@
 {% extends 'partials/_master.twig' %}
 {% import "partials/_macros.twig" as m %}
 
+{% set headerBlockClass = 'hero is-medium is-primary is-header shpr-lazy-background' %}
+
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
     {{ m.stylesheet('dist/css/record-bundle.css') }}
@@ -14,17 +16,23 @@
 {% block content %}
 	{% if record is defined %}
         <article>
-            <header class="hero is-primary">
-                <div class="hero-body">
-					<div class="container content">
-                        {% block header %}
-                            <h1 class="title is-3 is-spaced">{{ record.title }}</h1>
-                            {% include 'partials/_record_meta.twig' with {'extended': false} %}
-                            <p class="subtitle is-5">{{ record.datepublish|date('d.m.Y') }}</p>
-                        {% endblock %}
-					</div>
-				</div>
-            </header>
+            {# create progressive image loading list delimited by ; so smallest image is loaded first #}
+            {% set bgImages = record.image|default() is not empty ? record.image|thumbnail('index-small') ~ ';' ~ record.image|image : ''  %}
+            
+            {% block header_block %}
+                <header class="{{ headerBlockClass }}" data-background-image="{{ bgImages|default() }}">
+                    <div class="shpr-background shpr-background-overlay"></div>
+                    <div class="hero-body">
+                        <div class="container has-text-centered">
+                            {% block header %}
+                                <h1 class="title is-3 is-spaced">{{ record.title }}</h1>
+                                <p class="subtitle is-5">{{ record.datepublish|date('d.m.Y') }}</p>
+                                {% include 'partials/_record_meta.twig' with {'extended': false} %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </header>
+            {% endblock %}
 
             {% block body %}
                 <section class="section">
@@ -36,7 +44,9 @@
                         {{ block('sub_fields', 'partials/_sub_fields.twig') }}
                         {% endwith %}
 
-                        {{ include('partials/_recordfooter.twig', { 'record': record, 'extended': true }) }}
+                        {% block record_footer %}
+                            {{ include('partials/_recordfooter.twig', { 'record': record, 'extended': true }) }}
+                        {% endblock %}
                     </div>
                 </section>
             {% endblock %}

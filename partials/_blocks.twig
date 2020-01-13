@@ -1,4 +1,35 @@
 
+
+{# Theme Section block #}
+{# Required: section, bgColor #}
+{# Optional: isParalax #}
+{% block section %}
+
+	{% if section.image is not empty %}
+		{% set bgImages = section.image|thumbnail('index-small') ~ ';' ~ section.image|image  %}
+	{% endif %}
+
+	<div class="shpr-lazy-background" {% if section.image is not empty %} data-background-image="{{ bgImages|default() }}" {% endif %}>
+			
+			{# Adding empty elements to handle dynamic background styling - see lazy-section-backgorund.js #}
+			{% if isParalax|default == true and section.image is not empty %}
+				<div class="shpr-background shpr-background-paralax"></div>
+			{% endif %}	
+			<div class="shpr-background shpr-background-overlay"></div>
+
+			{# Actual section with content #}
+			<section class="section is-medium shpr-section is-section-{{ bgColor }}">
+				<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+				<div class="container has-text-centered">
+					{% with { blk: section }%}
+					{{ block('content_block') }}
+					{%- endwith -%}	
+				</div>
+			</section>
+		</div>
+
+{% endblock %}
+
 {# Content block #}
 {# Showing content of 'block' content type#}
 {% block content_block %}
@@ -67,26 +98,10 @@
 		<nav class="shpr-actions columns">
 			<div class="column has-text-centered">
 			{% for link in blk.links %}	
-				<a href="{{ link.contentlink }}" class="button is-primary">{{ link.title|raw }}</a>			
+				<a href="{{ link.contentlink }}" class="button">{{ link.title|raw }}</a>			
 			{% endfor %}
 			</div>
 		</nav>
 	{% endif %}
 	
-{% endblock %}
-
-{# FOOTER BLOCK #}
-{% block footer %}
-	<footer class="section has-background-dark has-text-light">
-		<div class="container content">
-			{% setcontent footer = 'block/footer' %}
-			{% if footer is not empty %}
-				{{ footer.content }}
-			{% else %}
-				<p>
-					SHato Bolt Theme. &copy; 2020 All Rights Reserved.
-				</p>
-			{% endif %}
-		</div>
-	</footer>
 {% endblock %}

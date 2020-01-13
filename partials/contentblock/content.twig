@@ -1,48 +1,52 @@
-
 {# Entry block #}
 {# Content of contentype 'block' and 'contentlink' filed for NOT iterable content #}
-{% block contentlink_block %}
+	{% block contentlink_block %}
 
-	{% set titleClass = "subtitle is-5" %}
-	<div class="content">
-        {% block beforetitle %}{% endblock %}
-        {% block title %}
-            {% spaceless %}
-                <a href="{{ content.link() }}">
-                    {% if content.title is defined %}
-                        <h3 class="{{ titleClass }}">
-                            {{ content.title }}</h3>
-                    {% elseif entry.header is defined %}
-                        <h3 class="{{ titleClass }}">{{ content.header }}</h3>
-                    {% elseif content.name is defined %}
-                        <h3 class="{{ titleClass }}">{{ content.name }}</h3>
-                    {% endif %}
-                </a>
-            {% endspaceless %}
-        {% endblock %}
+		{% if content|default is empty %}
+            {{ __("No Content") }}
+		{% else %}
 
-        {% block beforeteaser %}{% endblock %}
-        {% block teaser %}
-            <p class="no-link-color">
-                <a href="{{ content.link() }}">
-                    
-                    {% spaceless %}
-                        {% if content.teaser is defined %}
-                            {{ content.teaser|excerpt(220) }}
-                        {% elseif content.content is defined %}
-                            {{ content.content|excerpt(220) }}
-                        {% endif %}
-                    {% endspaceless %}
-                </a>
-            </p>
-        {% endblock %}
+			{% set titleClass = "title is-5" %}
+			<div class="has-text-centered"> {% block beforetitle %}{% endblock %}
+				{% block title %}
+					{% spaceless %}
+						<a href="{{ content.link() }}">
+							{% if content.title is defined %}
+								<h3 class="{{ titleClass }}">
+									{{ content.title }}</h3>
+							{% elseif entry.header is defined %}
+								<h3 class="{{ titleClass }}">{{ content.header }}</h3>
+							{% elseif content.name is defined %}
+								<h3 class="{{ titleClass }}">{{ content.name }}</h3>
+							{% endif %}
+						</a>
+					{% endspaceless %}
+				{% endblock %}
 
-        {% block beforeactions %}{% endblock %}
-        {% block actions %}
-            <div class="actions">
-                {% set viewAlllink = entry.link() %}
-                <a class="button" href="{{ viewAlllink }}">{{ __('Read more') }}</a>
-            </div>
-        {% endblock %}
-	</div>
+				{% block beforeteaser %}{% endblock %}
+				{% block teaser %}
+					<div class="content">
+						<p class="no-link-color">
+							<a href="{{ content.link() }}">
+								{% spaceless %}
+									{% if content.teaser is defined %}
+										{{ content.teaser|excerpt(220) }}
+									{% elseif content.content is defined %}
+										{{ content.content|excerpt(220) }}
+									{% endif %}
+								{% endspaceless %}
+							</a>
+						</p>
+					</div>
+				{% endblock %}
+
+				{% block beforeactions %}{% endblock %}
+				{% block actions %}
+					<div class="actions">
+						{% set viewAlllink = entry.link() %}
+						<a class="button" href="{{ viewAlllink }}">{{ __('Read more') }}</a>
+					</div>
+				{% endblock %}
+			</div>
+	{% endif %}
 {% endblock %}

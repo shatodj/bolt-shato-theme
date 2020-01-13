@@ -1,6 +1,5 @@
 {% extends "record.twig" %}
 
-
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
     {{ m.stylesheet('dist/css/page-bundle.css') }}
@@ -10,8 +9,23 @@
     {{ m.script('dist/js/page-bundle.js') }}
 {% endblock %}
 
+{% block header %}
+    <h1 class="title is-3 is-spaced">{{ record.title }}</h1>
+    {% include 'partials/_record_meta.twig' with {'extended': false} %}
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <div class="container content">
+            {% with { 'record': record, 'extended': false, 'repeaters': false, 'blocks': false, 'media': false } %}
+            {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+            {% endwith %} 
+        </div>
+    </section>
+{% endblock %}
+
 {# Standard SECTIONS #}
 {% block sections %}
-    {{ m.section("page") }}
+    {{ m.section("page", false, ['primary', 'light']) }}
 {% endblock %}
 

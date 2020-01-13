@@ -1,8 +1,8 @@
 {# Navbar #}
-<nav class="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
-    <div class="container">
+<nav class="navbar is-fixed-top is-light" role="navigation" aria-label="main navigation">
+    <div class="container is-fluid">
         <div class="navbar-brand shpr-brand">
-            <a class="navbar-item" href="/">
+            <a class="title is-5 navbar-item has-text-weight-bold" href="/">
                 {{ config.get('general/sitename') }}
             </a>
             <span class="navbar-burger burger" data-target="navbar-toggle">
@@ -12,22 +12,15 @@
             </span>
         </div>
         <div class="navbar-menu" id="navbar-toggle">
-            <div class="navbar-start no-link-color">
-                {% spaceless %}
-                    {{ menu('main', 'partials/_sub_menu_navbar.twig') }}
-                {% endspaceless %}
-            </div>
             <div class="navbar-end">
-                <div class="navbar-item">
-                   {{ menu(
-                        identifier = 'social',
-                        template = 'partials/_sub_menu_social.twig',
-                        params = {limit: 2, extraClass: 'is-medium'}
-                    ) }}
+                <div class="navbar-item no-link-color">
+                    {% spaceless %}
+                        {{ menu('main', 'partials/_sub_menu_navbar.twig') }}
+                    {% endspaceless %}
                 </div>
-                <div class="navbar-item">
+                {# <div class="navbar-item">
                     {% include "partials/_sub_search_form.twig" %}
-                </div>
+                </div> #}
             </div>
         </div>
     </div>
