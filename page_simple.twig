@@ -1,0 +1,22 @@
+{# Simple Page without big header #}
+
+{% extends "page.twig" %}
+
+{% block header_block %}
+        {# none #}
+{% endblock %}
+
+{% block body %}
+     <section class="section">
+        <div class="container">
+            {{ block('header') }}
+            
+            <div class="content">
+            {% with { 'record': record, 'extended': false, 'repeaters': false, 'blocks': false, 'media': false } %}
+            {{ block('sub_fields', 'twig/partials/_sub_fields.twig') }}
+            {% endwith %} 
+            </div>
+        </div>
+    </section>
+
+ {% endblock %}

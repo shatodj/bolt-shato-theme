@@ -1,4 +1,6 @@
-{% extends "record.twig" %}
+{% extends "twig/_record.twig" %}
+
+{# Content Specific template for 'entry' slug #}
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
@@ -18,7 +20,7 @@
     <section class="section">
         <div class="container content">
             {% with { 'record': record, 'extended': false, 'repeaters': false, 'blocks': true, 'media': true } %}
-            {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+            {{ block('sub_fields', 'twig/partials/_sub_fields.twig') }}
             {% endwith %} 
         </div>
     </section>
@@ -26,6 +28,6 @@
 
 {# Standard SECTIONS #}
 {% block sections %}
-    {{ m.section("page", false, ['primary', 'light']) }}
+    {{ m.sectionByGroup("page", false, ['primary', 'light']) }}
 {% endblock %}
 

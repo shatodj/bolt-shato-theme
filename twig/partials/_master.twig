@@ -1,5 +1,5 @@
 {# Import macros #}
-{% import "partials/_macros.twig" as m %}
+{% import "twig/partials/_macros.twig" as m %}
 
 {% spaceless %}
 	{% set routeParams = app.request.get('_route_params') %}
@@ -39,8 +39,8 @@
 	<body id="top">
 
 		<header role="banner" class="header">
-			{{ include('partials/_navbar.twig') }}
-			{# {{ include('partials/_header.twig') }} #}
+			{{ include('twig/partials/_navbar.twig') }}
+			{# {{ include('twig/partials/_header.twig') }} #}
 		</header>
 
 		{% block content %}
@@ -50,7 +50,7 @@
 		{% endblock content %}
 
 		{# Standard FOOTER #}
-		{{ include('partials/_footer.twig') }}
+		{{ include('twig/partials/_footer.twig') }}
 
 		<script>
 			var paths = {

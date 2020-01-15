@@ -1,0 +1,74 @@
+{% use "twig/partials/_blocks.twig" %}
+
+{# Lazy Image #}
+{# image, title, width, height, extraClass #}
+{% macro lazyimage(src, title, width = "100%", height = "auto", extraClass = "") %}
+	<img class="lazy {{ extraClass }}" width="{{ width}}" height="{{ height }}" data-src="{{ src|default('') }}" alt="{{ title|default('') }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+{% endmacro %}
+
+{# Lazy Standard gallery macro 
+{# imagelist, width, height, imageExtraClass #} #}
+{% macro lazyGallery(imagelist, width = "100%", height = "auto", imageExtraClass = "") %}
+	{% from _self import lazyimage %}
+
+	{% for image in imagelist %}
+		{% set imgBig = image|thumbnail(1000, 750, 'r') %}
+		{% set imgThumb = image|thumbnail(160, 120, 'c') %}
+
+		<a href="{{ imgBig }}" class="magnific imageholder is-inline-block" title="{{ image.title }}">
+			{{ lazyimage(imgThumb, image.title, "160", "120", imageExtraClass) }}
+		</a>
+	{% endfor %}
+{% endmacro %}
+
+{# Generate stylesheet entry #}
+{% macro stylesheet(style) %}
+	{# Defer loading of non-critical styles #}
+	<link rel="preload" href="{{ asset(style, 'theme') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript> 
+		<link rel="stylesheet" href="{{ asset(style, 'theme') }}">
+	</noscript>
+{% endmacro %}
+
+{# Generate scripts entry #}
+{% macro script(script) %}
+	<script deffer src="{{ asset(script, 'theme') }}"></script>
+{% endmacro %}
+
+{# Section macro #}
+{# Create section from Block content type by the group taxonomy #}
+{% macro sectionByGroup(groupName, isParalax = false, sectionColorsList = ['light', 'primary', 'light', 'dark'] ) %}
+	{# Get All blocks by the group #}
+	{% setcontent sections = "blocks" where { groups: groupName } %}
+
+	{# loop over the section with homepage group #}
+	{% for section in sections %}
+		{# set different color for each section #}
+		{% set currentColor = sectionColorsList[(loop.index - 1) % sectionColorsList|length] %}
+		{% with { 
+			section: section,
+			bgColor: currentColor,
+			isParalax: isParalax and loop.index > 1 
+		}%}
+			{{ block('section') }}
+		{%- endwith -%}	
+	{% endfor %}
+{% endmacro %}
+
+{% macro sectionByRecord(record, isParalax = false, sectionColorsList = ['light', 'primary', 'light', 'dark'] ) %}
+	{# Get All related blocks mapped to the record #}
+	{% set sections = record.related('blocks') %}
+
+	{# loop over the section with homepage group #}
+	{% for section in sections %}
+		{# set different color for each section #}
+		{% set currentColor = sectionColorsList[(loop.index - 1) % sectionColorsList|length] %}
+		{% with { 
+			section: section,
+			bgColor: currentColor,
+			isParalax: isParalax and loop.index > 1 
+		}%}
+			{{ block('section') }}
+		{%- endwith -%}
+	{% endfor %}
+{% endmacro %}

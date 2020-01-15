@@ -39,11 +39,11 @@
 						</p>
 					</div>
 				{% endblock %}
-
+				{% block body %}{% endblock %}
 				{% block beforeactions %}{% endblock %}
 				{% block actions %}
 					<div class="actions">
-						{% set viewAlllink = entry.link() %}
+						{% set viewAlllink = content.link() %}
 						<a class="button" href="{{ viewAlllink }}">{{ __('Read more') }}</a>
 					</div>
 				{% endblock %}

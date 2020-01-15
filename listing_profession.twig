@@ -1,28 +1,46 @@
 {% extends "listing.twig" %}
-{% import "partials/_macros.twig" as m %}
+{% import "twig/partials/_macros.twig" as m %}
 
 {% block header %}
 
-    <h1 class="title is-2">
+    <h1 class="title is-3">
         {% if taxonomy.options[slug] is defined %}
             {{ taxonomy.options[slug] }}
         {% else %}
             {{ slug }}
         {% endif %}
     </h1>
+{% endblock %}
+
+{% block body %}
+
+    {# If we specified an order in config.yml, sort them here, accordingly: #}
+    {% set records = records|reverse %}
+
+    {{ parent() }}
 
 {% endblock %}
 
 {% block list_item %}
-    {% if record.image is not empty %}
-        <div class="media-left column">
-            <figure class="image is-128x128 has-image-centered">
-                {# {{ popup(record.values.image, 480, 320) }} #}
-                {% set title = record.values.image.title|default(record.values.image.file) %}
-                {{ m.lazyImage(record.values.image|thumbnail('listing'), title, '100%', 'auto', 'is-rounded' ) }}
-            </figure>
-        </div>
-    {% endif %}
+    
+    <div class="media-left column">
+        
+            {% if record.image is not empty %}
+                <figure class="image is-128x128 has-image-centered">
+                    {% set title = record.values.image.title|default(record.values.image.file) %}
+                    {{ m.lazyImage(record.values.image|thumbnail('listing'), title, '100%', 'auto', 'is-rounded' ) }}
+                </figure>
+            {% else %}
+                <div class="level is-fluid has-text-centered is-primary">
+                    <div class="level-item">
+                        <div class="icon is-large has-text-centered has-text-dark">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        
+    </div>
 	<div class="media-content column is-10">
         <div class="content">
 			<h2 class="title is-5 no-link-color">

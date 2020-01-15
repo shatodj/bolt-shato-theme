@@ -11,14 +11,14 @@
 
 {% block header %}
     <h1 class="title is-3 is-spaced">{{ record.title }}</h1>
-    {% include 'partials/_record_meta.twig' with {'extended': false} %}
+    {% include 'twig/partials/_record_meta.twig' with {'extended': false} %}
 {% endblock %}
 
 {% block body %}
     <section class="section">
         <div class="container content">
             {% with { 'record': record, 'extended': false, 'repeaters': false, 'blocks': false, 'media': false } %}
-            {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+            {{ block('sub_fields', 'twig/partials/_sub_fields.twig') }}
             {% endwith %} 
         </div>
     </section>
@@ -26,6 +26,7 @@
 
 {# Standard SECTIONS #}
 {% block sections %}
-    {{ m.section("page", false, ['primary', 'light']) }}
+    {{ m.sectionByRecord(record, false, ['light', 'dark']) }}
+    {{ m.sectionByGroup("page", false, ['primary', 'light']) }}
 {% endblock %}
 

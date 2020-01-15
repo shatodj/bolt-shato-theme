@@ -1,36 +1,10 @@
-{% extends 'partials/_master.twig' %}
-{% import "partials/_macros.twig" as m %}
+{% extends "twig/_index.twig" %}
 
-{% block content %}
-	{% setcontent homepage = "homepage" limit 1 returnsingle %}
+{% block hero_body %}
+	{% set buttonNavigation = "#nase-sluzby" %}
 
-	{% if homepage %}
-
-		{% set title = homepage.title is not defined or homepage.title is empty ? app.config.get('general/sitename') : homepage.title %}
-		{% set teaser = homepage.teaser is not defined or homepage.teaser is empty ? app.config.get('general/payoff') : homepage.teaser %}
-
-		{# Section HERO #}
-		{% set bgImages = homepage.image|thumbnail('index-small') ~ ';' ~ homepage.image|image  %}
-
-		<section class="hero is-medium is-primary is-bold is-header shpr-lazy-background" {% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
-			<div class="shpr-background shpr-background-overlay"></div>
-			<div class="hero-body">
-				<div class="container has-text-centered">
-					{# Title and teaser is hidden - requested by client #}
-					{# <h1 class="title is-1">{{ homepage.title }}</h1>
-					<div class="subtitle is-3">
-						{{ homepage.teaser }}
-					</div> #}
-					<a href="#nase-sluzby" class="button is-large is-primary is-inverted is-outlined" style="margin-top: 200px">{{ __('Zjistit více') }}</a>
-				</div>
-			</div>
-		</section>
-	{% endif %}
-
-	{# Standard SECTIONS #}
-	{% block sections %}
-
-		{{ m.section("homepage") }}
-
-	{% endblock %}
+	<div class="container has-text-centered">
+		{# Display only the navigation button #}
+		<a href="{{ buttonNavigation }}" class="button is-large is-primary is-inverted is-outlined" style="margin-top: 200px">{{ __('Zjistit více') }}</a>
+	</div>
 {% endblock %}

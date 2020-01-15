@@ -1,4 +1,4 @@
-{% extends "partials/contentblock/listing.twig" %}
+{% extends "twig/contentblock/listing.twig" %}
 
 
 {% block contentlink_list %} 
@@ -12,7 +12,7 @@
     {% set columnClass = 'column is-3-desktop is-3-tablet is-6-mobile' %}
 
     <li class="{{ columnClass }}">
-        {% set template = 'partials/contentblock/content_music.twig' %}
+        {% set template = 'twig/contentblock/content_music.twig' %}
         {% include template with { content: entry } %}
     </li> 
 {% endblock %}

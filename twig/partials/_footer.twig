@@ -1,4 +1,4 @@
-{% use 'partials/_blocks.twig' %}
+{% use 'twig/partials/_blocks.twig' %}
 
 {% macro footer_content(group) %}
 	{% setcontent blcks = "blocks" where { groups: group } %}
@@ -17,7 +17,7 @@
 {% endmacro %}
 
 
-{% macro footer_menu(identifier, template = 'partials/_sub_menu_social.twig') %}
+{% macro footer_menu(identifier, template = 'twig/partials/_sub_menu_social.twig') %}
 	{{ menu(
 		identifier,
 		template,
