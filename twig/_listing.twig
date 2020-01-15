@@ -25,23 +25,23 @@
 			{# If used for listing a taxonomy, we add a heading.: #}
             {% block header %}
                 {% if taxonomytype is defined %}
-                    <div class="content">
-                        <h1 class="title is-3">
-                            {{ __('general.phrase.overview-for') }}
-                            {% if taxonomy.options[slug] is defined %}
-                                {{ taxonomy.options[slug] }}
-                            {% else %}
-                                {{ slug }}
-                            {% endif %}
-                        </h1>
-
-                        {# Taxonomies are fetched unordered by design except if 'has_sortorder'
-                                        is set to true. This way we keep 'grouping' intact in the listing. #}
-                        {% if not taxonomy.has_sortorder %}
-                            {# If we specified an order in config.yml, sort them here, accordingly: #}
-                            {% set records = records|order(config.get('general/listing_sort')) %}
+                    
+                    <h1 class="title is-3">
+                        {{ __('general.phrase.overview-for') }}
+                        {% if taxonomy.options[slug] is defined %}
+                            {{ taxonomy.options[slug] }}
+                        {% else %}
+                            {{ slug }}
                         {% endif %}
-                    </div>
+                    </h1>
+
+                    {# Taxonomies are fetched unordered by design except if 'has_sortorder'
+                                    is set to true. This way we keep 'grouping' intact in the listing. #}
+                    {% if not taxonomy.has_sortorder %}
+                        {# If we specified an order in config.yml, sort them here, accordingly: #}
+                        {% set records = records|order(config.get('general/listing_sort')) %}
+                    {% endif %}
+                
                 {% elseif contenttype is defined %}
                     <h1 class="title is-3">{{contenttype}}</h1>
                 {% endif %}
