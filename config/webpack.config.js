@@ -35,6 +35,7 @@ const config = (mode = 'production') => ({
     entry: './src/js/entry.js',
     listing: './src/js/listing.js',
     minimal: './src/js/minimal.js',
+    fontawesome: './src/js/fontawesome.js',
   },
   mode,
   devtool: mode === 'production' ? false : 'inline-source-map',
@@ -102,7 +103,7 @@ const config = (mode = 'production') => ({
       cssProcessorOptions: {
         discardComments: { removeAll: true },
         map: {
-          inline: true,
+          inline: mode !== 'production',
         },
       },
       canPrint: true,

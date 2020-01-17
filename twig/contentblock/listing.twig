@@ -1,19 +1,27 @@
 
 
 {% set columnClass = 'column is-half' %}
+{% set columnClassWide = 'column' %}
 {% set listClass = 'columns slider' %}
+{% set listClassWide = 'columns' %}
+
 {% set columnTemplate = 'twig/contentblock/content.twig' %}
 
 {# Contentlink Listing content #}
 {# Content of contentype 'block' and 'contentlink' filed for ITERABLE content #}
 {% block contentlink_list %}
 	{% if content|length > 0 %}
+
+		{% set listClass = content|length == 1 ? listClassWide : listClass %}
 		<ul class="{{ listClass }}">
 			{%- for entry in content -%}
                 {% block list_item %}
+					
+					{% set columnClass = content|length == 1 ? columnClassWide : columnClass %}
                     <li class="{{ columnClass }}">
                         {% include columnTemplate with { content: entry } %}
                     </li>
+
                 {% endblock %}
 			{%- endfor -%}
 		</ul>

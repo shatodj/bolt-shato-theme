@@ -15,7 +15,15 @@
 {% block body %}
 
     {# If we specified an order in config.yml, sort them here, accordingly: #}
-    {% set records = records|reverse %}
+    {% set records = records|order("sortorder")|reverse %}
+
+    {# {% for r in records  %}
+        <pre>
+            {{ dump(r.name) }}
+            {{ dump(r.title) }}
+            {{ dump(r.sortorder) }}
+        </pre>
+    {% endfor %} #}
 
     {{ parent() }}
 
