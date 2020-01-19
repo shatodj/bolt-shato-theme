@@ -13,7 +13,7 @@ const PROXY_URL = 'http://shpr.local/';
 
 // your template directory path, used by webpack as a root path when transform
 // relative path to absolute path in css loader
-const TEMPLATE_PATH = '/theme/shpr-bolt-theme/';
+const TEMPLATE_PATH = '/theme/bolt-boilerplate-shato-theme/';
 
 const OUTPUT_DIR = {
   JS: 'js/',
