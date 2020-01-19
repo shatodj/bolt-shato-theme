@@ -150,5 +150,5 @@ Boilerplate theme for Bolt CMS, built with webpack
 
 ## ToDos
 
-[] Replace Slicex with native CSS slider 
-[] Get rid of jQuery
+[ ] Replace Slicex with native CSS slider 
+[ ] Get rid of jQuery
