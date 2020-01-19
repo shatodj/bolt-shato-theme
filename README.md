@@ -32,14 +32,14 @@ Boilerplate theme for Bolt CMS, built with webpack
     const PROXY_URL = 'http://bolt3-webpack.com/';  
 
     // your template directory path, used by webpack as a root path when transform relative path to absolute path in css loader
-    const TEMPLATE_PATH = '/theme/bolt-webpack-boilerplate-theme/'; 
+    const TEMPLATE_PATH = '/theme/bolt-boilerplate-shato-theme/'; 
     ```
 
 1. Modify `src/scss/partials/functions.scss` to suit your need
 
     ```scss
     // your template directory path, used as variable when you need to produce absolute path of your assets
-    $TEMPLATE_URL : '/theme/bolt-webpack-boilerplate-theme/';
+    $TEMPLATE_URL : '/theme/bolt-boilerplate-shato-theme/';
     ```
 
 1. Install project dependencies and build theme
