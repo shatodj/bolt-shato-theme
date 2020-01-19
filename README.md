@@ -57,7 +57,7 @@ Boilerplate theme for Bolt CMS, built with webpack
 
 1. Prepate Theme content types and taxonomies
 
-    Theme is using own content types to distribute content between pages / tamplates. 'Sections' are used in stead of 'Blocks'. They can have more kinds of content fields and can be mapped to different 'pages' or tamplates. For this 'sectiongroup' taxonomies are used.
+    Theme is using own content types to distribute content between pages / tamplates. 'sections' are used instead of 'blocks'. They can be mapped to different 'pages' or tamplates and contain more types of fields. 'sectiongroup' taxonomy is used as mapping tool to the template types.
 
     Section Content type:
 
