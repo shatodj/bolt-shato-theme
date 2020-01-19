@@ -10,9 +10,9 @@
     {% endif %}
     {% if record.editlink() %}
         <span class="edit-link">
-            <a href="{{ record.editlink() }}" class="button is-info is-outlined">
-                {{ __('general.phrase.edit') }}
-            </a>
+            {% with { 'record': record } %}
+            {{ block('edit_button', "twig/partials/_blocks.twig") }}
+            {% endwith %}
         </span>
     {% endif %}
 </p>

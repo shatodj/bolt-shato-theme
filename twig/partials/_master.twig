@@ -33,14 +33,21 @@
 		{# make sure we always display a proper title: The record's title if there is one, appended with the #}
 		{# sitename. If there is no title, we append the sitename with the payoff, if there is one.  #}
 
-		<title>{{ seo.title() }}</title>
+		{# SEO plugin #}
+		{% if seo is not empty %}
+			<title>{{ seo.title() }}</title>
+    		{{ seo.metatags() }}
+		{% else %}
+			<title>{{ config.get('general/sitename') }}</title>
+			<meta property="og:description" content="{{ config.get('general/payoff') }}" />
+		{% endif %}
+		
     	{{ seo.metatags() }}
 	</head>
 	<body id="top">
 
 		<header role="banner" class="header">
 			{{ include('twig/partials/_navbar.twig') }}
-			{# {{ include('twig/partials/_header.twig') }} #}
 		</header>
 
 		{% block content %}

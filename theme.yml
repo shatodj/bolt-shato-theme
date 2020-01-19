@@ -5,16 +5,16 @@ homepage_template: index.twig
 
 thumbnails:
   aliases:
-    square-small:
-      size: [256, 256]
-      cropping: crop
     square:
       size: [512, 512]
       cropping: crop
-    index-gallery:
+    square-small:
+      size: [256, 256]
+      cropping: crop
+    gallery:
       size: [100, 100]
       cropping: crop
-    index-small:
+    section-small:
       size: [425]
       cropping: crop
     listing:

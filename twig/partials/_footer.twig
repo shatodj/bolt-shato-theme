@@ -1,22 +1,49 @@
 {% use 'twig/partials/_blocks.twig' %}
 
+{# Footer Content block #}
 {% macro footer_content(group) %}
-	{% setcontent blcks = "blocks" where { groups: group } %}
+	{% setcontent sections = "sections" where { sectiongroups: group } %}
 	
-	{% for blck in blcks %}
-		{% with { 
-			blk: blck, 
-			title_class: 'is-5' 
-		}%}
-		<div class="shpr-footer-block is-pulled-left">
-			{{ block('content_block') }}
-		</div>
-		{%- endwith -%}
-	{% endfor %}
+	{% if sections|length > 3 %}
+	
+	<div class="shpr-footer-block column">
+		{% for i in range(0, sections|length, 3) %}
+			{% set section = sections[i] %}
+			{% with { 'section': section, 'title_class': 'is-5' }%}
+				{{ block('section_content') }}
+			{%- endwith -%}
+		{% endfor %}
+	</div>
 
+	<div class="shpr-footer-block column">
+		{% for i in range(1, sections|length, 3) %}	
+			{% set section = sections[i] %}
+			{% with { 'section': section, 'title_class': 'is-5' }%}
+				{{ block('section_content') }}
+			{%- endwith -%}
+		{% endfor %}
+	</div>
+
+	<div class="shpr-footer-block column">
+		{% for i in range(2, sections|length, 3) %}
+			{% set section = sections[i] %}
+			{% with { 'section': section, 'title_class': 'is-5' }%}
+				{{ block('section_content') }}
+			{%- endwith -%}
+		{% endfor %}
+	</div>
+	{% else %}
+		{% for section in sections %}
+			<div class="shpr-footer-block column">
+				{% with { 'section': section, 'title_class': 'is-5' }%}
+					{{ block('section_content') }}
+				{%- endwith -%}
+			</div>
+		{% endfor %}
+	{% endif %}
 {% endmacro %}
 
-
+{# Footer menu / icons #}
 {% macro footer_menu(identifier, template = 'twig/partials/_sub_menu_social.twig') %}
 	{{ menu(
 		identifier,
@@ -25,16 +52,14 @@
 	) }}
 {% endmacro %}
 
-{% from _self import footer_content %}
-{% from _self import footer_menu %}
+{% from _self import footer_content, footer_menu %}
 
 {# Footer #}
 <footer id="contact" role="contentinfo">
 	<div class="section is-medium shpr-section is-section-light">
 		<div class="container">
-			<div class="is-clearfix" role="navigation" aria-label="footer navigation">
-				{{ footer_content('footer-left') }}
-				{{ footer_content('footer-right') }}
+			<div class="columns" role="navigation" aria-label="footer navigation">
+				{{ footer_content('footer') }}
 			</div>
 			{{ widgets('footer') }}
 		</div>
@@ -44,6 +69,8 @@
 			{% setcontent copyright = 'block/copyright' %}
 			{% if copyright.content is not empty %}
 				{{ copyright.content }}
+			{% else %}
+				{{ __("SHato's Bolt Webpack Boilerplate Theme &copy; %date% All rights reserved.", { '%date%': "now"|date("Y") }) }}
 			{% endif %}
 		</div>
 	</div>

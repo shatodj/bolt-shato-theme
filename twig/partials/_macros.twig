@@ -36,10 +36,10 @@
 {% endmacro %}
 
 {# Section macro #}
-{# Create section from Block content type by the group taxonomy #}
+{# Create section from block content type by the group taxonomy. #}
 {% macro sectionByGroup(groupName, isParalax = false, sectionColorsList = ['light', 'primary', 'light', 'dark'] ) %}
 	{# Get All blocks by the group #}
-	{% setcontent sections = "blocks" where { groups: groupName } %}
+	{% setcontent sections = "sections" where { sectiongroups: groupName } %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
@@ -55,9 +55,11 @@
 	{% endfor %}
 {% endmacro %}
 
+{# Section macro #}
+{# Create section from block content type by the record's related #}
 {% macro sectionByRecord(record, isParalax = false, sectionColorsList = ['light', 'primary', 'light', 'dark'] ) %}
 	{# Get All related blocks mapped to the record #}
-	{% set sections = record.related('blocks') %}
+	{% set sections = record.related('sections') %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}

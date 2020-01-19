@@ -7,6 +7,8 @@ Bolt boilerplate theme for bolt, built with webpack
 - optimize image from /src/images to /dist/images
 - exporting fonts from /src/fonts to /dist/fonts
 - exporting google fonts to /dist/css/woff.css
+- using font awesome for icons
+- lazy loading for images and backgounds
 - dev and production build
 - source maps
 
@@ -23,7 +25,7 @@ const PROXY_URL = 'http://bolt3-webpack.com/';
 const TEMPLATE_PATH = '/theme/bolt-webpack-boilerplate-theme/'; 
 ```
 
-3. Modify `src/scss/style.scss` to suit your need
+3. Modify `src/scss/partials/functions.scss` to suit your need
 ```scss
 // your template directory path, used as variable when you need to produce absolute path of your assets
 $TEMPLATE_URL : '/theme/bolt-webpack-boilerplate-theme/';
@@ -42,10 +44,3 @@ npm run build
 
 ```
 
-4. Let's modify the template! :)
-Put the following code to include css and js in `master.twig`
-```html
-<link rel="stylesheet" href="{{ asset('dist/css/style-bundle.css', 'theme') }}">
-<script src="{{ asset('dist/js/bundle.js', 'theme') }}"></script>
-
-```

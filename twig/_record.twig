@@ -17,7 +17,7 @@
 	{% if record is defined %}
         <article>
             {# create progressive image loading list delimited by ; so smallest image is loaded first #}
-            {% set bgImages = record.image|default() is not empty ? record.image|thumbnail('index-small') ~ ';' ~ record.image|image : ''  %}
+            {% set bgImages = record.image|default() is not empty ? record.image|thumbnail('section-small') ~ ';' ~ record.image|image : ''  %}
             
             {% block header_block %}
                 <header class="{{ headerBlockClass }}" data-background-image="{{ bgImages|default() }}">

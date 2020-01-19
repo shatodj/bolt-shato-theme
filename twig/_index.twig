@@ -4,6 +4,8 @@
 {# Index or Homepage main template #}
 
 {% set buttonNavigation = "#about" %}
+{% set isParalax = true %}
+{% set sectionGroup = "homepage" %}
 {% setcontent homepage = "homepage" limit 1 returnsingle %}
 
 {% block content %}
@@ -13,27 +15,25 @@
 			{% set teaser = homepage.teaser is not defined or homepage.teaser is empty ? app.config.get('general/payoff') : homepage.teaser %}
 
 			{# Section HERO #}
-			{% set bgImages = homepage.image|thumbnail('index-small') ~ ';' ~ homepage.image|image  %}
+			{% set bgImages = homepage.image|thumbnail('section-small') ~ ';' ~ homepage.image|image  %}
 
 			<section class="hero is-medium is-primary is-bold is-header shpr-lazy-background" {% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
 				<div class="shpr-background shpr-background-overlay"></div>
 				<div class="hero-body">
 					{% block hero_body %}
-					<div class="container has-text-centered">
-						{% with { 'blk': homepage }%}
-							{{ block('content_block') }}
-						{%- endwith -%}	
-					</div>
+						<div class="container has-text-centered">
+							{% with { 'section': homepage }%}
+								{{ block('section_content', 'twig/partials/_blocks.twig') }}
+							{%- endwith -%}	
+						</div>
 					{% endblock %}
 				</div>
 			</section>
 		{% endif %}
 	{% endblock %}
 
-	{# Render Section Blocks by taxonomy group name #}
 	{% block sections %}
-
-		{{ m.sectionByGroup("homepage") }}
-
+		{# Render Section Blocks by taxonomy group name #}
+		{{ m.sectionByGroup(sectionGroup, isParalax) }}
 	{% endblock %}
 {% endblock %}
