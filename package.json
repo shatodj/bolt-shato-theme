@@ -1,8 +1,8 @@
 {
-  "name": "skeleton",
+  "name": "bolt-boilerplate-shato-theme",
   "version": "1.0.0",
-  "description": "SHato & Paul Rockseek Bolt Theme",
-  "main": "index.js",
+  "description": "Boilerplate theme for Bolt CMS, built with webpack",
+  "main": "index.twig",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "del-cli dist",
@@ -10,9 +10,9 @@
     "dev": "npm run clear && node config/build.js --dev",
     "format": "eslint"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["Bolt", "CMS", "Webpack", "theme", "responsive", "bulma", "paralax", "eslint", "scss", "boilerplate"],
+  "author": "Jakub Satnik <kubo1988@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
