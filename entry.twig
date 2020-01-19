@@ -28,6 +28,7 @@
 
 {# Standard SECTIONS #}
 {% block sections %}
-    {{ m.sectionByGroup("page", false, ['primary', 'light']) }}
+    {{ m.sectionByRecord(record, false, ['light', 'dark']) }}
+    {{ m.sectionByGroup("entry", false, ['primary', 'light']) }}
 {% endblock %}
 

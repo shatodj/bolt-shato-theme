@@ -145,7 +145,7 @@ Boilerplate theme for Bolt CMS, built with webpack
         singular_slug: sectiongroup
         behaves_like: categories
         multiple: true
-        options: [ homepage, record, entry, search, footer ]
+        options: [ homepage, page, entry, record, search, footer ]
     ```
 
 ## ToDos
