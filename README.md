@@ -55,20 +55,20 @@ Boilerplate theme for Bolt CMS, built with webpack
     npm run build
     ```
 
-1. Prepate Theme content types and taxonomies
+1. Copy theme content types and taxonomies to `contenttypes.yml` and `taxonomies.yml`
 
-    Theme is using own content types to distribute content between pages / tamplates. 'sections' are used instead of 'blocks'. They can be mapped to different 'pages' or tamplates and contain more types of fields. 'sectiongroup' taxonomy is used as mapping tool to the template types.
+    This theme is using own content types to distribute content between pages / templates. For this case 'sections' are used instead of 'blocks'. They contain more types of fields and can be mapped to different 'pages' or section groups. 'sectiongroup' taxonomy is used as mapping tool to the templates (record, entry, page, footer...).
 
     Section Content type:
 
     ```yml
     # 'Sections' Content Type
-    # Sections are bigger blocks added on one or more pages / templates mostly under the main content
-    # They can have any information about a particular page eg, listings of content, galleries...
+    # Sections are bigger blocks added on one or more pages / section groups mostly under the main content.
+    # They should contain information about a particular page eg, listings of content, galleries...
     # Unlike blocks, sections are related to pages or content type templates (eg. recors, entries...)
-    # so each section can be added to more places with no need to specifying in template (only this particular)
+    # so each section can be added to more places with no need to specifying in template itself.
     #
-    # Since we cannot define own content types within theme, we must specify own content tyoe explicitely.
+    # Since we cannot define own content types within theme, we must specify own content tyoe explicitely in contenttypes.yml.
     sections:
         name: Sections
         singular_name: Section
