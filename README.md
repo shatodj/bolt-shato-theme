@@ -1,5 +1,5 @@
 # bolt-boilerplate-shato-theme
-Boilerplate theme for Bolt CMS, built with webpack
+The boilerplate theme for Bolt CMS, built with Webpack
 
 ## Features
 - compile+minify scss from /src/scss to /dist/css
@@ -57,7 +57,7 @@ Boilerplate theme for Bolt CMS, built with webpack
 
 1. Copy theme *content types* and *taxonomies* to `contenttypes.yml` and `taxonomies.yml`
 
-    This theme is using own content types to distribute content between pages / templates. For this case 'sections' are used instead of 'blocks'. They contain more types of fields and can be mapped to different 'pages' or section groups. 'sectiongroup' taxonomy is used as mapping tool to the templates (record, entry, page, footer...).
+    This theme is using own content types to distribute content between pages or templates. In this case, 'sections' are used instead of 'blocks'. They contain more types of fields and can be mapped to different 'pages' or section groups. "sectiongroup" taxonomy is used as a mapping tool to the templates (record, entry, page, footer...).
 
     Section Content type:
 
