@@ -16,9 +16,9 @@ layout:
   
 # Section content blocks specs.
 section:
-  contentblock_name: sections # content block name
-  taxonomy_name: sectiongroups # content block taxonomy name
-  color_iteration: ['dark', 'primary', 'light']
+  contentblock_name: blocks # Content block name. Theme's recommended value: sections
+  taxonomy_name: groups # Content block taxonomy name. Theme's recommended value: sectiongroups
+  color_iteration: ['dark', 'primary', 'light'] # Sections color iteration.
 
 thumbnails:
   aliases:

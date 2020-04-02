@@ -55,9 +55,9 @@ The boilerplate theme for Bolt CMS, built with Webpack
     npm run build
     ```
 
-1. Copy theme *content types* and *taxonomies* to `contenttypes.yml` and `taxonomies.yml`
+1. (Optional but recommended) Copy theme *content types* and *taxonomies* to `contenttypes.yml` and `taxonomies.yml`
 
-    This theme is using own content types to distribute content between pages or templates. In this case, 'sections' are used instead of 'blocks'. They contain more types of fields and can be mapped to different 'pages' or section groups. "sectiongroup" taxonomy is used as a mapping tool to the templates (record, entry, page, footer...).
+    This theme is using own content types to distribute content between pages. In this case, 'sections' are used instead of 'blocks' content type. They contain more fields and can be mapped to different 'pages' or section groups. "sectiongroup" taxonomy is used as a mapping tool to the templates (record, entry, page, footer...).
 
     Section Content type:
 
@@ -146,6 +146,16 @@ The boilerplate theme for Bolt CMS, built with Webpack
         behaves_like: categories
         multiple: true
         options: [ homepage, page, entry, record, search, footer ]
+    ```
+
+    Chnage section block variables in `theme.yml` like this
+
+    ```yml
+
+    section:
+        contentblock_name: sections # Content block name. Theme's recommended value: sections
+        taxonomy_name: sectiongroups # Content block taxonomy name. Theme's recommended value: sectiongroups
+
     ```
 
 ## ToDos
