@@ -1,14 +1,14 @@
 # bolt-boilerplate-shato-theme
-Boilerplate theme for Bolt CMS, built with webpack
+The boilerplate theme for Bolt CMS, built with Webpack
 
 ## Features
 - compile+minify scss from /src/scss to /dist/css
 - compile+uglify js from /src/js to /dist/js
-- optimize image from /src/images to /dist/images
+- optimizing images from /src/images to /dist/images
 - exporting fonts from /src/fonts to /dist/fonts
 - exporting google fonts to /dist/css/woff.css
-- responsive designt using Bulma.io
-- using font awesome for icons
+- responsive design using Bulma.io
+- using Font Awesome
 - lazy loading for images and section backgounds
 - dev and production build
 - source maps
@@ -25,7 +25,7 @@ Boilerplate theme for Bolt CMS, built with webpack
 
 1. Clone this project to your theme directory
 
-1. Modify `build/webpack.config.js` to suit your need 
+1. Modify `build/webpack.config.js` to suit your needs
 
     ```js
     // your local website url, used by browser-sync as proxy
@@ -35,14 +35,14 @@ Boilerplate theme for Bolt CMS, built with webpack
     const TEMPLATE_PATH = '/theme/bolt-boilerplate-shato-theme/'; 
     ```
 
-1. Modify `src/scss/partials/functions.scss` to suit your need
+1. Modify `src/scss/partials/functions.scss` to suit your needs
 
     ```scss
     // your template directory path, used as variable when you need to produce absolute path of your assets
     $TEMPLATE_URL : '/theme/bolt-boilerplate-shato-theme/';
     ```
 
-1. Install project dependencies and build theme
+1. Install project dependencies and build the theme
 
     ```
     # install project dependencies
@@ -55,20 +55,20 @@ Boilerplate theme for Bolt CMS, built with webpack
     npm run build
     ```
 
-1. Prepate Theme content types and taxonomies
+1. Copy theme *content types* and *taxonomies* to `contenttypes.yml` and `taxonomies.yml`
 
-    Theme is using own content types to distribute content between pages / tamplates. 'sections' are used instead of 'blocks'. They can be mapped to different 'pages' or tamplates and contain more types of fields. 'sectiongroup' taxonomy is used as mapping tool to the template types.
+    This theme is using own content types to distribute content between pages or templates. In this case, 'sections' are used instead of 'blocks'. They contain more types of fields and can be mapped to different 'pages' or section groups. "sectiongroup" taxonomy is used as a mapping tool to the templates (record, entry, page, footer...).
 
     Section Content type:
 
     ```yml
     # 'Sections' Content Type
-    # Sections are bigger blocks added on one or more pages / templates mostly under the main content
-    # They can have any information about a particular page eg, listings of content, galleries...
+    # Sections are bigger blocks added on one or more pages / section groups mostly under the main content.
+    # They should contain information about a particular page eg, listings of content, galleries...
     # Unlike blocks, sections are related to pages or content type templates (eg. recors, entries...)
-    # so each section can be added to more places with no need to specifying in template (only this particular)
+    # so each section can be added to more places with no need to specifying in template itself.
     #
-    # Since we cannot define own content types within theme, we must specify own content tyoe explicitely.
+    # Since we cannot define own content types within theme, we must specify own content tyoe explicitely in contenttypes.yml.
     sections:
         name: Sections
         singular_name: Section
