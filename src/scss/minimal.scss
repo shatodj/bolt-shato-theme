@@ -3,24 +3,42 @@
 // minimal css
 @import "./partials/bulma";
 @import "./partials/functions.scss";
-@import "./partials/sections.scss";
 @import "./partials/has-image-centered.scss";
-@import "./partials/navbar.scss";
+
+@mixin gradient($direction, $list) {
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);
+}
 
 .shpr-brand {
   .navbar-item {
-    // Uncomment bellow in case of brand logo
     // background-image: image("logo.png");
-    // color: transparent !important; // is !important because of too much specific selectors in bulma
     // background-size: 250px;
     // background-repeat: no-repeat;
     // width: 125px;
     // height: 39px;
+    // overflow: hidden;
+    // margin-bottom: 0;
 
-    overflow: hidden;
+    color: transparent !important; // is important because of too much specific selectorus in bulma
     margin-left: 0.5rem;
     align-self: center;
   }
+}
+
+.navbar-menu li {
+  text-transform: uppercase;
+}
+
+.hero .shpr-logo {
+  width: 250px;
+  height: 80px;
+  background-image: image("logo.png");
+  background-repeat: no-repeat;
+  background-position: 0 -75px;
+  color: transparent;
 }
 
 .shpr-icon {
@@ -47,19 +65,6 @@
   }
 }
 
-.shpr-footer-block {
-  margin-bottom: 2em;
-  width: 100%;
-
-  @include from($tablet) {
-    width: 50%;
-  }
-
-  @include from($desktop) {
-    width: 33%;
-  }
-}
-
 .no-link-color {
   a {
     color: inherit;
@@ -68,28 +73,15 @@
 
 .title {
   font-family: $family-secondary;
-  text-transform: uppercase;
-  letter-spacing: 0.125em;
-  margin: 0 0 1em 0;
-}
-
-.hero {
-  .title {
-    padding: 1em 2em;
-    background-color: rgba($primary, .4);
-    display: inline-block;
-  }
 }
 
 .button,
 .button.is-primary,
 .button:active,
 .button:hover {
-  border: 0;
-  border-radius: 6px;
+  border-color: $white;
+  border-radius: 1px;
   text-transform: uppercase;
-  box-shadow: inset 0 0 0 1px $light;
-  padding: 0 1.75em;
 }
 
 .icon {
@@ -97,4 +89,17 @@
     width: 5rem;
     height: 5rem;
   }
+}
+
+.floor-fade::after {
+  $colorList: transparentize($black, 0.3), transparentize($black, 0.8);
+
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  @include gradient(bottom, $colorList);
 }

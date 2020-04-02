@@ -20,7 +20,7 @@
 			{# Actual section with content #}
 			<section class="section is-medium shpr-section is-section-{{ bgColor }}">
 				<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
-				<div class="container has-text-centered">
+				<div class="container">
 					{% with { 'section': section }%}
 					{{ block('section_content') }}
 					{%- endwith -%}	

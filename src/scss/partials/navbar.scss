@@ -1,11 +1,6 @@
 @charset "utf-8";
 
 .navbar {
-
-  .title {
-    margin: 0;
-  }
-
   .navbar-link {
     &.is-active,
     &:hover {
@@ -37,6 +32,17 @@
 
     .navbar-link {
       color: $dark;
+    }
+  }
+
+  &.is-dark {
+    .navbar-dropdown {
+      background-color: $dark;
+    }
+  }
+  &.is-primary {
+    .navbar-dropdown {
+      background-color: $primary;
     }
   }
 }

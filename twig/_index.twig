@@ -6,6 +6,7 @@
 {% set buttonNavigation = "#about" %}
 {% set isParalax = true %}
 {% set sectionGroup = "homepage" %}
+{% set headerBlockClass = "hero shpr-section is-header shpr-lazy-background " %}
 {% setcontent homepage = "homepage" limit 1 returnsingle %}
 
 {% block content %}
@@ -17,8 +18,8 @@
 			{# Section HERO #}
 			{% set bgImages = homepage.image|thumbnail('section-small') ~ ';' ~ homepage.image|image  %}
 
-			<section class="hero is-medium is-primary is-bold is-header shpr-lazy-background" {% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
-				<div class="shpr-background shpr-background-overlay"></div>
+			<section class="{{ headerBlockClass }} {{ theme.layout.class.header_index|default('is-large') }}" {% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
+				<div class="shpr-background shpr-background-overlay {{ theme.layout.class.header_bg_overlay }}"></div>
 				<div class="hero-body">
 					{% block hero_body %}
 						<div class="container has-text-centered">

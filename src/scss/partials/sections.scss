@@ -1,26 +1,22 @@
 
 
-/// Custom Section Modifiers
-/// Sections will loop through the colors to style them accordingly
-$section-colors: 'light', 'primary', 'dark', 'black';
-$section-colors-background: $light, $primary, $dark, $black;
-$section-colors-text: $dark, $light, $light, $primary;
+// Custom modifiers
+$section-colors: 'light', 'primary', 'dark', 'black', 'white';
+$section-colors-background: $light, $primary, $dark, $black, $white;
+$section-colors-text: $dark, $light, $light, $primary, $dark;
 
 .shpr-section {
-
-    // anchor <a href="#"> before each section
+    
     .shpr-section-anchor {
         position: absolute;
         top: -150px
     }
 
-    &.is-section-dark {
-        strong {
+    &.is-section-dark,  &.is-section-primary {
+        .content strong {
             color: $light;
         }
-    }
 
-    &.is-section-dark, &.is-section-primary {
         .button {
             background-color: transparent;
             color: $light;

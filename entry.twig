@@ -10,11 +10,11 @@
 {% block scripts %}
     {{ m.script('dist/js/entry-bundle.js') }}
 {% endblock %}
-
+{# 
 {% block header_block %}
-	{% set headerBlockClass = 'hero is-small is-primary is-header shpr-lazy-background' %}
-	{{ parent() }}
-{% endblock %}
+	{# {% set headerBlockClass = 'hero shpr-lazy-background is-header ' ~ theme.layout.class.header_entry|default('is-primary') %} #}
+	{# {{ parent() }}
+{% endblock %} #}
 
 {% block body %}
     <section class="section">
@@ -28,7 +28,7 @@
 
 {# Standard SECTIONS #}
 {% block sections %}
-    {{ m.sectionByRecord(record, false, ['light', 'dark']) }}
-    {{ m.sectionByGroup("entry", false, ['primary', 'light']) }}
+    {{ m.sectionByRecord(record, false) }}
+    {{ m.sectionByGroup("entry", false) }}
 {% endblock %}
 

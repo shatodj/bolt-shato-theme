@@ -3,6 +3,23 @@ homepage_template: index.twig
 
 # template_directory: twig
 
+# Globals
+layout:
+  class:
+    navbar: is-dark
+    header_index: is-primary is-large is-bold
+    header_record: is-primary is-medium is-bold
+    header_bg_overlay: floor-fade
+    footer: is-section-dark
+    copyright: is-section-primary has-text-centered
+    contentblock_content: '' #has-text-centered
+  
+# Section content blocks specs.
+section:
+  contentblock_name: sections # content block name
+  taxonomy_name: sectiongroups # content block taxonomy name
+  color_iteration: ['dark', 'primary', 'light']
+
 thumbnails:
   aliases:
     square:

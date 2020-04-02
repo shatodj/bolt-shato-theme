@@ -25,9 +25,10 @@
 {% macro stylesheet(style) %}
 	{# Defer loading of non-critical styles #}
 	<link rel="preload" href="{{ asset(style, 'theme') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<noscript> 
+	{# <noscript>  #}
+		{# Firefox, IE11, Safari #}
 		<link rel="stylesheet" href="{{ asset(style, 'theme') }}">
-	</noscript>
+	{# </noscript> #}
 {% endmacro %}
 
 {# Generate scripts entry #}
@@ -37,14 +38,15 @@
 
 {# Section macro #}
 {# Create section from block content type by the group taxonomy. #}
-{% macro sectionByGroup(groupName, isParalax = false, sectionColorsList = ['light', 'primary', 'light', 'dark'] ) %}
+{% macro sectionByGroup(groupName, isParalax = false ) %}
+	
 	{# Get All blocks by the group #}
-	{% setcontent sections = "sections" where { sectiongroups: groupName } %}
+	{% setcontent sections = theme.section.contentblock_name where { (theme.section.taxonomy_name): groupName } %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
 		{# set different color for each section #}
-		{% set currentColor = sectionColorsList[(loop.index - 1) % sectionColorsList|length] %}
+		{% set currentColor = theme.section.color_iteration[(loop.index - 1) % theme.section.color_iteration|length] %}
 		{% with { 
 			section: section,
 			bgColor: currentColor,
@@ -57,14 +59,14 @@
 
 {# Section macro #}
 {# Create section from block content type by the record's related #}
-{% macro sectionByRecord(record, isParalax = false, sectionColorsList = ['light', 'primary', 'light', 'dark'] ) %}
+{% macro sectionByRecord(record, isParalax = false ) %}
 	{# Get All related blocks mapped to the record #}
-	{% set sections = record.related('sections') %}
+	{% set sections = record.related(theme.section.contentblock) %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
 		{# set different color for each section #}
-		{% set currentColor = sectionColorsList[(loop.index - 1) % sectionColorsList|length] %}
+		{% set currentColor = theme.section.color_iteration[(loop.index - 1) % theme.section.color_iteration|length] %}
 		{% with { 
 			section: section,
 			bgColor: currentColor,
