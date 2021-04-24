@@ -21,10 +21,11 @@
 {# imagelist, width, height, imageExtraClass #} #}
 {% macro lazyGallery(imagelist, width = "100%", height = "auto", imageExtraClass = "") %}
 	{% from _self import lazyimage %}
+	{% from _self import thumbimage %}
 
 	{% for image in imagelist %}
-		{% set imgBig = image|thumbnail(1000, 750, 'r') %}
-		{% set imgThumb = image|thumbnail(160, 120, 'c') %}
+		{% set imgBig = thumbimage(image, 'gallery-big') %}
+		{% set imgThumb = thumbimage(image, 'gallery') %}
 
 		<a href="{{ imgBig }}" class="magnific imageholder is-inline-block" title="{{ image.title }}">
 			{{ lazyimage(imgThumb, image.title, "160", "120", imageExtraClass) }}
