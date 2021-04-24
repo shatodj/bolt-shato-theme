@@ -51,19 +51,26 @@
 {# Create section from block content type by the group taxonomy. #}
 {% macro sectionByGroup(groupName, isParalax = false ) %}
 	
+	{% from _self import thumbimage %}
+
 	{# Get All blocks by the group #}
 	{% set contentBlockname = config.get('theme/section/contentblock_name') %}
 	{% if contentBlockname %}
 		{% set taxonomyName = config.get('theme/section/taxonomy_name')|default('groups') %}
-		{% setcontent sections = contentBlockname where { taxonomyName: groupName } %}
-
+		
+		{% setcontent sections = contentBlockname where { (taxonomyName): groupName } %}
+		
 		{# loop over the section with homepage group #}
 		{% for section in sections %}
+		
 			{# set different color for each section #}
 			{% set colorIteration = config.get('theme/section/color_iteration')|default(['light']) %}
 			{% set currentColor = colorIteration[(loop.index - 1) % colorIteration|length] %}
+			{% set sectionImage = section.image is not empty ? thumbimage(section.image, 'section-small') ~ ';' ~ section.image.path : null %}
+			
 			{% with { 
 				section: section,
+				images: sectionImage,
 				bgColor: currentColor,
 				isParalax: isParalax and loop.index > 1 
 			}%}

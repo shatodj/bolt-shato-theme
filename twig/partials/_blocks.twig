@@ -1,15 +1,10 @@
 
-
 {# Theme section block #}
 {# Required: section, bgColor #}
-{# Optional: isParalax #}
+{# Optional: isParalax, images #}
 {% block section %}
 
-	{% if section.image is not empty %}
-		{% set bgImages = section.image|thumbnail('section-small') ~ ';' ~ section.image|image  %}
-	{% endif %}
-
-	<div class="shpr-lazy-background" {% if section.image is not empty %} data-background-image="{{ bgImages|default() }}" {% endif %}>
+	<div class="shpr-lazy-background" {% if section.image is not empty %} data-background-image="{{ images|default() }}" {% endif %}>
 			
 			{# Adding empty elements to handle dynamic background styling - see lazy-section-backgorund.js #}
 			{% if isParalax|default == true and section.image is not empty %}
