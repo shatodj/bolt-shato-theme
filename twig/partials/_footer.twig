@@ -3,44 +3,49 @@
 {# Footer Content block #}
 {% macro footer_content(groupName) %}
 
-	{% setcontent sections = theme.section.contentblock_name where { (theme.section.taxonomy_name): groupName } %}
+	{% if groupname|default is not empty %}
 	
-	{% if sections|length > 3 %}
+		{% set contentBlockName = config.get('theme/section/contentblock_name') %}
+		{% set taxonomyName = config.get('theme/section/taxonomy_name') %}
+		{% setcontent sections = blocls where { taxonomyName: groupName } %}
 		
-		<div class="shpr-footer-block column">
-			{% for i in range(0, sections|length, 3) %}
-				{% set section = sections[i] %}
-				{% with { 'section': section, 'title_class': 'is-5' }%}
-					{{ block('section_content') }}
-				{%- endwith -%}
-			{% endfor %}
-		</div>
-
-		<div class="shpr-footer-block column">
-			{% for i in range(1, sections|length, 3) %}	
-				{% set section = sections[i] %}
-				{% with { 'section': section, 'title_class': 'is-5' }%}
-					{{ block('section_content') }}
-				{%- endwith -%}
-			{% endfor %}
-		</div>
-
-		<div class="shpr-footer-block column">
-			{% for i in range(2, sections|length, 3) %}
-				{% set section = sections[i] %}
-				{% with { 'section': section, 'title_class': 'is-5' }%}
-					{{ block('section_content') }}
-				{%- endwith -%}
-			{% endfor %}
-		</div>
-	{% else %}
-		{% for section in sections %}
+		{% if sections|length > 3 %}
+			
 			<div class="shpr-footer-block column">
-				{% with { 'section': section, 'title_class': 'is-5' }%}
-					{{ block('section_content') }}
-				{%- endwith -%}
+				{% for i in range(0, sections|length, 3) %}
+					{% set section = sections[i] %}
+					{% with { 'section': section, 'title_class': 'is-5' }%}
+						{{ block('section_content') }}
+					{%- endwith -%}
+				{% endfor %}
 			</div>
-		{% endfor %}
+
+			<div class="shpr-footer-block column">
+				{% for i in range(1, sections|length, 3) %}	
+					{% set section = sections[i] %}
+					{% with { 'section': section, 'title_class': 'is-5' }%}
+						{{ block('section_content') }}
+					{%- endwith -%}
+				{% endfor %}
+			</div>
+
+			<div class="shpr-footer-block column">
+				{% for i in range(2, sections|length, 3) %}
+					{% set section = sections[i] %}
+					{% with { 'section': section, 'title_class': 'is-5' }%}
+						{{ block('section_content') }}
+					{%- endwith -%}
+				{% endfor %}
+			</div>
+		{% else %}
+			{% for section in sections %}
+				<div class="shpr-footer-block column">
+					{% with { 'section': section, 'title_class': 'is-5' }%}
+						{{ block('section_content') }}
+					{%- endwith -%}
+				</div>
+			{% endfor %}
+		{% endif %}
 	{% endif %}
 {% endmacro %}
 
@@ -49,7 +54,7 @@
 	{{ menu(
 		identifier,
 		template,
-		params = { extraClass: 'is-ultra-large', extraClassIcon: 'fa-3x'}
+		{ 'extraClass': 'is-ultra-large', 'extraClassIcon': 'fa-3x' }
 	) }}
 {% endmacro %}
 
@@ -60,7 +65,7 @@
 	<div class="section is-medium shpr-section {{ theme.layout.class.footer|default('is-section-dark') }}">
 		<div class="container">
 			<div class="columns" role="navigation" aria-label="footer navigation">
-				{{ footer_content('footer') }}
+				{# {{ footer_content('footer') }} #}
 			</div>
 			{{ widgets('footer') }}
 		</div>
@@ -68,7 +73,7 @@
 	<div class="section shpr-section copyright {{ theme.layout.class.copyright|default('is-section-primary') }}">
 		<div class="container">
 			{% setcontent copyright = 'block/copyright' %}
-			{% if copyright.content is not empty %}
+			{% if copyright.content|default('') is not empty %}
 				{{ copyright.content }}
 			{% else %}
 				{{ __("SHato's Bolt Webpack Boilerplate Theme &copy; %date% All rights reserved.", { '%date%': "now"|date("Y") }) }}

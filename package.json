@@ -10,7 +10,18 @@
     "dev": "npm run clear && node config/build.js --dev",
     "format": "eslint"
   },
-  "keywords": ["Bolt", "CMS", "Webpack", "theme", "responsive", "bulma", "paralax", "eslint", "scss", "boilerplate"],
+  "keywords": [
+    "Bolt",
+    "CMS",
+    "Webpack",
+    "theme",
+    "responsive",
+    "bulma",
+    "paralax",
+    "eslint",
+    "scss",
+    "boilerplate"
+  ],
   "author": "Jakub Satnik <kubo1988@gmail.com>",
   "license": "MIT",
   "devDependencies": {

@@ -14,9 +14,9 @@
         <div class="navbar-menu" id="navbar-toggle">
             <div class="navbar-end">
                 <div class="navbar-item no-link-color">
-                    {% spaceless %}
+                    {% apply spaceless %}
                         {{ menu('main', 'twig/partials/_sub_menu_navbar.twig') }}
-                    {% endspaceless %}
+                    {% endapply %}
                 </div>
                 <div class="navbar-item">
                     {% include "twig/partials/_sub_search_form.twig" %}

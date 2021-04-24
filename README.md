@@ -25,7 +25,7 @@ The boilerplate theme for Bolt CMS, built with Webpack
 
 1. Clone this project to your theme directory
 
-1. Modify `build/webpack.config.js` to suit your needs
+1. Modify `config/webpack.config.js` to suit your needs
 
     ```js
     // your local website url, used by browser-sync as proxy
@@ -160,5 +160,5 @@ The boilerplate theme for Bolt CMS, built with Webpack
 
 ## ToDos
 
-[ ] Replace Slicex with native CSS slider 
-[ ] Get rid of jQuery
+[] Replace Slicex with native CSS slider 
+[] Get rid of jQuery

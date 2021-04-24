@@ -9,9 +9,9 @@
 {% block teaser %}
     <p class="no-link-color">
         <a href="{{ content.link() }}">
-            {% spaceless %}
+            {% apply spaceless %}
                 {{ content.description|default('')|excerpt(220) }}
-            {% endspaceless %}
+            {% endapply %}
         </a>
     </p>
 {% endblock %}

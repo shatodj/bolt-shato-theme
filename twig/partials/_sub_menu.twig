@@ -13,7 +13,7 @@
    invokes itself to insert the items of the submenus. #}
 {% macro display_menu_item(item, loop, extraclass, withsubmenus) %}
     {% from _self import display_menu_item %}
-    {% spaceless %}
+    {% apply spaceless %}
     {% if item.submenu|default is empty %}
     <a href="{{ item.link }}" title='{{ item.title|default('')|escape }}' class='navbar-item {{ item|current ? 'is-active' }} {{ item.class|default('') }}'>
         {{- item.label|default('-') -}}
@@ -34,7 +34,7 @@
         </div>
     </div>
     {% endif %}
-    {% endspaceless %}
+    {% endapply %}
 {% endmacro %}
 
 {# Make the macro available for use #}

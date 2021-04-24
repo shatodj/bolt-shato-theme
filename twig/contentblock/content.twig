@@ -10,7 +10,7 @@
 			<div class="{{ theme.layout.class.contentblock_content|default() }}"> 
 				{% block beforetitle %}{% endblock %}
 				{% block title %}
-					{% spaceless %}
+					{% apply spaceless %}
 						<a href="{{ content.link() }}">
 							{% if content.title is defined %}
 								<h3 class="{{ titleClass }}">
@@ -21,7 +21,7 @@
 								<h3 class="{{ titleClass }}">{{ content.name }}</h3>
 							{% endif %}
 						</a>
-					{% endspaceless %}
+					{% endapply %}
 				{% endblock %}
 
 				{% block beforeteaser %}{% endblock %}
@@ -29,13 +29,13 @@
 					<div class="content">
 						<p class="no-link-color">
 							<a href="{{ content.link() }}">
-								{% spaceless %}
+								{% apply spaceless %}
 									{% if content.teaser is defined %}
 										{{ content.teaser|excerpt(220) }}
 									{% elseif content.content is defined %}
 										{{ content.content|excerpt(220) }}
 									{% endif %}
-								{% endspaceless %}
+								{% endapply %}
 							</a>
 						</p>
 					</div>

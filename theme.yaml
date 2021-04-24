@@ -1,6 +1,3 @@
-homepage: homepage
-homepage_template: index.twig
-
 # template_directory: twig
 
 # Globals
@@ -16,6 +13,8 @@ layout:
   
 # Section content blocks specs.
 section:
+  homepage_block: homepage
+  homepage_template: index.twig
   contentblock_name: blocks # Content block name. Theme's recommended value: sections
   taxonomy_name: groups # Content block taxonomy name. Theme's recommended value: sectiongroups
   color_iteration: ['dark', 'primary', 'light'] # Sections color iteration.

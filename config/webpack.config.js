@@ -9,11 +9,11 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const GoogleFontsPlugin = require('google-fonts-plugin');
 
 // your local website url, used by browser-sync as proxy
-const PROXY_URL = 'http://shpr.local/';
+const PROXY_URL = 'http://127.0.0.1:8000/';
 
 // your template directory path, used by webpack as a root path when transform
 // relative path to absolute path in css loader
-const TEMPLATE_PATH = '/theme/bolt-boilerplate-shato-theme/';
+const TEMPLATE_PATH = '/theme/shato-theme/';
 
 const OUTPUT_DIR = {
   JS: 'js/',

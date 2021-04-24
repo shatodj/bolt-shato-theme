@@ -1,5 +1,17 @@
 {% use "twig/partials/_blocks.twig" %}
 
+{# Thumbnail image by the thumbnail alias defined in theme.yaml #}
+{# image, title, width, height, extraClass #}
+{% macro thumbimage(src, thumbnailAlias) %}
+	{# {% set size = attribute(theme.thumbnails.aliases, thumbnailAlias|default('square')) %} #}
+	{% if config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
+		{% set size = config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
+		{{ src|thumbnail(size[0], size[1]) }}
+	{% else %}
+		{{ src|thumbnail }}
+	{% endif %}
+{% endmacro %}
+
 {# Lazy Image #}
 {# image, title, width, height, extraClass #}
 {% macro lazyimage(src, title, width = "100%", height = "auto", extraClass = "") %}
@@ -41,20 +53,24 @@
 {% macro sectionByGroup(groupName, isParalax = false ) %}
 	
 	{# Get All blocks by the group #}
-	{% setcontent sections = theme.section.contentblock_name where { (theme.section.taxonomy_name): groupName } %}
+	{% set contentBlockname = config.get('theme/section/contentblock_name') %}
+	{% if contentBlockname %}
+		{% setcontent sections = contentBlockname where { (theme.section.taxonomy_name): groupName } %}
 
-	{# loop over the section with homepage group #}
-	{% for section in sections %}
-		{# set different color for each section #}
-		{% set currentColor = theme.section.color_iteration[(loop.index - 1) % theme.section.color_iteration|length] %}
-		{% with { 
-			section: section,
-			bgColor: currentColor,
-			isParalax: isParalax and loop.index > 1 
-		}%}
-			{{ block('section') }}
-		{%- endwith -%}	
-	{% endfor %}
+		{# loop over the section with homepage group #}
+		{% for section in sections %}
+			{# set different color for each section #}
+			{% set colorIteration = config.get('theme/section/color_iteration')|default(['light']) %}
+			{% set currentColor = colorIteration[(loop.index - 1) % colorIteration|length] %}
+			{% with { 
+				section: section,
+				bgColor: currentColor,
+				isParalax: isParalax and loop.index > 1 
+			}%}
+				{{ block('section') }}
+			{%- endwith -%}	
+		{% endfor %}
+	{% endif %}
 {% endmacro %}
 
 {# Section macro #}
