@@ -15,30 +15,30 @@ layout:
 section:
   homepage_block: homepage
   homepage_template: index.twig
-  contentblock_name: blocks # Content block name. Theme's recommended value: sections
-  taxonomy_name: groups # Content block taxonomy name. Theme's recommended value: sectiongroups
+  contentblock_name: sections # Content block name. Theme's recommended value: sections
+  taxonomy_name: sectiongroups # Content block taxonomy name. Theme's recommended value: sectiongroups
   color_iteration: ['dark', 'primary', 'light'] # Sections color iteration.
 
 thumbnails:
   aliases:
     square:
       size: [512, 512]
-      cropping: crop
+      fit: c
     square-small:
       size: [256, 256]
-      cropping: crop
+      fit: c
     gallery:
       size: [100, 100]
-      cropping: crop
+      fit: c
     section-small:
-      size: [425]
-      cropping: crop
+      size: [425, 425]
+      fit: c
     listing:
       size: [128, 128]
-      cropping: crop
+      fit: c
     card:
       size: [300, 200]
-      corpping: crop
+      fit: c
     record-image:
       size: [752, 400]
-      cropping: crop
+      fit: c

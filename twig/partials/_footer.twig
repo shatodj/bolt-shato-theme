@@ -62,7 +62,8 @@
 
 {# Footer #}
 <footer id="contact" role="contentinfo">
-	<div class="section is-medium shpr-section {{ theme.layout.class.footer|default('is-section-dark') }}">
+	{% set layoutClass = config.get('theme/layout/class') %}
+	<div class="section is-medium shpr-section {{ layoutClass.footer|default('is-section-dark') }}">
 		<div class="container">
 			<div class="columns" role="navigation" aria-label="footer navigation">
 				{# {{ footer_content('footer') }} #}
@@ -70,7 +71,7 @@
 			{{ widgets('footer') }}
 		</div>
 	</div>
-	<div class="section shpr-section copyright {{ theme.layout.class.copyright|default('is-section-primary') }}">
+	<div class="section shpr-section copyright {{ layoutClass.copyright|default('is-section-primary') }}">
 		<div class="container">
 			{% setcontent copyright = 'block/copyright' %}
 			{% if copyright.content|default('') is not empty %}

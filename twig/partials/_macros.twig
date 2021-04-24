@@ -1,12 +1,11 @@
 {% use "twig/partials/_blocks.twig" %}
 
 {# Thumbnail image by the thumbnail alias defined in theme.yaml #}
-{# image, title, width, height, extraClass #}
+{# src, thumbnailAlias#}
 {% macro thumbimage(src, thumbnailAlias) %}
-	{# {% set size = attribute(theme.thumbnails.aliases, thumbnailAlias|default('square')) %} #}
 	{% if config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
-		{% set size = config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
-		{{ src|thumbnail(size[0], size[1]) }}
+		{% set alias = config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
+		{{ src|thumbnail(alias.size[0]|default(null), alias.size[1]|default('null'), alias.fit|default('c')) }}
 	{% else %}
 		{{ src|thumbnail }}
 	{% endif %}
@@ -55,7 +54,8 @@
 	{# Get All blocks by the group #}
 	{% set contentBlockname = config.get('theme/section/contentblock_name') %}
 	{% if contentBlockname %}
-		{% setcontent sections = contentBlockname where { (theme.section.taxonomy_name): groupName } %}
+		{% set taxonomyName = config.get('theme/section/taxonomy_name')|default('groups') %}
+		{% setcontent sections = contentBlockname where { taxonomyName: groupName } %}
 
 		{# loop over the section with homepage group #}
 		{% for section in sections %}
@@ -77,12 +77,14 @@
 {# Create section from block content type by the record's related #}
 {% macro sectionByRecord(record, isParalax = false ) %}
 	{# Get All related blocks mapped to the record #}
-	{% set sections = record.related(theme.section.contentblock) %}
+	{% set themeSection = config.get('theme/section') %}
+	{% set sections = record.related(themeSection.contentblock_name|default('blocks')) %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
 		{# set different color for each section #}
-		{% set currentColor = theme.section.color_iteration[(loop.index - 1) % theme.section.color_iteration|length] %}
+		{% set colorIteration = themeSection.color_iteration|default(['light']) %}
+		{% set currentColor = colorIteration[(loop.index - 1) % colorIteration|length] %}
 		{% with { 
 			section: section,
 			bgColor: currentColor,
