@@ -18,7 +18,7 @@
 
 {# Sub-block for 'imagelist' fields #}
 {% block imagelist_field %}
-    <div class="shpr-gallery imagelist">
+    <div class="shpr-gallery use-magnific imagelist">
        {% import "twig/partials/_macros.twig" as m %} 
        {{ m.lazyGallery(value, "160", "120") }}
     </div>
@@ -29,7 +29,7 @@
 
     {# HTML, Textarea, Text fields #}
     {% if fieldtype in ['html', 'textarea', 'text'] %}
-        {% set tag = (key in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
+        {% set tag = (key in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'div' %}
         <{{tag}}>{{ block('text_field') }}</{{tag}}>
     {% endif %}
 
@@ -46,7 +46,7 @@
     {% if fieldtype == "image" and value.file|default is not empty %}
         {% import "twig/partials/_macros.twig" as m %}
         <figure class="image">
-            {{ m.lazyImage(value.file|thumbnail('record-image'), value.title|default(value.file), 752, 400) }}
+            {{ m.lazyImage(value, 'record-image') }}
             {% if value.title|default is not empty %}
                 <figcaption>{{ value.title }}</figcaption>
             {% endif %}

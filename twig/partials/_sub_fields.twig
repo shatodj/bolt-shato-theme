@@ -21,7 +21,7 @@
 
 {% block sub_fields %}
     {# SECTION 1: INITIALIZATION #}
-    {% apply spaceless %}
+    {%- spaceless %}
         {# Set up the array of fieldnames that should be iterated. We do this by looping
            over _all_ the fields, and skipping those in the 'omittedkeys' array. #}
         {% set omittedkeys = [ 'id', 'slug', 'datecreated', 'datechanged', 'datepublish',
@@ -43,7 +43,7 @@
         {% set media = media is defined ? media : true %}
         {% set extended = extended is defined ? extended : false %}
         {% set repeaters = repeaters is defined ? repeaters : false %}
-    {% endapply -%}
+    {% endspaceless -%}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
     {% for key, value in record.values if (key not in omittedkeys) %}

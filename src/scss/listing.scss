@@ -1,4 +1,6 @@
 @charset "utf-8";
 
-@import 'partials/style.scss';
+@import "partials/minimal.scss";
+@import "../../node_modules/bulma/sass/components/pagination.sass";
+
 @import 'partials/sections.scss';

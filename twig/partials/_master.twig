@@ -8,70 +8,75 @@
 	{% set script = 'dist/js/' ~ contentTypeSlug ~ '-bundle.js' %}
 	{% set style = 'dist/css/' ~ contentTypeSlug ~ '-bundle.css' %}
 {% endapply %}
+
 <!DOCTYPE html>
 {# 
 <pre>
 	{{ dump(routeParams) }}
 </pre> #}
 
-<html lang="{{ htmllang() }}" class="has-navbar-fixed-top">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+{# <html lang="{{ htmllang() }}" class="has-navbar-fixed-top"> #}
+{% block document %}
+	<html lang="{{ htmllang() }}"{% if documentClass|default is not empty %} class="{{ documentClass }}"{% endif %}
+	 >
+		<head>
+			<meta charset="utf-8">
+			<meta http-equiv="x-ua-compatible" content="ie=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		{# minimal styles #}
-		<style>{{ source('dist/css/minimal-bundle.css') }}</style>
-		{{ m.stylesheet('dist/css/woff.css') }}
-		
-		{# Defer loading of non-critical styles #}
-		{% block stylesheet %}
-			{{ m.stylesheet(style) }}
-		{% endblock %}
-		<link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
-		
-		{# make sure we always display a proper title: The record's title if there is one, appended with the #}
-		{# sitename. If there is no title, we append the sitename with the payoff, if there is one.  #}
+			{# jQuery Styles #}
+			{{ m.stylesheet('dist/css/jquery-bundle.css') }}
 
-		{# SEO plugin #}
-		{% if seo is defined and seo is not empty %}
-			<title>{{ seo.title() }}</title>
-    		{{ seo.metatags() }}
-		{% else %}
-			<title>{{ config.get('general/sitename') }}</title>
-			<meta property="og:description" content="{{ config.get('general/payoff') }}" />
-		{% endif %}
-		
-	</head>
-	<body id="top">
+			{# Minimal styles #}
+			{% block stylesheet %}
+				{{ m.stylesheet_inline(style) }}
+			{% endblock %}
 
-		<header role="banner" class="header">
-			{{ include('twig/partials/_navbar.twig') }}
-		</header>
+			{# Google Fonts #}
+			{{ m.stylesheet('dist/css/woff.css') }}
+			
+			{# Additional non-critical styles #}
+			
+			<link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
+			
+			{# make sure we always display a proper title: The record's title if there is one, appended with the #}
+			{# sitename. If there is no title, we append the sitename with the payoff, if there is one.  #}
 
-		{% block content %}
+			{# SEO plugin #}
+			{% if seo is defined and seo is not empty %}
+				<title>{{ seo.title() }}</title>
+				{{ seo.metatags() }}
+			{% else %}
+				<title>{{ config.get('general/sitename') }}</title>
+				<meta property="og:description" content="{{ config.get('general/payoff') }}" />
+			{% endif %}
+			
+		</head>
+		<body id="top">
 
-			Content goes here
+			<header class="header">
+				{{ include('twig/_navbar.twig') }}
+			</header>
 
-		{% endblock content %}
+			{% block content %}
 
-		{# Standard FOOTER #}
-		{{ include('twig/partials/_footer.twig') }}
+				Content goes here
 
-		{#
-		<script>
-			var paths = {
-				theme: '{{ paths.theme }}'
-			};
-		</script>
-		#}
-		{% block scripts %}			
+			{% endblock content %}
 
-			{{ m.script(script) }}
+			{# Standard FOOTER #}
+			{{ include('twig/_footer.twig') }}
 
-		{% endblock %}
-
-		{{ m.script('dist/js/fontawesome-bundle.js') }}
-
-	</body>
-</html>
+			{# jQuery incl. jQuery plugins #}
+			{{ m.script('dist/js/jquery-bundle.js') }}
+			
+			{# Theme scripts #}
+			{% block scripts %}
+				{{ m.script(script) }}
+			{% endblock %}
+			
+			{# Font Awesome #}
+			{{ m.script('dist/js/fontawesome-bundle.js') }}
+		</body>
+	</html>
+{% endblock %}

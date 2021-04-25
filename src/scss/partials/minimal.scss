@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+// minimal css
+@import "./partials/bulma";
+@import "./partials/functions.scss";
+@import "./partials/navbar.scss";
+@import "./partials/has-image-centered.scss";
+@import "./partials/floor-fade.scss";
+@import "./partials/lazy.scss";
+
+.no-link-color {
+  a {
+    color: inherit;
+  }
+}
+
+.is-no-border {
+  border: none;
+}
+
+.title {
+  font-family: $family-secondary;
+}
+
+.button,
+.button.is-primary,
+.button:active,
+.button:hover {
+  border-color: $white;
+  border-radius: 1px;
+  text-transform: uppercase;
+}
+
+// new size for icon
+.icon {
+  &.is-ultra-large {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+.shpr-icon {
+  border: 1px solid $light;
+  margin-right: 0.5rem;
+
+  &.is-multiline {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.slider {
+  overflow: hidden;
+}

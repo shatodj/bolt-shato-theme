@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import '../../scss/partials/lazy-background.scss';
 
 import inView from 'in-view';
 

@@ -1,0 +1,22 @@
+
+@mixin gradient($direction, $list) {
+    background: -webkit-linear-gradient($direction, $list);
+    background: -moz-linear-gradient($direction, $list);
+    background: -o-linear-gradient($direction, $list);
+    background: linear-gradient($direction, $list);
+  }
+  
+  .floor-fade::after {
+    $colorList: transparentize($black, 0.3), transparentize($black, 1),
+      transparentize($black, 1);
+  
+    content: "";
+  
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    @include gradient("to bottom", $colorList);
+  }
+  

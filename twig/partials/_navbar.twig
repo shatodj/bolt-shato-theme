@@ -1,25 +1,30 @@
 {# Navbar #}
 <nav class="navbar is-fixed-top {{ theme.layout.class.navbar|default('is-section-light') }}" role="navigation" aria-label="main navigation">
-    <div class="container is-fluid">
+    <div class="container {{ theme.layout.is_navbar_full_width ? is-fluid }}">
         <div class="navbar-brand shpr-brand">
-            <a class="title is-5 navbar-item has-text-weight-bold" href="/">
-                {{ config.get('general/sitename') }}
-            </a>
-            <span class="navbar-burger burger" data-target="navbar-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </span>
+            {% block navbar_brand %}
+                <a class="title is-5 navbar-item has-text-weight-bold" href="/">
+                    {{ config.get('general/sitename') }}
+                </a>
+            {% endblock %}
+            {% block navbar_burger_menu %}
+                <span class="navbar-burger burger" data-target="navbar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            {% endblock %}
         </div>
         <div class="navbar-menu" id="navbar-toggle">
             <div class="navbar-end">
-                <div class="navbar-item no-link-color">
+                <ul class="navbar-item no-link-color">
                     {% apply spaceless %}
                         {{ menu('main', 'twig/partials/_sub_menu_navbar.twig') }}
                     {% endapply %}
-                </div>
+                </ul>
                 <div class="navbar-item">
-                    {% include "twig/partials/_sub_search_form.twig" %}
+                    {% block navbar_last_item %}
+                    {% endblock %}
                 </div>
             </div>
         </div>

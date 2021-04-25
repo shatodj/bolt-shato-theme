@@ -1,52 +1,48 @@
-{% use 'twig/partials/_blocks.twig' %}
+{% use 'twig/partials/_sub_section_blocks.twig' %}
 
 {# Footer Content block #}
 {% macro footer_content(groupName) %}
+	{% set themeSection = config.get('theme/section') %}
+	{% setcontent sections = themeSection.contentblock_name where { (themeSection.taxonomy_name): groupName } %}
 
-	{% if groupname|default is not empty %}
-	
-		{% set contentBlockName = config.get('theme/section/contentblock_name') %}
-		{% set taxonomyName = config.get('theme/section/taxonomy_name') %}
-		{% setcontent sections = blocls where { taxonomyName: groupName } %}
-		
-		{% if sections|length > 3 %}
-			
-			<div class="shpr-footer-block column">
-				{% for i in range(0, sections|length, 3) %}
-					{% set section = sections[i] %}
-					{% with { 'section': section, 'title_class': 'is-5' }%}
-						{{ block('section_content') }}
-					{%- endwith -%}
-				{% endfor %}
-			</div>
+	{% if sections|length > 3 %}
 
-			<div class="shpr-footer-block column">
-				{% for i in range(1, sections|length, 3) %}	
-					{% set section = sections[i] %}
-					{% with { 'section': section, 'title_class': 'is-5' }%}
-						{{ block('section_content') }}
-					{%- endwith -%}
-				{% endfor %}
-			</div>
-
-			<div class="shpr-footer-block column">
-				{% for i in range(2, sections|length, 3) %}
-					{% set section = sections[i] %}
-					{% with { 'section': section, 'title_class': 'is-5' }%}
-						{{ block('section_content') }}
-					{%- endwith -%}
-				{% endfor %}
-			</div>
-		{% else %}
-			{% for section in sections %}
-				<div class="shpr-footer-block column">
-					{% with { 'section': section, 'title_class': 'is-5' }%}
-						{{ block('section_content') }}
-					{%- endwith -%}
-				</div>
+		<div class="shpr-footer-block column">
+			{% for i in range(0, sections|length, 3) %}
+				{% set section = sections[i] %}
+				{% with { 'section': section, 'title_class': 'is-5' }%}
+				{{ block('section_content') }}
+				{%- endwith -%}
 			{% endfor %}
-		{% endif %}
+		</div>
+
+		<div class="shpr-footer-block column">
+			{% for i in range(1, sections|length, 3) %}
+				{% set section = sections[i] %}
+				{% with { 'section': section, 'title_class': 'is-5' }%}
+				{{ block('section_content') }}
+				{%- endwith -%}
+			{% endfor %}
+		</div>
+
+		<div class="shpr-footer-block column">
+			{% for i in range(2, sections|length, 3) %}
+				{% set section = sections[i] %}
+				{% with { 'section': section, 'title_class': 'is-5' }%}
+				{{ block('section_content') }}
+				{%- endwith -%}
+			{% endfor %}
+		</div>
+	{% else %}
+		{% for section in sections %}
+			<div class="shpr-footer-block column">
+				{% with { 'section': section, 'title_class': 'is-5' }%}
+				{{ block('section_content') }}
+				{%- endwith -%}
+			</div>
+		{% endfor %}
 	{% endif %}
+
 {% endmacro %}
 
 {# Footer menu / icons #}
@@ -62,23 +58,29 @@
 
 {# Footer #}
 <footer id="contact" role="contentinfo">
-	{% set layoutClass = config.get('theme/layout/class') %}
-	<div class="section is-medium shpr-section {{ layoutClass.footer|default('is-section-dark') }}">
+	<div class="section is-medium shpr-section {{ theme.layout.class.footer|default('is-section-dark') }}">
 		<div class="container">
 			<div class="columns" role="navigation" aria-label="footer navigation">
-				{# {{ footer_content('footer') }} #}
+				<div class="column is-half content no-link-color">
+					<h2 class="title is-3">{{ __('Contact') }}</h2>
+					{{ footer_content('footer-left') }}
+				</div>
+				<div class="column is-half content no-link-color">
+					<h3 class="title is-5">
+						{{ __("Follow on") }}
+					</h3>
+
+					{{ footer_content('footer-right') }}
+				</div>
 			</div>
 			{{ widgets('footer') }}
 		</div>
 	</div>
-	<div class="section shpr-section copyright {{ layoutClass.copyright|default('is-section-primary') }}">
+	<div class="section shpr-section {{ theme.layout.class.copyright|default('is-section-light') }} copyright">
 		<div class="container">
 			{% setcontent copyright = 'block/copyright' %}
-			{% if copyright.content|default('') is not empty %}
-				{{ copyright.content }}
-			{% else %}
-				{{ __("SHato's Bolt Webpack Boilerplate Theme &copy; %date% All rights reserved.", { '%date%': "now"|date("Y") }) }}
-			{% endif %}
+			{% set defaultCopyright = __("SHato's Bolt Webpack Boilerplate Theme (c) %date% All rights reserved.", { '%date%': "now"|date("Y") }) %}
+			{{ copyright.content|default(defaultCopyright) }}
 		</div>
 	</div>
 </footer>

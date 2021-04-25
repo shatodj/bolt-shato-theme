@@ -1,0 +1,8 @@
+.scared-element {
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+
+    &.brave {
+        opacity: 1;
+    }
+}

@@ -11,9 +11,9 @@
     {% if record.editlink() %}
         <span class="edit-link">
             {% with { 'record': record } %}
-            {{ block('edit_button', "twig/partials/_blocks.twig") }}
+            {{ block('edit_button', "twig/partials/_sub_section_blocks.twig") }}
             {% endwith %}
-        </span>
+        </span> 
     {% endif %}
 </p>
 {% if extended|default() %}

@@ -1,59 +1,34 @@
-import $ from 'jquery';
-import 'slick-carousel';
-
-import 'slick-carousel/slick/slick.scss';
-import 'slick-carousel/slick/slick-theme.scss';
-
-const DEFAULT_SLIDER_COUNT = 2;
+import bulmaCarousel from 'bulma-carousel';
 
 /**
- *
- * @param {HTMLElement} sliderElement
- * @param {} options
+ * @param {object} options
  */
-const slider = (sliderElement) => {
-  const slidesCount = sliderElement.childElementCount;
+export default ({ selector, ...options }) => {
 
-  const config = {
-    slidesToShow: slidesCount < DEFAULT_SLIDER_COUNT ? 1 : DEFAULT_SLIDER_COUNT,
+  // See: https://creativebulma.net/product/carousel/demo#
+  const carousels = bulmaCarousel.attach(selector, {
     slidesToScroll: 1,
-    infinite: slidesCount > DEFAULT_SLIDER_COUNT,
-    dots: true,
-    speed: 1000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: slidesCount < DEFAULT_SLIDER_COUNT ? 1 : DEFAULT_SLIDER_COUNT,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: slidesCount < 2 ? 1 : 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      // You can unslick at a given breakpoint now by adding:
-      // settings: "unslick"
-      // instead of a settings object
-    ],
-  };
+    slidesToShow: 3,
+    infinite: false,
+    ...options,
+  });
 
-  console.log('config', config);
+  carousels.forEach((carousel) => {
+    // reset className
+    if (carousel.slides) {
+      carousel.slides.forEach((slide) => {
+        // eslint-disable-next-line no-param-reassign
+        if (slide.firstElementChild) { slide.firstElementChild.className = 'column'; }
+      });
+    }
 
-  $(sliderElement).slick(config);
-};
-
-export default ({ selector }) => {
-  $(selector).each((idx, element) => {
-    slider(element);
+    carousel.on('before:show', () => {
+      // reset body scrollbar so lazy elements will load using in-view module
+      window.scroll(0, window.scrollY + 1);
+    });
+    carousel.on('after:show', () => {
+      // reset body scrollbar so lazy elements will load using in-view module
+      window.scroll(0, window.scrollY - 1);
+    });
   });
 };

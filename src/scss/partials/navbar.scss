@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@import "../../node_modules/bulma/sass/components/navbar.sass";
+
 .navbar {
   .navbar-link {
     &.is-active,
@@ -25,24 +27,56 @@
       color: $light;
     }
   }
-  &.is-light {
-    .navbar-menu a {
-      color: $dark;
-    }
 
-    .navbar-link {
-      color: $dark;
+  .shpr-icon {
+    padding: .8em;
+  }
+}
+
+
+.shpr-brand {
+  .navbar-item {
+    background-image: image("logo.png");
+    background-size: 250px;
+    background-repeat: no-repeat;
+    width: 125px;
+    height: 39px;
+    overflow: hidden;
+    color: transparent !important; // is important because of too much specific selectorus in bulma
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+    align-self: center;
+  }
+}
+
+.navbar-menu li {
+  text-transform: uppercase;
+}
+
+.hero .shpr-logo {
+  width: 250px;
+  height: 80px;
+  background-image: image("logo.png");
+  background-repeat: no-repeat;
+  background-position: 0 -75px;
+  color: transparent;
+}
+
+.shpr-menu {
+  margin-bottom: 50px;
+  li {
+    display: block;
+    border-left: 1px solid rgba(0, 0, 0, 0);
+    font-family: $family-secondary;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    a {
+      color: inherit;
+      margin-bottom: 20px;
+      height: 21px;
     }
   }
 
-  &.is-dark {
-    .navbar-dropdown {
-      background-color: $dark;
-    }
-  }
-  &.is-primary {
-    .navbar-dropdown {
-      background-color: $primary;
-    }
-  }
 }

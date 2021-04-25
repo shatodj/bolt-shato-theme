@@ -1,4 +1,4 @@
-{% use "twig/partials/_blocks.twig" %}
+{% use "twig/partials/_sub_section_blocks.twig" %}
 
 {# Thumbnail image by the thumbnail alias defined in theme.yaml #}
 {# src, thumbnailAlias#}
@@ -11,26 +11,75 @@
 	{% endif %}
 {% endmacro %}
 
+
 {# Lazy Image #}
 {# image, title, width, height, extraClass #}
-{% macro lazyimage(src, title, width = "100%", height = "auto", extraClass = "") %}
-	<img class="lazy {{ extraClass }}" width="{{ width}}" height="{{ height }}" data-src="{{ src|default('') }}" alt="{{ title|default('') }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+{% macro lazyImage(image, alias, extraClass = null) %}
+	{% from _self import thumbimage %}
+
+	{% set aliases = theme.thumbnails.aliases %}
+
+	{% if aliases[alias] is not defined %}
+		{% with { message: 'Thumbnail alias "' ~ alias ~ '" is not defined.' } %}
+		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{% endwith %}
+	{% elseif image|image is empty %}
+		{% with { message: 'Image source is empty' } %}
+		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{% endwith %}
+	{% else %}
+		{% set imgThumb = thumbimage(image, alias) %}
+		{% set width = aliases[alias].size[0] %}
+		{% set height = aliases[alias].size[1] %}
+		{# {% set style = "width: " ~ width ~ "px; height: " ~ height ~ "px" %} #}
+		{% set style = "width: " ~ width ~ "px" %}
+		<img class="lazy {{ extraClass|default() }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image|image) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+	{% endif %}
 {% endmacro %}
+
+{# Lazy Image external URL #}
+{% macro lazyImageExternal(imageUrl, title = null, extraClass = null) %}
+	<img class="lazy {{ extraClass|default() }}" data-src="{{ imageUrl }}" alt="{{ title|default(imageUrl) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+{% endmacro %}
+
+{#  Image popup with lazyload #}
+{% macro lazyImagePopup(image, alias, aliasBig = null, imageExtraClass = null) %}
+	{% from _self import lazyImage %}
+	{% from _self import thumbimage %}
+
+	{% set imgBigUrl = aliasBig|default() is not empty ? thumbimage(image, aliasBig) : image|image %}
+
+	<a href="{{ imgBigUrl }}" class="magnific imageholder is-inline-block" title="{{ image.title|default(imgBigUrl) }}">
+		{{ lazyImage(image, alias, imageExtraClass|default()) }}
+	</a>
+{% endmacro %}
+
 
 {# Lazy Standard gallery macro 
 {# imagelist, width, height, imageExtraClass #} #}
-{% macro lazyGallery(imagelist, width = "100%", height = "auto", imageExtraClass = "") %}
-	{% from _self import lazyimage %}
-	{% from _self import thumbimage %}
+{% macro lazyGallery(imagelist, alias = "gallery", aliasBig = "gallery-big", imageExtraClass = "") %}
+	{% from _self import lazyImage %}
+	{% from _self import lazyImagePopup %}
 
 	{% for image in imagelist %}
-		{% set imgBig = thumbimage(image, 'gallery-big') %}
-		{% set imgThumb = thumbimage(image, 'gallery') %}
-
-		<a href="{{ imgBig }}" class="magnific imageholder is-inline-block" title="{{ image.title }}">
-			{{ lazyimage(imgThumb, image.title, "160", "120", imageExtraClass) }}
-		</a>
+		{% set image = image|merge({'file': image.filename|default() }) %}
+		{{ lazyImagePopup(image, alias, aliasBig, imageExtraClass) }}
 	{% endfor %}
+{% endmacro %}
+
+{# Element with Lazy Background Element #}
+{# bgImages, content, isParalax, additionalClass, contentHtmlTag #}
+{% macro lazyBackground(bgImages, content, contentHtmlTag = null, contentClass = null, isParalax = null) %}
+	{# Wrap section in lazy-backround element #}
+	{%- with { 
+		bgImages: bgImages, 
+		content: content, 
+		isParalax: isParalax|default(false), 
+		htmlTag: contentHtmlTag|default("div"), 
+		class: contentClass|default("") } 
+	-%}
+		{{ block("lazy_background") }}
+	{%- endwith -%}
 {% endmacro %}
 
 {# Generate stylesheet entry #}
@@ -43,6 +92,10 @@
 	{# </noscript> #}
 {% endmacro %}
 
+{% macro stylesheet_inline(style) %}
+	<style>{{ source(style) }}</style>
+{% endmacro %}
+
 {# Generate scripts entry #}
 {% macro script(script) %}
 	<script defer src="{{ asset(script, 'theme') }}"></script>
@@ -50,53 +103,44 @@
 
 {# Section macro #}
 {# Create section from block content type by the group taxonomy. #}
-{% macro sectionByGroup(groupName, isParalax = false ) %}
-	
-	{% from _self import thumbimage %}
+{% macro sectionByGroup(groupName, isParalax = null, color_iteration = null ) %}
+	{% set themeSection = config.get('theme/section') %}
+	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
 	{# Get All blocks by the group #}
-	{% set contentBlockname = config.get('theme/section/contentblock_name') %}
-	{% if contentBlockname %}
-		{% set taxonomyName = config.get('theme/section/taxonomy_name')|default('groups') %}
-		
-		{% setcontent sections = contentBlockname where { (taxonomyName): groupName } %}
-		
-		{# loop over the section with homepage group #}
-		{% for section in sections %}
-		
-			{# set different color for each section #}
-			{% set colorIteration = config.get('theme/section/color_iteration')|default(['light']) %}
-			{% set currentColor = colorIteration[(loop.index - 1) % colorIteration|length] %}
-			{% set sectionImage = section.image is not empty ? thumbimage(section.image, 'section-small') ~ ';' ~ section.image.path : null %}
-			
-			{% with { 
-				section: section,
-				images: sectionImage,
-				bgColor: currentColor,
-				isParalax: isParalax and loop.index > 1 
-			}%}
-				{{ block('section') }}
-			{%- endwith -%}	
-		{% endfor %}
-	{% endif %}
-{% endmacro %}
-
-{# Section macro #}
-{# Create section from block content type by the record's related #}
-{% macro sectionByRecord(record, isParalax = false ) %}
-	{# Get All related blocks mapped to the record #}
-	{% set themeSection = config.get('theme/section') %}
-	{% set sections = record.related(themeSection.contentblock_name|default('blocks')) %}
+	{% setcontent sections = themeSection.contentblock_name where { (themeSection.taxonomy_name): groupName } %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
 		{# set different color for each section #}
-		{% set colorIteration = themeSection.color_iteration|default(['light']) %}
-		{% set currentColor = colorIteration[(loop.index - 1) % colorIteration|length] %}
+		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
 		{% with { 
 			section: section,
 			bgColor: currentColor,
-			isParalax: isParalax and loop.index > 1 
+			isParalax: isParalax|default(false) and loop.index > 1 
+		}%}
+			{{ block('section') }}
+		{%- endwith -%}	
+	{% endfor %}
+{% endmacro %}
+
+{# Section macro #}
+{# Create section from block content type by the record's related #}
+{% macro sectionByRecord(record, isParalax = null, color_iteration = null ) %}
+	{% set themeSection = config.get('theme/section') %}
+	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
+
+	{# Get All related blocks mapped to the record #}
+	{% set sections = record.related(themeSection.contentblock_name) %}
+
+	{# loop over the section with homepage group #}
+	{% for section in sections %}
+		{# set different color for each section #}
+		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
+		{% with { 
+			section: section,
+			bgColor: currentColor,
+			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
 			{{ block('section') }}
 		{%- endwith -%}

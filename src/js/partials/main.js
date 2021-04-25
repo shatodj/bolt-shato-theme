@@ -1,21 +1,34 @@
 /* eslint-disable no-console */
-
-import slider from './slider';
 import menu from './burger-menu';
+import lazyModule from './lazy-module';
+import slider from './slider';
 import magnificPopup from './magnific-popup';
+import lazyMedia from './lazy';
 
 /**
- * Init
+ * Init script
  */
-export default () => {
-  // menu
-  menu({ selector: '.burger' });
+export default () => new Promise((resolve, reject) => {
+  try {
+    // menu
+    menu({ selector: '.burger' });
 
-  // Sliders
-  slider({ selector: '.slider' });
+    // slider
+    slider({ selector: '.slider' });
 
-  // mangific popup
-  magnificPopup({ selector: '.shpr-gallery', delegate: 'a.magnific' });
+    // Waiting for lazy modules to be loaded
+    lazyModule('JQUERY', ($) => {
+      magnificPopup($, { selector: '.use-magnific', delegate: 'a.magnific' });
+    });
 
-  return Promise.resolve();
-};
+    // initializing lazy images and iFrames
+    lazyMedia({
+      elementSelector: '.lazy',
+      tags: ['IFRAME', 'IMG'],
+    });
+
+    resolve();
+  } catch (error) {
+    reject(error);
+  }
+});

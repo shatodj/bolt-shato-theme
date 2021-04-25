@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
 
-import init from './partials/main';
-import lazySectionBackground from './partials/lazy-section-background';
-import lazy from './partials/lazy';
-import './partials/smooth-scroll';
-
 import '../scss/homepage.scss';
 
+import init from './partials/main';
+import lazySectionBackground from './partials/lazy-section-background';
+import './partials/smooth-scroll';
+import scaredNavbar from './partials/scared-element';
+
 init().then(() => {
+  // initializing Lazy Section Backgrounds
   lazySectionBackground({ elementSelector: '.shpr-lazy-background' });
-  lazy({
-    elementSelector: '.lazy',
-    tags: ['IFRAME', 'IMG'],
-  });
+  // hiding navbar on first home section (when menu is visible)
+  scaredNavbar('.scared-element', '.shpr-menu');
 });

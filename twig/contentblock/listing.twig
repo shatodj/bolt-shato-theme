@@ -1,25 +1,34 @@
-
-
-{% set columnClass = 'column is-half' %}
-{% set columnClassWide = 'column' %}
-{% set listClass = 'columns slider' %}
-{% set listClassWide = 'columns' %}
-
-{% set columnTemplate = 'twig/contentblock/content.twig' %}
+{% extends "twig/contentblock/content.twig" %}
 
 {# Contentlink Listing content #}
-{# Content of contentype 'block' and 'contentlink' filed for ITERABLE content #}
-{% block contentlink_list %}
-	{% if content|length > 0 %}
+{# ContentBlock filled for ITERABLE content #}
+{# Require: content #}
+{% block contentlink_block %}
 
-		{% set listClass = content|length == 1 ? listClassWide : listClass %}
+	{% set defaults = {
+		classList: 'columns slider',
+		classListWide: 'columns',
+		classColumn: 'column is-one-third',
+		classColumnWide: 'column',
+		templateColumn: 'twig/contentblock/content.twig'
+	} %}
+
+	{% if content is not iterable %}
+		{% with { message: 'Received content is not iterable or invalid.' } %}
+		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{% endwith %}
+	{% elseif content|length > 0 %}
+
+		{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
 		<ul class="{{ listClass }}">
 			{%- for entry in content -%}
                 {% block list_item %}
 					
-					{% set columnClass = content|length == 1 ? columnClassWide : columnClass %}
+					{% set columnClass = content|length == 1 ? columnClassWide|default(defaults.classColumnWide) : columnClass|default(defaults.classColumn) %}
                     <li class="{{ columnClass }}">
-                        {% include columnTemplate with { content: entry } %}
+						{% with { content: entry } %}
+						{{ block('contentlink_block', columnTemplate|default(defaults.templateColumn) )}}
+						{% endwith %}
                     </li>
 
                 {% endblock %}
@@ -27,10 +36,8 @@
 		</ul>
 
 	{% else %}
-		<article class="message">
-			<div class="message-body">
-				{{ __('There is no content yet.') }}
-			</div>
-		</article>
+		{% with { message: 'There is no content yet.' } %}
+		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{% endwith %}
 	{% endif %}
 {% endblock %}

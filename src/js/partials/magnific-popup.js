@@ -1,10 +1,8 @@
-
-import $ from 'jquery';
-import 'magnific-popup';
-
-import 'magnific-popup/src/css/main.scss';
-
-export default ({ selector, delegate }) => {
+/**
+ * @param {jQuery} $ jQuery
+ * @param {object} _ Popup options
+ */
+export default ($, { selector, delegate }) => {
   const elements = $(selector);
 
   if (!elements.length) {

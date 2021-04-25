@@ -1,19 +1,17 @@
 const path = require('path');
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const GoogleFontsPlugin = require('google-fonts-plugin');
 
 // your local website url, used by browser-sync as proxy
-const PROXY_URL = 'http://127.0.0.1:8000/';
+const PROXY_URL = 'http://shpr.local/';
 
 // your template directory path, used by webpack as a root path when transform
 // relative path to absolute path in css loader
-const TEMPLATE_PATH = '/theme/shato-theme/';
+const TEMPLATE_PATH = '/theme/shpr-bolt-theme/';
 
 const OUTPUT_DIR = {
   JS: 'js/',
@@ -27,16 +25,17 @@ const OUTPUT_DIR = {
  *
  * @param {'production' | 'development'} mode
  */
-const config = (mode = 'production') => ({
+const config = (mode = 'production', watch = true) => ({
   entry: {
     homepage: './src/js/homepage.js',
     record: './src/js/record.js',
-    page: './src/js/record.js',
+    // page: './src/js/record.js',
     entry: './src/js/entry.js',
     listing: './src/js/listing.js',
-    minimal: './src/js/minimal.js',
     fontawesome: './src/js/fontawesome.js',
+    jquery: './src/js/jquery.js',
   },
+  watch,
   mode,
   devtool: mode === 'production' ? false : 'inline-source-map',
   output: {
@@ -67,6 +66,14 @@ const config = (mode = 'production') => ({
           },
           { loader: 'css-loader', options: { sourceMap: mode !== 'production', importLoaders: 1 } },
           { loader: 'sass-loader', options: { sourceMap: mode !== 'production' } },
+        ],
+      },
+      {
+        test: /\.html$/i,
+        use: [
+          {
+            loader: 'html-loader',
+          },
         ],
       },
       {
@@ -103,7 +110,7 @@ const config = (mode = 'production') => ({
       cssProcessorOptions: {
         discardComments: { removeAll: true },
         map: {
-          inline: mode !== 'production',
+          inline: true,
         },
       },
       canPrint: true,
@@ -143,11 +150,6 @@ const config = (mode = 'production') => ({
         reload: true,
       },
     ),
-    new CleanWebpackPlugin(),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
   ],
 });
 

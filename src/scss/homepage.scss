@@ -1,6 +1,9 @@
 @charset "utf-8";
 
-@import 'partials/style.scss';
+@import "partials/minimal.scss";
+@import "../../node_modules/bulma/sass/components/message.sass";
+@import "../../node_modules/bulma/sass/components/card.sass";
+@import "../../node_modules/bulma-carousel/dist/css/bulma-carousel.min.css";
+
 @import 'partials/sections.scss';
-@import 'partials/lazy-background.scss';
-// @import 'partials/gallery.scss';
+

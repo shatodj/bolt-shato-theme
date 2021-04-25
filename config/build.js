@@ -10,6 +10,7 @@ const webpackConfig = require('./webpack.config');
 // Process CLI arguments
 const argv = process.argv.slice(2);
 const mode = argv.indexOf('--dev') !== -1 ? 'development' : 'production';
+const isWatch = argv.indexOf('--watch') !== -1;
 
 // build function (via webpack)
 const build = () => {
@@ -18,7 +19,7 @@ const build = () => {
 
   const compiler = webpack(webpackConfig(mode));
   return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
+    const handler = (err, stats) => {
       let messages;
       if (err) {
         if (!err.message) {
@@ -59,10 +60,15 @@ const build = () => {
       };
 
       return resolve(resolveArgs);
-    });
+    };
+
+    if (isWatch) {
+      compiler.watch({}, handler);
+    } else {
+      compiler.run(handler);
+    }
   });
 };
-
 
 // run build async task
 build()
@@ -88,13 +94,12 @@ build()
   },
   (err) => {
     console.log(chalk.red('Failed to compile.\n'));
-    console.error(err.message);
 
-    process.exit(1);
+    throw err;
   })
   .catch((err) => {
     if (err && err.message) {
-      console.log(err.message);
+      console.error(err.message);
     }
     process.exit(1);
   });
