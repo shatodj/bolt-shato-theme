@@ -1,11 +1,15 @@
 {% extends "twig/partials/_navbar.twig" %}
 
+{% set useSearbar = true %}
+
 {% block navbar_last_item %}
     {# searchbar#}
-    {# {% include "twig/partials/_sub_search_form.twig" %} #}
-
+    {% if useSearchbar %}
+        {% include "twig/partials/_sub_search_form.twig" %}
+    {% endif %}
+    
     {# custom menu bar #}
-    {# {% apply spaceless %}
+    {% apply spaceless %}
         {{ menu('social-navbar', 'twig/partials/_sub_menu_social.twig') }}
-    {% endapply %} #}
+    {% endapply %}
 {% endblock %}

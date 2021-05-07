@@ -1,22 +1,32 @@
-
 @mixin gradient($direction, $list) {
-    background: -webkit-linear-gradient($direction, $list);
-    background: -moz-linear-gradient($direction, $list);
-    background: -o-linear-gradient($direction, $list);
-    background: linear-gradient($direction, $list);
-  }
-  
-  .floor-fade::after {
-    $colorList: transparentize($black, 0.3), transparentize($black, 1),
-      transparentize($black, 1);
-  
-    content: "";
-  
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    @include gradient("to bottom", $colorList);
-  }
-  
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);
+}
+
+@mixin fadeFill($direction, $alpha: 0.3) {
+  $colorList: transparentize($black, $alpha), transparentize($black, 1), transparentize($black, 1), transparentize($black, 1);
+
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  @include gradient(0deg, $colorList);
+}
+
+.floor-fade-light > *, .floor-fade > * {
+  z-index: 2;
+}
+
+.floor-fade::after {
+  @include fadeFill(0deg, 0.3);
+}
+
+.floor-fade-light::after {
+  @include fadeFill(0deg, 0.8);
+}

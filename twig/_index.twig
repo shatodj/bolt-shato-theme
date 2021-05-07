@@ -1,47 +1,31 @@
+{# Index aka Homepage main template #}
+
 {% extends 'twig/partials/_master.twig' %}
 {% import "twig/partials/_macros.twig" as m %}
 
-{# Index or Homepage main template #}
-
-{% set buttonNavigation = "#about" %}
-{% set isParalax = true %}
+{% set isParalax = true %} {# use Paralax design #}
 {% set sectionGroup = "homepage" %}
-{% set headerBlockClass = "hero shpr-section is-header is-section-primary shpr-lazy-background " %}
+{% set headerBlockClass = "hero shpr-section is-header " %}
 {% set homepageContentBlock = config.get('theme/section/homepage_block')|default('homepage') %}
 
 {% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
+{% set bgImages = m.thumbimage(homepage.image, 'section-small') ~ ';' ~ homepage.image.path  %}
+{# {% set title = homepage.title is not defined or homepage.title is empty ? config.get('general/sitename') : homepage.title %}
+{% set teaser = homepage.teaser is not defined or homepage.teaser is empty ? config.get('general/payoff') : homepage.teaser %} #}
 
 {% block content %}
-
 	{% block hero %}
-		{% if homepage %}
-			{% set title = homepage.title is not defined or homepage.title is empty ? config.get('general/sitename') : homepage.title %}
-			{% set teaser = homepage.teaser is not defined or homepage.teaser is empty ? config.get('general/payoff') : homepage.teaser %}
-
-			{# Section HERO #}
-			{% set bgImages = m.thumbimage(homepage.image, 'section-small') ~ ';' ~ homepage.image.path  %}
-			{% set themeHeaderIndexClass = config.get('theme/layout/class/header_index')|default('is-large') %}
-			{% set themeHeaderBgOverlayClass = config.get('theme/layout/class/header_bg_overlay')|default('') %}
-
-			<section class="{{ headerBlockClass }} {{ themeHeaderIndexClass }}" 
-				{% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
-				
-				<div class="shpr-background shpr-background-overlay {{ themeHeaderBgOverlayClass }}"></div>
-				<div class="hero-body">
-					{% block hero_body %}
-						<div class="container has-text-centered">
-							{% with { 'section': homepage }%}
-								{{ block('section_content', 'twig/partials/_sub_section_blocks.twig') }}
-							{%- endwith -%}	
-						</div>
-					{% endblock %}
-				</div>
-			</section>
+		{% if homepage %}	
+			{% with { 
+				section: homepage,
+			}%}
+			{{ block('hero', 'twig/partials/_sub_section_blocks.twig') }}
+			{%- endwith -%}	
 		{% endif %}
 	{% endblock %}
 
 	{% block sections %}
-		{# Render Section Blocks by taxonomy group name #}
-		{{ m.sectionByGroup(sectionGroup, isParalax) }}
+		{{ m.sectionsByRecord(homepage, isParalax) }}
+		{{ m.sectionsByGroup(sectionGroup, isParalax) }}
 	{% endblock %}
 {% endblock %}

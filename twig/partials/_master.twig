@@ -10,15 +10,11 @@
 {% endapply %}
 
 <!DOCTYPE html>
-{# 
-<pre>
-	{{ dump(routeParams) }}
-</pre> #}
 
-{# <html lang="{{ htmllang() }}" class="has-navbar-fixed-top"> #}
+{% set htmlThemeClass = config.get('theme/layout/class/html') %}
+
 {% block document %}
-	<html lang="{{ htmllang() }}"{% if documentClass|default is not empty %} class="{{ documentClass }}"{% endif %}
-	 >
+	<html lang="{{ htmllang() }}"{% if documentClass|default is not empty %} class="{{ documentClass }} {{ htmlThemeClass }}"{% endif %}>
 		<head>
 			<meta charset="utf-8">
 			<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +51,7 @@
 		<body id="top">
 
 			<header class="header">
-				{{ include('twig/_navbar.twig') }}
+				{{ include('navbar.twig') }}
 			</header>
 
 			{% block content %}
@@ -65,7 +61,7 @@
 			{% endblock content %}
 
 			{# Standard FOOTER #}
-			{{ include('twig/_footer.twig') }}
+			{{ include('footer.twig') }}
 
 			{# jQuery incl. jQuery plugins #}
 			{{ m.script('dist/js/jquery-bundle.js') }}

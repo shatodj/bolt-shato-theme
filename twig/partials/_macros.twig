@@ -103,7 +103,7 @@
 
 {# Section macro #}
 {# Create section from block content type by the group taxonomy. #}
-{% macro sectionByGroup(groupName, isParalax = null, color_iteration = null ) %}
+{% macro sectionsByGroup(groupName, isParalax = null, color_iteration = null ) %}
 	{% set themeSection = config.get('theme/section') %}
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
@@ -126,7 +126,7 @@
 
 {# Section macro #}
 {# Create section from block content type by the record's related #}
-{% macro sectionByRecord(record, isParalax = null, color_iteration = null ) %}
+{% macro sectionsByRecord(record, isParalax = null, color_iteration = null ) %}
 	{% set themeSection = config.get('theme/section') %}
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 

@@ -1,7 +1,7 @@
 // Custom modifiers
 $section-colors: 'light', 'primary', 'dark', 'black';
 $section-colors-background: $light, $primary, $dark, $black;
-$section-colors-text: $dark, $light, $light, $primary;
+$section-colors-text: $text, $text-invert, $text-invert, $primary;
 
 .shpr-section {
 

@@ -1,0 +1,18 @@
+{% extends "twig/_footer.twig" %}
+
+{# Extending theme footer #}
+{% block footerSection %}
+    {% set footerTaxonomyGroup = 'footer-left' %}
+    {{ parent() }}
+{% endblock %}
+
+{# using `section_content_list_blocks` instead of `section_content` to avoid rendering section title and content #}
+{% block footer_content %}
+    <div class="shpr-footer-block section">
+        {% for section in sections %}
+            {% with { 'section': section, 'title_class': 'is-5' }%}
+            {{ block('section_content_list_blocks') }}
+            {%- endwith -%}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,1 +1,46 @@
-{% extends "twig/partials/_footer.twig" %}
+{% use 'twig/partials/_sub_section_blocks.twig' %}
+
+{% set footerTaxonomyGroup = 'footer' %}
+
+{# Footer menu / icons #}
+{% macro footer_menu(identifier, template = 'twig/partials/_sub_menu_social.twig') %}
+	{{ menu(
+		identifier,
+		template,
+		{ 'extraClass': 'is-ultra-large', 'extraClassIcon': 'fa-3x' }
+	) }}
+{% endmacro %}
+
+{% from _self import footer_content, footer_menu %}
+
+{# Footer #}
+{% block footerSection %}
+    <footer id="footer" role="contentinfo">
+        <div class="section is-medium shpr-section {{ theme.layout.class.footer|default('is-section-dark') }}">
+            <div class="container">
+
+                {% set themeSection = config.get('theme/section') %}
+		    	{% setcontent sections = themeSection.contentblock_name where { (themeSection.taxonomy_name): footerTaxonomyGroup } %}
+
+                {% block footer_content %}  
+                    {# {{ footer_content('footer-left') }} #}
+                    <div class="shpr-footer-block section">
+                        {% for section in sections %}
+                            {% with { 'section': section, 'title_class': 'is-5' }%}
+                            {{ block('section_content') }}
+                            {%- endwith -%}
+                        {% endfor %}
+                    </div>
+                {% endblock %}
+                {{ widgets('footer') }}
+            </div>
+        </div>
+        <div class="section shpr-section {{ theme.layout.class.copyright|default('is-section-light') }} copyright">
+            <div class="container">
+                {% setcontent copyright = 'block/copyright' %}
+                {% set defaultCopyright = __("SHato's Bolt Webpack Boilerplate Theme (c) %date% All rights reserved.", { '%date%': "now"|date("Y") }) %}
+                {{ copyright.content|default(copyright.teaser|default(defaultCopyright)) }}
+            </div>
+        </div>
+    </footer>
+{% endblock %}

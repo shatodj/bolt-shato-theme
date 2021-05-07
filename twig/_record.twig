@@ -55,8 +55,8 @@
 
 	{# Standard SECTIONS #}
 	{% block sections %}
-        {{ m.sectionByRecord(record, false) }}
-		{{ m.sectionByGroup("record") }}
+        {{ m.sectionsByRecord(record, false) }}
+		{{ m.sectionsByGroup("record") }}
 	{% endblock %}
 
     {# {% block recent %}

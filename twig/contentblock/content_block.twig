@@ -1,0 +1,35 @@
+{% extends "twig/contentblock/content.twig" %}
+
+{% block contentlink_block %}
+    {{ block("contentlink_block_content") }}
+{% endblock %}
+
+{% block contentlink_block_content %}
+
+    {% set titleClass = "title is-4" %}
+    {% block title %}
+        {% apply spaceless %}
+            {% if content.title is defined %}
+                <h3 class="{{ titleClass }}">{{ content.title }}</h3>
+            {% elseif entry.header is defined %}
+                <h3 class="{{ titleClass }}">{{ content.header }}</h3>
+            {% elseif content.name is defined %}
+                <h3 class="{{ titleClass }}">{{ content.name }}</h3>
+            {% endif %}
+        {% endapply %}
+    {% endblock %}
+
+	{% block teaser %}
+		<div class="content">
+
+			{% apply spaceless %}
+                {% if content.teaser is defined %}
+                    {{ content.teaser }}
+                {% elseif content.content is defined %}
+                    {{ content.content }}
+                {% endif %}
+			{% endapply %}
+
+		</div>
+	{% endblock %}
+{% endblock %}
