@@ -1,7 +1,30 @@
-<form class="field has-addons" method="get" action="{{ path('search') }}" enctype="text/plain">
-    <label class="label is-hidden" for="search">Search</label>
-    <div class="control">
-        <input class="input" type="search" value="{% if search is defined %}{{ search|escape }}{% endif %}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="search" id="search">
+{# <form class="field has-addons" method="get" action="{{ path('search') }}" enctype="text/plain">
+    <div class="field-label is-normal">
+        <label class="label is-hidden" for="search">Search</label>
+    </div>
+    <div class="field-body">
+        <div class="control">
+            <input class="input" type="search" value="{% if search is defined %}{{ search|escape }}{% endif %}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="search" id="search">
+        </div>
+        <div class="control">
+            <button class="button is-primary" type="submit">
+                <div class="icon is-medium">
+                    <i class="fas fa-search fa-lg"></i>
+                </div>
+            </button>
+        </div>
+    <div>
+</form> #}
+
+<form class="field has-addons shpr-search" method="get" action="{{ path('search') }}" enctype="text/plain">
+	<div class="field-label is-normal">
+		<label class="label is-hidden" for="search">Search</label>
+	</div>
+
+    <div class="field is-narrow">
+        <div class="control">
+            <input class="input" type="search" value="{% if search is defined %}{{ search|escape }}{% endif %}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="search" id="search">
+        </div>
     </div>
     <div class="control">
         <button class="button is-primary" type="submit">
@@ -10,4 +33,5 @@
             </div>
         </button>
     </div>
+
 </form>

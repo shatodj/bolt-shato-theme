@@ -51,3 +51,9 @@
 .slider {
   overflow: hidden;
 }
+
+.field.shpr-search {
+  .field-label {
+    flex-grow: 0;
+  }
+}

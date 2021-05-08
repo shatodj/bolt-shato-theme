@@ -1,6 +1,9 @@
 {% extends 'twig/partials/_master.twig' %}
 {% import "twig/partials/_macros.twig" as m %}
 
+{% set headerBlockClass = "hero shpr-section shpr-lazy-background is-header " ~ theme.layout.class.header_listing|default("is-primary") %}
+{% set sectionBlockClass = "section shpr-section shpr-lazy-background  " ~ theme.layout.class.section|default("is-medium") %}
+
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
     {{ m.stylesheet('dist/css/listing-bundle.css') }}
@@ -11,40 +14,50 @@
 {% endblock %}
 
 {% block content %}
-	<section class="section section-listing">
-		<div class="container">
-			{# This template is used for 'listings': Generic pages that list a number of
-                records from a certain contenttype. These records are available as an array
-                called 'records'. In the for-loop below, we iterate over the records that
-                are on this page. It can be used for overview pages like 'all entries', or
-                'all records tagged with kittens'. #}
-
-			{# If used for listing a taxonomy, we add a heading.: #}
-            {% block header %}
-                {% if taxonomytype is defined %}
-                    
-                    <h1 class="title is-3">
-                        {{ __('general.phrase.overview-for') }}
-                        {% if taxonomy.options[slug] is defined %}
-                            {{ taxonomy.options[slug] }}
-                        {% else %}
-                            {{ slug }}
-                        {% endif %}
-                    </h1>
-
-                    {# Taxonomies are fetched unordered by design except if 'has_sortorder'
-                                    is set to true. This way we keep 'grouping' intact in the listing. #}
-                    {% if not taxonomy.has_sortorder %}
-                        {# If we specified an order in config.yml, sort them here, accordingly: #}
-                        {% set records = records|order(config.get('general/listing_sort')) %}
-                    {% endif %}
-                
-                
-                {% elseif contenttype is defined %}
-                    <h1 class="title is-3">{{contenttype.name}}</h1>
+    {% set headerContent %}
+        {% if taxonomytype is defined %}
+            <h1 class="title is-3">
+                {{ __('general.phrase.overview-for') }}
+                {% if taxonomy.options[slug] is defined %}
+                    {{ taxonomy.options[slug] }}
+                {% else %}
+                    {{ slug }}
                 {% endif %}
-            {% endblock %}
+            </h1>
 
+            {# Taxonomies are fetched unordered by design except if 'has_sortorder'
+                            is set to true. This way we keep 'grouping' intact in the listing. #}
+            {% if not taxonomy.has_sortorder %}
+                {# If we specified an order in config.yml, sort them here, accordingly: #}
+                {% set records = records|order(config.get('general/listing_sort')) %}
+            {% endif %}
+        
+        
+        {% elseif contenttype is defined %}
+            <h1 class="title is-3">{{contenttype.name}}</h1>
+        {% endif %}
+    {% endset %}
+
+
+    {# create progressive image loading list delimited by ; so smallest image is loaded first #}
+    {% set bgImages = record.image|default() is not empty ? record.image|thumbnail('section-small') ~ ';' ~ record.image|image : ''  %}
+    
+    {% block header_block %}
+        <header class="{{ headerBlockClass }}" data-background-image="{{ bgImages|default() }}">
+            <div class="shpr-background shpr-background-overlay {{ theme.layout.class.header_bg_overlay }}"></div>
+            <div class="hero-body">
+                <div class="container">
+                    {% block header %}
+                        {{ headerContent }}
+                    {% endblock %}
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+
+    <section class="{{ sectionBlockClass }}">
+		<div class="container">
+			
             {% block body %}
                 {% for record in records %}
                     <article role="article" class="media columns">
@@ -63,7 +76,6 @@
                                     {% endif %}
 
                                     {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
-
                                 </div>
                             </div>
                             {% if record.image is not empty %}
@@ -94,4 +106,9 @@
             {% endblock %}
 		</div>
 	</section>
+
+    {# Standard SECTIONS #}
+	{% block sections %}
+		{{ m.sectionsByGroup("listing") }}
+	{% endblock %}
 {% endblock %}
