@@ -5,22 +5,16 @@
 
 {% set isParalax = true %} {# use Paralax design #}
 {% set sectionGroup = "homepage" %}
-{% set headerBlockClass = "hero shpr-section is-header " %}
 {% set homepageContentBlock = config.get('theme/section/homepage_block')|default('homepage') %}
 
 {% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
 {% set bgImages = m.thumbimage(homepage.image, 'section-small') ~ ';' ~ homepage.image.path  %}
-{# {% set title = homepage.title is not defined or homepage.title is empty ? config.get('general/sitename') : homepage.title %}
-{% set teaser = homepage.teaser is not defined or homepage.teaser is empty ? config.get('general/payoff') : homepage.teaser %} #}
 
 {% block content %}
-	{% block hero %}
-		{% if homepage %}	
-			{% with { 
-				section: homepage,
-			}%}
-			{{ block('hero', 'twig/partials/_sub_section_blocks.twig') }}
-			{%- endwith -%}	
+	
+	{% block header %}
+		{% if homepage %}
+			{{ m.headerByRecord(homepage, config.get('theme/layout/class/header_index')) }}
 		{% endif %}
 	{% endblock %}
 

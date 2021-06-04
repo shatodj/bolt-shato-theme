@@ -2,7 +2,7 @@
 import menu from './burger-menu';
 import lazyModule from './lazy-module';
 import slider from './slider';
-import magnificPopup from './magnific-popup';
+import popup from './popup';
 import lazyMedia from './lazy';
 
 /**
@@ -16,15 +16,18 @@ export default () => new Promise((resolve, reject) => {
     // slider
     slider({ selector: '.slider' });
 
-    // Waiting for lazy modules to be loaded
-    lazyModule('JQUERY', ($) => {
-      magnificPopup($, { selector: '.use-magnific', delegate: 'a.magnific' });
-    });
-
     // initializing lazy images and iFrames
     lazyMedia({
       elementSelector: '.lazy',
       tags: ['IFRAME', 'IMG'],
+      onLoadCallback: (element) => {
+        //
+      }
+    });
+
+    // Waiting for lazy modules to be loaded
+    lazyModule('JQUERY', ($) => {
+      popup($, { selector: '.use-magnific', delegate: 'a.magnific' });
     });
 
     resolve();

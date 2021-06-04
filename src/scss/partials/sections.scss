@@ -5,6 +5,10 @@ $section-colors-text: $text, $text-invert, $text-invert, $primary;
 
 .shpr-section {
 
+    .content blockquote { 
+        color: $dark;
+    }
+
     .shpr-section-anchor {
         position: absolute;
         top: -20px;
@@ -29,6 +33,7 @@ $section-colors-text: $text, $text-invert, $text-invert, $primary;
                 background-color: nth($section-colors-background, $i);
                 position: absolute;
                 top: 0; bottom: 0; left: 0; right: 0;
+                z-index: -2;
             }
             position: relative;
             color: nth($section-colors-text, $i);

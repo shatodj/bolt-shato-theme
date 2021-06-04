@@ -5,7 +5,7 @@ import inView from 'in-view';
  * Lazy media loader for images and iframes
  * @param {object} param0
  */
-const lazy = ({ elementSelector, tags }) => {
+const lazy = ({ elementSelector, tags, onLoadCallback }) => {
   /**
    * Loading of the IMAGE element
    * @param {string} src
@@ -59,10 +59,14 @@ const lazy = ({ elementSelector, tags }) => {
         loadImage(element.dataset.src).then(() => {
           element.setAttribute('src', element.dataset.src);
           finalizeLement(element);
+          
+          typeof onLoadCallback == 'function' && onLoadCallback(element);
         });
       } else {
         loadIframe(element).then(() => {
           finalizeLement(element);
+          
+          typeof onLoadCallback == 'function' && onLoadCallback(element);
         });
       }
     }

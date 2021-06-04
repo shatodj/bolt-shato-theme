@@ -48,7 +48,7 @@
 
     &.is-header {
         .shpr-background-overlay {
-            z-index: unset;
+            z-index: 0;
         }
     }
 }

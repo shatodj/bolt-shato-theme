@@ -2,7 +2,7 @@
  * @param {jQuery} $ jQuery
  * @param {object} _ Popup options
  */
-export default ($, { selector, delegate }) => {
+export default ($, { selector, delegate}) => {
   const elements = $(selector);
 
   if (!elements.length) {

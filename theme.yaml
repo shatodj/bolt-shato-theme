@@ -6,12 +6,10 @@ layout:
   is_navbar_full_width: false
   class:
     html: "has-navbar-fixed-top"
-    navbar: is-primary is-fixed-top
+    navbar: is-light is-fixed-top
     header_index: is-section-primary is-bold is-large
     header_record: is-section-primary is-bold is-medium
     header_listing: is-section-primary is-bold is-medium
-    header_bg_overlay: 'floor-fade-light' # adds custom class name to header overlay. eg: 'floor-fade'
-    section: is-medium # todo: check this
     footer: is-section-primary
     copyright: is-section-dark has-text-centered
   
@@ -19,8 +17,8 @@ layout:
 section:
   homepage_block: homepage
   homepage_template: index.twig
-  contentblock_name: sections # Content block name. Theme's recommended value: sections
-  taxonomy_name: sectiongroups # Content block taxonomy name. Theme's recommended value: sectiongroups
+  sectionblock_name: sections # Section block name. Theme's recommended value: sections
+  taxonomy_name: sectiongroups # Section block taxonomy name. Theme's recommended value: sectiongroups
   color_iteration: ['light', 'primary'] # Sections color iteration eg: ['light', 'primary', 'dark']
 
 thumbnails:
@@ -32,8 +30,8 @@ thumbnails:
       size: [256, 256]
       fit: c
     gallery:
-      size: [100, 100]
-      fit: n
+      size: [150, 150]
+      fit: c
     gallery-big:
       size: [1000, 750]
       fit: n
@@ -41,10 +39,10 @@ thumbnails:
       size: [425, 425]
       fit: c
     listing:
-      size: [128, 128]
+      size: [480, 480]
       fit: c
     card:
-      size: [300, 200]
+      size: [400, 250]
       fit: c
     record-image:
       size: [752, 400]

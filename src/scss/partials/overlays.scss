@@ -5,21 +5,27 @@
   background: linear-gradient($direction, $list);
 }
 
-@mixin fadeFill($direction, $alpha: 0.3) {
-  $colorList: transparentize($black, $alpha), transparentize($black, 1), transparentize($black, 1), transparentize($black, 1);
-
+@mixin fade($alpha) {
   content: "";
-
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 1;
-  @include gradient(0deg, $colorList);
+  background: transparentize($black, $alpha);
 }
 
-.floor-fade-light > *, .floor-fade > * {
+@mixin fadeFill($direction: 0deg, $alpha: 0.3) {
+  $colorList: transparentize($black, $alpha), transparentize($black, 1), transparentize($black, 1), transparentize($black, 1);
+
+  @include fade($alpha);
+  @include gradient(direction, $colorList);
+}
+
+.floor-fade-light > *, 
+.floor-fade > *,
+.fade > *,
+.fade-light > * {
   z-index: 2;
 }
 
@@ -29,4 +35,12 @@
 
 .floor-fade-light::after {
   @include fadeFill(0deg, 0.8);
+}
+
+.fade::after {
+  @include fade(0.3);
+}
+
+.fade-light::after {
+  @include fade(0.8);
 }

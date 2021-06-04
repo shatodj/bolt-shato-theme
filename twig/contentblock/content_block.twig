@@ -6,18 +6,10 @@
 
 {% block contentlink_block_content %}
 
-    {% set titleClass = "title is-4" %}
+    {# {% set titleClass = "title is-4" %}
     {% block title %}
-        {% apply spaceless %}
-            {% if content.title is defined %}
-                <h3 class="{{ titleClass }}">{{ content.title }}</h3>
-            {% elseif entry.header is defined %}
-                <h3 class="{{ titleClass }}">{{ content.header }}</h3>
-            {% elseif content.name is defined %}
-                <h3 class="{{ titleClass }}">{{ content.name }}</h3>
-            {% endif %}
-        {% endapply %}
-    {% endblock %}
+        <h3 class="{{ titleClass }}">{{ content|title }}</h3>
+    {% endblock %} #}
 
 	{% block teaser %}
 		<div class="content">

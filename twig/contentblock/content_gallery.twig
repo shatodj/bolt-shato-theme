@@ -1,5 +1,4 @@
 {% extends "twig/contentblock/content.twig" %}
-{% import "twig/partials/_macros.twig" as m %}
 
 {% block title %}
     {# {% set titleClass = "subtitle is-5 has-text-centered" %}
@@ -20,23 +19,15 @@
     {% set relatedgalleries = content.related('gallery') %}
 	{% if relatedgalleries|length > 0 %}
 		{% for gallery in relatedgalleries %}
-			<section class="content">
+			<section class="level">
 				<header>
 					<h3 class="title is-5">
 						{{ gallery.title }}
 					</h3>
 				</header>
-				<div class="shpr-gallery imagelist">
+				<div class="shpr-gallery§ use-magnific imagelist">
 					{% import "twig/partials/_macros.twig" as m %}
-					{% for image in gallery.imagelist %}
-
-						{% set imgBig = image|thumbnail(1000, 750, 'r') %}
-						{% set imgThumb = image|thumbnail(160, 120, 'c') %}
-
-						<a href="{{ imgBig }}" class="magnific imageholder is-inline-block" title="{{ image.title }}">
-							{{ m.lazyimage(imgThumb, image.title, "160", "120") }}
-						</a>
-					{% endfor %}
+					{{ m.lazyGallery(gallery.imagelist) }}
 				</div>
 			</section>
 		{% endfor %}

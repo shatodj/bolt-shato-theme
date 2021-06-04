@@ -11,7 +11,7 @@
 	) }}
 {% endmacro %}
 
-{% from _self import footer_content, footer_menu %}
+{% from _self import footer_menu %}
 
 {# Footer #}
 {% block footerSection %}
@@ -20,13 +20,13 @@
             <div class="container">
 
                 {% set themeSection = config.get('theme/section') %}
-		    	{% setcontent sections = themeSection.contentblock_name where { (themeSection.taxonomy_name): footerTaxonomyGroup } %}
+		    	{% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): footerTaxonomyGroup } %}
 
                 {% block footer_content %}  
                     {# {{ footer_content('footer-left') }} #}
                     <div class="shpr-footer-block section">
                         {% for section in sections %}
-                            {% with { 'section': section, 'title_class': 'is-5' }%}
+                            {% with { section: section, title_class: 'is-5' }%}
                             {{ block('section_content') }}
                             {%- endwith -%}
                         {% endfor %}

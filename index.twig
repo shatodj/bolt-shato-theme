@@ -1,20 +1,25 @@
 {# Index aka Homepage #}
 {% extends "twig/_index.twig" %}
 
-{# Do not render navbar in the homepage #}
+{# Ucomment this to do not render navbar in the homepage #}
 {# {% block navbar %}{% endblock %} #}
 
-{# Adding custom SVG image section #}
-{# {% block hero %}     
-    <section class="{{ headerBlockClass }} {{ themeHeaderClass }}">
-        <div class="hero-body">
-            {% block hero_body %}
-                <section class="container">
-                    <div class="header-image">
-                        {{ homepage.image|showimage }}
-                    </div>
-                </section>
-            {% endblock %}
-        </div>
-    </section>
-{% endblock %} #}
+{# Customize header section#}
+{% block header %}     
+    {% set content %}
+		<div class="container">
+			{% if homepage %}
+                <h1 class="title is-1">{{ homepage|title }}</h1>
+                <p class="subtitle">{{ homepage.introduction|excerpt(300) }}</p>
+            {% endif %}
+		</div>
+	{% endset %}
+
+	{% with { 
+		content: content,
+		image: homepage.image,
+        class: config.get('theme/layout/class/header_index')
+	}%}
+		{{ block('hero', 'twig/partials/_sub_section_blocks.twig') }}
+	{%- endwith -%}
+{% endblock %}

@@ -12,9 +12,10 @@
 <!DOCTYPE html>
 
 {% set htmlThemeClass = config.get('theme/layout/class/html') %}
+{% set htmlClass = htmlThemeClass|default ~ " " ~ documentClass|default %}
 
 {% block document %}
-	<html lang="{{ htmllang() }}"{% if documentClass|default is not empty %} class="{{ documentClass }} {{ htmlThemeClass }}"{% endif %}>
+	<html lang="{{ htmllang() }}" class="{{ htmlClass }}">
 		<head>
 			<meta charset="utf-8">
 			<meta http-equiv="x-ua-compatible" content="ie=edge">

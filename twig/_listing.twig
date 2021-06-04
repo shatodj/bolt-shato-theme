@@ -1,9 +1,6 @@
 {% extends 'twig/partials/_master.twig' %}
 {% import "twig/partials/_macros.twig" as m %}
 
-{% set headerBlockClass = "hero shpr-section shpr-lazy-background is-header " ~ theme.layout.class.header_listing|default("is-primary") %}
-{% set sectionBlockClass = "section shpr-section shpr-lazy-background  " ~ theme.layout.class.section|default("is-medium") %}
-
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
     {{ m.stylesheet('dist/css/listing-bundle.css') }}
@@ -13,99 +10,93 @@
 	{{ m.script('dist/js/listing-bundle.js') }}
 {% endblock %}
 
+{# Main content block #}
 {% block content %}
-    {% set headerContent %}
-        {% if taxonomytype is defined %}
-            <h1 class="title is-3">
-                {{ __('general.phrase.overview-for') }}
-                {% if taxonomy.options[slug] is defined %}
-                    {{ taxonomy.options[slug] }}
-                {% else %}
-                    {{ slug }}
-                {% endif %}
-            </h1>
 
-            {# Taxonomies are fetched unordered by design except if 'has_sortorder'
-                            is set to true. This way we keep 'grouping' intact in the listing. #}
-            {% if not taxonomy.has_sortorder %}
-                {# If we specified an order in config.yml, sort them here, accordingly: #}
-                {% set records = records|order(config.get('general/listing_sort')) %}
+    {# Content to be renderred in header #}
+    {% set headerContent %}
+        <div class="container">
+            {% if taxonomy is defined %}
+                <h1 class="title is-2 is-4-mobile">
+                    {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
+                </h1>
+            {% else %}
+                <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
             {% endif %}
-        
-        
-        {% elseif contenttype is defined %}
-            <h1 class="title is-3">{{contenttype.name}}</h1>
-        {% endif %}
+        </div>
     {% endset %}
 
-
-    {# create progressive image loading list delimited by ; so smallest image is loaded first #}
-    {% set bgImages = record.image|default() is not empty ? record.image|thumbnail('section-small') ~ ';' ~ record.image|image : ''  %}
-    
-    {% block header_block %}
-        <header class="{{ headerBlockClass }}" data-background-image="{{ bgImages|default() }}">
-            <div class="shpr-background shpr-background-overlay {{ theme.layout.class.header_bg_overlay }}"></div>
-            <div class="hero-body">
-                <div class="container">
-                    {% block header %}
-                        {{ headerContent }}
-                    {% endblock %}
-                </div>
-            </div>
-        </header>
-    {% endblock %}
-
-    <section class="{{ sectionBlockClass }}">
-		<div class="container">
-			
-            {% block body %}
-                {% for record in records %}
-                    <article role="article" class="media columns">
-                        {% block list_item %}
-                            <div class="media-content column is-7">
-                                <div class="content">
-                                    <h2 class="title is-5 no-link-color">
-                                        <a href="{{ record.link }}">{{ record.title }}</a>
-                                    </h2>
-
-                                    {# display something introduction-like.. #}
-                                    {% if record.teaser %}
-                                        {{ record.teaser }}
-                                    {% else %}
-                                        <p>{{ record.excerpt(300, false, search|default('')) }}</p>
-                                    {% endif %}
-
-                                    {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
-                                </div>
-                            </div>
-                            {% if record.image is not empty %}
-                                <div class="media-right column">
-                                    <figure class="image">
-                                        {{ popup(record.values.image, 480, 320) }}
-                                    </figure>
-                                </div>
-                            {% endif %}
-                        {% endblock %}
-                    </article>
-                {% else %}
-                    <article role="article">
+    {% set listContent %}
+        {% for record in records %}
+            <article role="article" class="media columns">
+                {% block list_item %}
+                    <div class="media-content column is-7">
                         <div class="content">
-                            <h2 class="title">{{ __('general.phrase.no-content-found') }}</h2>
+                            <h2 class="title is-5 no-link-color">
+                                <a href="{{ record|link }}">{{ record|title }}</a>
+                            </h2>
 
-                            <p>
-                                {{ __("There is no content yet.") }}
-                            </p>
+                            {# display something introduction-like.. #}
+                            {% if record.teaser %}
+                                {{ record.teaser }}
+                            {% else %}
+                                <p>{{ record.excerpt(300, false, search|default('')) }}</p>
+                            {% endif %}
+
+                            {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
                         </div>
-                    </article>
-                {% endfor %}
+                    </div>
+                    {% if record.image is not empty %}
+                        <div class="media-right column">
+                            <figure class="image is-square">
+                                {{ m.lazyImagePopup(record.image, "listing") }}
+                                {% if record.title|default is not empty %}
+                                    <figcaption>{{ record.title }}</figcaption>
+                                {% endif %}
+                            </figure>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+            </article>
+        {% else %}
+            <article role="article">
+                <div class="content">
+                    <h2 class="title">{{ __('general.phrase.no-content-found') }}</h2>
+
+                    {% with { message: __("There is no content yet.") } %}
+                    {{ block("error_block", "twig/partials/_sub_section_blocks.twig") }}
+                    {% endwith %}        
+                </div>
+            </article>
+        {% endfor %}
+    {% endset %}
+
+    {# Header section #}
+    {% block header %}
+    {% with { 
+        content: headerContent,
+        class: config.get('theme/layout/class/header_listing')
+    }%}
+        {{ block('hero', 'twig/partials/_sub_section_blocks.twig') }}
+    {%- endwith -%}
+    {% endblock %}
+    
+    {# Body section #}
+
+    <section class="section shpr-section is-medium">
+        <div class="container">
+            
+            {% block body %}
+                {{ listContent }}
             {% endblock %}
 
             {% block pager %}
                 {# If there are more records than will fit on one page, the pager is shown. #}
                 {{ pager() }}
             {% endblock %}
-		</div>
-	</section>
+        </div>
+    </section>
+
 
     {# Standard SECTIONS #}
 	{% block sections %}

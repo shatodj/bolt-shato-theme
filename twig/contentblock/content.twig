@@ -1,11 +1,5 @@
 
-{% set titleClass = "title is-5" %}
-
-{# title block #}
-{% block contentlink_title %}
-    <h3 class="{{ titleClass|default }}">{{ title|default }}</h3>
-{% endblock %}
-
+{% set contentBlockClass = config.get("theme/layout/class/contentblock") %}
 
 {# Entry block #}
 {# Content of contentype 'block' and 'contentlink' filed for NOT iterable content #}
@@ -15,30 +9,20 @@
 		{{ __("No Content") }}
 	{% else %}
 
-		<div class="{{ theme.layout.class.contentblock_content|default }}"> {% block beforetitle %}{% endblock %}
+		<div class="{{ contentBlockClass|default }}"> 
+			{% block beforetitle %}{% endblock %}
 			{% block title %}
 				{% apply spaceless %}
-				
+				{% set titleBlock %}
+					<h3 class="title is-5">{{ content|title|default }}</h3>
+				{% endset %}
+
 				{% if content.link|default %}
-				<a href="{{ content|link }}">
-				{% endif %}
-					
-					{% if content.title is defined %}
-						{% with { title: content.title } %}
-						{{ block('contentlink_title')}}
-						{% endwith %}
-					{% elseif content.header is defined %}
-						{% with { title: content.header } %}
-						{{ block('contentlink_title')}}
-						{% endwith %}
-					{% elseif content.name is defined %}
-						{% with { title: content.name } %}
-						{{ block('contentlink_title')}}
-						{% endwith %}
-					{% endif %}
-				
-				{% if content.link|default %}
-				</a>
+					<a href="{{ content|link }}">
+						{{ titleBlock }}
+					</a>
+				{% else %}
+					{{ titleBlock }}
 				{% endif %}
 
 				{% endapply %}

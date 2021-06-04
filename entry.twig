@@ -1,4 +1,5 @@
 {% extends "twig/_record.twig" %}
+{% import "twig/partials/_macros.twig" as m %}
 
 {# Content Specific template for 'entry' slug #}
 
@@ -10,17 +11,16 @@
 {% block scripts %}
     {{ m.script('dist/js/entry-bundle.js') }}
 {% endblock %}
-{# 
-{% block header_block %}
-	{# {% set headerBlockClass = 'hero shpr-lazy-background is-header ' ~ theme.layout.class.header_entry|default('is-primary') %} #}
-	{# {{ parent() }}
-{% endblock %} #}
 
 {% block body %}
     <section class="section">
         <div class="container content">
-            {% with { 'record': record, 'extended': false, 'repeaters': false, 'blocks': true, 'media': true } %}
-            {{ block('sub_fields', 'twig/partials/_sub_fields.twig') }}
+            {% with { 
+                'record': record,  
+                'repeaters': true,
+                'exclude': [ record|image.fieldname|default() ] 
+            } %}
+            {{ block('sub_fields', 'helpers/_fields.twig') }}
             {% endwith %} 
         </div>
     </section>

@@ -3,12 +3,14 @@
 {# Thumbnail image by the thumbnail alias defined in theme.yaml #}
 {# src, thumbnailAlias#}
 {% macro thumbimage(src, thumbnailAlias) %}
-	{% if config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
+{% apply spaceless %}	
+	{%- if config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
 		{% set alias = config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
 		{{ src|thumbnail(alias.size[0]|default(null), alias.size[1]|default('null'), alias.fit|default('c')) }}
 	{% else %}
 		{{ src|thumbnail }}
-	{% endif %}
+	{% endif -%}
+{% endapply %}
 {% endmacro %}
 
 
@@ -17,13 +19,13 @@
 {% macro lazyImage(image, alias, extraClass = null) %}
 	{% from _self import thumbimage %}
 
-	{% set aliases = theme.thumbnails.aliases %}
+	{% set aliases = config.get("theme/thumbnails/aliases") %}
 
 	{% if aliases[alias] is not defined %}
 		{% with { message: 'Thumbnail alias "' ~ alias ~ '" is not defined.' } %}
 		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
 		{% endwith %}
-	{% elseif image|image is empty %}
+	{% elseif image.path is empty %}
 		{% with { message: 'Image source is empty' } %}
 		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
 		{% endwith %}
@@ -33,7 +35,7 @@
 		{% set height = aliases[alias].size[1] %}
 		{# {% set style = "width: " ~ width ~ "px; height: " ~ height ~ "px" %} #}
 		{% set style = "width: " ~ width ~ "px" %}
-		<img class="lazy {{ extraClass|default() }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image|image) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+		<img class="lazy {{ extraClass|default() }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
 	{% endif %}
 {% endmacro %}
 
@@ -47,7 +49,7 @@
 	{% from _self import lazyImage %}
 	{% from _self import thumbimage %}
 
-	{% set imgBigUrl = aliasBig|default() is not empty ? thumbimage(image, aliasBig) : image|image %}
+	{% set imgBigUrl = aliasBig|default is not empty ? thumbimage(image, aliasBig) : image.path %}
 
 	<a href="{{ imgBigUrl }}" class="magnific imageholder is-inline-block" title="{{ image.title|default(imgBigUrl) }}">
 		{{ lazyImage(image, alias, imageExtraClass|default()) }}
@@ -62,24 +64,8 @@
 	{% from _self import lazyImagePopup %}
 
 	{% for image in imagelist %}
-		{% set image = image|merge({'file': image.filename|default() }) %}
 		{{ lazyImagePopup(image, alias, aliasBig, imageExtraClass) }}
 	{% endfor %}
-{% endmacro %}
-
-{# Element with Lazy Background Element #}
-{# bgImages, content, isParalax, additionalClass, contentHtmlTag #}
-{% macro lazyBackground(bgImages, content, contentHtmlTag = null, contentClass = null, isParalax = null) %}
-	{# Wrap section in lazy-backround element #}
-	{%- with { 
-		bgImages: bgImages, 
-		content: content, 
-		isParalax: isParalax|default(false), 
-		htmlTag: contentHtmlTag|default("div"), 
-		class: contentClass|default("") } 
-	-%}
-		{{ block("lazy_background") }}
-	{%- endwith -%}
 {% endmacro %}
 
 {# Generate stylesheet entry #}
@@ -108,14 +94,26 @@
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
 	{# Get All blocks by the group #}
-	{% setcontent sections = themeSection.contentblock_name where { (themeSection.taxonomy_name): groupName } %}
+	{% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): groupName } %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
+
+		{# Set body of the section #}
+		{% set content %}
+			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+			<div class="container">
+				{% with { 'section': section } %}
+				{{ block('section_content') }}
+				{%- endwith -%}	
+			</div>
+		{% endset %}
+
 		{# set different color for each section #}
 		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
 		{% with { 
-			section: section,
+			content: content,
+			image: section.image,
 			bgColor: currentColor,
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
@@ -131,18 +129,49 @@
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
 	{# Get All related blocks mapped to the record #}
-	{% set sections = record.related(themeSection.contentblock_name) %}
+	{% set sections = record.related(themeSection.sectionblock_name) %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
+		{# Set body of the section #}
+		{% set content %}
+			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+			<div class="container">
+				{% with { 'section': section } %}
+				{{ block('section_content') }}
+				{%- endwith -%}	
+			</div>
+		{% endset %}
+
 		{# set different color for each section #}
 		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
 		{% with { 
-			section: section,
+			content: content,
+			image: section.image,
 			bgColor: currentColor,
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
 			{{ block('section') }}
 		{%- endwith -%}
 	{% endfor %}
+{% endmacro %}
+
+{# Header / Hero block #}
+{# Create header block (hero) using the record (entry)  #}
+{% macro headerByRecord(record, extraClass = null) %}
+	{% set content %}
+		<div class="container">
+			{% with { 'section': record } %}
+			{{ block('hero_content') }}
+			{%- endwith -%}
+		</div>
+	{% endset %}
+
+	{% with { 
+		content: content,
+		image: record.image,
+		class: extraClass|default(config.get('theme/layout/class/header_record'))
+	}%}
+		{{ block('hero') }}
+	{%- endwith -%}
 {% endmacro %}

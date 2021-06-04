@@ -153,7 +153,7 @@ The boilerplate theme for Bolt CMS, built with Webpack
     ```yml
 
     section:
-        contentblock_name: sections # Content block name. Theme's recommended value: sections
+        sectionblock_name: sections # Content block name. Theme's recommended value: sections
         taxonomy_name: sectiongroups # Content block taxonomy name. Theme's recommended value: sectiongroups
 
     ```

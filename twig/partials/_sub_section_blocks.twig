@@ -1,43 +1,61 @@
 {# Theme section block #}
-{# Required: section, bgColor #}
-{# Optional: isParalax, images,  #}
+{# Required: content, bgColor #}
+{# Optional: isParalax, image  #}
 {% block section %}
 
-	{% set sectionExtraClass = confog.get("theme/layout/class/section")|default("") %}
-
-	{# Actual section with content #}
-	{% set content %}
-		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
-		<div class="container">
-			{% with { 'section': section } %}
-			{{ block('section_content') }}
-			{%- endwith -%}	
-		</div>
-	{% endset %}
+	{% set sectionExtraClass = config.get("theme/layout/class/section")|default %}
 
 	{# Section images initialization #}
-	{% if section.image|default is not empty %}
+	{% if image|default is not empty %}
 		{% import "twig/partials/_macros.twig" as m %}
-		{% set bgImages = m.thumbimage(section.image, 'section-small') ~ ';' ~ section.image.path %}
+		{% set bgImages = m.thumbimage(image, 'section-small') ~ ';' ~ image.path %}
+	{% endif %}
+
+	{% if content is not defined %}
+		{% set content %}
+			{%- with { 
+				message: __("The content property of the section block was not set.")
+			} -%}
+				{{ block("error_block") }}
+			{%- endwith -%}
+		{% endset %}
 	{% endif %}
 
 	{# Wrap section in lazy-background element #}
 	{%- with { 
 		bgImages: bgImages|default, 
 		isParalax: isParalax, 
-		content: content, 
+		content: content,
 		htmlTag: "section", 
 		class: "section is-medium is-section-" ~ bgColor ~ " " ~ sectionExtraClass
 	} -%}
-		{{ block("lazy_background") }}
+		{{ block("lazy_background_wrapper") }}
 	{%- endwith -%}
 
 {% endblock %}
 
-{# Content block #}
+{# Hero component content #}
+{# Showing content fo Hero component block #}
+{% block hero_content %}
+	<h1 class="title is-1 is-3-mobile is-spaced">{{ section|title|default }}</h1>
+
+	{% set teaser = section.introduction|default(section.teaser) %}
+	{% if teaser is not empty %}
+		<p class="subtitle">{{ teaser }}</p>
+	{% endif %}
+
+	{%- if section.content is not empty %}
+		<div class="content">
+			{{ section.content }}
+		</div>
+	{% endif -%}
+
+{% endblock %}
+
+{# Section content block #}
 {# Showing content of 'block' content type #}
 {% block section_content %}
-	<h2 class="title is-3 is-size-4-mobile is-spaced {{ title_class|default('') }}">{{ section.title|default }}</h2>
+	<h2 class="title is-3 is-size-4-mobile is-spaced">{{ section|title|default }}</h2>
 
 	{%- if section.content is not empty %}
 		<div class="content">
@@ -63,9 +81,9 @@
 	{# showing the gallery if added to the block #}
 	{% if section.gallery|length %}
 		<section class="content">
-			<div class="shpr-gallery imagelist">
+			<div class="shpr-gallery use-magnific imagelist">
 				{% import "twig/partials/_macros.twig" as m %}
-				{{ m.lazyGallery(section.gallery, "160", "120") }}
+				{{ m.lazyGallery(section.gallery) }}
 			</div>
 		</section>
 	{% endif %}
@@ -75,7 +93,7 @@
 		<nav class="shpr-actions columns">
 			<div class="column has-text-centered">
 				{% for link in section.links %}	
-					<a href="{{ link.contentlink }}" class="button">{{ link.title|markdown }}</a>
+					<a href="{{ link.contentlink }}" class="button">{{ link.title|markdown|excerpt(45) }}</a>
 				{% endfor %}
 				{% if section.editlink() %}
 					{% with { 'record': section } %}
@@ -87,7 +105,7 @@
 	{% endif %}
 {% endblock %}
 
-{# Section content lisy blocks #}
+{# Section content list blocks #}
 {% block section_content_list_blocks %}
 	{% set subBlockContent = [] %}
 
@@ -109,39 +127,54 @@
 			{% set template = 'twig/contentblock/' ~ templateName ~ '.twig' %}
 		{% endif %}
 
-		<section>
+		<div class="level">
 			{% include template with { content: subBlockContent } %}
-		</section>
+		</div>
 	{% endif -%}
 {% endblock %}
 
 {# Render Hero Block #}
-{# Required: section, #}
+{# Required: content #}
+{# optional: image #}
 {% block hero %}
-
-	{% set themeLayout = config.get('theme/layout') %}
-	{% set themeHeaderClass = themeLayout.class.header_index|default('is-large') %}
-	{% set themeHeaderBgOverlayClass = themeLayout.class.header_bg_overlay|default('') %}
 	
-	{% set content %}
+	{# Section images initialization #}
+	{% if image|default is not empty %}
+		{% import "twig/partials/_macros.twig" as m %}
+		{% set bgImages = m.thumbimage(image, 'section-small') ~ ';' ~ image.path %}
+	{% endif %}
+
+	{% if content is not defined %}
+		{% set content %}
+			{%- with { 
+				message: __("The content property of the section block was not set.")
+			} -%}
+				{{ block("error_block") }}
+			{%- endwith -%}
+		{% endset %}
+	{% endif %}
+
+	{% set heroBody %}
 		<div class="hero-body">
 			{% block hero_body %}
-				<div class="container">
-					{% with { 'section': section }%}
-					{{ block('section_content') }}
-					{%- endwith -%}	
-				</div>
+				{{ content }}
 			{% endblock %}
 		</div>
 	{% endset %}
 
-	<section class="shpr-section shpr-lazy-background {{ headerBlockClass }} {{ themeHeaderClass }}" 
-		{% if homepage.image is not empty %} data-background-image="{{ bgImages }}" {% endif %}>
-		
-		<div class="shpr-background shpr-background-overlay {{ themeHeaderBgOverlayClass }}"></div>
-		
-		{{ content }}
-	</section>
+	{% import "twig/partials/_macros.twig" as m %}
+	
+	{# Wrap section in lazy-background element #}
+	{%- with { 
+		bgImages: bgImages|default, 
+		isParalax: false, 
+		content: heroBody,
+		htmlTag: "section", 
+		class: "hero " ~ class|default
+	} -%}
+		{{ block("lazy_background_wrapper") }}
+	{%- endwith -%}
+
 {% endblock %}
 
 
@@ -155,7 +188,7 @@
 	htmlTag: enum(section|article|div...) 
 	class: string
 #}
-{% block lazy_background %}
+{% block lazy_background_wrapper %}
 
 	<div class="shpr-lazy-background" data-background-image="{{ bgImages|default() }}">
 				
@@ -173,14 +206,15 @@
 
 {% endblock %}
 
-
+{# Content edit button #}
 {% block edit_button %}
 	<a href="{{ record.editlink() }}" class="button is-info is-outlined">
 		{{ __('general.phrase.edit') }}
 	</a>
 {% endblock %}
 
-
+{# Error / Warning block #}
+{# Required: message #}
 {% block error_block %}
 	<div class="notification is-warning">
 		{{ message|default }}

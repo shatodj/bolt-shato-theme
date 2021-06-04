@@ -16,32 +16,18 @@
 {% block content %}
 	{% if record is defined %}
         <article>
-            {# create progressive image loading list delimited by ; so smallest image is loaded first #}
-            {% set bgImages = record.image|default() is not empty ? record.image|thumbnail('section-small') ~ ';' ~ record.image|image : ''  %}
-            
-            {% block header_block %}
-                <header class="{{ headerBlockClass }}" data-background-image="{{ bgImages|default() }}">
-                    <div class="shpr-background shpr-background-overlay {{ theme.layout.class.header_bg_overlay }}"></div>
-                    <div class="hero-body">
-                        <div class="container has-text-centered">
-                            {% block header %}
-                                <h1 class="title is-3 is-spaced">{{ record.title }}</h1>
-                                <p class="subtitle is-5">{{ record.datepublish|date('d.m.Y') }}</p>
-                                {% include 'twig/partials/_record_meta.twig' with {'extended': false} %}
-                            {% endblock %}
-                        </div>
-                    </div>
-                </header>
+            {% block header %}
+                {{ m.headerByRecord(record) }}
             {% endblock %}
 
             {% block body %}
-                <section class="section">
+                <section class="section shpr-section is-medium">
                     <div class="container content">
                         {# Output all fields, in the order as defined in the contenttype.
                         To change the generated html and configure the options, see:
                         https://docs.bolt.cm/templating #}
                         {% with { 'record': record, 'extended': true, 'repeaters': true, 'blocks': true } %}
-                        {{ block('sub_fields', 'twig/partials/_sub_fields.twig') }}
+                        {{ block('sub_fields', 'helpers/_fields.twig') }}
                         {% endwith %}
 
                         {% block record_footer %}

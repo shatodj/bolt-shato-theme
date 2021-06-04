@@ -29,7 +29,7 @@ const config = (mode = 'production', watch = true) => ({
   entry: {
     homepage: './src/js/homepage.js',
     record: './src/js/record.js',
-    // page: './src/js/record.js',
+    page: './src/js/record.js',
     entry: './src/js/entry.js',
     listing: './src/js/listing.js',
     fontawesome: './src/js/fontawesome.js',

@@ -1,14 +1,14 @@
 {% extends "twig/contentblock/content.twig" %}
-{% import "twig/partials/_macros.twig" as m %}
 
 {% block contentlink_block %}
 
     <div class="card">
         {% if content.image|default is not empty %}
-            <div class="card-content">
-                <figure class="image is-128x128 has-image-centered">
+            <div class="card-image has-background-primary">
+                <figure class="image is-16by9">
                     <a href="{{ content.link() }}">
-                        {{ m.lazyimage(content.image|thumbnail('square-small'), content.image|title, "100%", "auto", "is-rounded") }}
+                        {% import "twig/partials/_macros.twig" as m %}
+                        {{ m.lazyImage(content.image, 'card') }}
                     </a>
                 </figure>
             </div>
