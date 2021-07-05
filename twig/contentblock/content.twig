@@ -17,13 +17,11 @@
 					<h3 class="title is-5">{{ content|title|default }}</h3>
 				{% endset %}
 
-				{% if content.link|default %}
-					<a href="{{ content|link }}">
-						{{ titleBlock }}
-					</a>
-				{% else %}
-					{{ titleBlock }}
-				{% endif %}
+				{%- with { 
+					content: titleBlock, link: content|link
+				} -%}
+					{{ block("link_wrapper", "twig/partials/_blocks.twig") }}
+				{%- endwith -%}
 
 				{% endapply %}
 			{% endblock %}
@@ -33,10 +31,7 @@
 				<div class="content">
 					<p class="no-link-color">
 						
-						{% if content.link|default %}
-						<a href="{{ content|link }}">
-						{% endif %}
-
+						{% set teaserContent %}
 							{% apply spaceless %}
 							{% if content.teaser is defined %}
 								{{ content.teaser|excerpt(220) }}
@@ -44,11 +39,13 @@
 								{{ content.content|excerpt(220) }}
 							{% endif %}
 							{% endapply %}
+						{% endset %}
 
-						{% if content.link|default %}
-						</a>
-						{% endif %}
-
+						{%- with { 
+							content: teaserContent, link: content|link
+						} -%}
+							{{ block("link_wrapper", "twig/partials/_blocks.twig") }}
+						{%- endwith -%}
 					</p>
 				</div>
 			{% endblock %}

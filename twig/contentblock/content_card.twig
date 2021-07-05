@@ -6,10 +6,16 @@
         {% if content.image|default is not empty %}
             <div class="card-image has-background-primary">
                 <figure class="image is-16by9">
-                    <a href="{{ content.link() }}">
+                    {% set cardContent %}
                         {% import "twig/partials/_macros.twig" as m %}
                         {{ m.lazyImage(content.image, 'card') }}
-                    </a>
+                    {% endset %}
+                    
+                    {%- with { 
+                        content: cardContent, link: content|link
+                    } -%}
+                        {{ block("link_wrapper", "twig/partials/_blocks.twig") }}
+                    {%- endwith -%}
                 </figure>
             </div>
         {% endif %}

@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@import "partials/minimal.scss";
+@import "./minimal.scss";
 @import "../../node_modules/bulma/sass/components/message.sass";
 @import "../../node_modules/bulma/sass/components/card.sass";
 @import "../../node_modules/bulma-carousel/dist/css/bulma-carousel.min.css";
@@ -9,4 +9,13 @@
 
 .hero .shpr-background {
     background-size: contain;
+}
+
+body .shpr-lazy-background { 
+    &.is-loaded {
+        // overriding style
+        .shpr-section.section::before {
+            opacity: 1; 
+        }
+    }
 }

@@ -1,3 +1,5 @@
+{% use 'twig/partials/_blocks.twig' %}
+
 {# Theme section block #}
 {# Required: content, bgColor #}
 {# Optional: isParalax, image  #}
@@ -28,6 +30,51 @@
 		content: content,
 		htmlTag: "section", 
 		class: "section is-medium is-section-" ~ bgColor ~ " " ~ sectionExtraClass
+	} -%}
+		{{ block("lazy_background_wrapper") }}
+	{%- endwith -%}
+
+{% endblock %}
+
+
+{# Render Hero Block #}
+{# Required: content #}
+{# optional: image #}
+{% block hero %}
+	
+	{# Section images initialization #}
+	{% if image|default is not empty %}
+		{% import "twig/partials/_macros.twig" as m %}
+		{% set bgImages = m.thumbimage(image, 'section-small') ~ ';' ~ image.path %}
+	{% endif %}
+
+	{% if content is not defined %}
+		{% set content %}
+			{%- with { 
+				message: __("The content property of the section block was not set.")
+			} -%}
+				{{ block("error_block") }}
+			{%- endwith -%}
+		{% endset %}
+	{% endif %}
+
+	{% set heroBody %}
+		<div class="hero-body">
+			{% block hero_body %}
+				{{ content }}
+			{% endblock %}
+		</div>
+	{% endset %}
+
+	{% import "twig/partials/_macros.twig" as m %}
+	
+	{# Wrap section in lazy-background element #}
+	{%- with { 
+		bgImages: bgImages|default, 
+		isParalax: false, 
+		content: heroBody,
+		htmlTag: "section", 
+		class: "hero " ~ class|default
 	} -%}
 		{{ block("lazy_background_wrapper") }}
 	{%- endwith -%}
@@ -133,50 +180,6 @@
 	{% endif -%}
 {% endblock %}
 
-{# Render Hero Block #}
-{# Required: content #}
-{# optional: image #}
-{% block hero %}
-	
-	{# Section images initialization #}
-	{% if image|default is not empty %}
-		{% import "twig/partials/_macros.twig" as m %}
-		{% set bgImages = m.thumbimage(image, 'section-small') ~ ';' ~ image.path %}
-	{% endif %}
-
-	{% if content is not defined %}
-		{% set content %}
-			{%- with { 
-				message: __("The content property of the section block was not set.")
-			} -%}
-				{{ block("error_block") }}
-			{%- endwith -%}
-		{% endset %}
-	{% endif %}
-
-	{% set heroBody %}
-		<div class="hero-body">
-			{% block hero_body %}
-				{{ content }}
-			{% endblock %}
-		</div>
-	{% endset %}
-
-	{% import "twig/partials/_macros.twig" as m %}
-	
-	{# Wrap section in lazy-background element #}
-	{%- with { 
-		bgImages: bgImages|default, 
-		isParalax: false, 
-		content: heroBody,
-		htmlTag: "section", 
-		class: "hero " ~ class|default
-	} -%}
-		{{ block("lazy_background_wrapper") }}
-	{%- endwith -%}
-
-{% endblock %}
-
 
 {# Lazy Background helper block #}
 {# Required: 
@@ -190,7 +193,7 @@
 #}
 {% block lazy_background_wrapper %}
 
-	<div class="shpr-lazy-background" data-background-image="{{ bgImages|default() }}">
+	<div class="shpr-lazy-background" data-background-image="{{ bgImages|default }}">
 				
 		{# Adding empty elements to handle dynamic background styling - see lazy-section-backgorund.js #}
 		{% if isParalax|default() == true and bgImages|default() is not empty %}
@@ -202,21 +205,5 @@
 		<{{htmlTag|default("div")}} class="shpr-section {{class|default("")}}">
 			{{ content }}
 		</{{htmlTag}}>
-	</div>
-
-{% endblock %}
-
-{# Content edit button #}
-{% block edit_button %}
-	<a href="{{ record.editlink() }}" class="button is-info is-outlined">
-		{{ __('general.phrase.edit') }}
-	</a>
-{% endblock %}
-
-{# Error / Warning block #}
-{# Required: message #}
-{% block error_block %}
-	<div class="notification is-warning">
-		{{ message|default }}
 	</div>
 {% endblock %}

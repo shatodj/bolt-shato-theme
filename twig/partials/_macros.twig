@@ -1,5 +1,3 @@
-{% use "twig/partials/_sub_section_blocks.twig" %}
-
 {# Thumbnail image by the thumbnail alias defined in theme.yaml #}
 {# src, thumbnailAlias#}
 {% macro thumbimage(src, thumbnailAlias) %}
@@ -23,11 +21,11 @@
 
 	{% if aliases[alias] is not defined %}
 		{% with { message: 'Thumbnail alias "' ~ alias ~ '" is not defined.' } %}
-		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{{ block('error_block', "section_blocks.twig") }}
 		{% endwith %}
 	{% elseif image.path is empty %}
 		{% with { message: 'Image source is empty' } %}
-		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{{ block('error_block', "section_blocks.twig") }}
 		{% endwith %}
 	{% else %}
 		{% set imgThumb = thumbimage(image, alias) %}
@@ -104,7 +102,7 @@
 			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 			<div class="container">
 				{% with { 'section': section } %}
-				{{ block('section_content') }}
+				{{ block('section_content', "section_blocks.twig") }}
 				{%- endwith -%}	
 			</div>
 		{% endset %}
@@ -117,7 +115,7 @@
 			bgColor: currentColor,
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
-			{{ block('section') }}
+			{{ block('section', "section_blocks.twig") }}
 		{%- endwith -%}	
 	{% endfor %}
 {% endmacro %}
@@ -138,7 +136,7 @@
 			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 			<div class="container">
 				{% with { 'section': section } %}
-				{{ block('section_content') }}
+				{{ block('section_content', "section_blocks.twig") }}
 				{%- endwith -%}	
 			</div>
 		{% endset %}
@@ -151,7 +149,7 @@
 			bgColor: currentColor,
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
-			{{ block('section') }}
+			{{ block('section', "section_blocks.twig") }}
 		{%- endwith -%}
 	{% endfor %}
 {% endmacro %}
@@ -162,7 +160,7 @@
 	{% set content %}
 		<div class="container">
 			{% with { 'section': record } %}
-			{{ block('hero_content') }}
+			{{ block('hero_content', "section_blocks.twig") }}
 			{%- endwith -%}
 		</div>
 	{% endset %}
@@ -172,6 +170,6 @@
 		image: record.image,
 		class: extraClass|default(config.get('theme/layout/class/header_record'))
 	}%}
-		{{ block('hero') }}
+		{{ block('hero', "section_blocks.twig") }}
 	{%- endwith -%}
 {% endmacro %}

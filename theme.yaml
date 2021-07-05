@@ -19,7 +19,7 @@ section:
   homepage_template: index.twig
   sectionblock_name: sections # Section block name. Theme's recommended value: sections
   taxonomy_name: sectiongroups # Section block taxonomy name. Theme's recommended value: sectiongroups
-  color_iteration: ['light', 'primary'] # Sections color iteration eg: ['light', 'primary', 'dark']
+  color_iteration: ['light'] # Sections color iteration eg: ['light', 'primary', 'dark']
 
 thumbnails:
   aliases:

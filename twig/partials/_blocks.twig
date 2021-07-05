@@ -1,0 +1,28 @@
+
+{# Content edit button #}
+{% block edit_button %}
+	<a href="{{ record.editlink() }}" class="button is-info is-outlined">
+		{{ __('general.phrase.edit') }}
+	</a>
+{% endblock %}
+
+{# Error / Warning block #}
+{# Required: message #}
+{% block error_block %}
+	<div class="notification is-warning">
+		{{ message|default }}
+	</div>
+{% endblock %}
+
+{# The <a href> wrapper #}
+{# Required: content, link #}
+{# optional: class #}
+{% block link_wrapper %}
+    {% if link|default is not empty %}
+        <a class="{{class|default}}" href="{{ link }}">
+            {{ content|default("") }}    
+        </a>
+    {% else %}
+        {{ content|default("") }}
+    {% endif %}
+{% endblock %}

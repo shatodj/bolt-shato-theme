@@ -1,0 +1,18 @@
+{% extends "twig/partials/_sub_section_blocks.twig" %}
+
+{# Section Blocks extensions and customizations #}
+
+{# Lazy background wrapper w/o shpr-background-overlay element #}
+{% block lazy_background_wrapper %}
+
+	<div class="shpr-lazy-background" data-background-image="{{ bgImages|default() }}">
+		
+		{% if isParalax|default() == true and bgImages|default() is not empty %}
+			<div class="shpr-background shpr-background-paralax"></div>
+		{% endif %}	
+		
+		<{{htmlTag|default("div")}} class="shpr-section {{class|default("")}}">
+			{{ content }}
+		</{{htmlTag}}>
+	</div>
+{% endblock %}
