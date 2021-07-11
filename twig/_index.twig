@@ -3,18 +3,16 @@
 {% extends 'twig/partials/_master.twig' %}
 {% import "twig/partials/_macros.twig" as m %}
 
-{% set isParalax = true %} {# use Paralax design #}
+{% set themeConfig = config.get('theme') %}
+{% set isParalax = themeConfig.layout.use_paralax|default(true) %} {# use Paralax design #}
 {% set sectionGroup = "homepage" %}
-{% set homepageContentBlock = config.get('theme/section/homepage_block')|default('homepage') %}
-
+{% set homepageContentBlock = themeConfig.section.homepage_block|default('homepage') %}
 {% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
-{% set bgImages = m.thumbimage(homepage.image, 'section-small') ~ ';' ~ homepage.image.path  %}
 
 {% block content %}
-	
 	{% block header %}
 		{% if homepage %}
-			{{ m.headerByRecord(homepage, config.get('theme/layout/class/header_index')) }}
+			{{ m.headerByRecord(homepage, themeConfig.layout.class.header_index) }}
 		{% endif %}
 	{% endblock %}
 

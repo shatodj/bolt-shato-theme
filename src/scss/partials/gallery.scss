@@ -1,12 +1,7 @@
 .shpr-gallery {
-    display: flex;
     gap: 0.5em;
 
-    .imageholder {
-        border: 5px solid $light;
-        
-        &.is-processed {
-            background-color: $light;
-        }
+    .imagelist {
+        display: flex;
     }
 }

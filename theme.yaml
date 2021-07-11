@@ -1,9 +1,10 @@
 # template_directory: twig
 homepage: 'homepage'
 
-# Globals
+# Global layout settings
 layout:
   is_navbar_full_width: false
+  use_paralax: true
   class:
     html: "has-navbar-fixed-top"
     navbar: is-light is-fixed-top
@@ -20,11 +21,19 @@ layout:
 section:
   homepage_block: homepage
   homepage_template: index.twig
-  sectionblock_name: sections # Section block name. Theme's recommended value: sections
-  taxonomy_name: sectiongroups # Section block taxonomy name. Theme's recommended value: sectiongroups
-  color_iteration: ['light'] # Sections color iteration eg: ['light', 'primary', 'dark']
+  # Section block name. 
+  # Recommended value: sections
+  sectionblock_name: sections 
+  # Section block taxonomy name. 
+  # Recommended value: sectiongroups
+  taxonomy_name: sectiongroups
+  # Sections color iteration 
+  # eg: ['light', 'primary', 'dark'] 
+  color_iteration: ['light'] 
 
+# Thumbnails configuration
 thumbnails:
+  # Aliases used by theme maacro (see. _macros.twig -> thumbimage)
   aliases:
     square:
       size: [512, 512]

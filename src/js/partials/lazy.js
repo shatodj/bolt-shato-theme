@@ -2,41 +2,37 @@
 import inView from 'in-view';
 
 /**
+ * Preload image
+ * @param {srting} src
+ */
+export const preloadImage = (src) => new Promise((resolve, reject) => {
+  if (!src) {
+    reject(ReferenceError("Undefined image source."));
+  }
+  
+  const img = new Image();
+  img.src = src;
+
+  img.addEventListener('load', () => resolve(img));
+  img.addEventListener('error', (err) => reject(err));
+});
+
+export const preloadIFrame = (iframeElement) => new Promise((resolve, reject) => {
+  if (!src) {
+    reject(ReferenceError("Undefined image source."));
+  }
+
+  iframeElement.addEventListener('load', () => resolve(img));
+  iframeElement.addEventListener('error', (err) => reject(err));
+
+  iframeElement.setAttribute('src', iframeElement.dataset.src);
+});
+
+/**
  * Lazy media loader for images and iframes
  * @param {object} param0
  */
 const lazy = ({ elementSelector, tags, onLoadCallback }) => {
-  /**
-   * Loading of the IMAGE element
-   * @param {string} src
-   */
-  const loadImage = (src) => new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = src;
-
-    img.onload = () => {
-      resolve(img);
-    };
-    img.onerror = () => {
-      reject(img);
-    };
-  });
-
-  /**
-   * Loading of the IFrame element
-   * @param {HTMLElement} element
-   */
-  const loadIframe = (element) => new Promise((resolve, reject) => {
-    element.onload = () => {
-      resolve(element);
-    };
-
-    element.onerror = () => {
-      reject(element);
-    };
-
-    element.setAttribute('src', element.dataset.src);
-  });
 
   /**
    * Finalize loading
@@ -56,14 +52,14 @@ const lazy = ({ elementSelector, tags, onLoadCallback }) => {
       // start actual loading by tag (supports only images and iframes)
       // TODO: support other types
       if (element.tagName === 'IMG') {
-        loadImage(element.dataset.src).then(() => {
+        preloadImage(element.dataset.src).then(() => {
           element.setAttribute('src', element.dataset.src);
           finalizeLement(element);
           
           typeof onLoadCallback == 'function' && onLoadCallback(element);
         });
       } else {
-        loadIframe(element).then(() => {
+        preloadIFrame(element).then(() => {
           finalizeLement(element);
           
           typeof onLoadCallback == 'function' && onLoadCallback(element);

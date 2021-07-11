@@ -11,13 +11,5 @@
   background-size: contain;
 }
 
-body .shpr-lazy-background {
-  &.is-loaded {
-    // overriding style
-    .shpr-section.section::before, .shpr-section.hero::before {
-      opacity: 1;
-    }
-  }
-}
 
 }

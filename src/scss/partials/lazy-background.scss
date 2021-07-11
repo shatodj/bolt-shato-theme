@@ -41,7 +41,7 @@
             opacity: 1;
         }
 
-        .shpr-section::before {
+        .shpr-section.with-transparent-overlay::before {
             opacity: 0.85;
         }
     }

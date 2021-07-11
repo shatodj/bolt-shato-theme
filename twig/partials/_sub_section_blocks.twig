@@ -41,6 +41,7 @@
 {# Required: content #}
 {# optional: image #}
 {% block hero %}
+
 	{# Section images initialization #}
 	{% if image|default is not empty %}
 		{% import "twig/partials/_macros.twig" as m %}
@@ -127,7 +128,7 @@
 	{# showing the gallery if added to the block #}
 	{% if section.gallery|length %}
 		<section class="content">
-			<div class="shpr-gallery use-magnific imagelist">
+			<div class="shpr-gallery">
 				{% import "twig/partials/_macros.twig" as m %}
 				{{ m.lazyGallery(section.gallery) }}
 			</div>
@@ -191,17 +192,18 @@
 	class: string
 #}
 {% block lazy_background_wrapper %}
-
 	<div class="shpr-lazy-background" data-background-image="{{ bgImages|default }}">
 				
 		{# Adding empty elements to handle dynamic background styling - see lazy-section-backgorund.js #}
-		{% if isParalax|default() == true and bgImages|default() is not empty %}
-			<div class="shpr-background shpr-background-paralax"></div>
-		{% endif %}	
-		<div class="shpr-background shpr-background-overlay"></div>
-
+		{% if bgImages|default is not empty %}
+			{% if isParalax|default == true %}
+				<div class="shpr-background shpr-background-paralax"></div>
+			{% endif %}	
+			<div class="shpr-background shpr-background-overlay"></div>
+		{% endif %}
+		
 		{# Actual section with content #}
-		<{{htmlTag|default("div")}} class="shpr-section {{class|default("")}}">
+		<{{htmlTag|default("div")}} class="shpr-section with-transparent-overlay {{class|default}}">
 			{{ content }}
 		</{{htmlTag}}>
 	</div>

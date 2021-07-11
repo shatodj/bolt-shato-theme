@@ -48,7 +48,7 @@
                     </div>
                     {% if record.image is not empty %}
                         <div class="media-right column">
-                            <figure class="image is-square">
+                            <figure class="image">
                                 {{ m.lazyImagePopup(record.image, "listing") }}
                                 {% if record.title|default is not empty %}
                                     <figcaption>{{ record.title }}</figcaption>

@@ -2,33 +2,7 @@
 import '../../scss/partials/lazy-background.scss';
 
 import inView from 'in-view';
-
-/**
- * Preload image
- * @param {srting} src
- * @param {HTMLElement} sectionElement
- */
-const preloadImage = (src, sectionElement) => new Promise((resolve, reject) => {
-  const img = new Image();
-  img.src = src;
-
-  // if background is ready then add background image to bg elements
-  img.onload = () => {
-    sectionElement.dataset.backgroundImageLoaded = src;
-
-    sectionElement.querySelectorAll('.shpr-background').forEach((bgElement) => {
-      bgElement.style.backgroundImage = `url('${src}')`;
-    });
-
-    sectionElement.classList.add('is-loaded');
-
-    resolve(img);
-  };
-
-  img.onerror = () => {
-    reject(img);
-  };
-});
+import { preloadImage } from "./lazy";
 
 /**
  * Proccess element / section
@@ -37,18 +11,41 @@ const preloadImage = (src, sectionElement) => new Promise((resolve, reject) => {
 const proccessElement = (element) => {
   element.classList.add('is-processed');
   const { backgroundImage } = element.dataset;
+  
+  const addBackgroundUrl = (url) => {
+    element.dataset.backgroundImageLoaded = url;
+
+    element.querySelectorAll('.shpr-background').forEach((bgElement) => {
+      bgElement.style.backgroundImage = `url('${url}')`;
+    });
+
+    element.classList.add('is-loaded');
+  }
 
   if (backgroundImage) {
     // split by ';' to  make it possible to load progressively
     const imageUrls = backgroundImage.split(';');
-    const promise = preloadImage(imageUrls.shift(), element);
-    // load image by image using promises
+    if (!imageUrls) {
+      console.warn("No background images to load, but dataset exists.");
+      return;
+    }
+
+    const firstUrl = imageUrls.shift();
+    if (!firstUrl) {
+      console.warn("No background images to load. Empty backround images data exists.");
+      return;
+    }
+    const promise = preloadImage(imageUrls.shift())
+      .then((img) => addBackgroundUrl(img.src));
+
+    // load image by images one by one
     if (imageUrls.length) {
-      imageUrls.forEach(() => {
-        promise.then(() => {
-          preloadImage(imageUrls.shift(), element);
-        });
-      });
+      imageUrls.forEach((url) => {
+        if (url) {
+          promise.then(() => preloadImage(url))
+            .then((img) => addBackgroundUrl(img.src))
+        }
+      })
     }
   }
 };

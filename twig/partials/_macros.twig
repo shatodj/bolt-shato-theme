@@ -1,8 +1,10 @@
 {# Thumbnail image by the thumbnail alias defined in theme.yaml #}
 {# src, thumbnailAlias#}
 {% macro thumbimage(src, thumbnailAlias) %}
-{% apply spaceless %}	
-	{%- if config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
+{% apply spaceless %}
+	{%- if src is empty %}
+		{# empty thumbnail #}
+	{% elseif config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
 		{% set alias = config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
 		{{ src|thumbnail(alias.size[0]|default(null), alias.size[1]|default('null'), alias.fit|default('c')) }}
 	{% else %}
@@ -33,7 +35,7 @@
 		{% set height = aliases[alias].size[1] %}
 		{# {% set style = "width: " ~ width ~ "px; height: " ~ height ~ "px" %} #}
 		{% set style = "width: " ~ width ~ "px" %}
-		<img class="lazy {{ extraClass|default() }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+		<img class="lazy {{ extraClass|default }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
 	{% endif %}
 {% endmacro %}
 
@@ -43,15 +45,25 @@
 {% endmacro %}
 
 {#  Image popup with lazyload #}
-{% macro lazyImagePopup(image, alias, aliasBig = null, imageExtraClass = null) %}
+{% macro lazyImagePopup(image, thumbAlias, thumbAliasLarge = null, imageExtraClass = "", skipMagnific = false) %}
 	{% from _self import lazyImage %}
 	{% from _self import thumbimage %}
 
-	{% set imgBigUrl = aliasBig|default is not empty ? thumbimage(image, aliasBig) : image.path %}
+	{% set imgBigUrl = thumbAliasLarge|default is not empty ? thumbimage(image, thumbAliasLarge) : image.path %}
+	
+	{% set anchorContent %}
+		<a href="{{ imgBigUrl }}" class="magnific imageholder is-inline-block" title="{{ image.title|default(imgBigUrl) }}">
+			{{ lazyImage(image, thumbAlias, imageExtraClass) }}
+		</a>
+	{% endset %}
 
-	<a href="{{ imgBigUrl }}" class="magnific imageholder is-inline-block" title="{{ image.title|default(imgBigUrl) }}">
-		{{ lazyImage(image, alias, imageExtraClass|default()) }}
-	</a>
+	{% if skipMagnific %}
+		{{ anchorContent }}
+	{% else %}
+		<div class="use-magnific">
+			{{ anchorContent }}
+		</div>	
+	{% endif %}
 {% endmacro %}
 
 
@@ -60,10 +72,12 @@
 {% macro lazyGallery(imagelist, alias = "gallery", aliasBig = "gallery-big", imageExtraClass = "") %}
 	{% from _self import lazyImage %}
 	{% from _self import lazyImagePopup %}
-
-	{% for image in imagelist %}
-		{{ lazyImagePopup(image, alias, aliasBig, imageExtraClass) }}
-	{% endfor %}
+	
+	<div class="use-magnific imagelist">
+		{% for image in imagelist %}
+			{{ lazyImagePopup(image, alias, aliasBig, imageExtraClass, true) }}
+		{% endfor %}
+	</div>
 {% endmacro %}
 
 {# Generate stylesheet entry #}

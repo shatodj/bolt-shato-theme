@@ -2,16 +2,16 @@
 
 {# Section Blocks extensions and customizations #}
 
-{# Lazy background wrapper w/o shpr-background-overlay element #}
+{# Lazy background wrapper w/o shpr-background-overlay element to use only paralax #}
+{# Also without .with-transparent-overlay class #}
 {% block lazy_background_wrapper %}
-
 	<div class="shpr-lazy-background" data-background-image="{{ bgImages|default() }}">
 		
-		{% if isParalax|default() == true and bgImages|default() is not empty %}
+		{% if isParalax|default == true and bgImages|default is not empty %}
 			<div class="shpr-background shpr-background-paralax"></div>
 		{% endif %}	
 		
-		<{{htmlTag|default("div")}} class="shpr-section {{class|default("")}}">
+		<{{htmlTag|default("div")}} class="shpr-section {{class|default}}">
 			{{ content }}
 		</{{htmlTag}}>
 	</div>
