@@ -5,17 +5,19 @@
 @import "../../node_modules/bulma/sass/components/card.sass";
 @import "../../node_modules/bulma-carousel/dist/css/bulma-carousel.min.css";
 
-@import 'partials/sections.scss';
+@import "partials/sections.scss";
 
 .hero .shpr-background {
-    background-size: contain;
+  background-size: contain;
 }
 
-body .shpr-lazy-background { 
-    &.is-loaded {
-        // overriding style
-        .shpr-section.section::before {
-            opacity: 1; 
-        }
+body .shpr-lazy-background {
+  &.is-loaded {
+    // overriding style
+    .shpr-section.section::before, .shpr-section.hero::before {
+      opacity: 1;
     }
+  }
+}
+
 }

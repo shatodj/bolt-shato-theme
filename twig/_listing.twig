@@ -75,28 +75,26 @@
     {% block header %}
     {% with { 
         content: headerContent,
-        class: config.get('theme/layout/class/header_listing')
+        class: config.get('theme/layout/class/header_listing')|default
     }%}
-        {{ block('hero', 'twig/partials/_sub_section_blocks.twig') }}
+        {{ block('hero', 'section_blocks.twig') }}
     {%- endwith -%}
     {% endblock %}
     
     {# Body section #}
-
-    <section class="section shpr-section is-medium">
+    {% set sectionExtraClass = config.get("theme/layout/class/listing")|default %}
+    <section class="section shpr-section {{ sectionExtraClass }}">
         <div class="container">
-            
             {% block body %}
                 {{ listContent }}
             {% endblock %}
 
             {% block pager %}
                 {# If there are more records than will fit on one page, the pager is shown. #}
-                {{ pager() }}
+                {{ pager(template = 'helpers/_pager_bulma.html.twig', surround = 5) }}
             {% endblock %}
         </div>
     </section>
-
 
     {# Standard SECTIONS #}
 	{% block sections %}

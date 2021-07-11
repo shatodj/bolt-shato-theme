@@ -29,7 +29,7 @@
 		isParalax: isParalax, 
 		content: content,
 		htmlTag: "section", 
-		class: "section is-medium is-section-" ~ bgColor ~ " " ~ sectionExtraClass
+		class: "section is-section-" ~ bgColor ~ " " ~ sectionExtraClass
 	} -%}
 		{{ block("lazy_background_wrapper") }}
 	{%- endwith -%}
@@ -41,13 +41,12 @@
 {# Required: content #}
 {# optional: image #}
 {% block hero %}
-	
 	{# Section images initialization #}
 	{% if image|default is not empty %}
 		{% import "twig/partials/_macros.twig" as m %}
 		{% set bgImages = m.thumbimage(image, 'section-small') ~ ';' ~ image.path %}
 	{% endif %}
-
+	
 	{% if content is not defined %}
 		{% set content %}
 			{%- with { 

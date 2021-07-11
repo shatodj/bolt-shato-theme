@@ -52,7 +52,9 @@
 		<body id="top">
 
 			<header class="header">
-				{{ include('navbar.twig') }}
+				{% block navbar %}
+					{{ include('navbar.twig') }}
+				{% endblock %}
 			</header>
 
 			{% block content %}

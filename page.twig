@@ -10,19 +10,13 @@
     {{ m.script('dist/js/page-bundle.js') }}
 {% endblock %}
 
-{% block body %}
-    <section class="section">
-        <div class="container content">
-            {% with { 'record': record, 'extended': false, 'repeaters': false, 'blocks': false, 'media': false } %}
-            {{ block('sub_fields', 'helpers/_fields.twig') }}
-            {% endwith %} 
-        </div>
-    </section>
+{% block record_footer %}
+    {# empty #}
 {% endblock %}
 
 {# Standard SECTIONS #}
 {% block sections %}
-    {{ m.sectionsByRecord(record, false, ['light', 'dark']) }}
-    {{ m.sectionsByGroup("page", false, ['primary', 'light']) }}
+    {{ m.sectionsByRecord(record) }}
+    {{ m.sectionsByGroup("page") }}
 {% endblock %}
 

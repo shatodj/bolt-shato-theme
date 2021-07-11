@@ -17,23 +17,24 @@
 	{% if record is defined %}
         <article>
             {% block header %}
-                {{ m.headerByRecord(record) }}
+                {{ m.headerByRecord(record, headerBlockClass) }}
             {% endblock %}
 
             {% block body %}
-                <section class="section shpr-section is-medium">
+                {% set recordExtraClass = config.get("theme/layout/class/record")|default %}
+                <section class="section shpr-section {{ recordExtraClass }}">
                     <div class="container content">
-                        {# Output all fields, in the order as defined in the contenttype.
-                        To change the generated html and configure the options, see:
-                        https://docs.bolt.cm/templating #}
+                        
                         {% with { 'record': record, 'extended': true, 'repeaters': true, 'blocks': true } %}
-                        {{ block('sub_fields', 'helpers/_fields.twig') }}
+                        {{ block('sub_fields', 'twig/partials/_sub_field_blocks.twig') }}
                         {% endwith %}
 
-                        {% block record_footer %}
-                            {{ include('twig/partials/_recordfooter.twig', { 'record': record, 'extended': true }) }}
-                        {% endblock %}
                     </div>
+                    {% block record_footer %}
+                        <div class="container">
+                            {{ include('twig/partials/_recordfooter.twig', { 'record': record, 'extended': true }) }}
+                        </div>
+                    {% endblock %}
                 </section>
             {% endblock %}
         </article>
@@ -41,7 +42,7 @@
 
 	{# Standard SECTIONS #}
 	{% block sections %}
-        {{ m.sectionsByRecord(record, false) }}
+        {{ m.sectionsByRecord(record) }}
 		{{ m.sectionsByGroup("record") }}
 	{% endblock %}
 

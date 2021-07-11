@@ -10,6 +10,9 @@ layout:
     header_index: is-section-primary is-bold is-large
     header_record: is-section-primary is-bold is-medium
     header_listing: is-section-primary is-bold is-medium
+    section: is-small # if using paralax, use rather is-medium
+    record: is-small
+    listing: is-small
     footer: is-section-primary
     copyright: is-section-dark has-text-centered
   
@@ -42,7 +45,7 @@ thumbnails:
       size: [480, 480]
       fit: c
     card:
-      size: [400, 250]
+      size: [400, 225]
       fit: c
     record-image:
       size: [752, 400]

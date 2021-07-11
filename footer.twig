@@ -1,12 +1,12 @@
 {% extends "twig/_footer.twig" %}
 
-{# using `section_content_list_blocks` instead of `section_content` to avoid rendering section title and content #}
+{# using `section_content_list_blocks` instead of `section_content` to avoid rendering content of the section #}
 {% block footer_content %}
     <div class="shpr-footer-block section">
-        <h3 class="title is-3">{{__("Contact")}}</h3>
         {% for section in sections %}
+            <h2 class="title is-3 is-size-4-mobile is-spaced">{{ section|title|default(__("Contact")) }}</h2>
             {% with { 'section': section, 'title_class': 'is-5' }%}
-            {{ block('section_content_list_blocks', 'twig/partials/_sub_section_blocks.twig') }}
+            {{ block('section_content_list_blocks', 'section_blocks.twig') }}
             {%- endwith -%}
         {% endfor %}
     </div>

@@ -12,7 +12,7 @@
 {% endmacro %}
 
 
-{# Lazy Image #}
+{# Lazy Image (from BOLT content) #}
 {# image, title, width, height, extraClass #}
 {% macro lazyImage(image, alias, extraClass = null) %}
 	{% from _self import thumbimage %}
@@ -37,7 +37,7 @@
 	{% endif %}
 {% endmacro %}
 
-{# Lazy Image external URL #}
+{# Lazy Image with URL #}
 {% macro lazyImageExternal(imageUrl, title = null, extraClass = null) %}
 	<img class="lazy {{ extraClass|default() }}" data-src="{{ imageUrl }}" alt="{{ title|default(imageUrl) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
 {% endmacro %}
@@ -87,7 +87,7 @@
 
 {# Section macro #}
 {# Create section from block content type by the group taxonomy. #}
-{% macro sectionsByGroup(groupName, isParalax = null, color_iteration = null ) %}
+{% macro sectionsByGroup(groupName, isParalax = false, color_iteration = null ) %}
 	{% set themeSection = config.get('theme/section') %}
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
@@ -122,7 +122,8 @@
 
 {# Section macro #}
 {# Create section from block content type by the record's related #}
-{% macro sectionsByRecord(record, isParalax = null, color_iteration = null ) %}
+{% macro sectionsByRecord(record, isParalax = false, color_iteration = null ) %}
+
 	{% set themeSection = config.get('theme/section') %}
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
@@ -164,7 +165,7 @@
 			{%- endwith -%}
 		</div>
 	{% endset %}
-
+	
 	{% with { 
 		content: content,
 		image: record.image,
