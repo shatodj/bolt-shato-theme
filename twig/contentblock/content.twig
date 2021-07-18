@@ -20,7 +20,7 @@
 				{%- with { 
 					content: titleBlock, link: content|link
 				} -%}
-					{{ block("link_wrapper", "twig/partials/_blocks.twig") }}
+					{{ block("link_wrapper", "blocks.twig") }}
 				{%- endwith -%}
 
 				{% endapply %}
@@ -44,7 +44,7 @@
 						{%- with { 
 							content: teaserContent, link: content|link
 						} -%}
-							{{ block("link_wrapper", "twig/partials/_blocks.twig") }}
+							{{ block("link_wrapper", "blocks.twig") }}
 						{%- endwith -%}
 					</p>
 				</div>

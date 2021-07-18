@@ -15,33 +15,32 @@
 
 
 {# Lazy Image (from BOLT content) #}
-{# image, title, width, height, extraClass #}
-{% macro lazyImage(image, alias, extraClass = null) %}
+{% macro lazyImage(image, thumbAlias, imageExtraClass = "") %}
 	{% from _self import thumbimage %}
 
 	{% set aliases = config.get("theme/thumbnails/aliases") %}
 
-	{% if aliases[alias] is not defined %}
+	{% if aliases[thumbAlias] is not defined %}
 		{% with { message: 'Thumbnail alias "' ~ alias ~ '" is not defined.' } %}
-		{{ block('error_block', "section_blocks.twig") }}
+		{{ block('error_block', "blocks.twig") }}
 		{% endwith %}
 	{% elseif image.path is empty %}
 		{% with { message: 'Image source is empty' } %}
-		{{ block('error_block', "section_blocks.twig") }}
+		{{ block('error_block', "blocks.twig") }}
 		{% endwith %}
 	{% else %}
-		{% set imgThumb = thumbimage(image, alias) %}
-		{% set width = aliases[alias].size[0] %}
-		{% set height = aliases[alias].size[1] %}
+		{% set imgThumb = thumbimage(image, thumbAlias) %}
+		{% set width = aliases[thumbAlias].size[0] %}
+		{% set height = aliases[thumbAlias].size[1] %}
 		{# {% set style = "width: " ~ width ~ "px; height: " ~ height ~ "px" %} #}
 		{% set style = "width: " ~ width ~ "px" %}
-		<img class="lazy {{ extraClass|default }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+		<img class="lazy {{ imageExtraClass }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
 	{% endif %}
 {% endmacro %}
 
 {# Lazy Image with URL #}
-{% macro lazyImageExternal(imageUrl, title = null, extraClass = null) %}
-	<img class="lazy {{ extraClass|default() }}" data-src="{{ imageUrl }}" alt="{{ title|default(imageUrl) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+{% macro lazyImageExternal(imageUrl, title = null, imageExtraClass = "") %}
+	<img class="lazy {{ imageExtraClass }}" data-src="{{ imageUrl }}" alt="{{ title|default(imageUrl) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
 {% endmacro %}
 
 {#  Image popup with lazyload #}

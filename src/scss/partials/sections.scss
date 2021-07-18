@@ -23,6 +23,10 @@ $section-colors-text: $text, $text-invert, $text-invert, $primary;
             background-color: transparent;
             color: $light;
         }
+
+        .label {
+            color: $light;
+        }
     }
 
     $i: 1;

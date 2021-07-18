@@ -19,10 +19,10 @@
 {# optional: class #}
 {% block link_wrapper %}
     {% if link|default is not empty %}
-        <a class="{{class|default}}" href="{{ link }}">
-            {{ content|default("") }}    
+        <a class="{{ class|default }}" href="{{ link }}">
+            {{ content|default }}    
         </a>
     {% else %}
-        {{ content|default("") }}
+        {{ content|default }}
     {% endif %}
 {% endblock %}

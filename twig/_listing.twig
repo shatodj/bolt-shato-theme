@@ -64,7 +64,7 @@
                     <h2 class="title">{{ __('general.phrase.no-content-found') }}</h2>
 
                     {% with { message: __("There is no content yet.") } %}
-                    {{ block("error_block", "twig/partials/_sub_section_blocks.twig") }}
+                    {{ block("error_block", "blocks.twig") }}
                     {% endwith %}        
                 </div>
             </article>

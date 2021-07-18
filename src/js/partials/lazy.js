@@ -68,7 +68,6 @@ const lazy = ({ elementSelector, tags, onLoadCallback }) => {
     }
   };
 
-
   // inview - wait for element visible on screen
   inView(elementSelector).on('enter', (element) => {
     // if element tagname has one of the `tags` then process the element

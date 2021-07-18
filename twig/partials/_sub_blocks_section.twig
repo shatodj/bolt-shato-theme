@@ -1,5 +1,3 @@
-{% use 'twig/partials/_blocks.twig' %}
-
 {# Theme section block #}
 {# Required: content, bgColor #}
 {# Optional: isParalax, image  #}
@@ -18,7 +16,7 @@
 			{%- with { 
 				message: __("The content property of the section block was not set.")
 			} -%}
-				{{ block("error_block") }}
+				{{ block("error_block", "blocks.twig") }}
 			{%- endwith -%}
 		{% endset %}
 	{% endif %}
@@ -53,7 +51,7 @@
 			{%- with { 
 				message: __("The content property of the section block was not set.")
 			} -%}
-				{{ block("error_block") }}
+				{{ block("error_block", "blocks.twig") }}
 			{%- endwith -%}
 		{% endset %}
 	{% endif %}

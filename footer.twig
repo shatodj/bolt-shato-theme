@@ -1,6 +1,6 @@
 {% extends "twig/_footer.twig" %}
 
-{# using `section_content_list_blocks` instead of `section_content` to avoid rendering content of the section #}
+{# using `section_content_list_blocks` instead of `section_content` to render only list blocks of the section #}
 {% block footer_content %}
     <div class="shpr-footer-block section">
         {% for section in sections %}

@@ -11,7 +11,7 @@
     {% if record.editlink() %}
         <span class="edit-link">
             {% with { 'record': record } %}
-            {{ block('edit_button', "twig/partials/_sub_section_blocks.twig") }}
+            {{ block('edit_button', "blocks.twig") }}
             {% endwith %}
         </span> 
     {% endif %}
