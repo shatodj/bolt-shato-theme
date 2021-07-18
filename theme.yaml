@@ -56,7 +56,6 @@ thumbnails:
     card:
       size: [400, 225]
       fit: c
-    record-image:
     record:
       size: [752, 400]
       fit: c

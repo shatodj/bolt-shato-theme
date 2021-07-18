@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import menu from './burger-menu';
-import lazyModule from './lazy-module';
 import slider from './slider';
-import popup from './popup';
+import lightbox from './lightbox';
 import lazyMedia from './lazy';
 
 /**
@@ -26,9 +25,7 @@ export default () => new Promise((resolve, reject) => {
     });
 
     // Waiting for lazy modules to be loaded
-    lazyModule('JQUERY', ($) => {
-      popup($, { selector: '.use-magnific', delegate: 'a.magnific' });
-    });
+    lightbox({ selector: '.use-magnific', delegate: 'a.magnific' });
 
     resolve();
   } catch (error) {
