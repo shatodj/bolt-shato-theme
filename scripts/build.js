@@ -1,4 +1,3 @@
-
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
 
@@ -99,7 +98,7 @@ build()
   })
   .catch((err) => {
     if (err && err.message) {
-      console.error(err.message);
+      console.error(chalk.red(err.message));
     }
     process.exit(1);
   });

@@ -5,13 +5,9 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const GoogleFontsPlugin = require('google-fonts-plugin');
+const jsonImporter = require('node-sass-json-importer');
 
-// your local website url, used by browser-sync as proxy
-const PROXY_URL = 'http://127.0.0.1:8000/';
-
-// your template directory path, used by webpack as a root path when transform
-// relative path to absolute path in css loader
-const TEMPLATE_PATH = '/theme/shpr-bolt-theme/';
+const env = require("../config/env.json")
 
 const OUTPUT_DIR = {
   JS: 'js/',
@@ -40,7 +36,7 @@ const config = (mode = 'production', watch = true) => ({
   output: {
     filename: `${OUTPUT_DIR.JS}[name]-bundle.js`,
     path: path.resolve(__dirname, '../dist'), // output directory name, relative to current webpack project directory
-    publicPath: `${TEMPLATE_PATH}dist/`, // public output directory used to generate the directory in bundler
+    publicPath: path.join(env.template_path.replace("'", ""), "dist"), // public output directory used to generate the directory in bundler
   },
   stats: {
     colors: true,
@@ -63,8 +59,8 @@ const config = (mode = 'production', watch = true) => ({
               sourceMap: mode !== 'production',
             },
           },
-          { loader: 'css-loader', options: { sourceMap: mode !== 'production', importLoaders: 1 } },
-          { loader: 'sass-loader', options: { sourceMap: mode !== 'production' } },
+          { loader: 'css-loader', options: { sourceMap: mode !== 'production', importLoaders: 1, } },
+          { loader: 'sass-loader', options: { sourceMap: mode !== 'production', } },
         ],
       },
       {
@@ -139,9 +135,8 @@ const config = (mode = 'production', watch = true) => ({
         host: 'localhost',
         port: 3000,
         // proxy the Webpack Dev Server endpoint
-        // (which should be serving on http://bolt3-webpack.com)
         // through BrowserSync
-        proxy: PROXY_URL,
+        proxy: env.proxy_url.replace("'", ""),
       },
       // plugin options
       {

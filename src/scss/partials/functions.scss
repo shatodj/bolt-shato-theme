@@ -1,12 +1,5 @@
-
-// your template directory path, used as variable when you need to produce absolute path of your assets
-$TEMPLATE_URL: "/theme/shato-theme/";
-
-/// Base path for assets (fonts, images...),
-/// should not include trailing slash
-/// @access public
-/// @type String
-$asset-base-path: $TEMPLATE_URL + "dist" !default;
+/// Load env variables from generated file
+@import '../../../config/env.scss';
 
 /// Asset URL builder
 /// @access private

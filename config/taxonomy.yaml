@@ -1,0 +1,9 @@
+
+sectiongroups:
+    name: Section Groups
+    slug: sectiongroups
+    singular_name: Section Group
+    singular_slug: sectiongroup
+    behaves_like: categories
+    multiple: true
+    options: [ homepage, page, entry, record, search, footer ]
