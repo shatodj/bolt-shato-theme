@@ -1,8 +1,15 @@
 {# Index aka Homepage #}
 {% extends "twig/_index.twig" %}
+{% import "twig/partials/_macros.twig" as m %}
 
 {# Ucomment this to do not render navbar in the homepage #}
-{# {% block navbar %}{% endblock %} #}
+{# 
+{% block document %}
+	{% set htmlClass = "" %}
+	{{ parent() }}
+{% endblock %}
+{% block navbar %}{% endblock %} 
+#}
 
 {# Customize header section#}
 {% block header %}     
@@ -20,6 +27,26 @@
 		image: homepage.image,
         class: config.get('theme/layout/class/header_index')
 	}%}
-		{{ block('hero', 'twig/partials/_sub_section_blocks.twig') }}
+		{{ block('hero', 'section_blocks.twig') }}
 	{%- endwith -%}
 {% endblock %}
+
+{# Use SVG LOGO on the index header #}
+{# 
+{% block header %}     
+    {% set content %}
+		<div class="container">
+			{% if homepage %}
+				<div class="logo"></div>
+            {% endif %}
+		</div>
+	{% endset %}
+
+	{% with { 
+		content: content,
+        class: config.get('theme/layout/class/header_index')
+	}%}
+		{{ block('hero', 'section_blocks.twig') }}
+	{%- endwith -%}
+{% endblock %} 
+#}

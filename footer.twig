@@ -11,3 +11,22 @@
         {% endfor %}
     </div>
 {% endblock %}
+
+{# Example whaving concact form using boltforms extension #}
+{# {% block footer_content %}
+    <div class="shpr-footer-block section">
+        <div class="columns">
+            <div class="column">
+            {% for section in sections %}
+                <h2 class="title is-3 is-size-4-mobile is-spaced">{{ section|title|default(__("Contact")) }}</h2>
+                {% with { 'section': section, 'title_class': 'is-5' }%}
+                {{ block('section_content_list_blocks', 'section_blocks.twig') }}
+                {%- endwith -%}
+            {% endfor %}
+            </div>
+            <div class="column">
+                {{ boltform('contact') }}
+            </div>
+        </div>
+    </div>
+{% endblock %} #}
