@@ -1,12 +1,12 @@
 # bolt-shato-theme
 The boilerplate theme for Bolt 4 CMS.
 
-The theme is desigen to provide easy way to extend core elements in the template. Custom content types in theme enhances user experience to put custom reusable Section Blocks.
+The theme is designed to provide an easy way to extend core elements in the template. Custom content types in theme enhance user experience to put custom reusable Section Blocks.
 
 ## Features
-- Customize colors appereance
-- Extends themes blocks usingt twig
-- Lazy loading for images and section backgounds
+- Customize colors appearance
+- Extends themes blocks using twig
+- Lazy loading for images and section backgrounds
 - Responsive design
 - dev and production build
 - NO JQUERY as you don't need it!
@@ -39,7 +39,7 @@ The theme is desigen to provide easy way to extend core elements in the template
     bin/console bolt:copy-theme shatodj/bolt-shato-theme
     ```
 
-1. Install project dependencies in theme's directory:
+1. Install project dependencies in the theme's directory:
 
     ```
     cd <bolt_directory>/public/theme/bolt-shato-theme
@@ -47,7 +47,7 @@ The theme is desigen to provide easy way to extend core elements in the template
     ```
 
 1. Run prepare script, that will:
-    - generate environment variables and config files neeed for `build`
+    - generate environment variables and config files needed for `build`
     - add theme's custom Content Types and Taxonomies to Bolt's config files (make sure script will have permissions to write)
 
     ```
@@ -64,14 +64,15 @@ The theme is desigen to provide easy way to extend core elements in the template
     npm run build
     ```
 
- 1. Don't forget to change default theme property in Bolt's `config/bolt/config.yaml`
+ 1. Don't forget to change the default theme property in Bolt's `config/bolt/config.yaml`
 
     ```
     theme: shato-theme
     ```
 
 # TODO:
+[ ] Maintenance twig fix
 [ ] deploy/archive script
-[ ] Progressive images loading (Currently possible only for section backgrouds)
-[ ] Fill demo content script by the theme prefference
+[ ] Progressive images loading (Currently possible only for section backgrounds)
+[ ] Fill demo content script by the theme preference
 [ ] Section Blocks docu
