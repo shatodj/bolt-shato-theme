@@ -74,7 +74,7 @@ const prepareEnvironment = () => {
           TEMPLATE_PATH: `/theme/${themeBaseName}/`,
           PROXY_URL: proxyUrl,
           HEADER:
-            'Generated file using `npm run prepare`. Do change here or git commit.',
+            'This file is auto-generated using `npm run prepare`. Do not change it here or commit this file.',
         });
 
         fs.writeFileSync(outputFile, contents);

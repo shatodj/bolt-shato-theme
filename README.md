@@ -2,6 +2,7 @@
 The boilerplate theme for Bolt 4 CMS.
 
 The theme is desigen to provide easy way to extend core elements in the template. Custom content types in theme enhances user experience to put custom reusable Section Blocks.
+
 ## Features
 - Customize colors appereance
 - Extends themes blocks usingt twig
@@ -11,7 +12,7 @@ The theme is desigen to provide easy way to extend core elements in the template
 - NO JQUERY as you don't need it!
 - EcmaScript6 syntax
 
-# Techstack
+## Techstack
 - Webpack
     - compile+minify scss from /src/scss to /dist/css
     - compile+uglify js from /src/js to /dist/js
@@ -25,7 +26,12 @@ The theme is desigen to provide easy way to extend core elements in the template
 
 ## How to run on your develeper machine
 
-1. Clone this project to Bolt's theme directory, ***OR*** use composer
+### Requirements
+- Node.js v6 and above
+
+### Step by step
+
+1. GIT Clone this project to Bolt's theme directory ***OR*** use composer install:
 
     ```
     composer install shatodj/bolt-shato-theme
@@ -33,15 +39,16 @@ The theme is desigen to provide easy way to extend core elements in the template
     bin/console bolt:copy-theme shatodj/bolt-shato-theme
     ```
 
-1. Install project dependencies
+1. Install project dependencies in theme's directory:
 
     ```
+    cd <bolt_directory>/public/theme/bolt-shato-theme
     npm install 
     ```
 
 1. Run prepare script, that will:
-    - generate environment variables and config files neeed before `build` script
-    - add theme's custom Content Types and Taxonomies to Bolt's config files
+    - generate environment variables and config files neeed for `build`
+    - add theme's custom Content Types and Taxonomies to Bolt's config files (make sure script will have permissions to write)
 
     ```
     npm run prepare
@@ -55,6 +62,12 @@ The theme is desigen to provide easy way to extend core elements in the template
 
     # ..or build for production
     npm run build
+    ```
+
+ 1. Don't forget to change default theme property in Bolt's `config/bolt/config.yaml`
+
+    ```
+    theme: shato-theme
     ```
 
 # TODO:
