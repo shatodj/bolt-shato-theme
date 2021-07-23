@@ -67,7 +67,7 @@ The theme is designed to provide an easy way to extend core elements in the temp
  1. Don't forget to change the default theme property in Bolt's `config/bolt/config.yaml`
 
     ```
-    theme: shato-theme
+    theme: bolt-shato-theme
     ```
 
 # TODO:
