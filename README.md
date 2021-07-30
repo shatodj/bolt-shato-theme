@@ -58,7 +58,7 @@ The theme is designed to provide an easy way to extend core elements in the temp
 
     ```
     # build for development
-    npm run dev
+    npm run build:dev
 
     # ..or build for production
     npm run build
@@ -71,8 +71,9 @@ The theme is designed to provide an easy way to extend core elements in the temp
     ```
 
 # TODO:
-[ ] Maintenance twig fix
-[ ] deploy/archive script
-[ ] Progressive images loading (Currently possible only for section backgrounds)
-[ ] Fill demo content script by the theme preference
-[ ] Section Blocks docu
+- [x] Get rid of JQuery
+- [ ] Maintenance twig fix
+- [ ] deploy/archive script
+- [ ] Progressive images loading (Currently possible only for section backgrounds)
+- [ ] Fill demo content script by the theme preference
+- [ ] Section Blocks docu
