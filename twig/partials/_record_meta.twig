@@ -20,7 +20,7 @@
 <p class="meta">
     {{ __('general.phrase.written-by-on', {
         '%name%': record.user.displayname|default(__('Unknown')),
-        '%date%': record.datepublish|localedatetime("%A %B %e, %Y")
+        '%date%': record.datepublish|format_datetime("medium")
     }) }}
 </p>
 {% endif %}

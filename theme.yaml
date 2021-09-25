@@ -33,7 +33,7 @@ section:
 
 # Thumbnails configuration
 thumbnails:
-  # Aliases used by theme maacro (see. _macros.twig -> thumbimage)
+  # Aliases used by theme macro (see. _macros.twig -> thumbimage)
   aliases:
     square:
       size: [512, 512]

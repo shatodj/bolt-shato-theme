@@ -15,7 +15,7 @@
     {% from _self import display_menu_item %}
     {% spaceless %}
     {% if item.submenu|default is empty %}
-    <a href="{{ item.link }}" title='{{ item.title|default('')|escape }}' class='navbar-item {{ item|current ? 'is-active' }} {{ item.class|default('') }}'>
+    <a href="/{{ item.link }}" title='{{ item.title|default('')|escape }}' class='navbar-item {{ item|current ? 'is-active' }} {{ item.class|default('') }}'>
         {{- item.label|default('-') -}}
     </a>
     {% endif %}
@@ -24,7 +24,7 @@
     <div class="navbar-item
         {{ (item.submenu|default(false) and withsubmenus) ? ' has-dropdown is-hoverable' -}}">
 
-        <a href="{{ item.link }}" title='{{ item.title|default('')|escape }}' class='navbar-link {{ item|current ? 'is-active' }}{{ item.class|default('') }}'>
+        <a href="/{{ item.link }}" title='{{ item.title|default('')|escape }}' class='navbar-link {{ item|current ? 'is-active' }}{{ item.class|default('') }}'>
             {{- item.label|default('-') -}}
         </a>
         <div class="navbar-dropdown">

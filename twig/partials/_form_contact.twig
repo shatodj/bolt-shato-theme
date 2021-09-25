@@ -1,3 +1,5 @@
+{# This template applies for BOLTFORMS extension. #}
+
 {# this tag only applies to the forms defined in this template #}
 {% set layout = [boltforms_config.layout.form|default('form_div_layout.html.twig'), '@boltforms/captcha.html.twig'] %}
 {% form_theme form with layout %}

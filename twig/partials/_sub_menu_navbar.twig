@@ -12,7 +12,7 @@
 				<ul class="navbar-dropdown">
 					{% for submenu in item.submenu %}
 						<li class="navbar-item">
-							<a href="{{ submenu.link }}">{{ submenu.label }}</a>
+							<a href="/{{ submenu.link }}">{{ submenu.label }}</a>
 						</li>
 					{% endfor %}
 				</ul>
@@ -21,7 +21,7 @@
 		{% else %}
 
 			<li class="navbar-item">
-				<a href="{{ item.link }}">{{ item.label }}</a>
+				<a href="/{{ item.link }}">{{ item.label }}</a>
 			</li>
 
 		{% endif %}
