@@ -83,17 +83,17 @@
 {# Showing content fo Hero component block #}
 {% block hero_content %}
 	<h1 class="title is-1 is-3-mobile is-spaced">{{ section|title|default }}</h1>
-
-	{% set teaser = section.introduction|default(section.teaser) %}
+	
+	{% set teaser = section.introduction|default(section.teaser|default) %}
 	{% if teaser is not empty %}
 		<p class="subtitle">{{ teaser }}</p>
 	{% endif %}
 
-	{%- if section.content is not empty %}
+	{# {%- if section.content|default is not empty %}
 		<div class="content">
 			{{ section.content }}
 		</div>
-	{% endif -%}
+	{% endif -%} #}
 
 {% endblock %}
 

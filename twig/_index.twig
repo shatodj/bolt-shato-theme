@@ -5,7 +5,6 @@
 
 {% set themeConfig = config.get('theme') %}
 {% set isParalax = themeConfig.layout.use_paralax|default(true) %} {# use Paralax design #}
-{% set sectionGroup = "homepage" %}
 {% set homepageContentBlock = themeConfig.section.homepage_block|default('homepage') %}
 {% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
 
@@ -16,8 +15,21 @@
 		{% endif %}
 	{% endblock %}
 
+	{% block body %}
+		{% set recordExtraClass = config.get("theme/layout/class/record")|default %}
+		<section class="section shpr-section {{ recordExtraClass }}">
+			<div class="container content">
+				
+				{% with { 'record': homepage, exclude: 'image' } %}
+				{{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
+				{% endwith %}
+
+			</div>
+		</section>
+	{% endblock %}
+
 	{% block sections %}
 		{{ m.sectionsByRecord(homepage, isParalax) }}
-		{{ m.sectionsByGroup(sectionGroup, isParalax) }}
+		{{ m.sectionsByGroup('homepage', isParalax) }}
 	{% endblock %}
 {% endblock %}

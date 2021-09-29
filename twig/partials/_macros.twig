@@ -34,7 +34,7 @@
 		{% set height = aliases[thumbAlias].size[1] %}
 		{# {% set style = "width: " ~ width ~ "px; height: " ~ height ~ "px" %} #}
 		{% set style = "width: " ~ width ~ "px" %}
-		<img class="lazy {{ imageExtraClass }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+		<img class="lazy img {{ imageExtraClass }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
 	{% endif %}
 {% endmacro %}
 
@@ -171,19 +171,29 @@
 {# Header / Hero block #}
 {# Create header block (hero) using the record (entry)  #}
 {% macro headerByRecord(record, extraClass = null) %}
-	{% set content %}
-		<div class="container">
-			{% with { 'section': record } %}
-			{{ block('hero_content', "section_blocks.twig") }}
-			{%- endwith -%}
-		</div>
-	{% endset %}
 	
-	{% with { 
-		content: content,
-		image: record.image,
-		class: extraClass|default(config.get('theme/layout/class/header_record'))
-	}%}
-		{{ block('hero', "section_blocks.twig") }}
-	{%- endwith -%}
+	{% if record|default is empty %}
+		{% with {'message': "The 'record' is not defined"} %}
+		{{ block('error_block', "blocks.twig")}}
+		{% endwith %}
+	
+	{% else %}
+		
+		{% set content %}
+			<div class="container">
+				{% with { 'section': record } %}
+				{{ block('hero_content', "section_blocks.twig") }}
+				{%- endwith -%}
+			</div>
+		{% endset %}
+		
+		{% with { 
+			content: content,
+			image: record.image|default,
+			class: extraClass|default(config.get('theme/layout/class/header_record'))
+		}%}
+			{{ block('hero', "section_blocks.twig") }}
+		{%- endwith -%}
+
+	{% endif %}
 {% endmacro %}

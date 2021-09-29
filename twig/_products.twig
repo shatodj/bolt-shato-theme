@@ -1,0 +1,45 @@
+{% extends "twig/_listing.twig" %}
+{% import "twig/partials/_macros.twig" as m %}
+
+{% block stylesheet %}
+    {# Defer loading of non-critical styles #}
+    {{ m.stylesheet('dist/css/products-bundle.css') }}
+{% endblock %}
+
+{% block scripts %}
+	{{ m.script('dist/js/products-bundle.js') }}
+{% endblock %}
+
+{% block list_item %}
+    
+    <figure class="image has-image-centered">
+        {{ m.lazyImagePopup(record.image, "listing") }}
+    </figure>
+    <h3 class="title is-5 no-link-color">
+        <a href="{{ record|link }}">{{ record|title }}</a>
+    </h3>
+
+    {# display something introduction-like.. #}
+    {% if record.teaser %}
+        <div class="content">
+            {{ record.teaser }}
+        </div>
+    {% else %}
+        <div class="content">
+            <p>{{ record.excerpt(300, false, search|default('')) }}</p>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block records %}
+    <div class="columns is-multiline">
+        {% for record in records %}
+            <article class="column is-4">
+                {{ block("list_item") }}
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

@@ -1,6 +1,6 @@
 {% extends "twig/partials/_navbar.twig" %}
 
-{% set useSearbar = true %}
+{% set useSearchbar = true %}
 
 {% block navbar_last_item %}
     {# searchbar#}
@@ -8,10 +8,5 @@
         {% include "twig/partials/_sub_search_form.twig" %}
     {% endif %}
     
-    {# custom menu bar #}
-    {% apply spaceless %}
-        {{ menu('social-navbar', 'twig/partials/_sub_menu_social.twig') }}
-    {% endapply %}
-
     {{ widgets('main_top') }}
 {% endblock %}

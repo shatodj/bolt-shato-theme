@@ -27,17 +27,9 @@
 
 {% block image %}
     {% import "twig/partials/_macros.twig" as m %}
-    <section class="section">
-    <div class="container">
-        <div class="columns is-centered">
-        <div class="column is-half">
-            <figure>
-                {{ m.lazyImage(field, 'record') }}
-            </figure>
-        </div>
-        </div>
-    </div>
-    </section>
+    <figure class="image has-image-centered">
+        {{ m.lazyImagePopup(field, 'record', 'gallery-big') }}
+    </figure>
 {% endblock %}
 
 {% block file %}

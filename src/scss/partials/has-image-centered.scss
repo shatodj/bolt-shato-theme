@@ -1,5 +1,7 @@
 
 figure.has-image-centered {
-    margin-left: auto;
-    margin-right: auto;
+    .img {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

@@ -1,5 +1,21 @@
 {% extends "twig/_navbar.twig" %}
 
 {% block navbar_last_item %}
-    {# No Last item in this theme variation #}
+    
+{# <div class="ec-cart-widget"></div>
+<div>
+<script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?65758005&data_platform=code&data_date=2021-09-25" charset="utf-8"></script>
+<script type="text/javascript">Ecwid.init();</script>
+</div> #}
+
+{# custom menu bar #}
+{# 
+{% apply spaceless %}
+    {{ menu('social-navbar', 'twig/partials/_sub_menu_social.twig') }}
+{% endapply %}
+ #}
+{% set useSearchbar = false %}
+
+{{ parent() }}
+
 {% endblock %}

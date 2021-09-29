@@ -13,6 +13,10 @@
 {# Main content block #}
 {% block content %}
 
+    {% if contenttype|default is not empty%}
+        {% setcontent blck = "block/" ~ contenttype.slug %}
+    {% endif %}
+    
     {# Content to be renderred in header #}
     {% set headerContent %}
         <div class="container">
@@ -21,54 +25,67 @@
                     {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
                 </h1>
             {% else %}
-                <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
+                
+                {% if blck|default is not empty %}
+                    <h1 class="title is-2 is-4-mobile">{{ blck.title }}</h1>
+                    <span class="subtitle is-4 is-6-mobile">{{blck.teaser}}</span>
+                {% else %}
+                    <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
+                {% endif %}
+                
             {% endif %}
         </div>
     {% endset %}
 
     {% set listContent %}
-        {% for record in records %}
-            <article role="article" class="media columns">
-                {% block list_item %}
-                    <div class="media-content column is-7">
-                        <div class="content">
-                            <h2 class="title is-5 no-link-color">
-                                <a href="{{ record|link }}">{{ record|title }}</a>
-                            </h2>
+        <section class="content">
+            {% if blck|default is not empty and blck.content|default is not empty %}
+                {{ blck.content }}
+                <div class="divider"></div>
+            {% endif %}
+        </section>
+        {% block records %}
+            {% for record in records %}
+                <article role="article" class="columns">
+                    {% block list_item %}
+                        <div class="column is-7">
+                            <div class="content">
+                                <h2 class="title is-5 no-link-color">
+                                    <a href="{{ record|link }}">{{ record|title }}</a>
+                                </h2>
 
-                            {# display something introduction-like.. #}
-                            {% if record.teaser %}
-                                {{ record.teaser }}
-                            {% else %}
-                                <p>{{ record.excerpt(300, false, search|default('')) }}</p>
-                            {% endif %}
-
-                            {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
-                        </div>
-                    </div>
-                    {% if record.image is not empty %}
-                        <div class="media-right column">
-                            <figure class="image">
-                                {{ m.lazyImagePopup(record.image, "listing") }}
-                                {% if record.title|default is not empty %}
-                                    <figcaption>{{ record.title }}</figcaption>
+                                {# display something introduction-like.. #}
+                                {% if record.teaser %}
+                                    {{ record.teaser }}
+                                {% else %}
+                                    <p>{{ record.excerpt(300, false, search|default('')) }}</p>
                                 {% endif %}
-                            </figure>
-                        </div>
-                    {% endif %}
-                {% endblock %}
-            </article>
-        {% else %}
-            <article role="article">
-                <div class="content">
-                    <h2 class="title">{{ __('general.phrase.no-content-found') }}</h2>
 
-                    {% with { message: __("There is no content yet.") } %}
-                    {{ block("error_block", "blocks.twig") }}
-                    {% endwith %}        
-                </div>
-            </article>
-        {% endfor %}
+                                {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
+                                
+                            </div>
+                        </div>
+                        {% if record.image is not empty %}
+                            <div class="column">
+                                <figure class="image has-image-centered">
+                                    {{ m.lazyImagePopup(record.image, "listing") }}
+                                </figure>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </article>
+            {% else %}
+                <article role="article">
+                    <div class="content">
+                        <h2 class="title">{{ __('general.phrase.no-content-found') }}</h2>
+
+                        {% with { message: __("There is no content yet.") } %}
+                        {{ block("error_block", "blocks.twig") }}
+                        {% endwith %}        
+                    </div>
+                </article>
+            {% endfor %}
+        {% endblock %}
     {% endset %}
 
     {# Header section #}
@@ -90,8 +107,9 @@
             {% endblock %}
 
             {% block pager %}
+                
                 {# If there are more records than will fit on one page, the pager is shown. #}
-                {{ pager(template = 'helpers/_pager_bulma.html.twig', surround = 5) }}
+                {{ pager(records, template = 'helpers/_pager_bulma.html.twig', surround = 5) }}
             {% endblock %}
         </div>
     </section>

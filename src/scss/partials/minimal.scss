@@ -60,7 +60,7 @@
 }
 
 .imageholder {
-  border: 5px solid $light;
+  background-color: $light;
   display: block;
   
   &.is-processed {

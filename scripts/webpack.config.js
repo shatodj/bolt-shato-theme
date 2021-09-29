@@ -28,6 +28,7 @@ const config = (mode = 'production', watch = true) => ({
     page: './src/js/record.js',
     entry: './src/js/entry.js',
     listing: './src/js/listing.js',
+    products: './src/js/products.js',
     fontawesome: './src/js/fontawesome.js',
   },
   watch,
