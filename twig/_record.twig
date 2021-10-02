@@ -25,9 +25,11 @@
                 <section class="section shpr-section {{ recordExtraClass }}">
                     <div class="container content">
                         
-                        {% with { 'record': record } %}
-                        {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
-                        {% endwith %}
+                        {% block fields %}
+                            {% with { 'record': record } %}
+                            {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
+                            {% endwith %}
+                        {% endblock %}
 
                     </div>
                     {% block record_footer %}

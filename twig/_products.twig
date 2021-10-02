@@ -11,25 +11,35 @@
 {% endblock %}
 
 {% block list_item %}
-    
-    <figure class="image has-image-centered">
-        {{ m.lazyImagePopup(record.image, "listing") }}
-    </figure>
-    <h3 class="title is-5 no-link-color">
-        <a href="{{ record|link }}">{{ record|title }}</a>
-    </h3>
+    <a href="{{ record|link }}">
+        <figure class="image has-image-centered">
+            {{ m.lazyImage(record.image, "listing") }}
+        </figure>
+        <h3 class="title is-5 no-link-color">
+            {{ record|title }}
+        </h3>
 
-    {# display something introduction-like.. #}
-    {% if record.teaser %}
-        <div class="content">
-            {{ record.teaser }}
-        </div>
-    {% else %}
-        <div class="content">
-            <p>{{ record.excerpt(300, false, search|default('')) }}</p>
-        </div>
-    {% endif %}
+        {# display something introduction-like.. #}
+        {% if record.teaser %}
+            <div class="content">
+                {{ record.teaser }}
+            </div>
+        {% else %}
+            <div class="content">
+                <p>{{ record.excerpt(300, false, search|default('')) }}</p>
+            </div>
+        {% endif %}
 
+        <div class="columns">
+        
+            <div class="column is-6">
+                <div class="is-size-4">{{ record.price|default }}</div>
+            </div>
+            <div class="column is-6">
+                {{ block("buy_button", "blocks.twig") }}
+            </div>
+        </div>
+    </a>
 {% endblock %}
 
 {% block records %}
@@ -41,5 +51,3 @@
         {% endfor %}
     </div>
 {% endblock %}
-
-

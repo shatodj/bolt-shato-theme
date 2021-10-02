@@ -2,6 +2,7 @@
 $section-colors: 'light', 'primary', 'dark', 'black';
 $section-colors-background: $light, $primary, $dark, $black;
 $section-colors-text: $text, $text-invert, $text-invert, $primary;
+$section-colors-titles: $title-color, $text-invert, $text-invert, $primary;
 
 .shpr-section {
 
@@ -43,7 +44,7 @@ $section-colors-text: $text, $text-invert, $text-invert, $primary;
             color: nth($section-colors-text, $i);
 
             .title, .subtitle {
-                color: nth($section-colors-text, $i);
+                color: nth($section-colors-titles, $i);
             }
         }
         $i: $i + 1;

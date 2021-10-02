@@ -28,7 +28,6 @@
 .button:active,
 .button:hover {
   border-color: $white;
-  border-radius: 1px;
   text-transform: uppercase;
 }
 
@@ -65,5 +64,9 @@
   
   &.is-processed {
       background-color: $light;
+  }
+
+  .img {
+    display: block;
   }
 }

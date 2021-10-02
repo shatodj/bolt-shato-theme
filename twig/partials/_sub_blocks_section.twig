@@ -88,13 +88,6 @@
 	{% if teaser is not empty %}
 		<p class="subtitle">{{ teaser }}</p>
 	{% endif %}
-
-	{# {%- if section.content|default is not empty %}
-		<div class="content">
-			{{ section.content }}
-		</div>
-	{% endif -%} #}
-
 {% endblock %}
 
 {# Section content block #}
@@ -155,7 +148,7 @@
 	{% set subBlockContent = [] %}
 
 	{%- if section.contentlink|default is not empty and not (section.contentlink starts with 'http') %}
-		{% setcontent subBlockContent = section.contentlink %}
+		{% setcontent subBlockContent = section.contentlink where {status: 'published'} orderby '-publishedAt' limit section.contentlimit|default(0) %}
 	{% endif %}
 
 	{% if section.contentselect|default is not empty %}

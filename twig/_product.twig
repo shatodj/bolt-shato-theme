@@ -1,0 +1,84 @@
+{% extends "twig/_record.twig" %}
+{% import "twig/partials/_macros.twig" as m %}
+
+{% block stylesheet %}
+    {# Defer loading of non-critical styles #}
+    {{ m.stylesheet('dist/css/product-bundle.css') }}
+{% endblock %}
+
+{% block scripts %}
+    {{ m.script('dist/js/product-bundle.js') }}
+{% endblock %}
+
+{% block header %}
+    {# {{ m.headerByRecord(record, headerBlockClass) }} #}
+
+    {% set content %}
+        <div class="container">
+            <div class="columns">
+                {%- if record.image|default is not empty -%}
+                    <div class="is-hidden-tablet-only is-hidden-mobile column is-4">
+                        <figure class="imageholder">
+                            {{ m.lazyImage(record.image, "section-small", "gallery-big") }}
+                        </figure>
+                    </div>
+                {%- endif -%}
+                <div class="column">
+                    {% with { 'section': record } %}
+                    {{ block('hero_content', "section_blocks.twig") }}
+                    {%- endwith -%}
+                    
+                    <div class="columns">
+                        <div class="column is-narrow"><div class="is-size-4">{{ record.price|default }}</div></div>
+                        <div class="column">{{ block("buy_button", "blocks.twig") }}</div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+        </div>
+    {% endset %}
+    
+    {% with { 
+        content: content,
+        image: record.image|default,
+        class: extraClass|default(config.get('theme/layout/class/header_record'))
+    }%}
+        {{ block('hero', "section_blocks.twig") }}
+    {%- endwith -%}
+
+{% endblock %}
+
+{% block fields %}
+    {% with { 'record': record, exclude: ["image", "price", "feature_1", "feature_2", "feature_3"] } %}
+    {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
+    {% endwith %}
+{% endblock %}
+
+
+{% block sections %}
+    {# Key Features  #}
+    {% set content %}
+        <div class="container">
+            <h3 class="title is-4">
+                {{ title|default(__("Key Features"))}}
+            </h3>
+            <div>
+                <div class="tag">{{ record.feature_1|default }}</div>
+                <div class="tag">{{ record.feature_2|default }}</div>
+                <div class="tag">{{ record.feature_3|default }}</div>
+            </div>
+        </div>
+    {% endset %}
+
+    {% with { 
+        content: content,
+        bgColor: 'primary',
+        isParalax: false
+    }%}
+        {{ block('section', "section_blocks.twig") }}
+    {%- endwith -%}	
+
+    {{ parent()}}
+{% endblock %}

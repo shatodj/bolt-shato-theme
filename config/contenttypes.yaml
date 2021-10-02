@@ -43,14 +43,14 @@ sections:
         contentselect:
             group: contentBlock
             type: select
-            values: blocks/{id},{title}
+            values: (blocks,pages,entries,products)/{contenttype} | {title} № {id} ({status})
             autocomplete: true
             multiple: true
         contenttemplate:
             label: Content Template
             group: contentBlock
             type: templateselect
-            filter: twig/contentblock/*.twig
+            filter: /^twig\/contentblock\/.*?.twig$/
         links:
             type: collection 
             group: Links

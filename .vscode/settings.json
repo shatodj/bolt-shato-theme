@@ -1,5 +1,4 @@
 {
-    "eslint.autoFixOnSave": true,
     "emmet.includeLanguages": {
         "twig": "html"
     },

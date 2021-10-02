@@ -1,4 +1,3 @@
-
 export default ({ selector }) => {
   const burger = document.querySelector(selector);
 

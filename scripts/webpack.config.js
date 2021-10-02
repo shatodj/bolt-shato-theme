@@ -5,9 +5,8 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const GoogleFontsPlugin = require('google-fonts-plugin');
-const jsonImporter = require('node-sass-json-importer');
 
-const env = require("../config/env.json")
+const env = require('../config/env.json');
 
 const OUTPUT_DIR = {
   JS: 'js/',
@@ -29,6 +28,7 @@ const config = (mode = 'production', watch = true) => ({
     entry: './src/js/entry.js',
     listing: './src/js/listing.js',
     products: './src/js/products.js',
+    product: './src/js/product.js',
     fontawesome: './src/js/fontawesome.js',
   },
   watch,
@@ -37,7 +37,7 @@ const config = (mode = 'production', watch = true) => ({
   output: {
     filename: `${OUTPUT_DIR.JS}[name]-bundle.js`,
     path: path.resolve(__dirname, '../dist'), // output directory name, relative to current webpack project directory
-    publicPath: path.join(env.template_path.replace("'", ""), "dist"), // public output directory used to generate the directory in bundler
+    publicPath: path.join(env.template_path.replace("'", ''), 'dist'), // public output directory used to generate the directory in bundler
   },
   stats: {
     colors: true,
@@ -60,8 +60,8 @@ const config = (mode = 'production', watch = true) => ({
               sourceMap: mode !== 'production',
             },
           },
-          { loader: 'css-loader', options: { sourceMap: mode !== 'production', importLoaders: 1, } },
-          { loader: 'sass-loader', options: { sourceMap: mode !== 'production', } },
+          { loader: 'css-loader', options: { sourceMap: mode !== 'production', importLoaders: 1 } },
+          { loader: 'sass-loader', options: { sourceMap: mode !== 'production' } },
         ],
       },
       {
@@ -137,7 +137,7 @@ const config = (mode = 'production', watch = true) => ({
         port: 3000,
         // proxy the Webpack Dev Server endpoint
         // through BrowserSync
-        proxy: env.proxy_url.replace("'", ""),
+        proxy: env.proxy_url.replace("'", ''),
       },
       // plugin options
       {

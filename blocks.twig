@@ -1,1 +1,10 @@
 {% extends "twig/partials/_sub_blocks.twig" %}
+
+{% block buy_button %}
+    <a class="button is-primary" href="{{ link|default('#') }}">
+        <span class="icon">
+            <i class="fas fa-shopping-cart"></i>
+        </span>
+        <span>{{ __("Add To Cart")}}</span>
+    </a>
+{% endblock %}
