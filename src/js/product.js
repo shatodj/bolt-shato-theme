@@ -9,4 +9,3 @@ init().then(() => {
   // initializing Lazy Section Backgrounds
   lazySectionBackground({ elementSelector: '.shpr-lazy-background' });
 });
-

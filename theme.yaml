@@ -10,7 +10,7 @@ layout:
     navbar: is-light is-fixed-top
     header_index: is-section-primary is-bold is-large
     header_record: is-section-primary is-bold is-medium
-    header_listing: is-section-primary is-primary is-bold is-medium
+    header_listing: is-section-primary is-bold is-medium
     section: is-small # if using paralax, use rather is-medium
     record: is-small
     listing: is-small

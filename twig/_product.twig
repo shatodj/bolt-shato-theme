@@ -3,7 +3,7 @@
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
-    {{ m.stylesheet('dist/css/product-bundle.css') }}
+    {{ m.stylesheet_inline('dist/css/product-bundle.css') }}
 {% endblock %}
 
 {% block scripts %}
@@ -11,8 +11,7 @@
 {% endblock %}
 
 {% block header %}
-    {# {{ m.headerByRecord(record, headerBlockClass) }} #}
-
+    
     {% set content %}
         <div class="container">
             <div class="columns">
@@ -29,7 +28,7 @@
                     {%- endwith -%}
                     
                     <div class="columns">
-                        <div class="column is-narrow"><div class="is-size-4">{{ record.price|default }}</div></div>
+                        <div class="column is-narrow"><div class="price is-size-4">{{ record.price|default }}</div></div>
                         <div class="column">{{ block("buy_button", "blocks.twig") }}</div>
                     </div>
 

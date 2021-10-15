@@ -1,14 +1,14 @@
-<div class="tags">
+<div>
     {% for type, taxonomies in record|taxonomies %}
-        <span class="label">
+        <div>
             {% if taxonomies|length == 1 %}
                 {{ config.get('taxonomies')[type].singular_name }}:
             {% elseif taxonomies|length > 1 %}
                 {{ config.get('taxonomies')[type].name }}:
             {% endif %}
-        </span>
+        </div>
         {% for taxonomy in taxonomies %}
-            <a href="{{ taxonomy|link }}" class="tag is-dark">{{ taxonomy.name }}</a>
+            <div class="tag"><a href="{{ taxonomy|link }}">{{ taxonomy.name }}</a></div>
         {% else %}
             {{ __('general.phrase.none') }}
         {% endfor %}

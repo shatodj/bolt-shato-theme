@@ -5,26 +5,19 @@
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
-    {{ m.stylesheet('dist/css/entry-bundle.css') }}
+    {{ m.stylesheet_inline('dist/css/entry-bundle.css') }}
 {% endblock %}
 
 {% block scripts %}
     {{ m.script('dist/js/entry-bundle.js') }}
 {% endblock %}
 
-{# {% block body %}
-    <section class="section">
-        <div class="container content">
-            {% with { 
-                'record': record,  
-                'repeaters': true,
-                'exclude': [ record|image.fieldname|default() ] 
-            } %}
-            {{ block('sub_fields', 'helpers/_fields.twig') }}
-            {% endwith %} 
-        </div>
-    </section>
-{% endblock %} #}
+{% block record_header %}
+    {% set recordMeta %}
+        {% include "twig/partials/_record_meta.twig" with {'extended': true} %}
+    {% endset %}
+    {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass, extraContent: recordMeta} %}
+{% endblock %}
 
 {# Standard SECTIONS #}
 {% block sections %}

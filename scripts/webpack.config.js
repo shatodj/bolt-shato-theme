@@ -22,6 +22,7 @@ const OUTPUT_DIR = {
  */
 const config = (mode = 'production', watch = true) => ({
   entry: {
+    minimal: './src/js/minimal.js',
     homepage: './src/js/homepage.js',
     record: './src/js/record.js',
     page: './src/js/record.js',

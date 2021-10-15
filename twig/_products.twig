@@ -3,7 +3,7 @@
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
-    {{ m.stylesheet('dist/css/products-bundle.css') }}
+    {{ m.stylesheet_inline('dist/css/products-bundle.css') }}
 {% endblock %}
 
 {% block scripts %}
@@ -11,35 +11,42 @@
 {% endblock %}
 
 {% block list_item %}
-    <a href="{{ record|link }}">
-        <figure class="image has-image-centered">
-            {{ m.lazyImage(record.image, "listing") }}
-        </figure>
-        <h3 class="title is-5 no-link-color">
-            {{ record|title }}
-        </h3>
 
-        {# display something introduction-like.. #}
-        {% if record.teaser %}
-            <div class="content">
-                {{ record.teaser }}
-            </div>
-        {% else %}
-            <div class="content">
-                <p>{{ record.excerpt(300, false, search|default('')) }}</p>
-            </div>
-        {% endif %}
+    <figure>
+        {% with {
+            link: record|link,
+            class: "block",
+            content: m.lazyImage(record.image, "listing")
+        } %}
+        {{ block("link_wrapper", "blocks.twig") }}
+        {% endwith %}
+    </figure>
+    <h3 class="title is-5 no-link-color">
+        {{ record|title }}
+    </h3>
 
-        <div class="columns">
-        
-            <div class="column is-6">
-                <div class="is-size-4">{{ record.price|default }}</div>
-            </div>
-            <div class="column is-6">
+    {# display something introduction-like.. #}
+    {% if record.teaser %}
+        <div class="content">
+            {{ record.teaser }}
+        </div>
+    {% else %}
+        <div class="content">
+            <p>{{ record.excerpt(300, false, search|default('')) }}</p>
+        </div>
+    {% endif %}
+    
+    <div class="level">
+        <div class="level-left">
+            <div class="price level-item is-size-4">{{ record.price|default }}</div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
                 {{ block("buy_button", "blocks.twig") }}
             </div>
         </div>
-    </a>
+    </div>
+    
 {% endblock %}
 
 {% block records %}

@@ -5,7 +5,7 @@
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
-    {{ m.stylesheet('dist/css/record-bundle.css') }}
+    {{ m.stylesheet_inline('dist/css/record-bundle.css') }}
 {% endblock %}
 
 {% block scripts %}
@@ -16,28 +16,27 @@
 {% block content %}
 	{% if record is defined %}
         <article>
-            {% block header %}
-                {{ m.headerByRecord(record, headerBlockClass) }}
-            {% endblock %}
-
             {% block body %}
+                {% block record_header %}
+                    {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass} %}
+                    {# {{ m.headerByRecord(record, headerBlockClass) }} #}
+                {% endblock %}
+
                 {% set recordExtraClass = config.get("theme/layout/class/record")|default %}
                 <section class="section shpr-section {{ recordExtraClass }}">
                     <div class="container content">
                         
                         {% block fields %}
-                            {% with { 'record': record } %}
+                            {% with { 'record': record, exclude: ['teaser'] } %}
                             {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
                             {% endwith %}
                         {% endblock %}
 
                     </div>
-                    {% block record_footer %}
-                        <div class="container">
-                            {{ include('twig/partials/_recordfooter.twig', { 'record': record, 'extended': true }) }}
-                        </div>
-                    {% endblock %}
                 </section>
+                {% block record_footer %}
+                    {{ include('twig/partials/_record_footer.twig', { 'record': record, 'extended': true }) }}                   
+                {% endblock %}
             {% endblock %}
         </article>
 	{% endif %}

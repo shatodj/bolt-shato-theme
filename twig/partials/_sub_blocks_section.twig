@@ -88,6 +88,11 @@
 	{% if teaser is not empty %}
 		<p class="subtitle">{{ teaser }}</p>
 	{% endif %}
+
+	{% if includeMeta|default %}
+		{% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
+	{% endif %}
+
 {% endblock %}
 
 {# Section content block #}

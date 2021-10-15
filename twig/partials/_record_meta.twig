@@ -17,7 +17,7 @@
     {% endif %}
 </p>
 {% if extended|default() %}
-<p class="meta">
+<p class="meta is-italic">
     {{ __('general.phrase.written-by-on', {
         '%name%': record.user.displayname|default(__('Unknown')),
         '%date%': record.datepublish|format_datetime("medium")

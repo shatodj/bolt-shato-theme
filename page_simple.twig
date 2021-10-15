@@ -5,7 +5,7 @@
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
-    {{ m.stylesheet('dist/css/page-bundle.css') }}
+    {{ m.stylesheet_inline('dist/css/page-bundle.css') }}
 {% endblock %}
 
 {% block scripts %}

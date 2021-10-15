@@ -52,7 +52,7 @@
 			{% block body %}{% endblock %}
 			{% block beforeactions %}{% endblock %}
 			{% block actions %}
-				{% if content.link|default %}
+				{% if content|link|default %}
 					<div class="actions">
 						{% set viewAlllink = content|link %}
 						<a class="button" href="{{ viewAlllink }}">{{ __('Read more') }}</a>

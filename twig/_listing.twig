@@ -3,7 +3,7 @@
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
-    {{ m.stylesheet('dist/css/listing-bundle.css') }}
+    {{ m.stylesheet_inline('dist/css/listing-bundle.css') }}
 {% endblock %}
 
 {% block scripts %}
@@ -68,7 +68,9 @@
                         {% if record.image is not empty %}
                             <div class="column">
                                 <figure class="image has-image-centered">
-                                    {{ m.lazyImagePopup(record.image, "listing") }}
+                                    <a href="{{ record|link }}">
+                                        {{ m.lazyImage(record.image, "listing") }}
+                                    </a>
                                 </figure>
                             </div>
                         {% endif %}
@@ -92,6 +94,7 @@
     {% block header %}
     {% with { 
         content: headerContent,
+        image: blck|default is not empty ? blck.image|default(null) : null,
         class: config.get('theme/layout/class/header_listing')|default
     }%}
         {{ block('hero', 'section_blocks.twig') }}

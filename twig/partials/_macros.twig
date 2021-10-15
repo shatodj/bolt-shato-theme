@@ -83,10 +83,10 @@
 {% macro stylesheet(style) %}
 	{# Defer loading of non-critical styles #}
 	<link rel="preload" href="{{ asset(style, 'theme') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	{# <noscript>  #}
+	<noscript> 
 		{# Firefox, IE11, Safari #}
 		<link rel="stylesheet" href="{{ asset(style, 'theme') }}">
-	{# </noscript> #}
+	</noscript>
 {% endmacro %}
 
 {% macro stylesheet_inline(style) %}
@@ -166,34 +166,4 @@
 			{{ block('section', "section_blocks.twig") }}
 		{%- endwith -%}
 	{% endfor %}
-{% endmacro %}
-
-{# Header / Hero block #}
-{# Create header block (hero) using the record (entry)  #}
-{% macro headerByRecord(record, extraClass = null) %}
-	
-	{% if record|default is empty %}
-		{% with {'message': "The 'record' is not defined"} %}
-		{{ block('error_block', "blocks.twig")}}
-		{% endwith %}
-	
-	{% else %}
-		
-		{% set content %}
-			<div class="container">
-				{% with { 'section': record } %}
-				{{ block('hero_content', "section_blocks.twig") }}
-				{%- endwith -%}
-			</div>
-		{% endset %}
-		
-		{% with { 
-			content: content,
-			image: record.image|default,
-			class: extraClass|default(config.get('theme/layout/class/header_record'))
-		}%}
-			{{ block('hero', "section_blocks.twig") }}
-		{%- endwith -%}
-
-	{% endif %}
 {% endmacro %}

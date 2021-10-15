@@ -23,6 +23,10 @@ $section-colors-titles: $title-color, $text-invert, $text-invert, $primary;
         .button {
             background-color: transparent;
             color: $light;
+
+            &.is-outlined {
+                border-color: $light;
+            }
         }
 
         .label {

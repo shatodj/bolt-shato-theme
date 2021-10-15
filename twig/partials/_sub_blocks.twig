@@ -5,6 +5,16 @@
 	</a>
 {% endblock %}
 
+{# Regular buy button #}
+{% block buy_button %}
+    <a class="button {{ class|default("is-primary") }}" href="{{ link|default('#') }}">
+        <span class="icon">
+            <i class="fas fa-shopping-cart"></i>
+        </span>
+        <span>{{ __("Add To Cart")}}</span>
+    </a>
+{% endblock %}
+
 {# Error / Warning block #}
 {# Required: message #}
 {% block error_block %}

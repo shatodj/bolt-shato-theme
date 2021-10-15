@@ -72,8 +72,9 @@ The theme is designed to provide an easy way to extend core elements in the temp
 
 # TODO:
 - [x] Get rid of JQuery
-- [ ] Maintenance twig fix
+- [ ] Maintenance template twig fix
 - [ ] deploy/archive script
 - [ ] Progressive images loading (Currently possible only for section backgrounds)
+- [ ] Live reload for updating js/scss
 - [ ] Fill demo content script by the theme preference
 - [ ] Section Blocks docu

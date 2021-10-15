@@ -11,7 +11,7 @@
 {% block content %}
 	{% block header %}
 		{% if homepage %}
-			{{ m.headerByRecord(homepage, themeConfig.layout.class.header_index) }}
+			{% include "twig/partials/_record_header.twig" with { extraClass: themeConfig.layout.class.header_index } %}
 		{% endif %}
 	{% endblock %}
 
