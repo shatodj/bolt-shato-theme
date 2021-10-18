@@ -1,0 +1,84 @@
+@charset "utf-8";
+
+@import "../../node_modules/bulma/sass/components/navbar.sass";
+
+.navbar {
+  .navbar-link {
+
+    &.is-active,
+    &:hover {
+      background-color: inherit;
+    }
+  }
+
+  .navbar-menu {
+    background-color: inherit;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  &.is-dark,
+  &.is-primary {
+    .navbar-menu a {
+      color: $light;
+    }
+
+    .navbar-link {
+      color: $light;
+    }
+  }
+
+  &.is-dark {
+    .navbar-dropdown {
+      background-color: $dark
+    }
+  }
+
+  &.is-primary {
+    .navbar-dropdown {
+      background-color: $primary
+    }
+  }
+
+  .navbar-item {
+    text-transform: uppercase;
+  }
+
+  .shpr-icon {
+    padding: .8em;
+  }
+
+  .shpr-brand {
+    .navbar-item {
+      background-image: image("logo.png");
+      background-size: 250px;
+      background-repeat: no-repeat;
+      height: 39px;
+      overflow: hidden;
+      margin-left: 0.5rem;
+      margin-bottom: 0;
+      align-self: center;
+    }
+  }
+
+  // navbar enlarging and animation
+  transition: all .5s;
+  transition-property: background-color, min-height, border-color;
+  background-color: transparentize($color: $primary, $amount: 0.5);
+  border-color: transparentize($color: $light, $amount: 0);
+  border-bottom: 1px solid;
+  min-height: 0px;
+  &.transparent {
+    background-color: transparentize($color: $primary, $amount: 1);
+    border-color: transparentize($color: $light, $amount: 1);
+    min-height: 120px;
+  }
+
+  // &.is-scared {
+  //   &.but-brave {
+        
+  //   }
+  // }
+}

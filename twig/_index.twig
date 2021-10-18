@@ -20,7 +20,7 @@
 		<section class="section shpr-section {{ recordExtraClass }}">
 			<div class="container content">
 				
-				{% with { 'record': homepage, exclude: 'image' } %}
+				{% with { 'record': homepage, exclude: ['image', 'teaser', 'introduction'] } %}
 				{{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
 				{% endwith %}
 

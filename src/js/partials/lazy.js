@@ -7,9 +7,9 @@ import inView from 'in-view';
  */
 export const preloadImage = (src) => new Promise((resolve, reject) => {
   if (!src) {
-    reject(ReferenceError("Undefined image source."));
+    reject(ReferenceError('Undefined image source.'));
   }
-  
+
   const img = new Image();
   img.src = src;
 
@@ -18,11 +18,11 @@ export const preloadImage = (src) => new Promise((resolve, reject) => {
 });
 
 export const preloadIFrame = (iframeElement) => new Promise((resolve, reject) => {
-  if (!src) {
-    reject(ReferenceError("Undefined image source."));
+  if (!iframeElement) {
+    reject(ReferenceError('Undefined iframe source.'));
   }
 
-  iframeElement.addEventListener('load', () => resolve(img));
+  iframeElement.addEventListener('load', () => resolve(iframeElement));
   iframeElement.addEventListener('error', (err) => reject(err));
 
   iframeElement.setAttribute('src', iframeElement.dataset.src);
@@ -33,7 +33,6 @@ export const preloadIFrame = (iframeElement) => new Promise((resolve, reject) =>
  * @param {object} param0
  */
 const lazy = ({ elementSelector, tags, onLoadCallback }) => {
-
   /**
    * Finalize loading
    * @param {HTMLElement} element
@@ -55,14 +54,14 @@ const lazy = ({ elementSelector, tags, onLoadCallback }) => {
         preloadImage(element.dataset.src).then(() => {
           element.setAttribute('src', element.dataset.src);
           finalizeLement(element);
-          
-          typeof onLoadCallback == 'function' && onLoadCallback(element);
+
+          typeof onLoadCallback === 'function' && onLoadCallback(element);
         });
       } else {
         preloadIFrame(element).then(() => {
           finalizeLement(element);
-          
-          typeof onLoadCallback == 'function' && onLoadCallback(element);
+
+          typeof onLoadCallback === 'function' && onLoadCallback(element);
         });
       }
     }

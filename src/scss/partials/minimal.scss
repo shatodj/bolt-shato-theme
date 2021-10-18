@@ -3,11 +3,12 @@
 // minimal css
 @import "./partials/bulma.scss";
 @import "./partials/functions.scss";
-@import "./partials/navbar.scss";
-@import "./partials/gallery.scss";
 @import "./partials/has-image-centered.scss";
 @import "./partials/overlays.scss";
 @import "./partials/lazy.scss";
+
+@import "./components/navbar.scss";
+@import "./components/gallery.scss";
 
 .no-link-color {
   a {

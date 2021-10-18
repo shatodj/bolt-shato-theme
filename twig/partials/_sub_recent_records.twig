@@ -6,7 +6,7 @@
 <section class="section shpr-section is-section-primary">
     <div class="container">
         <div class="columns is-multiline">
-            {% for ct in config.get('contenttypes') if not ct.viewless|default(false) %}
+            {% for ct in config.get('contenttypes')|filter(ct => not ct.viewless|default(false)) %}
             <div class="column">
                 <div class="card">
                     <div class="content card-content no-link-color">
@@ -20,7 +20,7 @@
                                 <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>
                             {% endfor %}
                         </ul>
-                        <a class="button is-primary" href="{{ path('contentlisting', {'contenttypeslug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }}</a>
+                        {# <a class="button is-primary" href="{{ path(ct.slug) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }}</a> #}
                     </div>
                 </div>
             </div>

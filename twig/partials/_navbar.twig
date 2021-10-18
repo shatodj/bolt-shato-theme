@@ -1,6 +1,6 @@
 {# Navbar #}
 <nav class="navbar {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
-    <div class="container {{ theme.layout.is_navbar_full_width ? is-fluid }}">
+    <div class="container {{ theme.layout.is_navbar_full_width ? "is-fluid" }}">
         <div class="navbar-brand shpr-brand">
             {% block navbar_brand %}
                 <a class="title is-5 navbar-item has-text-weight-bold" href="/">

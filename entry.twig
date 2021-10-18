@@ -19,9 +19,17 @@
     {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass, extraContent: recordMeta} %}
 {% endblock %}
 
+{% block record_footer %}
+    {{ include('twig/partials/_record_footer.twig', { 'record': record }) }}                   
+{% endblock %}
+
+{# Recent records #}
+{# {% block recent %}
+    {% include "twig/partials/_sub_recent_records.twig" %} 
+{% endblock %} #}
+
 {# Standard SECTIONS #}
 {% block sections %}
     {{ m.sectionsByRecord(record, false) }}
     {{ m.sectionsByGroup("entry", false) }}
 {% endblock %}
-

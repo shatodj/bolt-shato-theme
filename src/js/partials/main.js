@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
-import menu from './burger-menu';
-import slider from './slider';
-import lightbox from './lightbox';
+import menu from '../components/burger-menu';
+import slider from '../components/slider';
+import lightbox from '../components/lightbox';
 import lazyMedia from './lazy';
+import scaredElement from '../components/scared-element';
+import navbar from '../components/navbar';
 
 /**
  * Init script
@@ -19,13 +21,17 @@ export default () => new Promise((resolve, reject) => {
     lazyMedia({
       elementSelector: '.lazy',
       tags: ['IFRAME', 'IMG'],
-      onLoadCallback: (element) => {
+      onLoadCallback: () => {
         //
-      }
+      },
     });
 
     // Waiting for lazy modules to be loaded
     lightbox({ selector: '.use-magnific', delegate: 'a.magnific' });
+
+    // hiding navbar on first home section (when menu is visible)
+    scaredElement('.navbar', '.hero-body>.container .title');
+    navbar('.navbar', 50);
 
     resolve();
   } catch (error) {
