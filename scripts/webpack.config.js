@@ -30,6 +30,7 @@ const config = (mode = 'production', watch = true) => ({
     listing: './src/js/listing.js',
     products: './src/js/products.js',
     product: './src/js/product.js',
+    service: './src/js/service.js',
     fontawesome: './src/js/fontawesome.js',
   },
   watch,

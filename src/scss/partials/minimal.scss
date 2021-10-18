@@ -76,3 +76,23 @@
   white-space: nowrap;
   font-weight: 400;
 }
+
+.pricing-table {
+  .pricing-plan {
+    width: 20%;
+
+    &.is-primary {
+      .plan-price .plan-price-amount {
+        color: $primary;
+      }
+
+      .plan-footer .button {
+        background-color: $primary;
+
+        &:active, &:hover {
+          background-color: $primary;
+        }
+      }
+    }
+  }
+}

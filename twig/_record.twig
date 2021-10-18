@@ -14,6 +14,8 @@
 
 
 {% block content %}
+    {% set ef = excludedFields|default([]) %}
+
 	{% if record is defined %}
         <article>
             {% block body %}
@@ -21,18 +23,21 @@
                     {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass} %}
                 {% endblock %}
 
-                {% set recordExtraClass = config.get("theme/layout/class/record")|default %}
-                <section class="section shpr-section {{ recordExtraClass }}">
-                    <div class="container content">
-                        
-                        {% block fields %}
-                            {% with { 'record': record, exclude: ['teaser'] } %}
-                            {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
-                            {% endwith %}
-                        {% endblock %}
+                {% block record_body %}
+                    {% set recordExtraClass = config.get("theme/layout/class/record")|default %}
+                    <section class="section shpr-section {{ recordExtraClass }}">
+                        <div class="container content">
+                            
+                            {% block fields %}
+                                {% with { 'record': record, exclude: ef|merge(['teaser']) } %}
+                                {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
+                                {% endwith %}
+                            {% endblock %}
 
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                {% endblock %}
+                
                 {% block record_footer %}
                     {# To be extended #}
                 {% endblock %}

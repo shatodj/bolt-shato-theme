@@ -141,7 +141,7 @@
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
 	{# Get All related blocks mapped to the record #}
-	{% set sections = record.related(themeSection.sectionblock_name) %}
+	{% set sections = record|related(themeSection.sectionblock_name) %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}

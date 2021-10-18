@@ -31,7 +31,6 @@ export default () => new Promise((resolve, reject) => {
 
     // hiding navbar on first home section (when menu is visible)
     scaredElement('.navbar', '.hero-body>.container .title');
-    navbar('.navbar', 50);
 
     resolve();
   } catch (error) {
