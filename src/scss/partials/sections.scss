@@ -32,6 +32,17 @@ $section-colors-titles: $title-color, $text-invert, $text-invert, $primary;
         .label {
             color: $light;
         }
+
+        .pagination {
+            .pagination-previous, .pagination-next, .pagination-link {
+                color: $light
+            }
+
+            .pagination-link.is-current {
+                background-color: $light;
+                color: $primary
+            }
+        }
     }
 
     $i: 1;

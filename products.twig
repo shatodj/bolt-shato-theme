@@ -1,2 +1,60 @@
-{% extends "twig/_products.twig" %}
+{% extends "twig/_listing.twig" %}
+{% import "twig/partials/_macros.twig" as m %}
 
+{% block stylesheet %}
+    {# Defer loading of non-critical styles #}
+    {{ m.stylesheet_inline('dist/css/products-bundle.css') }}
+{% endblock %}
+
+{% block scripts %}
+	{{ m.script('dist/js/products-bundle.js') }}
+{% endblock %}
+
+{% block list_item %}
+
+    <figure>
+        {% with {
+            link: record|link,
+            class: "block",
+            content: m.lazyImage(record.image, "listing")
+        } %}
+        {{ block("link_wrapper", "blocks.twig") }}
+        {% endwith %}
+    </figure>
+    <h3 class="title is-5 no-link-color">
+        {{ record|title }}
+    </h3>
+
+    {# display something introduction-like.. #}
+    {% if record.teaser %}
+        <div class="content">
+            {{ record.teaser }}
+        </div>
+    {% else %}
+        <div class="content">
+            <p>{{ record.excerpt(300, false, search|default('')) }}</p>
+        </div>
+    {% endif %}
+    
+    <div class="level">
+        <div class="level-left">
+            <div class="price level-item is-size-4">{{ record.price|default }}</div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                {{ block("buy_button", "blocks.twig") }}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block records %}
+    <div class="columns is-multiline">
+        {% for record in records %}
+            <article class="column is-4">
+                {{ block("list_item") }}
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

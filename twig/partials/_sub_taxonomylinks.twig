@@ -1,4 +1,4 @@
-<div>
+<div class="block">
     {% for type, taxonomies in record|taxonomies %}
         <div>
             {% if taxonomies|length == 1 %}
@@ -9,8 +9,6 @@
         </div>
         {% for taxonomy in taxonomies %}
             <div class="tag"><a href="{{ taxonomy|link }}">{{ taxonomy.name }}</a></div>
-        {% else %}
-            {{ __('general.phrase.none') }}
         {% endfor %}
     {% endfor %}
 </div>

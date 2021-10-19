@@ -138,9 +138,9 @@
 				{% for link in section.links %}	
 					<a href="{{ link.contentlink }}" class="button">{{ link.title|markdown|excerpt(45) }}</a>
 				{% endfor %}
-				{% if section.editlink() %}
+				{% if section|edit_link %}
 					{% with { 'record': section } %}
-					{{ block('edit_button') }}
+					{{ block('edit_button', 'blocks.twig') }}
 					{% endwith %}
 				{% endif %}
 			</div>

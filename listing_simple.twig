@@ -1,0 +1,11 @@
+{% extends "listing.twig" %}
+
+{% set documentClass = "has-navbar-fixed-top" %}
+
+{% block header %}
+<div class="section">
+    <div class="container">
+       {{ block("header_content") }}
+    </div>
+</div>
+{% endblock %}

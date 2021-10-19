@@ -23,6 +23,10 @@
                     {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass} %}
                 {% endblock %}
 
+                {% block record_edit %}
+                    {% include "twig/partials/_record_edit.twig" %}
+                {% endblock %}
+
                 {% block record_body %}
                     {% set recordExtraClass = config.get("theme/layout/class/record")|default %}
                     <section class="section shpr-section {{ recordExtraClass }}">
@@ -37,7 +41,6 @@
                         </div>
                     </section>
                 {% endblock %}
-                
                 {% block record_footer %}
                     {# To be extended #}
                 {% endblock %}

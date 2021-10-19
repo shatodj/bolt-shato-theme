@@ -8,13 +8,7 @@
         {{ __('general.phrase.read-more') }}
     </a>
     {% endif %}
-    {% if record.editlink() %}
-        <span class="edit-link">
-            {% with { 'record': record } %}
-            {{ block('edit_button', "blocks.twig") }}
-            {% endwith %}
-        </span> 
-    {% endif %}
+   
 </p>
 {% if extended|default() %}
 <p class="meta is-italic">

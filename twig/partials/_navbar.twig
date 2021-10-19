@@ -22,10 +22,8 @@
                         {{ menu('shato-main', 'twig/partials/_sub_menu_navbar.twig') }}
                     {% endapply %}
                 </ul>
-                <div class="navbar-item">
-                    {% block navbar_last_item %}
-                    {% endblock %}
-                </div>
+                {% block navbar_last_item %}
+                {% endblock %}
             </div>
         </div>
     </div>

@@ -1,7 +1,10 @@
 {# Content edit button #}
 {% block edit_button %}
-	<a href="{{ record.editlink() }}" class="button is-info is-outlined">
-		{{ __('general.phrase.edit') }}
+	<a href="{{ record|edit_link }}" class="button is-info is-outlined">
+        <span class="icon">
+            <i class="fas fa-pencil-alt"></i>
+        </span>
+        <span>{{ __('general.phrase.edit') }} {{ record|slug }}</span>
 	</a>
 {% endblock %}
 

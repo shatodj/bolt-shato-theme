@@ -1,9 +1,7 @@
 {% block menu %}
 
 	{% for item in menu %}
-
 		{% if item.submenu %}
-
 			<div class="navbar-item has-dropdown is-hoverable is-dark">
 				<span class="navbar-link is-arrowless">
 					{{ item.label }}
@@ -17,15 +15,11 @@
 					{% endfor %}
 				</ul>
 			</div>
-
 		{% else %}
-
 			<li class="navbar-item">
 				<a href="{{ item.link }}">{{ item.label }}</a>
 			</li>
-
 		{% endif %}
-
 	{% endfor %}
 
 {% endblock %}

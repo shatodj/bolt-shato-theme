@@ -5,6 +5,7 @@ homepage: 'homepage'
 layout:
   is_navbar_full_width: false
   use_paralax: true
+  use_searchbar_in_navigation: true
   class:
     # html: "has-navbar-fixed-top"
     html: ""

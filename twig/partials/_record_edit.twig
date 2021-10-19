@@ -1,0 +1,11 @@
+ {% if record|edit_link %}
+    <div class="notification is-primary is-light">
+        <div class="container">
+            <span class="edit-link">
+                {% with { 'record': record } %}
+                {{ block('edit_button', "blocks.twig") }}
+                {% endwith %}
+            </span> 
+        </div>  
+    </div>
+{% endif %}

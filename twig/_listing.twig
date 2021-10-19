@@ -17,26 +17,6 @@
         {% setcontent blck = "block/" ~ contenttype.slug %}
     {% endif %}
     
-    {# Content to be renderred in header #}
-    {% set headerContent %}
-        <div class="container">
-            {% if taxonomy is defined %}
-                <h1 class="title is-2 is-4-mobile">
-                    {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
-                </h1>
-            {% else %}
-                
-                {% if blck|default is not empty %}
-                    <h1 class="title is-2 is-4-mobile">{{ blck.title }}</h1>
-                    <span class="subtitle is-4 is-6-mobile">{{blck.teaser}}</span>
-                {% else %}
-                    <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
-                {% endif %}
-                
-            {% endif %}
-        </div>
-    {% endset %}
-
     {% set listContent %}
         <section class="content">
             {% if blck|default is not empty and blck.content|default is not empty %}
@@ -92,13 +72,37 @@
 
     {# Header section #}
     {% block header %}
-    {% with { 
-        content: headerContent,
-        image: blck|default is not empty ? blck.image|default(null) : null,
-        class: config.get('theme/layout/class/header_listing')|default
-    }%}
-        {{ block('hero', 'section_blocks.twig') }}
-    {%- endwith -%}
+
+        {# Content to be renderred in header #}
+        {% set headerContent %}
+            <div class="container">
+                {% block header_content %}
+                    {% if taxonomy is defined %}
+                        <h1 class="title is-2 is-4-mobile">
+                            {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
+                        </h1>
+                    {% else %}
+                        
+                        {% if blck|default is not empty %}
+                            <h1 class="title is-2 is-4-mobile">{{ blck.title }}</h1>
+                            <span class="subtitle is-4 is-6-mobile">{{blck.teaser}}</span>
+                        {% else %}
+                            <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
+                        {% endif %}
+                        
+                    {% endif %}
+                {% endblock %}
+            </div>
+        {% endset %}
+
+
+        {% with { 
+            content: headerContent,
+            image: blck|default is not empty ? blck.image|default(null) : null,
+            class: config.get('theme/layout/class/header_listing')|default
+        }%}
+            {{ block('hero', 'section_blocks.twig') }}
+        {%- endwith -%}
     {% endblock %}
     
     {# Body section #}
