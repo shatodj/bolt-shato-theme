@@ -6,7 +6,6 @@
 {% else %}
     
     {% set content %}
-        
         <div class="container">
             {% block header_content %}
                 {% with { 'section': record } %}
@@ -16,7 +15,6 @@
                 {{ extraContent|default }}
             {% endblock %}
         </div>
-    
     {% endset %}
     
     {% with { 

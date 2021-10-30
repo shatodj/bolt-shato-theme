@@ -44,14 +44,11 @@ thumbnails:
       size: [256, 256]
       fit: c
     gallery:
-      size: [150, 150]
+      size: [350, 350]
       fit: c
     gallery-big:
       size: [1000, 750]
       fit: n
-    section-small:
-      size: [425, 425]
-      fit: c
     listing:
       size: [480, 480]
       fit: c
@@ -60,4 +57,7 @@ thumbnails:
       fit: c
     record:
       size: [752, 400]
+      fit: c
+    product:
+      size: [400, 400]
       fit: c

@@ -4,7 +4,7 @@ import slider from '../components/slider';
 import lightbox from '../components/lightbox';
 import lazyMedia from './lazy';
 import scaredElement from '../components/scared-element';
-import navbar from '../components/navbar';
+import lazySectionBackground from './lazy-background';
 
 /**
  * Init script
@@ -25,6 +25,9 @@ export default () => new Promise((resolve, reject) => {
         //
       },
     });
+
+    // initializing Lazy Section Backgrounds
+    lazySectionBackground({ elementSelector: '.shpr-lazy-background' });
 
     // Waiting for lazy modules to be loaded
     lightbox({ selector: '.use-magnific', delegate: 'a.magnific' });

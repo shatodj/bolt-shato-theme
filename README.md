@@ -1,5 +1,5 @@
 # bolt-shato-theme
-The boilerplate theme for Bolt 4 CMS.
+The boilerplate theme for Bolt 5 CMS.
 
 The theme is designed to provide an easy way to extend core elements in the template. Custom content types in theme enhance user experience to put custom reusable Section Blocks.
 

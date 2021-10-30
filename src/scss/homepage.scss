@@ -3,12 +3,16 @@
 @import "./minimal.scss";
 @import "../../node_modules/bulma/sass/components/message.sass";
 @import "../../node_modules/bulma/sass/components/card.sass";
+@import "../../node_modules/bulma/sass/elements/tag.sass";
 @import "../../node_modules/bulma-carousel/dist/css/bulma-carousel.min.css";
-@import "../../node_modules/bulma-pricingtable/dist/css/bulma-pricingtable.min.css";
 
 @import "partials/sections.scss";
 
 .hero .shpr-background {
   background-size: contain;
+}
+
+.hero .logo {
+  @include logo(10em, "logo02.svg")
 }
 

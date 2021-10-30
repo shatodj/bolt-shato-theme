@@ -24,6 +24,10 @@
   border: none;
 }
 
+.without-pointer-events {
+  pointer-events: none;
+}
+
 .title {
   font-family: $family-secondary;
 }

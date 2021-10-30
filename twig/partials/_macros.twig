@@ -1,15 +1,45 @@
 {# Thumbnail image by the thumbnail alias defined in theme.yaml #}
 {# src, thumbnailAlias#}
-{% macro thumbimage(src, thumbnailAlias) %}
+{% macro thumbimage(image, thumbnailAlias) %}
 {% apply spaceless %}
-	{%- if src is empty %}
+	{% set alias = config.get('theme/thumbnails/aliases/' ~ thumbnailAlias)|default %}
+	{%- if image is empty %}
 		{# empty thumbnail #}
-	{% elseif config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
-		{% set alias = config.get('theme/thumbnails/aliases/' ~ thumbnailAlias) %}
-		{{ src|thumbnail(alias.size[0]|default(null), alias.size[1]|default('null'), alias.fit|default('c')) }}
+	{% elseif alias is not empty %}
+		{{ image|thumbnail(alias.size[0]|default(100), alias.size[1]|default(100), alias.fit|default('c')) }}
 	{% else %}
-		{{ src|thumbnail }}
+		{{ image|thumbnail }}
 	{% endif -%}
+{% endapply %}
+{% endmacro %}
+
+
+{# Thumbnail image by the thumbnail alias defined in theme.yaml #}
+{# src, thumbnailAlias#}
+{% macro progressive_thumbimage(image, thumbnailAlias) %}
+{% apply spaceless %}
+	{% set alias = config.get('theme/thumbnails/aliases/' ~ thumbnailAlias)|default %}
+	{%- if image is empty %}
+		{# empty thumbnail #}
+	{% elseif alias is empty %}
+		{% set media = image|media %}
+		{% set alias = {
+			size: [
+				media.width,
+				media.height
+			],
+			fit: 'c'
+		} %}
+	{% endif %}
+		
+	{% set width = alias.size[0]|default(100) %}
+	{% set height = alias.size[1]|default(100) %}
+	{% set fit = alias.fit|default('c') %}
+
+	{% set progressiveThumb = image|thumbnail(width * 0.25, height * 0.25, fit) %}
+	{% set thumb = image|thumbnail(width, height, fit) %}
+
+	{{ progressiveThumb ~ ';' ~ thumb }}
 {% endapply %}
 {% endmacro %}
 
@@ -17,11 +47,12 @@
 {# Lazy Image (from BOLT content) #}
 {% macro lazyImage(image, thumbAlias, imageExtraClass = "") %}
 	{% from _self import thumbimage %}
+	{% from _self import progressive_thumbimage %}
 
 	{% set aliases = config.get("theme/thumbnails/aliases") %}
 
 	{% if aliases[thumbAlias] is not defined %}
-		{% with { message: 'Thumbnail alias "' ~ alias ~ '" is not defined.' } %}
+		{% with { message: 'Thumbnail alias "' ~ thumbAlias ~ '" is not defined.' } %}
 		{{ block('error_block', "blocks.twig") }}
 		{% endwith %}
 	{% elseif image.path is empty %}
@@ -29,12 +60,10 @@
 		{{ block('error_block', "blocks.twig") }}
 		{% endwith %}
 	{% else %}
-		{% set imgThumb = thumbimage(image, thumbAlias) %}
-		{% set width = aliases[thumbAlias].size[0] %}
-		{% set height = aliases[thumbAlias].size[1] %}
-		{# {% set style = "width: " ~ width ~ "px; height: " ~ height ~ "px" %} #}
+		{% set imagesArray = progressive_thumbimage(image, thumbAlias) %}
+		{% set width = aliases[thumbAlias].size[0]|default(100) %}
 		{% set style = "width: " ~ width ~ "px" %}
-		<img class="lazy img {{ imageExtraClass }}" style="{{ style }}" data-src="{{ imgThumb }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
+		<img class="lazy img {{ imageExtraClass }}" style="{{ style }}" data-src="{{ imagesArray }}" alt="{{ image.title|default(image.path) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=" />
 	{% endif %}
 {% endmacro %}
 
@@ -51,7 +80,7 @@
 	{% set imgBigUrl = thumbAliasLarge|default is not empty ? thumbimage(image, thumbAliasLarge) : image.path %}
 	
 	{% set anchorContent %}
-		<a href="{{ imgBigUrl }}" class="magnific imageholder is-inline-block" title="{{ image.title|default(imgBigUrl) }}">
+		<a href="{{ imgBigUrl }}" class="magnific imageholder" title="{{ image.title|default(imgBigUrl) }}">
 			{{ lazyImage(image, thumbAlias, imageExtraClass) }}
 		</a>
 	{% endset %}
@@ -63,20 +92,6 @@
 			{{ anchorContent }}
 		</div>	
 	{% endif %}
-{% endmacro %}
-
-
-{# Lazy Standard gallery macro 
-{# imagelist, width, height, imageExtraClass #} #}
-{% macro lazyGallery(imagelist, alias = "gallery", aliasBig = "gallery-big", imageExtraClass = "") %}
-	{% from _self import lazyImage %}
-	{% from _self import lazyImagePopup %}
-	
-	<div class="use-magnific imagelist">
-		{% for image in imagelist %}
-			{{ lazyImagePopup(image, alias, aliasBig, imageExtraClass, true) }}
-		{% endfor %}
-	</div>
 {% endmacro %}
 
 {# Generate stylesheet entry #}

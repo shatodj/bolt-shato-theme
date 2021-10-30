@@ -8,7 +8,7 @@
 	{# Section images initialization #}
 	{% if image|default is not empty %}
 		{% import "twig/partials/_macros.twig" as m %}
-		{% set bgImages = m.thumbimage(image, 'section-small') ~ ';' ~ image.path %}
+		{% set bgImages = m.progressive_thumbimage(image) %}
 	{% endif %}
 
 	{% if content is not defined %}
@@ -110,7 +110,7 @@
 	{%- if section.embedded is not empty %}
 		{{ section.embedded.html|raw }}
 	{% endif %}
-	{# Textarea field consideret as embedded with raw not sanitized data #}
+	{# Textarea field considered as embedded with raw not sanitized data #}
 	{%- if section.embedded_raw is not empty %}
 		{{ section.embedded_raw|raw }}
 	{% endif %}
@@ -123,11 +123,10 @@
 
 	{# showing the gallery if added to the block #}
 	{% if section.gallery|length %}
-		<section class="content">
-			<div class="shpr-gallery">
-				{% import "twig/partials/_macros.twig" as m %}
-				{{ m.lazyGallery(section.gallery) }}
-			</div>
+		<section>
+			{% with { 'gallery': section.gallery } %}
+			{{ block("section_content_gallery") }}
+			{% endwith %}
 		</section>
 	{% endif %}
 
@@ -148,6 +147,32 @@
 	{% endif %}
 {% endblock %}
 
+{% block section_content_gallery %}
+
+	{% import "twig/partials/_macros.twig" as m %}
+
+	<div class="shpr-gallery">
+		<div class="use-magnific imagelist columns is-mobile is-multiline">
+			{% for image in gallery|default([]) %}
+			<div class="column is-6-mobile is-3-desktop">
+				<div class="card">
+					<div class="card-image">
+						<figure class="image">
+							{{ m.lazyImagePopup(image, alias|default("gallery"), aliasBig|default("gallery-big"), "is-2x3", true) }}
+						</figure>
+					</div>
+					<div class="card-content is-overlay is-clipped without-pointer-events">
+						<span class="tag is-info">
+							{{ image.alt|default }}
+						</span> 
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
 {# Section content list blocks #}
 {% block section_content_list_blocks %}
 	{% set subBlockContent = [] %}
@@ -163,16 +188,16 @@
 	{% if subBlockContent is not empty %}
 	
 		{# Generate template name in case is contenttemplate is not defined #}
-		{% if section.contenttemplate|default is not empty %}
+		{% if contenttemplate|default is not empty %}
+			{% set template = contenttemplate %}
+		{% elseif section.contenttemplate|default is not empty %}
 			{% set template = section.contenttemplate %}
 		{% else %}
 			{% set templateName = subBlockContent is iterable ? 'listing' : 'content' %}
 			{% set template = 'twig/contentblock/' ~ templateName ~ '.twig' %}
 		{% endif %}
-
-		<div class="level">
-			{% include template with { content: subBlockContent } %}
-		</div>
+		
+		{% include template with { content: subBlockContent } %}		
 	{% endif -%}
 {% endblock %}
 
@@ -188,7 +213,7 @@
 	class: string
 #}
 {% block lazy_background_wrapper %}
-	<div class="shpr-lazy-background" data-background-image="{{ bgImages|default }}">
+	<div class="shpr-lazy-background" data-src="{{ bgImages|default }}">
 				
 		{# Adding empty elements to handle dynamic background styling - see lazy-section-backgorund.js #}
 		{% if bgImages|default is not empty %}
@@ -201,6 +226,6 @@
 		{# Actual section with content #}
 		<{{htmlTag|default("div")}} class="shpr-section with-transparent-overlay {{class|default}}">
 			{{ content }}
-		</{{htmlTag}}>
+		</{{htmlTag|default("div")}}>
 	</div>
 {% endblock %}

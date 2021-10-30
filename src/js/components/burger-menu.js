@@ -10,5 +10,5 @@ export default ({ selector }) => {
   burger.addEventListener('click', () => {
     burger.classList.toggle('is-active');
     nav.classList.toggle('is-active');
-  });
+  }, { passive: true });
 };

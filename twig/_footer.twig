@@ -2,19 +2,8 @@
 
 {% set footerTaxonomyGroup = 'footer' %}
 
-{# Footer menu / icons #}
-{% macro footer_menu(identifier, template = 'twig/partials/_sub_menu_social.twig') %}
-	{{ menu(
-		identifier,
-		template,
-		{ 'extraClass': 'is-ultra-large', 'extraClassIcon': 'fa-3x' }
-	) }}
-{% endmacro %}
-
-{% from _self import footer_menu %}
-
 {# Footer #}
-{% block footerSection %}
+{% block footer_section %}
     <footer id="footer" role="contentinfo">
         <div class="section is-medium shpr-section {{ theme.layout.class.footer|default('is-section-dark') }}">
             <div class="container">

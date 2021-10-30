@@ -3,16 +3,17 @@
 $title-line-height: 1.5;
 $dimensions: 16 24 32 48 64 96 128 256 512;
 $fullhd: 1152px;
-$family-primary: 'Montserrat', sans-serif;
-$family-secondary: 'Libre Baskerville', serif;
+$family-primary: 'Roboto', sans-serif;
+$family-secondary: 'Montserrat', sans-serif;
 
-$primary: #0b4383;
+$primary: #1F303F;
 $light: #F0F0F0;
 $text: #101010;
-$text-light: #0b4383;
+$text-light: #364156;
 $link: $primary;
+$info: #364156;
 
-$title-weight: 700;
+// $title-weight: 700;
 $weight-normal: 300;
 $weight-light: 200;
 $body-font-size: 1.2em;

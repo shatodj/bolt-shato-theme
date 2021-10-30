@@ -85,7 +85,10 @@
                         
                         {% if blck|default is not empty %}
                             <h1 class="title is-2 is-4-mobile">{{ blck.title }}</h1>
-                            <span class="subtitle is-4 is-6-mobile">{{blck.teaser}}</span>
+                            <div class="subtitle is-4 is-6-mobile">{{blck.teaser}}</div>
+                            {% if blck.contentlink|default is not empty %}
+                                <a href="{{ blck.contentlink|default }}" class="button is-primary">{{ __("Read More")}}</a>
+                            {% endif %}
                         {% else %}
                             <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
                         {% endif %}
@@ -105,6 +108,12 @@
         {%- endwith -%}
     {% endblock %}
     
+    {% block listing_edit %}
+        {% if blck|default is not empty %}
+            {% include "twig/partials/_record_edit.twig" with { record: blck }%}
+        {% endif %}
+    {% endblock %}
+
     {# Body section #}
     {% set sectionExtraClass = config.get("theme/layout/class/listing")|default %}
     <section class="section shpr-section {{ sectionExtraClass }}">

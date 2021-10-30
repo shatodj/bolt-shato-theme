@@ -1,1 +1,23 @@
 @import "./partials/minimal.scss";
+
+@mixin logo($height, $imageFile) {
+    background-image: image($imageFile);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: $height
+}
+
+.logo {
+    @include logo(300px, "logo04.svg");
+}
+
+.shpr-footer-block .logo {
+    background-position-x: right;
+    height: 124px;
+    align-self: center;
+    color: transparentize($color: $light, $amount: 1);
+}
+
+.maintenance .logo {
+    background-position-x: center;
+}

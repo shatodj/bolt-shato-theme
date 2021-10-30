@@ -19,7 +19,7 @@
 
 		{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
 		<ul class="{{ listClass }}">
-			{%- for entry in content -%}
+			{%- for entry in content|filter(e => e.status == 'published') -%}
                 {% block list_item %}
 					
 					{% set columnClass = content|length == 1 ? columnClassWide|default(defaults.classColumnWide) : columnClass|default(defaults.classColumn) %}

@@ -8,5 +8,5 @@ document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach((anchor) => {
     document.querySelector(hash).scrollIntoView({
       behavior: 'smooth',
     });
-  });
+  }, { passive: true });
 });

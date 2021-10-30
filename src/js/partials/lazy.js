@@ -1,21 +1,7 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-expressions */
 import inView from 'in-view';
-
-/**
- * Preload image
- * @param {srting} src
- */
-export const preloadImage = (src) => new Promise((resolve, reject) => {
-  if (!src) {
-    reject(ReferenceError('Undefined image source.'));
-  }
-
-  const img = new Image();
-  img.src = src;
-
-  img.addEventListener('load', () => resolve(img));
-  img.addEventListener('error', (err) => reject(err));
-});
+import progressiveImage from './progressive-image';
 
 export const preloadIFrame = (iframeElement) => new Promise((resolve, reject) => {
   if (!iframeElement) {
@@ -47,15 +33,12 @@ const lazy = ({ elementSelector, tags, onLoadCallback }) => {
    * @param {HTMLElement} element
    */
   const proccessElement = (element) => {
-    if (!element.dataset.isProccessed && element.dataset.src) {
+    if (!element.classList.contains('is-processed') && element.dataset.src) {
       // start actual loading by tag (supports only images and iframes)
-      // TODO: support other types
       if (element.tagName === 'IMG') {
-        preloadImage(element.dataset.src).then(() => {
-          element.setAttribute('src', element.dataset.src);
-          finalizeLement(element);
-
-          typeof onLoadCallback === 'function' && onLoadCallback(element);
+        progressiveImage(element, (url) => {
+          element.setAttribute('src', url);
+          element.classList.add('is-loaded');
         });
       } else {
         preloadIFrame(element).then(() => {

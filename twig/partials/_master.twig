@@ -62,7 +62,9 @@
 			{% endblock content %}
 
 			{# Standard FOOTER #}
-			{% include 'footer.twig' %}
+			{% block footer %}
+				{% include 'footer.twig' %}
+			{% endblock %}
 			
 			{# Theme scripts #}
 			{% block scripts %}
