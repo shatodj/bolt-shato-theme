@@ -5,6 +5,7 @@ import lightbox from '../components/lightbox';
 import lazyMedia from './lazy';
 import scaredElement from '../components/scared-element';
 import lazySectionBackground from './lazy-background';
+import cookieConsent from './cookie-consent';
 
 /**
  * Init script
@@ -34,6 +35,9 @@ export default () => new Promise((resolve, reject) => {
 
     // hiding navbar on first home section (when menu is visible)
     scaredElement('.navbar', '.hero-body>.container .title');
+
+    // cookie consent handling
+    cookieConsent({ selector: '.cookie-consent', buttonSelector: '.cookie-consent .button' })
 
     resolve();
   } catch (error) {

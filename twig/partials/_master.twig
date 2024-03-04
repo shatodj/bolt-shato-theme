@@ -61,6 +61,11 @@
 
 			{% endblock content %}
 
+			{# Cookie consent #}
+			{% block cookieConsent %}
+				{% include 'twig/partials/_cookie_consent.twig' %}
+			{% endblock %}
+
 			{# Standard FOOTER #}
 			{% block footer %}
 				{% include 'footer.twig' %}

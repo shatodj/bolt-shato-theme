@@ -70,6 +70,15 @@ The theme is designed to provide an easy way to extend core elements in the temp
     theme: bolt-shato-theme
     ```
 
+1. Regenerate database fixtures (Optional).
+   With the previous step we created some new content types. This will purge the current database and create new with dummy data.  
+
+   ```
+   cd ../../../
+   bin/console doctrine:fixtures:load
+
+   ```
+
 # TODO:
 - [x] Get rid of JQuery
 - [ ] Maintenance template twig fix
