@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
 import inView from 'in-view';
-import progressiveImage from './progressive-image';
+import progressiveImage from './progressive-image.js';
 
 export const preloadIFrame = (iframeElement) => new Promise((resolve, reject) => {
   if (!iframeElement) {

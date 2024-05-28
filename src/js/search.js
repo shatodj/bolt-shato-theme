@@ -2,6 +2,6 @@
 
 import '../scss/listing.scss';
 
-import init from './partials/main';
+import init from './partials/main.js';
 
 init();

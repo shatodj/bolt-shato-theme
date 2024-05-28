@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@import "../../node_modules/bulma/sass/components/navbar.sass";
+@import "../../../node_modules/bulma/sass/components/navbar.sass";
 
 .navbar {
   .navbar-link {
@@ -52,7 +52,7 @@
 
   .shpr-brand.navbar-brand {
     .navbar-item {
-      background-image: image("logo04.svg");
+      background-image: image("logo01.svg");
       background-size: contain;
       background-repeat: no-repeat;
       height: 39px;

@@ -2,6 +2,6 @@
 
 import '../scss/record.scss';
 
-import init from './partials/main';
+import init from './partials/main.js';
 
 init();

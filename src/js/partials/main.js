@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-import menu from '../components/burger-menu';
-import slider from '../components/slider';
-import lightbox from '../components/lightbox';
-import lazyMedia from './lazy';
-import scaredElement from '../components/scared-element';
-import lazySectionBackground from './lazy-background';
-import cookieConsent from './cookie-consent';
+import menu from '../components/burger-menu.js';
+import slider from '../components/slider.js';
+import lightbox from '../components/lightbox.js';
+import lazyMedia from './lazy.js';
+import scaredElement from '../components/scared-element.js';
+import lazySectionBackground from './lazy-background.js';
+import cookieConsent from './cookie-consent.js';
 
 /**
  * Init script

@@ -3,7 +3,7 @@
 import '../../scss/partials/lazy-background.scss';
 
 import inView from 'in-view';
-import progressiveImage from './progressive-image';
+import progressiveImage from './progressive-image.js';
 
 /**
  * Proccess element / section
