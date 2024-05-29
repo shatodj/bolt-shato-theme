@@ -32,8 +32,8 @@
 		} %}
 	{% endif %}
 		
-	{% set width = alias.size[0]|default(100) %}
-	{% set height = alias.size[1]|default(100) %}
+	{% set width = min(alias.size[0]|default(100), 1000) %}
+	{% set height = min(alias.size[1]|default(100), 750) %}
 	{% set fit = alias.fit|default('c') %}
 
 	{% set progressiveThumb = image|thumbnail(width * 0.25, height * 0.25, fit) %}
@@ -127,31 +127,30 @@
 
 		{# Set body of the section #}
 		{% set content %}
-			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 			<div class="container">
 				{% with { 'section': section } %}
 				{{ block('section_content', "section_blocks.twig") }}
 				{%- endwith -%}	
 			</div>
 		{% endset %}
-
-		{# set different color for each section #}
-		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
+		
+		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length]|default(color_iteration[0]) %}
+		
 		{% with { 
+			section: section,
 			content: content,
 			image: section.image,
 			bgColor: currentColor,
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
 			{{ block('section', "section_blocks.twig") }}
-		{%- endwith -%}	
+		{%- endwith -%}
 	{% endfor %}
 {% endmacro %}
 
 {# Section macro #}
 {# Create section from block content type by the record's related #}
 {% macro sectionsByRecord(record, isParalax = false, color_iteration = null ) %}
-
 	{% set themeSection = config.get('theme/section') %}
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
@@ -171,7 +170,7 @@
 		{% endset %}
 
 		{# set different color for each section #}
-		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
+		{# {% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
 		{% with { 
 			content: content,
 			image: section.image,
@@ -179,6 +178,6 @@
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
 			{{ block('section', "section_blocks.twig") }}
-		{%- endwith -%}
+		{%- endwith -%} #}
 	{% endfor %}
 {% endmacro %}

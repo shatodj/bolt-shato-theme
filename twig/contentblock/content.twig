@@ -3,62 +3,21 @@
 
 {# Entry block #}
 {# Content of contentype 'block' and 'contentlink' filed for NOT iterable content #}
-{% block contentlink_block %}
+{% block contentlink_block_with_validation %}
 
 	{% if content|default is empty %}
-		{{ __("No Content") }}
+		{% with { message: 'No content retireved.' } %}
+		{{ block('error_block', 'blocks.twig') }}
+		{% endwith %}
+	{% elseif content|default is iterable %}
+		{% with { message: 'Received content IS iterable and is not valid for this template.' } %}
+		{{ block('error_block', 'blocks.twig') }}
+		{% endwith %}
 	{% else %}
-
-		<div class="{{ contentBlockClass|default }}"> 
-			{% block beforetitle %}{% endblock %}
-			{% block title %}
-				{% apply spaceless %}
-				{% set titleBlock %}
-					<h3 class="title is-5">{{ content|title|default }}</h3>
-				{% endset %}
-
-				{%- with { 
-					content: titleBlock, link: content|link
-				} -%}
-					{{ block("link_wrapper", "blocks.twig") }}
-				{%- endwith -%}
-
-				{% endapply %}
-			{% endblock %}
-
-			{% block beforeteaser %}{% endblock %}
-			{% block teaser %}
-				<div class="content">
-					<p class="no-link-color">
-						
-						{% set teaserContent %}
-							{% apply spaceless %}
-							{% if content.teaser is defined %}
-								{{ content.teaser|excerpt(220) }}
-							{% elseif content.content is defined %}
-								{{ content.content|excerpt(220) }}
-							{% endif %}
-							{% endapply %}
-						{% endset %}
-
-						{%- with { 
-							content: teaserContent, link: content|link
-						} -%}
-							{{ block("link_wrapper", "blocks.twig") }}
-						{%- endwith -%}
-					</p>
-				</div>
-			{% endblock %}
-			{% block body %}{% endblock %}
-			{% block beforeactions %}{% endblock %}
-			{% block actions %}
-				{% if content|link|default %}
-					<div class="actions">
-						{% set viewAlllink = content|link %}
-						<a class="button" href="{{ viewAlllink }}">{{ __('Read more') }}</a>
-					</div>
-				{% endif %}
-			{% endblock %}
-		</div>
+		{% block contentlink_block %}
+			<div class="{{ contentBlockClass|default }}"> 
+    			{% include "twig/partials/_record_teaser.twig" with { use_link: true, use_read_more: true, record: content } %}
+			</div>
+		{% endblock %}
 	{% endif %}
 {% endblock %}

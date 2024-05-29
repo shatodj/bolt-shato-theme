@@ -23,7 +23,6 @@ const OUTPUT_DIR = {
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
-
 let config = {
   entry: {
     minimal: `${SRC_DIR}/js/minimal.js`,
@@ -60,9 +59,9 @@ let config = {
         use: [
           { loader: MiniCssExtractPlugin.loader },
           // { loader: 'style-loader'},
-          { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
+          { loader: 'css-loader', options: { sourceMap: mode === 'production', importLoaders: 1 } },
           // { loader: 'resolve-url-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: mode === 'production' } },
         ],
       },
       {

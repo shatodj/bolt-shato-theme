@@ -1,0 +1,28 @@
+{% if record|default is empty %}
+    {% with {'message': "The 'record' is not defined"} %}
+    {{ block('error_block', "blocks.twig")}}
+    {% endwith %}
+
+{% else %}
+    
+    {% set content %}
+        <div class="container">
+            {% block header_content %}
+                {% with { 'section': record } %}
+                {{ block('hero_content', "section_blocks.twig") }}
+                {%- endwith -%}
+
+                {{ extraContent|default }}
+            {% endblock %}
+        </div>
+    {% endset %}
+    
+    {% with { 
+        content: content,
+        image: record.image|default,
+        class: extraClass|default(config.get('theme/layout/class/header_record'))
+    }%}
+        {{ block('hero', "section_blocks.twig") }}
+    {%- endwith -%}
+
+{% endif %}

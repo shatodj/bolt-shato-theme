@@ -1,0 +1,20 @@
+{% import "twig/partials/_macros.twig" as m %}
+
+{# 
+    Mandatory: image, thumbname
+    Optional: link
+ #}
+<figure class="imageholder">
+    {% if link|default is not empty %}
+        {% with {
+            link: link,
+            class: "block",
+            content: m.lazyImage(image, thumbname)
+        } %}
+        {{ block("link_wrapper", "blocks.twig") }}
+        {% endwith %}
+    {% else %}
+        {{ m.lazyImage(image, thumbname) }}
+    {% endif %}
+    
+</figure>

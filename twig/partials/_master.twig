@@ -61,11 +61,6 @@
 
 			{% endblock content %}
 
-			{# Cookie consent #}
-			{% block cookieConsent %}
-				{% include 'twig/partials/_cookie_consent.twig' %}
-			{% endblock %}
-
 			{# Standard FOOTER #}
 			{% block footer %}
 				{% include 'footer.twig' %}
@@ -78,6 +73,9 @@
 			
 			{# Font Awesome #}
 			{{ m.script('dist/js/fontawesome-bundle.js') }}
+
+			{# AdSense #}
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config.get('theme/seo/adsense') }}" crossorigin="anonymous"></script>
 		</body>
 	</html>
 {% endblock %}

@@ -1,0 +1,55 @@
+{# Bulma CSS formular #}
+{# TODO: Add missing form controlls #}
+{# see: https://github.com/symfony/symfony/blob/5.4/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig#}
+{% use "form_div_layout.html.twig" %}
+
+{% block form_widget_simple %}
+    {% set attr = attr|default({})|merge({
+        'class': 'input'
+    }) %}
+    
+    {{- parent() -}}   
+{% endblock %}
+{
+{% block choice_widget %}
+    {% set attr = attr|default({})|merge({
+        'class': 'select'
+    }) %}
+    <div class="control">
+        {{- parent() -}}
+    </div>
+{% endblock %}
+
+{% block textarea_widget %}
+    {% set attr = attr|default({})|merge({
+        'class': 'textarea'
+    }) %}
+    <div class="control">
+        {{- parent() -}}
+    </div>
+{% endblock %}
+
+{% block submit_widget %}
+    {% set attr = attr|default({})|merge({
+        'class': 'button'
+    }) %}
+    <div class="control">
+        {{- parent() -}}
+    </div>
+{% endblock %}
+
+{% block form_label %}
+    {% set label_attr = label_attr|default({})|merge({
+        'class': 'label'
+    }) %}
+    {{- parent() -}}
+    
+{% endblock %}
+
+{% block form_row %}
+    {% set row_attr = row_attr|default({})|merge({
+        'class': 'field'
+    }) %}
+
+    {{- parent() -}}
+{% endblock %} 

@@ -6,12 +6,13 @@ $fullhd: 1152px;
 $family-primary: 'Roboto', sans-serif;
 $family-secondary: 'Montserrat', sans-serif;
 
-$primary: #1F303F;
-$light: #F0F0F0;
+$primary: #181B1E;
+$dark: #25272D;
+$light: #F0F0F0; 
 $text: #101010;
-$text-light: #364156;
-$link: $primary;
-$info: #364156;
+$text-light: #F0F0F0;
+$link: #a01f1f;
+$info: fade-out($color: $light, $amount: 0.5);
 
 // $title-weight: 700;
 $weight-normal: 300;

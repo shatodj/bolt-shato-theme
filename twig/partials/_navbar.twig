@@ -1,5 +1,5 @@
 {# Navbar #}
-<nav class="navbar {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
+<nav id="navbar-toggle" class="navbar {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
     <div class="container {{ theme.layout.is_navbar_full_width ? "is-fluid" }}">
         <div class="navbar-brand shpr-brand">
             {% block navbar_brand %}
@@ -15,11 +15,12 @@
                 </span>
             {% endblock %}
         </div>
-        <div class="navbar-menu" id="navbar-toggle">
+        <div class="navbar-menu">
             <div class="navbar-end">
                 <ul class="navbar-item no-link-color">
                     {% apply spaceless %}
-                        {{ menu('main', 'twig/partials/_sub_menu_navbar.twig') }}
+                        {% set usedMenu = config.get('theme/layout/used_navigation_menu')|default("main") %}
+                        {{ menu(usedMenu, 'twig/partials/_sub_menu_navbar.twig') }}
                     {% endapply %}
                 </ul>
                 {% block navbar_last_item %}

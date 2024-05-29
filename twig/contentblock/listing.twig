@@ -1,38 +1,44 @@
 {# Contentlink Listing content #}
 {# ContentBlock filled for ITERABLE content #}
 {# Require: content #}
-{% block contentlink_block %}
-
-	{% set defaults = {
-		classList: 'columns slider',
-		classListWide: 'columns',
-		classColumn: 'column is-one-third',
-		classColumnWide: 'column',
-		templateColumn: 'twig/contentblock/content.twig'
-	} %}
+{% block contentlink_block_with_validation %}
 
 	{% if content is not iterable %}
 		{% with { message: 'Received content is not iterable or invalid.' } %}
-		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{{ block('error_block', 'blocks.twig') }}
 		{% endwith %}
 	{% elseif content|length > 0 %}
+		{% block contentlink_block %}
+			{% set defaults = {
+				classList: 'columns slider',
+				classListWide: 'columns',
+				classColumn: 'column is-one-third',
+				classColumnWide: 'column',
+				dataList: { 
+					"slides-to-scroll": 1,
+                    "slides-to-show": 3
+				},
+				templateColumn: 'twig/contentblock/content.twig'
+			} %}
 
-		{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
-		<ul class="{{ listClass }}">
-			{%- for entry in content|filter(e => e.status == 'published') -%}
-                {% block list_item %}
-					
-					{% set columnClass = content|length == 1 ? columnClassWide|default(defaults.classColumnWide) : columnClass|default(defaults.classColumn) %}
-                    <li class="{{ columnClass }}">
-						{% with { content: entry } %}
-						{{ block('contentlink_block', columnTemplate|default(defaults.templateColumn) )}}
-						{% endwith %}
-                    </li>
+			{# NOT WORKING #}
+			{# {% set dataString = listData|default(defaults.dataList)|map((last, first) => "data-#{first}=#{last}")|join(" ") %} #}
+			{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
+			<ul class="{{ listClass }}" {# {{ dataString }} #}>
+				{%- for entry in content|filter(e => e.status == 'published') -%}
+					{% block list_item %}
+						
+						{% set columnClass = content|length == 1 ? columnClassWide|default(defaults.classColumnWide) : columnClass|default(defaults.classColumn) %}
+						<li class="{{ columnClass }}">
+							{% with { content: entry } %}
+							{{ block('contentlink_block', columnTemplate|default(defaults.templateColumn) )}}
+							{% endwith %}
+						</li>
 
-                {% endblock %}
-			{%- endfor -%}
-		</ul>
-
+					{% endblock %}
+				{%- endfor -%}
+			</ul>
+		{% endblock %}
 	{% else %}
 		{% with { message: 'There is no content yet.' } %}
 		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}

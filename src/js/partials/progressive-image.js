@@ -20,7 +20,7 @@ const preloadImage = (src) => new Promise((resolve, reject) => {
 /**
  * Progressively load the images on element
  */
-export default (element, onSuccess) => {
+export default (element, onSuccess, onError) => {
   if (!element.tagName === 'IMG') {
     console.warn('Unalble to progressive load non image element.');
     return;
@@ -43,22 +43,26 @@ export default (element, onSuccess) => {
       return;
     }
 
-    const promise = preloadImage(firstUrl)
-      .then(() => {
-        if (typeof onSuccess === 'function') onSuccess(firstUrl);
+    const promiseChain = (url) => preloadImage(url)
+      .catch((error) => {
+        if (typeof onError === 'function') onError(error);
+        return false;
+      })
+      .then((image) => {
+        if (!image) {
+          return false;
+        }
+        if (typeof onSuccess === 'function') onSuccess(url);
         return true;
       });
+
+    const promise = promiseChain(firstUrl);
 
     // load image by images one by one
     if (imageUrls.length) {
       imageUrls.forEach((url) => {
         if (url) {
-          promise
-            .then(() => preloadImage(url))
-            .then(() => {
-              if (typeof onSuccess === 'function') onSuccess(url);
-              return true;
-            });
+          promise.then(() => promiseChain(url));
         }
       });
     }

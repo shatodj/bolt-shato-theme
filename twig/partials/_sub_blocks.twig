@@ -1,6 +1,6 @@
 {# Content edit button #}
 {% block edit_button %}
-	<a href="{{ record|edit_link }}" class="button is-info is-outlined">
+	<a href="{{ record|edit_link }}" class="button is-outlined">
         <span class="icon">
             <i class="fas fa-pencil-alt"></i>
         </span>
@@ -10,12 +10,17 @@
 
 {# Regular buy button #}
 {% block buy_button %}
-    <a class="button {{ class|default("is-primary") }}" href="{{ link|default('#') }}">
+    <a class="button {{ class|default("is-primary") }}" href="{{ link|default('#') }}" {{ extra|default}}>
         <span class="icon">
             <i class="fas fa-shopping-cart"></i>
         </span>
         <span>{{ __("Add To Cart")}}</span>
     </a>
+{% endblock %}
+
+{# Regular Read more button #}
+{% block read_more_button %}
+    <a class="button" href="{{ link|default('#') }}">{{ __('general.phrase.read-more') }}</a>
 {% endblock %}
 
 {# Error / Warning block #}

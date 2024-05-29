@@ -26,8 +26,9 @@
 					</h3>
 				</header>
 				<div class="shpr-gallery">
-					{% import "twig/partials/_macros.twig" as m %}
-					{{ m.lazyGallery(gallery.imagelist) }}
+					{% with { 'gallery': gallery.imagelist } %}
+					{{ block("section_content_gallery", "seaction_blocks.twig") }}
+					{% endwith %}
 				</div>
 			</section>
 		{% endfor %}

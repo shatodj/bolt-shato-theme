@@ -1,0 +1,23 @@
+{% import "twig/partials/_macros.twig" as m %}
+
+
+{% set related = record|related_by_type() %}
+{% set people = related['people']|default([]) %}
+{% set person = people[0]|default %}
+
+{% if person is not empty %}
+
+  <article class="media block">
+    <div class="media-left">
+      {% include "twig/partials/_sub_image.twig" with { image: person.image, thumbname: 'person' } %}
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>{{ person.name }}</strong>
+          <br>
+          <small> {{ record.publishedAt|format_datetime("medium") }} </small>
+        </p>
+      </div>
+  </article>
+{% endif %}

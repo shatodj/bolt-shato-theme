@@ -1,14 +1,15 @@
-<div class="block">
+<div class="columns">
     {% for type, taxonomies in record|taxonomies %}
-        <div>
+        <div class="column is-narrow">
             {% if taxonomies|length == 1 %}
                 {{ config.get('taxonomies')[type].singular_name }}:
             {% elseif taxonomies|length > 1 %}
                 {{ config.get('taxonomies')[type].name }}:
             {% endif %}
+        
+            {% for taxonomy in taxonomies %}
+                <div class="tag"><a href="{{ taxonomy|link }}">#{{ taxonomy.name }}</a></div>
+            {% endfor %}
         </div>
-        {% for taxonomy in taxonomies %}
-            <div class="tag"><a href="{{ taxonomy|link }}">{{ taxonomy.name }}</a></div>
-        {% endfor %}
     {% endfor %}
 </div>

@@ -8,14 +8,17 @@
 }
 
 .logo {
-    @include logo(300px, "logo01.svg");
+    @include logo(300px, "logo04.svg");
 }
 
-.shpr-footer-block .logo {
-    background-position-x: right;
-    height: 124px;
-    align-self: center;
-    color: transparentize($color: $light, $amount: 1);
+.shpr-footer-block {
+    overflow: hidden;
+    .logo {
+        @include logo(300px, "logo02.svg");
+        background-position-x: right;
+        align-self: center;
+        color: transparentize($color: $light, $amount: 1);
+    }
 }
 
 .maintenance .logo {

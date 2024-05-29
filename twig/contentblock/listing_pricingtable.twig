@@ -2,7 +2,9 @@
 
 {% block contentlink_block %}
     {% set listClass = 'pricing-table' %}
+    {% set listClassWide = listClass %}
     {% set columnClass = 'pricing-plan is-primary' %}
+    {% set columnClassWide = columnClass %}
     {% set columnTemplate = 'twig/contentblock/content_pricingtable.twig' %}
 
     {{ parent() }}

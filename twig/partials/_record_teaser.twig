@@ -1,0 +1,36 @@
+
+{% set record_title = record|title|default(record.title|default) %}
+{% set record_teaser = record.teaser|striptags|default(record.introduction|striptags|default(record.excerpt(300, false))) %}
+{% set tag = tag|default("h2") %}
+{% set classHeader = classHeader|default("title is-5") %}
+{% set classTeaser = classTeaser|default %}
+{% set use_read_more = use_read_more|default(false) %}
+{% set use_link = use_link|default(false) %}
+
+<{{tag}} class="{{ classHeader }} no-link-color">
+    {% if use_link && record|link|default is not empty %}
+        <a href="{{ record|link }}">{{ record_title }}</a>
+    {% else %}   
+        {{ record_title }}
+    {% endif %}
+</{{tag}}>
+
+<p class="{{ classTeaser }} no-link-color block">
+    {% if use_link && record|link|default is not empty %}
+        <a href="{{ record|link }}">{{ record_teaser }}</a>
+    {% else %}
+        <span>{{ record_teaser }}</span> 
+    {% endif %}
+</p>
+
+<div class="block">
+    {% if use_read_more && record|link|default is not empty %}
+        {% with { link: record|link} %}
+        {{ block("read_more_button", "blocks.twig") }}
+        {% endwith %}
+    {% endif %}
+</div>
+
+{% if withMeta|default(false)%}
+    {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
+{% endif %}

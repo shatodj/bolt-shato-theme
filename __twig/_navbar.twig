@@ -1,0 +1,18 @@
+{% extends "twig/partials/_navbar.twig" %}
+
+{% set useSearchbar = true %}
+
+{% block navbar_last_item %}   
+    {% if haswidgets('main_top') %}
+        <div class="navbar-item">
+            {{ widgets('main_top') }}
+        </div>
+    {% endif %}
+    
+    {# searchbar #}
+    {% if useSearchbar %}
+        <div class="navbar-item">
+            {% include "twig/partials/_sub_search_form.twig" %}
+        </div>
+    {% endif %}
+{% endblock %}

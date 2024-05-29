@@ -3,6 +3,8 @@
 @import "../../../node_modules/bulma/sass/components/navbar.sass";
 
 .navbar {
+  box-shadow: 0 5px 11px 0px rgba($black, 0.1);
+
   .navbar-link {
 
     &.is-active,
@@ -22,11 +24,11 @@
   &.is-dark,
   &.is-primary {
     .navbar-menu a {
-      color: $light;
+      color: $text-light;
     }
 
     .navbar-link {
-      color: $light;
+      color: $text-light;
     }
   }
 
@@ -42,6 +44,12 @@
     }
   }
 
+  &.is-active {
+    .navbar-menu {
+      display: block;
+    }
+  }
+
   .navbar-item {
     text-transform: uppercase;
   }
@@ -52,7 +60,7 @@
 
   .shpr-brand.navbar-brand {
     .navbar-item {
-      background-image: image("logo01.svg");
+      background-image: image("logo04.svg");
       background-size: contain;
       background-repeat: no-repeat;
       height: 39px;
@@ -74,20 +82,14 @@
 
   // navbar enlarging and animation
   transition: all .5s;
-  transition-property: background-color, min-height, border-color;
+  transition-property: background-color, min-height, box-shadow;
   background-color: transparentize($color: $primary, $amount: 0.5);
-  border-color: transparentize($color: $light, $amount: 0);
-  border-bottom: 1px solid;
   min-height: 0px;
-  &.transparent {
+  
+  &.transparent:not(.is-active) {
     background-color: transparentize($color: $primary, $amount: 1);
-    border-color: transparentize($color: $light, $amount: 1);
     min-height: 120px;
+    box-shadow: 0 5px 11px 0px rgba($black, 0);
   }
 
-  // &.is-scared {
-  //   &.but-brave {
-        
-  //   }
-  // }
 }

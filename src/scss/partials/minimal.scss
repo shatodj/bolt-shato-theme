@@ -6,6 +6,7 @@
 @import "./has-image-centered.scss";
 @import "./overlays.scss";
 @import "./lazy.scss";
+@import "./lazy-background.scss";
 
 @import "../components/navbar.scss";
 @import "../components/gallery.scss";
@@ -22,10 +23,6 @@
 
 .is-no-border {
   border: none;
-}
-
-.without-pointer-events {
-  pointer-events: none;
 }
 
 .title {
@@ -68,13 +65,8 @@
 }
 
 .imageholder {
-  background-color: $light;
   display: block;
   
-  &.is-processed {
-      background-color: $light;
-  }
-
   .img {
     display: block;
   }
@@ -88,6 +80,7 @@
 .pricing-table {
   .pricing-plan {
     width: 20%;
+    border
 
     &.is-primary {
       .plan-price .plan-price-amount {
@@ -103,4 +96,28 @@
       }
     }
   }
+
+  @include tablet-only {
+    .pricing-plan {
+      width: 30%;
+    }
+  }
+
+  @include mobile {
+    display: block;
+
+    .pricing-plan {
+      width: initial;
+    }
+  }
+}
+
+.without-pointer-events {
+  pointer-events: none;
+}
+
+.edit-record-bar {
+  position: fixed;
+  bottom: 0; right: 0; left: 0;
+  z-index: 10;
 }

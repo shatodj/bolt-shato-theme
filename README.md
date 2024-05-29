@@ -13,12 +13,12 @@ The theme is designed to provide an easy way to extend core elements in the temp
 - EcmaScript6 syntax
 
 ## Techstack
-- Webpack
+- Webpack 5
     - compile+minify scss from /src/scss to /dist/css
     - compile+uglify js from /src/js to /dist/js
     - optimizing images from /src/images to /dist/images
     - exporting fonts from /src/fonts to /dist/fonts
-    - exporting google fonts to /dist/css/woff.css
+    - ~~exporting google fonts to /dist/css/woff.css~~
 - Bulma.io
 - Font Awesome
 - FsLightbox
@@ -27,14 +27,14 @@ The theme is designed to provide an easy way to extend core elements in the temp
 ## How to run on your develeper machine
 
 ### Requirements
-- Node.js v6 and above
+- Node.js v20 and above
 
 ### Step by step
 
 1. GIT Clone this project to Bolt's theme directory ***OR*** use composer install:
 
     ```
-    composer install shatodj/bolt-shato-theme
+    composer require shatodj/bolt-shato-theme
 
     bin/console bolt:copy-theme shatodj/bolt-shato-theme
     ```
@@ -83,7 +83,7 @@ The theme is designed to provide an easy way to extend core elements in the temp
 - [x] Get rid of JQuery
 - [ ] Maintenance template twig fix
 - [ ] deploy/archive script
-- [ ] Progressive images loading (Currently possible only for section backgrounds)
+- [x] Progressive images loading (Currently possible only for section backgrounds)
 - [ ] Live reload for updating js/scss
 - [ ] Fill demo content script by the theme preference
 - [ ] Section Blocks docu

@@ -13,21 +13,24 @@
   bottom: 0;
   right: 0;
   background: transparentize($black, $alpha);
+  z-index: -2;
 }
 
 @mixin fadeFill($direction: 0deg, $alpha: 0.3) {
   $colorList: transparentize($black, $alpha), transparentize($black, 1), transparentize($black, 1), transparentize($black, 1);
 
   @include fade($alpha);
-  @include gradient(direction, $colorList);
+  @include gradient($direction, $colorList);
 }
 
-.floor-fade-light > *, 
-.floor-fade > *,
-.fade > *,
-.fade-light > * {
-  z-index: 2;
-}
+// .floor-fade-light > *, 
+// .floor-fade > *
+// .luster-fade > *,
+// .luster-fade-light > *,
+// .fade > *,
+// .fade-light > * {
+//   z-index: 2;
+// }
 
 .floor-fade::after {
   @include fadeFill(0deg, 0.3);
@@ -35,6 +38,14 @@
 
 .floor-fade-light::after {
   @include fadeFill(0deg, 0.8);
+}
+
+.luster-fade::after {
+  @include fadeFill(180deg, 0.3);
+}
+
+.luster-fade-light::after {
+  @include fadeFill(180deg, 0.8);
 }
 
 .fade::after {

@@ -39,6 +39,8 @@ const lazy = ({ elementSelector, tags, onLoadCallback }) => {
         progressiveImage(element, (url) => {
           element.setAttribute('src', url);
           element.classList.add('is-loaded');
+        }, () => {
+          element.classList.add('is-error');
         });
       } else {
         preloadIFrame(element).then(() => {

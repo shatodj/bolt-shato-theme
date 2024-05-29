@@ -1,0 +1,22 @@
+// https://bulma.io/documentation/customize/variables/
+
+$title-line-height: 1.5;
+$dimensions: 16 24 32 48 64 96 128 256 512;
+$fullhd: 1152px;
+$family-primary: 'Roboto', sans-serif;
+$family-secondary: 'Montserrat', sans-serif;
+
+$primary: #1F303F;
+$light: #F0F0F0;
+$text: #101010;
+$text-light: #364156;
+$link: $primary;
+$info: #364156;
+
+// $title-weight: 700;
+$weight-normal: 300;
+$weight-light: 200;
+$body-font-size: 1.2em;
+
+// Custom variables
+$title-color: $text;

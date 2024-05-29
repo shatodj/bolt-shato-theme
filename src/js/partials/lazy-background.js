@@ -1,7 +1,5 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-import '../../scss/partials/lazy-background.scss';
-
 import inView from 'in-view';
 import progressiveImage from './progressive-image.js';
 
@@ -16,6 +14,8 @@ const proccessElement = (element) => {
     });
 
     element.classList.add('is-loaded');
+  }, () => {
+    element.classList.add('is-error');
   });
 };
 

@@ -16,7 +16,36 @@
     {% if contenttype|default is not empty%}
         {% setcontent blck = "block/" ~ contenttype.slug %}
     {% endif %}
-    
+
+    {% block record_edit %}
+        {% include "twig/partials/_record_edit.twig" with { record: blck|default }%}
+    {% endblock %}
+
+    {# Content to be renderred in header #}
+    {% set headerContent %}
+        <div class="container">
+            {% block header_content %}
+                {% if taxonomy is defined %}
+                    <h1 class="title is-2 is-4-mobile">
+                        {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
+                    </h1>
+                {% else %}
+                    {% if blck|default is not empty %}
+                        {% include "twig/partials/_record_teaser.twig" with { 
+                            record: blck, 
+                            classHeader:"title is-2 is-4-mobile", 
+                            classTeaser: "subtitle is-4 is-6-mobile", 
+                            use_read_more: true} 
+                        %}
+                    {% else %}
+                        <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
+                    {% endif %}
+                    
+                {% endif %}
+            {% endblock %}
+        </div>
+    {% endset %}
+
     {% set listContent %}
         <section class="content">
             {% if blck|default is not empty and blck.content|default is not empty %}
@@ -30,28 +59,17 @@
                     {% block list_item %}
                         <div class="column is-7">
                             <div class="content">
-                                <h2 class="title is-5 no-link-color">
-                                    <a href="{{ record|link }}">{{ record|title }}</a>
-                                </h2>
-
-                                {# display something introduction-like.. #}
-                                {% if record.teaser %}
-                                    {{ record.teaser }}
-                                {% else %}
-                                    <p>{{ record.excerpt(300, false, search|default('')) }}</p>
-                                {% endif %}
-
-                                {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
-                                
+                                {% include "twig/partials/_record_teaser.twig" with { use_read_more: true, use_link: true } %}
                             </div>
                         </div>
                         {% if record.image is not empty %}
                             <div class="column">
-                                <figure class="image has-image-centered">
-                                    <a href="{{ record|link }}">
-                                        {{ m.lazyImage(record.image, "listing") }}
-                                    </a>
-                                </figure>
+                                {# TODO: use this as block also use the same for gallery #}
+                                <div class="card">
+                                    <div class="card-image">
+                                        {% include "twig/partials/_sub_image.twig" with { link: record|link, image: record.image, thumbname: "listing" } %}
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
                     {% endblock %}
@@ -63,7 +81,7 @@
 
                         {% with { message: __("There is no content yet.") } %}
                         {{ block("error_block", "blocks.twig") }}
-                        {% endwith %}        
+                        {% endwith %}
                     </div>
                 </article>
             {% endfor %}
@@ -71,34 +89,7 @@
     {% endset %}
 
     {# Header section #}
-    {% block header %}
-
-        {# Content to be renderred in header #}
-        {% set headerContent %}
-            <div class="container">
-                {% block header_content %}
-                    {% if taxonomy is defined %}
-                        <h1 class="title is-2 is-4-mobile">
-                            {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
-                        </h1>
-                    {% else %}
-                        
-                        {% if blck|default is not empty %}
-                            <h1 class="title is-2 is-4-mobile">{{ blck.title }}</h1>
-                            <div class="subtitle is-4 is-6-mobile">{{blck.teaser}}</div>
-                            {% if blck.contentlink|default is not empty %}
-                                <a href="{{ blck.contentlink|default }}" class="button is-primary">{{ __("Read More")}}</a>
-                            {% endif %}
-                        {% else %}
-                            <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
-                        {% endif %}
-                        
-                    {% endif %}
-                {% endblock %}
-            </div>
-        {% endset %}
-
-
+    {% block record_header %}
         {% with { 
             content: headerContent,
             image: blck|default is not empty ? blck.image|default(null) : null,
@@ -108,27 +99,22 @@
         {%- endwith -%}
     {% endblock %}
     
-    {% block listing_edit %}
-        {% if blck|default is not empty %}
-            {% include "twig/partials/_record_edit.twig" with { record: blck }%}
-        {% endif %}
+    {% block record_body %}
+        {# Body section #}
+        {% set sectionExtraClass = config.get("theme/layout/class/listing")|default %}
+        <section class="section shpr-section {{ sectionExtraClass }}">
+            <div class="container">
+                {% block body %}
+                    {{ listContent }}
+                {% endblock %}
+
+                {% block pager %}
+                    {# If there are more records than will fit on one page, the pager is shown. #}
+                    {{ pager(records, template = 'helpers/_pager_bulma.html.twig', surround = 5) }}
+                {% endblock %}
+            </div>
+        </section>
     {% endblock %}
-
-    {# Body section #}
-    {% set sectionExtraClass = config.get("theme/layout/class/listing")|default %}
-    <section class="section shpr-section {{ sectionExtraClass }}">
-        <div class="container">
-            {% block body %}
-                {{ listContent }}
-            {% endblock %}
-
-            {% block pager %}
-                
-                {# If there are more records than will fit on one page, the pager is shown. #}
-                {{ pager(records, template = 'helpers/_pager_bulma.html.twig', surround = 5) }}
-            {% endblock %}
-        </div>
-    </section>
 
     {# Standard SECTIONS #}
 	{% block sections %}

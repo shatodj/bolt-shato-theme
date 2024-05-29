@@ -1,0 +1,46 @@
+{% extends "helpers/_fields.twig" %}
+
+{% block common_fields %}
+
+    {# HTML, Textarea, Text and Markdown fields #}
+    {% if type in ['html', 'textarea', 'text', 'markdown'] %}
+        {% set tag = (field.name in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
+        {{ block('text_field') }}
+    {% endif %}
+
+    {# Image fields #}
+    {% if type == "image" and field.filename is not empty %}
+        {{ block("image") }}
+    {% endif %}
+
+    {# File fields #}
+    {% if type == "file" and field is not empty %}
+        {{ block("file") }}
+    {% endif %}
+
+    {# Video fields #}
+    {% if type == "video" and field.responsive|default is not empty %}
+       {{ block("video") }}
+    {% endif %}
+
+{% endblock %}
+
+{% block image %}
+    {% import "twig/partials/_macros.twig" as m %}
+    <figure class="image has-image-centered">
+        {{ m.lazyImagePopup(field, 'record', 'gallery-big') }}
+        <figcaption>{{ field.title|default }} </figcaption>
+    </figure>
+{% endblock %}
+
+{% block file %}
+    <p>{{ __('general.phrase.download') }}:
+        <a href="{{ field }}">{{ field.title|default(field.filename) }}</a>
+    </p>
+{% endblock %}
+
+{% block video %}
+    <div class="flex-video {{ field.ratio|default(1) > 1.5 ? 'widescreen' }}">
+        {{ field.responsive }}
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 {# Theme section block #}
 {# Required: content, bgColor #}
-{# Optional: isParalax, image  #}
+{# Optional: isParalax, image, section  #}
 {% block section %}
 
 	{% set sectionExtraClass = config.get("theme/layout/class/section")|default %}
@@ -21,11 +21,18 @@
 		{% endset %}
 	{% endif %}
 
+	{% set contentWithAnchor %}
+		{% if section.slug is defined %}
+			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+		{% endif %}
+		{{ content }}
+	{% endset %}
+
 	{# Wrap section in lazy-background element #}
 	{%- with { 
 		bgImages: bgImages|default, 
-		isParalax: isParalax, 
-		content: content,
+		isParalax: isParalax|default(false), 
+		content: contentWithAnchor,
 		htmlTag: "section", 
 		class: "section is-section-" ~ bgColor ~ " " ~ sectionExtraClass
 	} -%}
@@ -43,7 +50,7 @@
 	{# Section images initialization #}
 	{% if image|default is not empty %}
 		{% import "twig/partials/_macros.twig" as m %}
-		{% set bgImages = m.thumbimage(image, 'section-small') ~ ';' ~ image.path %}
+		{% set bgImages = m.progressive_thumbimage(image) %}
 	{% endif %}
 	
 	{% if content is not defined %}
@@ -84,15 +91,22 @@
 {% block hero_content %}
 	<h1 class="title is-1 is-3-mobile is-spaced">{{ section|title|default }}</h1>
 	
-	{% set teaser = section.introduction|default(section.teaser|default) %}
-	{% if teaser is not empty %}
-		<p class="subtitle">{{ teaser }}</p>
+	{% if includeInfo|default(false) %}
+		{% include "twig/partials/_record_info.twig" %}
 	{% endif %}
 
-	{% if includeMeta|default %}
+	{% set teaser = section.introduction|default(section.teaser|default) %}
+	{% if teaser is not empty %}
+		<div class="subtitle content">{{ teaser }}</div>
+	{% endif %}
+
+	{% if includeMeta|default(false) %}
 		{% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
 	{% endif %}
 
+	{% if includeTaxonomy|default(false) %}
+		{% include 'twig/partials/_record_taxonomy.twig' with { 'record': record } %}
+	{% endif %}
 {% endblock %}
 
 {# Section content block #}
@@ -178,7 +192,7 @@
 	{% set subBlockContent = [] %}
 
 	{%- if section.contentlink|default is not empty and not (section.contentlink starts with 'http') %}
-		{% setcontent subBlockContent = section.contentlink where {status: 'published'} orderby '-publishedAt' limit section.contentlimit|default(0) %}
+		{% setcontent subBlockContent = section.contentlink where {status: 'published'} orderby 'publishedAt' limit section.contentlimit|default(0) %}
 	{% endif %}
 
 	{% if section.contentselect|default is not empty %}

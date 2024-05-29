@@ -5,6 +5,7 @@ import bulmaCarousel from 'bulma-carousel';
  */
 export default ({ selector, ...options }) => {
   // See: https://creativebulma.net/product/carousel/demo#
+
   const carousels = bulmaCarousel.attach(selector, {
     slidesToScroll: 1,
     slidesToShow: 3,

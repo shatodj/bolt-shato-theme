@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "npx rimraf dist",
     "prepare": "node scripts/prepare.mjs",
-    "build": "npm run clear && npx webpack --config ./scripts/webpack.config.mjs",
+    "build": "npm run clear && npx webpack --config ./scripts/webpack.config.mjs --mode production",
     "build:dev": "npm run clear && npx webpack --config ./scripts/webpack.config.mjs",
     "format": "eslint"
   },

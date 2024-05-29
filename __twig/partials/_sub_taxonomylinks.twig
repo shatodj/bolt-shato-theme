@@ -1,0 +1,14 @@
+<div class="block">
+    {% for type, taxonomies in record|taxonomies %}
+        <div>
+            {% if taxonomies|length == 1 %}
+                {{ config.get('taxonomies')[type].singular_name }}:
+            {% elseif taxonomies|length > 1 %}
+                {{ config.get('taxonomies')[type].name }}:
+            {% endif %}
+        </div>
+        {% for taxonomy in taxonomies %}
+            <div class="tag"><a href="{{ taxonomy|link }}">{{ taxonomy.name }}</a></div>
+        {% endfor %}
+    {% endfor %}
+</div>

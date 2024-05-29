@@ -2,7 +2,7 @@
 
 @import "./minimal.scss";
 @import "../../node_modules/bulma/sass/elements/tag.sass";
-@import "../../node_modules/bulma-carousel/dist/css/bulma-carousel.min.css";
+@import "../../node_modules/bulma-carousel/src/sass/index.sass";
 
-@import "./partials/sections.scss";
-@import "./partials/has-image-centered.scss";
+@import "partials/sections.scss";
+@import "partials/has-image-centered.scss";
