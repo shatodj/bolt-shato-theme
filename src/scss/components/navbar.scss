@@ -60,7 +60,7 @@
 
   .shpr-brand.navbar-brand {
     .navbar-item {
-      background-image: asset("logo01.svg", "image");
+      background-image: url("../"+image("logo01.svg"));
       background-size: contain;
       background-repeat: no-repeat;
       height: 39px;

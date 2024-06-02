@@ -9,7 +9,7 @@
     "prepare": "node scripts/prepare.mjs",
     "build": "npm run format && npm run clear && npx webpack --config ./config/webpack.config.js --mode production",
     "build:dev": "npm run format && npm run clear && npx webpack --config ./config/webpack.config.js",
-    "format": "eslint --format stylish ./src ./config --fix"
+    "format": "eslint --format stylish ./src --fix"
   },
   "keywords": [
     "Bolt",

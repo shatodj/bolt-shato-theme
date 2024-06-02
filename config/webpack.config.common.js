@@ -39,7 +39,7 @@ let config = {
   output: {
     filename: `${OUTPUT_DIR.JS}/[name]-bundle.js`,
     path: DIST_DIR, // output directory name, relative to current webpack project directory
-    publicPath: join(env.template_path, 'dist'), // public output directory used to generate the directory in bundler
+    publicPath: join(env.template_path, 'dist')+"/", // public output directory used to generate the directory in bundler
     hashFunction: 'sha256',
   },
   experiments: {
@@ -69,26 +69,38 @@ let config = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: `${OUTPUT_DIR.IMAGE}[name][ext]`,
-            },
-          },
-        ],
+        test: /.(svg)$/,
+        type: 'asset/inline'
       },
       {
-        test: /\.(woff|ttf|eot|svg)$/,
+        test: /\.(png|jpg|gif)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: `${OUTPUT_DIR.FONT}[name][ext]`,
+              name: `${OUTPUT_DIR.IMAGE}/[name][ext]`,
             },
           },
         ],
+        type: 'asset/resource',
+        generator: {
+          filename: `${OUTPUT_DIR.IMAGE}/[name][ext][query]`
+        }
+      },
+      {
+        test: /\.(woff|ttf|eot)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: `${OUTPUT_DIR.FONT}/[name][ext]`,
+            },
+          },
+        ],
+        type: 'asset/resource',
+        generator: {
+          filename: `${OUTPUT_DIR.FONT}/[name][ext][query]`
+        }
       },
     ],
   },

@@ -1,20 +1,20 @@
 @import "./partials/minimal.scss";
 
 @mixin logo($height, $imageFile) {
-    background-image: image($imageFile);
+    background-image: url("../"+image($imageFile));
     background-size: contain;
     background-repeat: no-repeat;
     height: $height
 }
 
 .logo {
-    @include logo(300px, "logo04.svg");
+    @include logo(300px, "logo01.svg");
 }
 
 .shpr-footer-block {
     overflow: hidden;
     .logo {
-        @include logo(300px, "logo02.svg");
+        @include logo(300px, "logo01.svg");
         background-position-x: right;
         align-self: center;
         color: transparentize($color: $light, $amount: 1);
