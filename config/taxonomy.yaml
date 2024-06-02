@@ -6,4 +6,5 @@ sectiongroups:
     singular_slug: sectiongroup
     behaves_like: categories
     multiple: true
-    options: [ homepage, page, entry, record, search, footer ]
+    has_sortorder: true
+    options: [ homepage, page, entry, record, search, footer, listing, product ]

@@ -3,10 +3,10 @@ env:
   es6: true
 extends:
   - airbnb-base
-globals:
-  Atomics: readonly
-  SharedArrayBuffer: readonly
+  - plugin:prettier/recommended
+
 parserOptions:
-  ecmaVersion: 2018
+  ecmaVersion: latest
   sourceType: module
-rules: {}
+rules:
+  import/extensions: 0

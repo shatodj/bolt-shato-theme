@@ -1,23 +1,43 @@
 {# Index aka Homepage main template #}
 
-{% extends 'twig/partials/_master.twig' %}
+{% extends 'twig/_record.twig' %}
 {% import "twig/partials/_macros.twig" as m %}
 
+{% block stylesheet %}
+    {# Defer loading of non-critical styles #}
+    {{ m.stylesheet_inline('dist/css/homepage-bundle.css') }}
+{% endblock %}
+
+{% block scripts %}
+	{{ m.script('dist/js/homepage-bundle.js') }}
+{% endblock %}
+
 {% set themeConfig = config.get('theme') %}
-{% set isParalax = themeConfig.layout.use_paralax|default(true) %} {# use Paralax design #}
-{% set sectionGroup = "homepage" %}
+{% set isParalax = themeConfig.layout.use_paralax|default(true) %}
 {% set homepageContentBlock = themeConfig.section.homepage_block|default('homepage') %}
 {% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
 
 {% block content %}
-	{% block header %}
-		{% if homepage %}
-			{{ m.headerByRecord(homepage, themeConfig.layout.class.header_index) }}
-		{% endif %}
+	{% block record_edit %}
+		{% include "twig/partials/_record_edit.twig" with { record: homepage }%}
+	{% endblock %}
+
+	{% block body %}
+		{% block record_header %}
+			{% if homepage %}
+				{% include "twig/partials/_record_header.twig" with { extraClass: themeConfig.layout.class.header_index } %}
+			{% endif %}
+		{% endblock %}
+
+		{% with { excludedFields: ['image', 'teaser', 'introduction'] } %}
+		{{ block("record_body") }}
+		{% endwith %}
+		
+		{{ block("record_footer") }}
 	{% endblock %}
 
 	{% block sections %}
 		{{ m.sectionsByRecord(homepage, isParalax) }}
-		{{ m.sectionsByGroup(sectionGroup, isParalax) }}
+		{{ m.sectionsByGroup('homepage', isParalax) }}
 	{% endblock %}
 {% endblock %}

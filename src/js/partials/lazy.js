@@ -1,46 +1,32 @@
 /* eslint-disable no-param-reassign */
-import inView from 'in-view';
+/* eslint-disable no-unused-expressions */
+import inView from "in-view";
+import progressiveImage from "./progressive-image.js";
 
-/**
- * Preload image
- * @param {srting} src
- */
-export const preloadImage = (src) => new Promise((resolve, reject) => {
-  if (!src) {
-    reject(ReferenceError("Undefined image source."));
-  }
-  
-  const img = new Image();
-  img.src = src;
+export const preloadIFrame = (iframeElement) =>
+  new Promise((resolve, reject) => {
+    if (!iframeElement) {
+      reject(ReferenceError("Undefined iframe source."));
+    }
 
-  img.addEventListener('load', () => resolve(img));
-  img.addEventListener('error', (err) => reject(err));
-});
+    iframeElement.addEventListener("load", () => resolve(iframeElement));
+    iframeElement.addEventListener("error", (err) => reject(err));
 
-export const preloadIFrame = (iframeElement) => new Promise((resolve, reject) => {
-  if (!src) {
-    reject(ReferenceError("Undefined image source."));
-  }
-
-  iframeElement.addEventListener('load', () => resolve(img));
-  iframeElement.addEventListener('error', (err) => reject(err));
-
-  iframeElement.setAttribute('src', iframeElement.dataset.src);
-});
+    iframeElement.setAttribute("src", iframeElement.dataset.src);
+  });
 
 /**
  * Lazy media loader for images and iframes
  * @param {object} param0
  */
 const lazy = ({ elementSelector, tags, onLoadCallback }) => {
-
   /**
    * Finalize loading
    * @param {HTMLElement} element
    */
   const finalizeLement = (element) => {
     element.dataset.isProccessed = true;
-    element.classList.remove('lazy');
+    element.classList.remove("lazy");
   };
 
   /**
@@ -48,28 +34,31 @@ const lazy = ({ elementSelector, tags, onLoadCallback }) => {
    * @param {HTMLElement} element
    */
   const proccessElement = (element) => {
-    if (!element.dataset.isProccessed && element.dataset.src) {
+    if (!element.classList.contains("is-processed") && element.dataset.src) {
       // start actual loading by tag (supports only images and iframes)
-      // TODO: support other types
-      if (element.tagName === 'IMG') {
-        preloadImage(element.dataset.src).then(() => {
-          element.setAttribute('src', element.dataset.src);
-          finalizeLement(element);
-          
-          typeof onLoadCallback == 'function' && onLoadCallback(element);
-        });
+      if (element.tagName === "IMG") {
+        progressiveImage(
+          element,
+          (url) => {
+            element.setAttribute("src", url);
+            element.classList.add("is-loaded");
+          },
+          () => {
+            element.classList.add("is-error");
+          },
+        );
       } else {
         preloadIFrame(element).then(() => {
           finalizeLement(element);
-          
-          typeof onLoadCallback == 'function' && onLoadCallback(element);
+
+          typeof onLoadCallback === "function" && onLoadCallback(element);
         });
       }
     }
   };
 
   // inview - wait for element visible on screen
-  inView(elementSelector).on('enter', (element) => {
+  inView(elementSelector).on("enter", (element) => {
     // if element tagname has one of the `tags` then process the element
     if (tags.indexOf(element.tagName) >= 0) {
       proccessElement(element);

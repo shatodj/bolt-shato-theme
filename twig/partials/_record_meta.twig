@@ -1,26 +1,8 @@
-<p class="meta is-hidden-touch">
-    {% if record.link() and (record.link != global.request.server.get('REQUEST_URI')) %}
-    <a href="{{ record.link() }}" class="button is-link {% if extended|default() %}is-outlined{% endif %}">
-        {{ __('general.phrase.read-more') }}
-    </a>
-    {% elseif record.contentlink %}
-    <a href="{{ relative_path(record.contentlink|e) }}" class="button is-link {% if extended|default() %}is-outlined{% endif %}">
-        {{ __('general.phrase.read-more') }}
-    </a>
-    {% endif %}
-    {% if record.editlink() %}
-        <span class="edit-link">
-            {% with { 'record': record } %}
-            {{ block('edit_button', "blocks.twig") }}
-            {% endwith %}
-        </span> 
-    {% endif %}
-</p>
-{% if extended|default() %}
-<p class="meta">
-    {{ __('general.phrase.written-by-on', {
-        '%name%': record.user.displayname|default(__('Unknown')),
-        '%date%': record.datepublish|localedatetime("%A %B %e, %Y")
-    }) }}
-</p>
+{% if app.user|default is not empty %}
+    <div class="notification is-info meta is-italic">
+        {{ __('general.phrase.written-by-on', {
+            '%name%': record.author.displayname|default(__('Unknown')),
+            '%date%': record.publishedAt|format_datetime("medium")
+        }) }}
+    </div>
 {% endif %}

@@ -1,15 +1,18 @@
 {% extends "twig/partials/_navbar.twig" %}
 
-{% set useSearbar = true %}
+{% set useSearchbar = true %}
 
-{% block navbar_last_item %}
-    {# searchbar#}
-    {% if useSearchbar %}
-        {% include "twig/partials/_sub_search_form.twig" %}
+{% block navbar_last_item %}   
+    {% if haswidgets('main_top') %}
+        <div class="navbar-item">
+            {{ widgets('main_top') }}
+        </div>
     {% endif %}
     
-    {# custom menu bar #}
-    {% apply spaceless %}
-        {{ menu('social-navbar', 'twig/partials/_sub_menu_social.twig') }}
-    {% endapply %}
+    {# searchbar #}
+    {% if useSearchbar %}
+        <div class="navbar-item">
+            {% include "twig/partials/_sub_search_form.twig" %}
+        </div>
+    {% endif %}
 {% endblock %}

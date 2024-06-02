@@ -1,1 +1,6 @@
 {% extends "twig/partials/_sub_blocks.twig" %}
+
+{% block buy_button %}
+    {% set class = "is-primary is-outlined" %}
+    {{ parent() }}
+{% endblock %}

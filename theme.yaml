@@ -5,9 +5,11 @@ homepage: 'homepage'
 layout:
   is_navbar_full_width: false
   use_paralax: true
+  use_searchbar_in_navigation: true
   class:
-    html: "has-navbar-fixed-top"
-    navbar: is-light is-fixed-top
+    # html: "has-navbar-fixed-top"
+    html: ""
+    navbar: is-primary is-fixed-top
     header_index: is-section-primary is-bold is-large
     header_record: is-section-primary is-bold is-medium
     header_listing: is-section-primary is-bold is-medium
@@ -33,7 +35,7 @@ section:
 
 # Thumbnails configuration
 thumbnails:
-  # Aliases used by theme maacro (see. _macros.twig -> thumbimage)
+  # Aliases used by theme macro (see. _macros.twig -> thumbimage)
   aliases:
     square:
       size: [512, 512]
@@ -42,14 +44,11 @@ thumbnails:
       size: [256, 256]
       fit: c
     gallery:
-      size: [150, 150]
+      size: [350, 350]
       fit: c
     gallery-big:
       size: [1000, 750]
       fit: n
-    section-small:
-      size: [425, 425]
-      fit: c
     listing:
       size: [480, 480]
       fit: c
@@ -58,4 +57,7 @@ thumbnails:
       fit: c
     record:
       size: [752, 400]
+      fit: c
+    product:
+      size: [400, 400]
       fit: c

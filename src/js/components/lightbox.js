@@ -1,9 +1,9 @@
-import _ from "fslightbox";
+import "fslightbox";
 
 /**
  * @param {object} _ Popup options
  */
-export default ({ selector, delegate}) => {
+export default ({ selector, delegate }) => {
   const galleries = document.querySelectorAll(selector);
 
   if (!galleries.length) {
@@ -15,9 +15,11 @@ export default ({ selector, delegate}) => {
     // add data atrribute
 
     galleryElement.querySelectorAll(delegate).forEach((imageElement) => {
-      imageElement.dataset.fslightbox = `gallery-${index}`;
-    })
-  })
+      const { dataset } = imageElement;
+      dataset.fslightbox = `gallery-${index}`;
+    });
+  });
 
-  refreshFsLightbox()
+  // eslint-disable-next-line no-undef
+  refreshFsLightbox();
 };

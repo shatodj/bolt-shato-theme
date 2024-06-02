@@ -3,13 +3,24 @@
 @import "./minimal.scss";
 @import "../../node_modules/bulma/sass/components/message.sass";
 @import "../../node_modules/bulma/sass/components/card.sass";
-@import "../../node_modules/bulma-carousel/dist/css/bulma-carousel.min.css";
+@import "../../node_modules/bulma/sass/elements/tag.sass";
+@import "../../node_modules/bulma-carousel/src/sass/index.sass";
 
 @import "partials/sections.scss";
+@import "components/pricing-table.scss";
 
-.hero .shpr-background {
-  background-size: contain;
+.hero {
+  .shpr-background {
+    background-size: contain;
+  }
+  .logo {
+    @include logo(10em, "logo01.svg")
+  }
 }
 
-
+@include mobile {
+  .hero .logo {
+    display: none;
+  }
 }
+

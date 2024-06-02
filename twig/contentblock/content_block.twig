@@ -6,22 +6,8 @@
 
 {% block contentlink_block_content %}
 
-    {# {% set titleClass = "title is-4" %}
-    {% block title %}
-        <h3 class="{{ titleClass }}">{{ content|title }}</h3>
-    {% endblock %} #}
+    {% set titleClass = "title is-4" %}
 
-	{% block teaser %}
-		<div class="content">
+    {% include "twig/partials/_record_teaser.twig" with { use_link: true, use_read_more: true, record: content } %}
 
-			{% apply spaceless %}
-                {% if content.teaser is defined %}
-                    {{ content.teaser }}
-                {% elseif content.content is defined %}
-                    {{ content.content }}
-                {% endif %}
-			{% endapply %}
-
-		</div>
-	{% endblock %}
 {% endblock %}

@@ -1,5 +1,5 @@
 # bolt-shato-theme
-The boilerplate theme for Bolt 4 CMS.
+The boilerplate theme for Bolt 5 CMS.
 
 The theme is designed to provide an easy way to extend core elements in the template. Custom content types in theme enhance user experience to put custom reusable Section Blocks.
 
@@ -13,12 +13,12 @@ The theme is designed to provide an easy way to extend core elements in the temp
 - EcmaScript6 syntax
 
 ## Techstack
-- Webpack
+- Webpack 5
     - compile+minify scss from /src/scss to /dist/css
     - compile+uglify js from /src/js to /dist/js
     - optimizing images from /src/images to /dist/images
     - exporting fonts from /src/fonts to /dist/fonts
-    - exporting google fonts to /dist/css/woff.css
+    - ~~exporting google fonts to /dist/css/woff.css~~
 - Bulma.io
 - Font Awesome
 - FsLightbox
@@ -27,14 +27,14 @@ The theme is designed to provide an easy way to extend core elements in the temp
 ## How to run on your develeper machine
 
 ### Requirements
-- Node.js v6 and above
+- Node.js v20 and above
 
 ### Step by step
 
 1. GIT Clone this project to Bolt's theme directory ***OR*** use composer install:
 
     ```
-    composer install shatodj/bolt-shato-theme
+    composer require shatodj/bolt-shato-theme
 
     bin/console bolt:copy-theme shatodj/bolt-shato-theme
     ```
@@ -70,10 +70,20 @@ The theme is designed to provide an easy way to extend core elements in the temp
     theme: bolt-shato-theme
     ```
 
+1. Regenerate database fixtures (Optional).
+   With the previous step we created some new content types. This will purge the current database and create new with dummy data.  
+
+   ```
+   cd ../../../
+   bin/console doctrine:fixtures:load
+
+   ```
+
 # TODO:
 - [x] Get rid of JQuery
-- [ ] Maintenance twig fix
+- [ ] Maintenance template twig fix
 - [ ] deploy/archive script
-- [ ] Progressive images loading (Currently possible only for section backgrounds)
+- [x] Progressive images loading (Currently possible only for section backgrounds)
+- [ ] Live reload for updating js/scss
 - [ ] Fill demo content script by the theme preference
 - [ ] Section Blocks docu

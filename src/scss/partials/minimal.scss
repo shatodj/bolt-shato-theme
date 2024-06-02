@@ -1,13 +1,19 @@
 @charset "utf-8";
 
 // minimal css
-@import "./partials/bulma.scss";
-@import "./partials/functions.scss";
-@import "./partials/navbar.scss";
-@import "./partials/gallery.scss";
-@import "./partials/has-image-centered.scss";
-@import "./partials/overlays.scss";
-@import "./partials/lazy.scss";
+@import "./bulma.scss";
+@import "./functions.scss";
+@import "./has-image-centered.scss";
+@import "./overlays.scss";
+@import "./lazy.scss";
+@import "./lazy-background.scss";
+
+@import "../components/navbar.scss";
+@import "../components/gallery.scss";
+
+.block:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
 
 .no-link-color {
   a {
@@ -28,7 +34,6 @@
 .button:active,
 .button:hover {
   border-color: $white;
-  border-radius: 1px;
   text-transform: uppercase;
 }
 
@@ -60,10 +65,59 @@
 }
 
 .imageholder {
-  border: 5px solid $light;
   display: block;
   
-  &.is-processed {
-      background-color: $light;
+  .img {
+    display: block;
   }
+}
+
+.price {
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.pricing-table {
+  .pricing-plan {
+    width: 20%;
+    border
+
+    &.is-primary {
+      .plan-price .plan-price-amount {
+        color: $primary;
+      }
+
+      .plan-footer .button {
+        background-color: $primary;
+
+        &:active, &:hover {
+          background-color: $primary;
+        }
+      }
+    }
+  }
+
+  @include tablet-only {
+    .pricing-plan {
+      width: 30%;
+    }
+  }
+
+  @include mobile {
+    display: block;
+
+    .pricing-plan {
+      width: initial;
+    }
+  }
+}
+
+.without-pointer-events {
+  pointer-events: none;
+}
+
+.edit-record-bar {
+  position: fixed;
+  bottom: 0; right: 0; left: 0;
+  z-index: 10;
 }

@@ -15,7 +15,7 @@
     {% from _self import display_menu_item %}
     {% apply spaceless %}
     <p class="level-item">
-        <a href="{{ item.link }}" title='{{ item.title|default('')|escape }}' class='{{ item.class|default('') }}'>
+        <a href="/{{ item.link }}" title='{{ item.title|default('')|escape }}' class='{{ item.class|default('') }}'>
             {{- item.label|default('-') -}}
         </a>
     </p>

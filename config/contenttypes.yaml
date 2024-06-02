@@ -34,23 +34,28 @@ sections:
             group: contentBlock
             type: text
             label: Content Link
-            placeholder: 'contenttype/slug or http://example.org/'
-            postfix: "Use this to add a link for this Block. This could either be an 'internal' link like <tt>page/about</tt>, if you use a contenttype/slug combination."
-            fixture_format: '{url}'
+            placeholder: 'contenttype/slug'
+            postfix: "Use this to add a link for this Block. Use a contenttype/slug combination."
+            fixture_format: ''
         contentlimit:
             group: contentBlock
             type: number
+            label: Content Limit Count
+            postfix: This will limit content for 'Content Link' field.
         contentselect:
             group: contentBlock
             type: select
-            values: blocks/{id},{title}
+            values: (blocks,pages,entries,products)/{contenttype} | {title} № {id} ({status})
             autocomplete: true
             multiple: true
+            label: Content Direct Select
+            postfix: Select direct cotent from the list (Contents are merged with above and vice versa).
         contenttemplate:
             label: Content Template
             group: contentBlock
             type: templateselect
-            filter: twig/contentblock/*.twig
+            filter: /^twig\/contentblock\/.*?.twig$/
+            postfix: Template to be used to render the content.
         links:
             type: collection 
             group: Links
@@ -66,12 +71,6 @@ sections:
                             placeholder: 'contenttype/slug'
                             postfix: "Slug"
                             fixture_format: '{url}'
-    relations:
-        pages:
-            multiple: true
-            label: "Related pages"
-            # format: "{{item.title}} (№ {{item.id}})"
-            postfix: "By selecting a Content Block, you're creating a bi-directional relationship to that Content Block."
     taxonomy: [ sectiongroups ]
     show_on_dashboard: true
     viewless: true

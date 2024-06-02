@@ -4,8 +4,13 @@
 
     {# HTML, Textarea, Text and Markdown fields #}
     {% if type in ['html', 'textarea', 'text', 'markdown'] %}
-        {% set tag = (field.name in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
-        {{ block('text_field') }}
+        {# Contentlink #}
+        {% if field.name == "contentlink" %}
+            {{ block("contentlink") }}
+        {% else %}
+            {% set tag = (field.name in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
+            {{ block('text_field') }}
+        {% endif %}
     {% endif %}
 
     {# Image fields #}
@@ -27,7 +32,10 @@
 
 {% block image %}
     {% import "twig/partials/_macros.twig" as m %}
-    {{ m.lazyImage(field, 'record') }}
+    <figure class="image has-image-centered">
+        {{ m.lazyImagePopup(field, 'record', 'gallery-big') }}
+        <figcaption>{{ field.title|default }}</figcaption>
+    </figure>
 {% endblock %}
 
 {% block file %}
@@ -40,4 +48,9 @@
     <div class="flex-video {{ field.ratio|default(1) > 1.5 ? 'widescreen' }}">
         {{ field.responsive }}
     </div>
+{% endblock %}
+
+{% block contentlink %}
+    {# {% setcontent preview = field.twigValue() limit 1 %} #}
+    {# todo preview component #}
 {% endblock %}

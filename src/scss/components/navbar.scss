@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+@import "../../../node_modules/bulma/sass/components/navbar.sass";
+
+.navbar {
+  box-shadow: 0 5px 11px 0px rgba($black, 0.1);
+
+  .navbar-link {
+
+    &.is-active,
+    &:hover {
+      background-color: inherit;
+    }
+  }
+
+  .navbar-menu {
+    background-color: inherit;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  &.is-dark,
+  &.is-primary {
+    .navbar-menu a {
+      color: $text-light;
+    }
+
+    .navbar-link {
+      color: $text-light;
+    }
+  }
+
+  &.is-dark {
+    .navbar-dropdown {
+      background-color: $dark
+    }
+  }
+
+  &.is-primary {
+    .navbar-dropdown {
+      background-color: $primary
+    }
+  }
+
+  &.is-active {
+    .navbar-menu {
+      display: block;
+    }
+  }
+
+  .navbar-item {
+    text-transform: uppercase;
+  }
+
+  .shpr-icon {
+    padding: .8em;
+  }
+
+  .shpr-brand.navbar-brand {
+    .navbar-item {
+      background-image: url("../"+image("logo01.svg"));
+      background-size: contain;
+      background-repeat: no-repeat;
+      height: 39px;
+      overflow: hidden;
+      margin-left: 0.5rem;
+      margin-bottom: 0;
+      align-self: center;
+      color: transparentize($color: $light, $amount: 1);
+      
+      &:focus,
+      &:hover,
+      &.is-active {
+        color: transparentize($color: $light, $amount: 1)!important;
+
+      }
+    }
+   
+  }
+
+  // navbar enlarging and animation
+  transition: all .5s;
+  transition-property: background-color, min-height, box-shadow;
+  background-color: transparentize($color: $primary, $amount: 0.5);
+  min-height: 0px;
+  
+  &.transparent:not(.is-active) {
+    background-color: transparentize($color: $primary, $amount: 1);
+    min-height: 120px;
+    box-shadow: 0 5px 11px 0px rgba($black, 0);
+  }
+
+}

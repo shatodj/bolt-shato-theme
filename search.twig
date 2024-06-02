@@ -1,1 +1,41 @@
-{% extends "twig/_search.twig" %}
+{% extends 'listing_simple.twig' %}
+{% import "twig/partials/_macros.twig" as m %}
+
+
+{% block scripts %}
+	{{ m.script('dist/js/search-bundle.js') }}
+{% endblock %}
+
+{% block header_content %}
+
+    <h1 class="title is-3">{{ __('Search results') }}</h1>
+    <h2 class="subtitle">"{{ search|default }}"</h2>
+
+    <div class="content">
+        {% include "twig/partials/_sub_search_form.twig" %}
+    </div>
+
+{% endblock %}
+
+{% block list_item %}
+    <div class="media-content column is-12">
+        <h2 class="title is-5 no-link-color">
+            <a href="{{ record|link }}">{{ record|title }}</a>
+        </h2>
+        {# display something introduction-like.. #}
+        <div class="block">
+            <a href="{{ record|link }}">
+                <div class="content">
+                    {% if record.teaser %}
+                        {{ record.teaser }}
+                    {% else %}
+                        <p>{{ record.excerpt(300, false, search|default('')) }}</p>
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+        {# <div class="block">
+            {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
+        </div> #}
+    </div>
+{% endblock %}

@@ -1,2 +1,2 @@
 // minimal CSS
-import '../../scss/partials/minimal.scss';
+import "../../scss/partials/minimal.scss";

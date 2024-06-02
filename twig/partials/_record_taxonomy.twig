@@ -1,0 +1,76 @@
+{% if record|default is empty %}
+	{% with {'message': "The 'record' is not defined"} %}
+	{{ block('error_block', "blocks.twig")}}
+	{% endwith %}
+{% else %}
+	{{ include('twig/partials/_sub_taxonomylinks.twig', { record: record }) }}
+	{# 
+	{% set content %}
+		{% apply spaceless %}
+			include the 'default' links to taxonomies. Check the documentation for ways to modify and customize
+			                            what is output to the browser: https://docs.bolt.cm/contenttypes/taxonomies#displaying-taxonomies-in-templates #}
+			
+			
+			{# {% set previous = record|previous %}
+			{% set next = record|next %}
+
+			{% if previous or next %}
+
+				<nav class="pagination" role="navigation" aria-label="pagination">
+					{% if previous %}
+						<a href="{{ previous|link }}" class="pagination-previous">
+							<span class="icon">
+								<i class="fas fa-arrow-left"></i>
+							</span>
+							<span>
+								{{ previous|title|excerpt(44) }}
+							</span>
+						</a>
+					
+					{% endif %}
+					{% if next %}
+						<a href="{{ next|link }}" class="pagination-next">
+							<span>
+								{{ next|title|excerpt(44) }}
+							</span>
+							<span class="icon">
+								<i class="fas fa-arrow-right"></i>
+							</span>
+						</a>
+					
+					{% endif %}
+				</nav>
+			{% endif %}
+
+			{% set relatedrecords = record.related() %}
+			{% if relatedrecords is not empty %}
+				<p class="meta">
+					<h2 class="is-size-4">{{ __('general.phrase.related-content') }}</h2>
+					<ul>
+						{% for related in relatedrecords %}
+							<li>
+								<a href="{{ related.link }}">{{ related.title }}</a>
+							</li>
+						{%  endfor %}
+					</ul>
+				</p>
+			{% endif %}
+		{% endapply %} 
+	{% endset %}
+		
+	{% if content is not empty %}
+		<div class="container">
+			{% with { 
+				content: content,
+				bgColor: 'primary',
+				isParalax: false,
+				class: extraClass|default(config.get('theme/layout/class/header_record'))
+			}%}
+			{{ block('section', "section_blocks.twig") }}
+			{%- endwith -%}
+		</div>
+	{% endif %}
+	#}
+{% endif %}
+
+{# This file is inserted as the 'footer' of each listed record. #}

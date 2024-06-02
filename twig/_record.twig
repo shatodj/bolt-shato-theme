@@ -5,7 +5,7 @@
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
-    {{ m.stylesheet('dist/css/record-bundle.css') }}
+    {{ m.stylesheet_inline('dist/css/record-bundle.css') }}
 {% endblock %}
 
 {% block scripts %}
@@ -14,40 +14,56 @@
 
 
 {% block content %}
+
 	{% if record is defined %}
+        {% block record_edit %}
+            {% include "twig/partials/_record_edit.twig" %}
+        {% endblock %}
+
         <article>
-            {% block header %}
-                {{ m.headerByRecord(record, headerBlockClass) }}
-            {% endblock %}
-
             {% block body %}
-                {% set recordExtraClass = config.get("theme/layout/class/record")|default %}
-                <section class="section shpr-section {{ recordExtraClass }}">
-                    <div class="container content">
-                        
-                        {% with { 'record': record } %}
-                        {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
-                        {% endwith %}
+                {% block record_header %}
+                    {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass} %}
+                {% endblock %}
 
-                    </div>
-                    {% block record_footer %}
-                        <div class="container">
-                            {{ include('twig/partials/_recordfooter.twig', { 'record': record, 'extended': true }) }}
-                        </div>
-                    {% endblock %}
-                </section>
+                {% block record_body %}
+                    {% set ef = excludedFields|default([]) %}
+                    {%- set recordContent -%}
+                        {% apply spaceless %}
+                            {% block fields %}
+                                {% with { 'record': record, exclude: ef|merge(['teaser']) } %}
+                                {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
+                                {% endwith %}
+                            {% endblock %}
+                        {% endapply %}
+                    {%- endset -%}
+                    
+                    {% if recordContent is not empty %}
+                        {% set recordExtraClass = config.get("theme/layout/class/record")|default %}
+                        <section class="section shpr-section {{ recordExtraClass }}">
+                            <div class="container content">
+                                {% block record_body_content %}
+                                    {{ recordContent }}
+                                {% endblock %}
+                            </div>
+                        </section>
+                    {% endif %}
+                {% endblock %}
+                {% block record_footer %}
+                    {# Could be extended  #}
+                {% endblock %}
             {% endblock %}
         </article>
 	{% endif %}
+
+    {% block recent %}
+        {# To be extended #}
+    {% endblock %}
 
 	{# Standard SECTIONS #}
 	{% block sections %}
         {{ m.sectionsByRecord(record) }}
 		{{ m.sectionsByGroup("record") }}
 	{% endblock %}
-
-    {# {% block recent %}
-	    {% include "twig/partials/_sub_recent_records.twig" %} 
-    {% endblock %} #}
 
 {% endblock content %}

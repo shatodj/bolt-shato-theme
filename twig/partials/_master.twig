@@ -7,12 +7,12 @@
 
 	{% set script = 'dist/js/' ~ contentTypeSlug ~ '-bundle.js' %}
 	{% set style = 'dist/css/' ~ contentTypeSlug ~ '-bundle.css' %}
+
+	{% set htmlThemeClass = config.get('theme/layout/class/html') %}
+	{% set htmlClass = htmlThemeClass|default ~ " " ~ documentClass|default %}
 {% endapply %}
 
 <!DOCTYPE html>
-
-{% set htmlThemeClass = config.get('theme/layout/class/html') %}
-{% set htmlClass = htmlThemeClass|default ~ " " ~ documentClass|default %}
 
 {% block document %}
 		
@@ -34,7 +34,7 @@
 			
 			<link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
 			
-			{# make sure we always display a proper title: The record's title if there is one, appended with the #}
+			{# make sure to always display a proper title: The record's title if there is one, appended with the #}
 			{# sitename. If there is no title, we append the sitename with the payoff, if there is one.  #}
 
 			{# SEO plugin #}
@@ -62,7 +62,9 @@
 			{% endblock content %}
 
 			{# Standard FOOTER #}
-			{{ include('footer.twig') }}
+			{% block footer %}
+				{% include 'footer.twig' %}
+			{% endblock %}
 			
 			{# Theme scripts #}
 			{% block scripts %}
@@ -71,6 +73,9 @@
 			
 			{# Font Awesome #}
 			{{ m.script('dist/js/fontawesome-bundle.js') }}
+
+			{# AdSense #}
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config.get('theme/seo/adsense') }}" crossorigin="anonymous"></script>
 		</body>
 	</html>
 {% endblock %}

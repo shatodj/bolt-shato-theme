@@ -1,9 +1,50 @@
-// Custom modifiers
-$section-colors: 'light', 'primary', 'dark', 'black';
-$section-colors-background: $light, $primary, $dark, $black;
-$section-colors-text: $text, $text-invert, $text-invert, $primary;
+// Section color pallete mapping by the section colors
+$s-colors:                        'light',        'primary',      'dark',             'black';
+$s-colors-background:             $light,         $primary,       $dark,              $black;
+$s-colors-text:                   $text,          $text-light,    $text-light,        $primary-light;
+$s-colors-titles:                 $title-color,   $text-light,    $text-light,        $primary-light;
+$s-colors-card:                  white,         $dark,          $primary,           $primary-light;
+$s-colors-card-text:              $text,          $text-light,    $text-light,        $text-light;
+
+// Will render component in the color pallete above
+@mixin component-in-section($color-index) {
+    .title, .subtitle {
+        color: nth($s-colors-titles, $color-index);
+    }
+
+    .content strong,
+    .content blockquote,
+    .content h2, .content h3, .content h4, .content h5,
+    .label {
+        color: nth($s-colors-text, $color-index);
+    }
+
+    .pagination {
+        .pagination-previous, .pagination-next, .pagination-link {
+            color: nth($s-colors-text, $color-index);
+        }
+
+        .pagination-link.is-current {
+            background-color: nth($s-colors-card, $color-index);
+            color: nth($s-colors-card-text, $color-index);
+        }
+    }
+
+    .card,
+    .pricing-table .pricing-plan,
+    .pricing-table .plan-header,
+    .pricing-table .plan-price,
+    .pricing-table .plan-item {
+        background-color: nth($s-colors-card, $color-index);
+        color: nth($s-colors-card-text, $color-index);
+    }
+
+}
+
 
 .shpr-section {
+
+    position: relative;
 
     .content blockquote { 
         color: $dark;
@@ -14,42 +55,57 @@ $section-colors-text: $text, $text-invert, $text-invert, $primary;
         top: -20px;
     }
 
-    &.is-section-dark,  &.is-section-primary {
-        .content strong {
-            color: $light;
+    .content blockquote {
+        background-color: fade-out($color: $light, $amount: 0.5);
+    }
+
+    // Only dark themed section
+    &.is-section-dark,  &.is-section-primary, &.is-section-black {
+        
+        .pricing-table .pricing-plan.is-primary {
+            .plan-price .plan-price-amount {
+                color: $text-light;
+            }
+
+            .plan-footer .button {
+                background-color: $light;
+                color: $text;
+
+                &:active, &:hover {
+                    background-color: $light;
+                }
+            }
         }
 
         .button {
+            color: $text-light;
             background-color: transparent;
-            color: $light;
-        }
-
-        .label {
-            color: $light;
+    
+            &.is-outlined {
+                border-color: $text-light;
+            }
         }
     }
 
     $i: 1;
-    @each $color in $section-colors {
+    @each $color in $s-colors {
         &.is-section-#{$color} {
             &::before {
                 content: '';
-                background-color: nth($section-colors-background, $i);
+                background-color: nth($s-colors-background, $i);
                 position: absolute;
                 top: 0; bottom: 0; left: 0; right: 0;
                 z-index: -2;
             }
             position: relative;
-            color: nth($section-colors-text, $i);
+            color: nth($s-colors-text, $i);
 
-            .title, .subtitle {
-                color: nth($section-colors-text, $i);
-            }
+            @include component-in-section($i)
         }
         $i: $i + 1;
     }
-}
 
-.shpr-actions {
-    padding: 4rem 0rem 1rem 0rem;
+    .shpr-actions {
+        padding: 4rem 0rem 1rem 0rem;
+    }
 }
