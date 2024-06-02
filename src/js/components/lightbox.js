@@ -1,4 +1,4 @@
-import 'fslightbox';
+import "fslightbox";
 
 /**
  * @param {object} _ Popup options
@@ -15,7 +15,8 @@ export default ({ selector, delegate }) => {
     // add data atrribute
 
     galleryElement.querySelectorAll(delegate).forEach((imageElement) => {
-      imageElement.dataset.fslightbox = `gallery-${index}`;
+      const { dataset } = imageElement;
+      dataset.fslightbox = `gallery-${index}`;
     });
   });
 

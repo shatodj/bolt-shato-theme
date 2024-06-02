@@ -1,4 +1,4 @@
-import inView from 'in-view';
+import inView from "in-view";
 
 /**
  * Hide/show element when the other is visible
@@ -14,18 +14,18 @@ const scaredElement = (scaredElementSelector, inviewElementSelector) => {
 
   scaredElements.forEach((element) => {
     // default settings
-    element.classList.add('is-scared');
+    element.classList.add("is-scared");
     if (!inView.is(inviewElement)) {
-      element.classList.add('but-brave');
+      element.classList.add("but-brave");
     }
 
     // movement events
     inView(inviewElementSelector)
-      .on('enter', () => {
-        element.classList.remove('but-brave');
+      .on("enter", () => {
+        element.classList.remove("but-brave");
       })
-      .on('exit', () => {
-        element.classList.add('but-brave');
+      .on("exit", () => {
+        element.classList.add("but-brave");
       });
   });
 };

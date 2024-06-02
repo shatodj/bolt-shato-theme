@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
-import '../scss/listing.scss';
+import "../scss/listing.scss";
 
-import init from './partials/main.js';
+import init from "./partials/main.js";
 
 init();

@@ -1,4 +1,4 @@
-import bulmaCarousel from 'bulma-carousel';
+import bulmaCarousel from "bulma-carousel";
 
 /**
  * @param {object} options
@@ -18,15 +18,18 @@ export default ({ selector, ...options }) => {
     if (carousel.slides) {
       carousel.slides.forEach((slide) => {
         // eslint-disable-next-line no-param-reassign
-        if (slide.firstElementChild) { slide.firstElementChild.className = 'column'; }
+        const { firstElementChild } = slide;
+        if (firstElementChild) {
+          firstElementChild.className = "column";
+        }
       });
     }
 
-    carousel.on('before:show', () => {
+    carousel.on("before:show", () => {
       // reset body scrollbar so lazy elements will load using in-view module
       window.scroll(0, window.scrollY + 1);
     });
-    carousel.on('after:show', () => {
+    carousel.on("after:show", () => {
       // reset body scrollbar so lazy elements will load using in-view module
       window.scroll(0, window.scrollY - 1);
     });

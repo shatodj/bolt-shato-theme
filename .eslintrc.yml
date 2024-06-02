@@ -3,12 +3,10 @@ env:
   es6: true
 extends:
   - airbnb-base
+  - plugin:prettier/recommended
 
 parserOptions:
-  ecmaVersion: 2018
+  ecmaVersion: latest
   sourceType: module
-rules: 
-  import/extensions:
-    - js: never
-      mjs: never
-  import/no-named-as-default: false
+rules:
+  import/extensions: 0

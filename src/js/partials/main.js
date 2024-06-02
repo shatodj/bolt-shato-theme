@@ -1,42 +1,43 @@
 /* eslint-disable no-console */
-import menu from '../components/burger-menu.js';
-import slider from '../components/slider.js';
-import lightbox from '../components/lightbox.js';
-import lazyMedia from './lazy.js';
-import scaredElement from '../components/scared-element.js';
-import lazySectionBackground from './lazy-background.js';
+import menu from "../components/burger-menu.js";
+import slider from "../components/slider.js";
+import lightbox from "../components/lightbox.js";
+import lazyMedia from "./lazy.js";
+import scaredElement from "../components/scared-element.js";
+import lazySectionBackground from "./lazy-background.js";
 
 /**
  * Init script
  */
-export default () => new Promise((resolve, reject) => {
-  try {
-    // menu
-    menu({ selector: '.burger' });
+export default () =>
+  new Promise((resolve, reject) => {
+    try {
+      // menu
+      menu({ selector: ".burger" });
 
-    // slider
-    slider({ selector: '.slider' });
+      // slider
+      slider({ selector: ".slider" });
 
-    // initializing lazy images and iFrames
-    lazyMedia({
-      elementSelector: '.lazy',
-      tags: ['IFRAME', 'IMG'],
-      onLoadCallback: () => {
-        //
-      },
-    });
+      // initializing lazy images and iFrames
+      lazyMedia({
+        elementSelector: ".lazy",
+        tags: ["IFRAME", "IMG"],
+        onLoadCallback: () => {
+          //
+        },
+      });
 
-    // initializing Lazy Section Backgrounds
-    lazySectionBackground({ elementSelector: '.shpr-lazy-background' });
+      // initializing Lazy Section Backgrounds
+      lazySectionBackground({ elementSelector: ".shpr-lazy-background" });
 
-    // Waiting for lazy modules to be loaded
-    lightbox({ selector: '.use-magnific', delegate: 'a.magnific' });
+      // Waiting for lazy modules to be loaded
+      lightbox({ selector: ".use-magnific", delegate: "a.magnific" });
 
-    // hiding navbar on first home section (when menu is visible)
-    scaredElement('.navbar', '.hero-body>.container .title');
+      // hiding navbar on first home section (when menu is visible)
+      scaredElement(".navbar", ".hero-body>.container .title");
 
-    resolve();
-  } catch (error) {
-    reject(error);
-  }
-});
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });

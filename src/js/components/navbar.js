@@ -7,9 +7,9 @@ export default (selector, offset) => {
 
   const scrollCheck = () => {
     if (window.scrollY > offset) {
-      navbarElement.classList.remove('transparent');
+      navbarElement.classList.remove("transparent");
     } else {
-      navbarElement.classList.add('transparent');
+      navbarElement.classList.add("transparent");
     }
   };
 

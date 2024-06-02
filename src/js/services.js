@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 
-import '../scss/services.scss';
+import "../scss/services.scss";
 
-import init from './partials/main.js';
-import navbar from './components/navbar.js';
+import init from "./partials/main.js";
+import navbar from "./components/navbar.js";
 
 init().then(() => {
-  navbar('.navbar', 50);
+  navbar(".navbar", 50);
 });

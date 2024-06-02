@@ -1,1 +1,1 @@
-import '../scss/minimal.scss';
+import "../scss/minimal.scss";

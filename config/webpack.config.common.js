@@ -1,14 +1,10 @@
 import { resolve, join } from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-// import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-// import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-// import ImageminPlugin from 'imagemin-webpack-plugin';
 
-import env from '../config/env.json' with { type: "json" };
-
-// import googleFonts from '../config/google-fonts-config.json' with { type: "json" }
+// eslint-disable-next-line
+import env from './env.json' with { type: "json" };
 
 const DIST_DIR = resolve('./dist')
 const SRC_DIR = resolve('./src')
@@ -21,7 +17,7 @@ const OUTPUT_DIR = {
   TWIG: '../twig',
 };
 
-const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+// const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
 let config = {
   entry: {
@@ -38,8 +34,8 @@ let config = {
     search: `${SRC_DIR}/js/search.js`,
     fontawesome: `${SRC_DIR}/js/fontawesome.js`,
   },
-  mode,
-  devtool: mode === 'production' ? false : 'inline-source-map',
+//   mode,
+//   devtool: mode === 'production' ? false : 'inline-source-map',
   output: {
     filename: `${OUTPUT_DIR.JS}/[name]-bundle.js`,
     path: DIST_DIR, // output directory name, relative to current webpack project directory
@@ -59,9 +55,9 @@ let config = {
         use: [
           { loader: MiniCssExtractPlugin.loader },
           // { loader: 'style-loader'},
-          { loader: 'css-loader', options: { sourceMap: mode === 'production', importLoaders: 1 } },
+          { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
           // { loader: 'resolve-url-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: mode === 'production' } },
+          { loader: 'sass-loader', options: { sourceMap: true } },
         ],
       },
       {
@@ -97,7 +93,6 @@ let config = {
     ],
   },
   optimization: {
-    minimize: true,
     splitChunks: {
       minChunks: 1,
     },
@@ -120,26 +115,6 @@ let config = {
         { from: `${SRC_DIR}/images/**`, to: `${OUTPUT_DIR.IMAGE}/[name][ext]` },
       ],
     }),
-    // new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }),
-    // new BrowserSyncPlugin(
-    //   {
-    //     files: [
-    //       '**/*.twig', // watch .twig files also
-    //       '**/*.yml', // watch .yml files also
-    //     ],
-    //     // browse to http://localhost:3000/ during development
-    //     host: 'localhost',
-    //     port: 3000,
-    //     // proxy the Webpack Dev Server endpoint
-    //     // through BrowserSync
-    //     proxy: proxy_url.replace("'", ''),
-    //   },
-    //   // plugin options
-    //   {
-    //     // BrowserSync reloading the page after compilation is finished
-    //     reload: true,
-    //   },
-    // ),
   ],
 };
 
