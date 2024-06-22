@@ -17,6 +17,11 @@
 {% set homepageContentBlock = themeConfig.section.homepage_block|default('homepage') %}
 {% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
 
+{% block navbar %}
+	{# {{ include('navbar.twig') }} #}
+	{% include "navbar.twig" with { isTransparent: theme.layout.sections.index.is_navbar_transparent } %}
+{% endblock %}
+
 {% block content %}
 	{% block record_edit %}
 		{% include "twig/partials/_record_edit.twig" with { record: homepage }%}
@@ -25,7 +30,8 @@
 	{% block body %}
 		{% block record_header %}
 			{% if homepage %}
-				{% include "twig/partials/_record_header.twig" with { extraClass: themeConfig.layout.class.header_index } %}
+				{% set themeLayout = themeConfig.layout.sections.index %}
+				{% include "twig/partials/_record_header.twig" with { extraClass: themeLayout.header_extra_class } %}
 			{% endif %}
 		{% endblock %}
 

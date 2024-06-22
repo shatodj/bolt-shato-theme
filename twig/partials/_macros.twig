@@ -46,6 +46,7 @@
 
 {# Lazy Image (from BOLT content) #}
 {% macro lazyImage(image, thumbAlias, imageExtraClass = "") %}
+	
 	{% from _self import thumbimage %}
 	{% from _self import progressive_thumbimage %}
 
@@ -170,7 +171,7 @@
 		{% endset %}
 
 		{# set different color for each section #}
-		{# {% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
+		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
 		{% with { 
 			content: content,
 			image: section.image,
@@ -178,6 +179,17 @@
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
 			{{ block('section', "section_blocks.twig") }}
-		{%- endwith -%} #}
+		{%- endwith -%}
 	{% endfor %}
+{% endmacro %}
+
+{# Link Wrapper #}
+{% macro link(content, link, class = null) %}
+	{% with {
+		link: link,
+		class: class,
+		content: content
+	} %}
+	{{ block("link_wrapper", "blocks.twig") }}
+	{% endwith %}
 {% endmacro %}

@@ -5,14 +5,22 @@ homepage: 'homepage'
 layout:
   is_navbar_full_width: false
   use_paralax: true
-  use_searchbar_in_navigation: true
+  use_searchbar_in_navigation: false
+  sections:
+    index:
+      is_navbar_fixed: false
+      is_navbar_transparent: true
+      header_extra_class: is-primary is-bold is-fullheight
+    record:
+      is_navbar_fixed: true
+      is_navbar_transparent: false
+      header_extra_class: is-primary is-bold is-medium
   class:
-    # html: "has-navbar-fixed-top"
-    html: ""
+    html: theme-light
     navbar: is-primary is-fixed-top
-    header_index: is-section-primary is-bold is-large
-    header_record: is-section-primary is-bold is-medium
-    header_listing: is-section-primary is-bold is-medium
+    # header_index: is-section-primary is-bold is-large
+    # header_record: is-section-primary is-bold is-medium
+    # header_listing: is-section-primary is-bold is-medium
     section: is-small # if using paralax, use rather is-medium
     record: is-small
     listing: is-small
@@ -31,7 +39,7 @@ section:
   taxonomy_name: sectiongroups
   # Sections color iteration 
   # eg: ['light', 'primary', 'dark'] 
-  color_iteration: ['light'] 
+  color_iteration: ['light', 'dark'] 
 
 # Thumbnails configuration
 thumbnails:
@@ -60,4 +68,7 @@ thumbnails:
       fit: c
     product:
       size: [400, 400]
+      fit: c
+    feed:
+      size: [750, 400]
       fit: c

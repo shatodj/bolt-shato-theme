@@ -1,0 +1,8 @@
+@use "functions";
+
+@mixin logo($height, $imageFile) {
+    background-image: url("../"+functions.image($imageFile));
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: $height
+}

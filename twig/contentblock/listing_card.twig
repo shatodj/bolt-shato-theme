@@ -1,9 +1,11 @@
 {% extends "twig/contentblock/listing.twig" %}
 
 {% block contentlink_block %}
-    {% set columnTemplate = 'twig/contentblock/content_card.twig' %}
+    {% set listClass = 'columns' %}
+    {% set columnClass = 'column is-one-third' %}
+    {% set columnTemplate = 'twig/contentblock/content_gallery.twig' %}
 
-    {# {% set content = content is not empty and content|length >= 3 ? content|slice(0, 3) : content %} #}
+    {% set content = content is not empty and content|length >= 3 ? content|slice(0, 3) : content %}
 
     {{ parent() }}
 {% endblock %}

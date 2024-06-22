@@ -37,7 +37,7 @@
                             classTeaser: "subtitle is-4 is-6-mobile", 
                             use_read_more: true} 
                         %}
-                    {% else %}
+                    {% elseif contenttype|default is not empty %}
                         <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
                     {% endif %}
                     

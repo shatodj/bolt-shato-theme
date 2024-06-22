@@ -1,3 +1,5 @@
+import "../../scss/components/navbar.scss";
+
 export default (selector, offset) => {
   const navbarElement = document.querySelector(selector);
 

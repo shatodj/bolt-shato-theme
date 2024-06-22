@@ -2,7 +2,6 @@
 {# ContentBlock filled for ITERABLE content #}
 {# Require: content #}
 {% block contentlink_block_with_validation %}
-
 	{% if content is not iterable %}
 		{% with { message: 'Received content is not iterable or invalid.' } %}
 		{{ block('error_block', 'blocks.twig') }}

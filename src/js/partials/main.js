@@ -2,6 +2,8 @@
 import menu from "../components/burger-menu.js";
 import slider from "../components/slider.js";
 import lightbox from "../components/lightbox.js";
+import navbar from "../components/navbar.js";
+import feed from "../components/feed.js";
 import lazyMedia from "./lazy.js";
 import scaredElement from "../components/scared-element.js";
 import lazySectionBackground from "./lazy-background.js";
@@ -35,6 +37,12 @@ export default () =>
 
       // hiding navbar on first home section (when menu is visible)
       scaredElement(".navbar", ".hero-body>.container .title");
+
+      // Feed item (read more)
+      feed({ selector: ".feed-item" });
+
+      // navbar animation
+      navbar(".navbar.transparent", 50);
 
       resolve();
     } catch (error) {

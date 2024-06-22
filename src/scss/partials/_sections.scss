@@ -1,0 +1,114 @@
+@use "bulma/sass/utilities/derived-variables" as dv;
+@use "bulma/sass/utilities/initial-variables" as iv;
+@use "bulma/sass/utilities/mixins";
+@use "bulma/sass/utilities/extends";
+
+// Will render component in the color pallete above
+// @mixin component-in-section() {
+//     .title, .subtitle {
+//         color: dv.$title-color
+//     }
+
+//     .content strong,
+//     .content blockquote,
+//     .content h2, .content h3, .content h4, .content h5,
+//     .label {
+//         color: dv.$text;
+//     }
+
+//     .pagination {
+//         .pagination-previous, .pagination-next, .pagination-link {
+//             color: dv.$text;
+//         }
+
+//         .pagination-link.is-current {
+//             background-color: dv.$light;
+//             color: dv.$text;
+//         }
+//     }
+
+//     .card,
+//     .pricing-table .pricing-plan,
+//     .pricing-table .plan-header,
+//     .pricing-table .plan-price,
+//     .pricing-table .plan-item {
+//         background-color: dv.$light;
+//         color: dv.$text;
+//     }
+// }
+
+.shpr-section {
+
+    // @include mixins.overlay(1.5rem);
+
+    // .content blockquote { 
+    //     color: dv.$dark;
+    // }
+
+    .shpr-section-anchor {
+        position: absolute;
+        top: -20px;
+    }
+
+    // .content blockquote {
+    //     background-color: fade-out($color: dv.$light, $amount: 0.5);
+    // }
+
+    // Only dark themed section
+    // &.is-section-dark,  &.is-section-primary, &.is-section-black {
+        
+    //     .pricing-table .pricing-plan.is-primary {
+    //         .plan-price .plan-price-amount {
+    //             color: dv.$text-light;
+    //         }
+
+    //         .plan-footer .button {
+    //             background-color: dv.$light;
+    //             color: dv.$text;
+
+    //             &:active, &:hover {
+    //                 background-color: dv.$light;
+    //             }
+    //         }
+    //     }
+
+    //     .button {
+    //         color: dv.$text-light;
+    //         background-color: transparent;
+    
+    //         &.is-outlined {
+    //             border-color: dv.$text-light;
+    //         }
+    //     }
+    // }
+    
+    background: unset !important; 
+    position: relative;
+
+    &::before {
+        content: '';
+        background-color: var(--bulma-body-background-color);
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        z-index: -2;
+    }
+
+    &.is-primary::before {
+        background-color: dv.$primary;
+    }
+    
+    // &.is-dark::before {
+    //     background-color: dv.$dark;
+    // }
+
+    // &.is-light::before {
+    //     background-color: dv.$light;
+    // }
+
+
+    // color: dv.$text;
+
+    .shpr-actions {
+        padding: 4rem 0rem 1rem 0rem;
+    }
+}

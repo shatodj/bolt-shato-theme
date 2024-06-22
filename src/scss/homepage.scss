@@ -1,24 +1,35 @@
 @charset "utf-8";
 
-@import "./minimal.scss";
-@import "../../node_modules/bulma/sass/components/message.sass";
-@import "../../node_modules/bulma/sass/components/card.sass";
-@import "../../node_modules/bulma/sass/elements/tag.sass";
-@import "../../node_modules/bulma-carousel/src/sass/index.sass";
+// @import "./minimal.scss";
+// @import "../../node_modules/bulma/sass/components/message.sass";
+// @import "../../node_modules/bulma/sass/components/card.sass";
+// @import "../../node_modules/bulma/sass/elements/tag.sass";
+// @import "../../node_modules/bulma-carousel/src/sass/index.sass";
 
-@import "partials/sections.scss";
-@import "components/pricing-table.scss";
+// @import "partials/sections.scss";
+// @import "components/pricing-table.scss";
+
+@use "bulma/sass/utilities/mixins" as bulma-mixins;
+@use "partials/mixins";
+
+@forward "bulma-carousel/src/sass/index.sass";
+@forward "partials/minimal";
+@forward "partials/sections";
+@forward "partials/lazy";
+@forward "partials/lazy-background";
+@forward "partials/overlays";
+
 
 .hero {
   .shpr-background {
     background-size: contain;
   }
   .logo {
-    @include logo(10em, "logo01.svg")
+    @include mixins.logo(10em, "logo01.svg")
   }
 }
 
-@include mobile {
+@include bulma-mixins.mobile {
   .hero .logo {
     display: none;
   }

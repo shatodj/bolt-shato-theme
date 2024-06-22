@@ -1,0 +1,9 @@
+{% extends "twig/contentblock/listing.twig" %}
+
+{% block contentlink_block %}
+    {% set listClass = 'columns is-multiline' %}
+    {% set columnClass = 'column is-half is-offset-one-quarter' %}
+    {% set columnTemplate = 'twig/contentblock/content_feed.twig' %}
+
+    {{ parent() }}
+{% endblock %}

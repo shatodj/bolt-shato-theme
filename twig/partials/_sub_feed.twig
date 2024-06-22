@@ -1,0 +1,61 @@
+{% import "twig/partials/_macros.twig" as m %}
+
+{% block feed_card %}
+	<div class="card">
+		<div class="card-content">
+			{% block feed_card_content %}
+				{% set author = record|related("people")[0]|default(record.author) %}
+				{% set avatar = author.image|default(author.avatar)|default("") %}
+
+                <div class="media">
+                    <figure class="media-left image is-48x48">
+                    
+                        {% import "twig/partials/_macros.twig" as m %}
+                        {% if avatar %}
+                            {{ m.lazyImage(avatar, 'square-small', 'is-rounded') }}
+                        {% else %}
+                            <span class="icon is-large">
+                                <i class="mdi mdi-account"></i>
+                            </span>
+                        {% endif %}
+                    
+                    </figure>
+                    <div class="media-content">
+                        <p class="is-size-6 has-text-weight-bold">{{ author.name|default(author.displayname)|default(__('Unknown')) }}</p>
+                        <small class="is-size-7">
+                            <p>{{ author.description|default(author.email) }}</p>
+                            <p>
+                                <time datetime="{{record.publishedAt|format_datetime}}">{{ record.publishedAt|format_datetime("medium") }}</time>
+                            </p>
+                        </small>
+                    </div>
+                </div>
+
+				<div class="content is-size-6 feed-item">
+					<div class="feed-excerpt">{{ record.body|excerpt(500) }}</div>
+                    <div class="feed-content-full is-hidden">
+                        {{ record.body }}
+                    </div>
+				</div>
+			{% endblock %}
+		</div>
+		{% if record.image|default is not empty %}
+			<div class="card-image">
+				<figure class="image is-16by9">
+                    {{ m.lazyImagePopup(record.image, 'feed') }}
+				</figure>
+			</div>
+		{% endif %}
+		
+		<footer class="card-footer">
+            {% set shareIcon %}
+                <span class="icon">
+                    <i class="fas fa-share"></i>
+                </span>
+            {% endset %}
+
+            {{ m.link(shareIcon, record|link, "card-footer-item") }}
+        
+		</footer>
+	</div>
+{% endblock %}

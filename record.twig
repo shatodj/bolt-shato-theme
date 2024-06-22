@@ -1,1 +1,6 @@
 {% extends "twig/_record.twig" %}
+
+{% block document %}
+	{% set htmlClass = theme.layout.sections.index.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+	{{ parent() }}
+{% endblock %}

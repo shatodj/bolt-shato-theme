@@ -10,8 +10,9 @@
     {{ m.script('dist/js/page-bundle.js') }}
 {% endblock %}
 
-{% block record_footer %}
-    {# empty #}
+{% block document %}
+	{% set htmlClass = theme.layout.sections.index.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+	{{ parent() }}
 {% endblock %}
 
 {# Standard SECTIONS #}

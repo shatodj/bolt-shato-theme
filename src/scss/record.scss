@@ -1,10 +1,12 @@
 @charset "utf-8";
 
-@import "./minimal.scss";
-@import "../../node_modules/bulma/sass/elements/tag.sass";
-@import "../../node_modules/bulma/sass/components/card.sass";
-@import "../../node_modules/bulma-carousel/src/sass/index.sass";
-@import "../../node_modules/bulma-pricingtable/src/sass/index.sass";
+// @import "./minimal.scss";
+// @import "../../node_modules/bulma/sass/elements/tag.sass";
+// @import "../../node_modules/bulma/sass/components/card.sass";
+// @import "../../node_modules/bulma-carousel/src/sass/index.sass";
+// @import "../../node_modules/bulma-pricingtable/src/sass/index.sass";
 
-@import "partials/sections.scss";
-@import "partials/has-image-centered.scss";
+// @import "partials/sections.scss";
+// @import "partials/has-image-centered.scss";
+
+@forward "partials/minimal";

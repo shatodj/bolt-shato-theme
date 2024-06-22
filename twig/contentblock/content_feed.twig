@@ -1,0 +1,5 @@
+{% extends "twig/contentblock/content.twig" %}
+
+{% block contentlink_block %}
+	{% include "twig/partials/_sub_feed.twig" with { record: content } %}
+{% endblock %}

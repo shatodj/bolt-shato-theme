@@ -34,7 +34,7 @@
 		isParalax: isParalax|default(false), 
 		content: contentWithAnchor,
 		htmlTag: "section", 
-		class: "section is-section-" ~ bgColor ~ " " ~ sectionExtraClass
+		class: "section " ~ sectionExtraClass
 	} -%}
 		{{ block("lazy_background_wrapper") }}
 	{%- endwith -%}
@@ -238,7 +238,7 @@
 		{% endif %}
 		
 		{# Actual section with content #}
-		<{{htmlTag|default("div")}} class="shpr-section with-transparent-overlay {{class|default}}">
+		<{{htmlTag|default("div")}} class="{{class|default}} shpr-section with-transparent-overlay">
 			{{ content }}
 		</{{htmlTag|default("div")}}>
 	</div>

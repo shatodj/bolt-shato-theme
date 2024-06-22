@@ -1,23 +1,19 @@
-@import "./partials/minimal.scss";
+@use "bulma/sass/utilities/derived-variables" as dv;
+@use "partials/mixins";
 
-@mixin logo($height, $imageFile) {
-    background-image: url("../"+image($imageFile));
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: $height
-}
+@forward "partials/minimal";
 
 .logo {
-    @include logo(300px, "logo01.svg");
+    @include mixins.logo(300px, "logo01.svg");
 }
 
 .shpr-footer-block {
     overflow: hidden;
     .logo {
-        @include logo(300px, "logo01.svg");
+        @include mixins.logo(300px, "logo01.svg");
         background-position-x: right;
         align-self: center;
-        color: transparentize($color: $light, $amount: 1);
+        color: transparentize($color: dv.$light, $amount: 1);
     }
 }
 

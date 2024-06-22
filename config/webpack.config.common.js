@@ -123,7 +123,6 @@ let config = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: `${SRC_DIR}/fonts/**`, to: `${OUTPUT_DIR.FONT}/[name][ext]` },
         { from: `${SRC_DIR}/images/**`, to: `${OUTPUT_DIR.IMAGE}/[name][ext]` },
       ],
     }),

@@ -12,6 +12,11 @@
     {{ m.script('dist/js/entry-bundle.js') }}
 {% endblock %}
 
+{% block document %}
+	{% set htmlClass = theme.layout.sections.record.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+	{{ parent() }}
+{% endblock %}
+
 {% block record_header %}
     {% set recordMeta %}
         {% include "twig/partials/_record_meta.twig" with {'extended': true} %}

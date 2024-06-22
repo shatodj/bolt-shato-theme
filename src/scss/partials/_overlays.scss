@@ -1,3 +1,5 @@
+@use "bulma/sass/utilities/initial-variables" as iv;
+
 @mixin gradient($direction, $list) {
   background: -webkit-linear-gradient($direction, $list);
   background: -moz-linear-gradient($direction, $list);
@@ -12,12 +14,12 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background: transparentize($black, $alpha);
+  background: transparentize(iv.$black, $alpha);
   z-index: -2;
 }
 
 @mixin fadeFill($direction: 0deg, $alpha: 0.3) {
-  $colorList: transparentize($black, $alpha), transparentize($black, 1), transparentize($black, 1), transparentize($black, 1);
+  $colorList: transparentize(iv.$black, $alpha), transparentize(iv.$black, 1), transparentize(iv.$black, 1), transparentize(iv.$black, 1);
 
   @include fade($alpha);
   @include gradient($direction, $colorList);

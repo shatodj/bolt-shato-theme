@@ -1,9 +1,13 @@
 @charset "utf-8";
 
-@import "../../../node_modules/bulma/sass/components/navbar.sass";
+@use "bulma/sass/utilities/initial-variables" as iv;
+@use "bulma/sass/utilities/derived-variables" as dv;
+@use "../partials/functions" as fn;
+
+@forward "bulma/sass/components/navbar";
 
 .navbar {
-  box-shadow: 0 5px 11px 0px rgba($black, 0.1);
+  box-shadow: 0 5px 11px 0px rgba(iv.$black, 0.1);
 
   .navbar-link {
 
@@ -21,28 +25,28 @@
     }
   }
 
-  &.is-dark,
-  &.is-primary {
-    .navbar-menu a {
-      color: $text-light;
-    }
+  // &.is-dark,
+  // &.is-primary {
+  //   .navbar-menu a {
+  //     color: $text-light;
+  //   }
 
-    .navbar-link {
-      color: $text-light;
-    }
-  }
+  //   .navbar-link {
+  //     color: $text-light;
+  //   }
+  // }
 
-  &.is-dark {
-    .navbar-dropdown {
-      background-color: $dark
-    }
-  }
+  // &.is-dark {
+  //   .navbar-dropdown {
+  //     background-color: $dark
+  //   }
+  // }
 
-  &.is-primary {
-    .navbar-dropdown {
-      background-color: $primary
-    }
-  }
+  // &.is-primary {
+  //   .navbar-dropdown {
+  //     background-color: $primary
+  //   }
+  // }
 
   &.is-active {
     .navbar-menu {
@@ -60,7 +64,7 @@
 
   .shpr-brand.navbar-brand {
     .navbar-item {
-      background-image: url("../"+image("logo01.svg"));
+      background-image: url("../../"+fn.image("logo01.svg"));
       background-size: contain;
       background-repeat: no-repeat;
       height: 39px;
@@ -68,12 +72,12 @@
       margin-left: 0.5rem;
       margin-bottom: 0;
       align-self: center;
-      color: transparentize($color: $light, $amount: 1);
+      color: transparentize($color: dv.$light, $amount: 1);
       
       &:focus,
       &:hover,
       &.is-active {
-        color: transparentize($color: $light, $amount: 1)!important;
+        color: transparentize($color: dv.$light, $amount: 1)!important;
 
       }
     }
@@ -83,13 +87,13 @@
   // navbar enlarging and animation
   transition: all .5s;
   transition-property: background-color, min-height, box-shadow;
-  background-color: transparentize($color: $primary, $amount: 0.5);
+  background-color: transparentize($color: dv.$primary, $amount: 0.5);
   min-height: 0px;
   
   &.transparent:not(.is-active) {
-    background-color: transparentize($color: $primary, $amount: 1);
+    background-color: transparentize($color: dv.$primary, $amount: 1);
     min-height: 120px;
-    box-shadow: 0 5px 11px 0px rgba($black, 0);
+    box-shadow: 0 5px 11px 0px rgba(iv.$black, 0);
   }
 
 }
