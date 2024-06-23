@@ -87,13 +87,13 @@
   // navbar enlarging and animation
   transition: all .5s;
   transition-property: background-color, min-height, box-shadow;
-  background-color: transparentize($color: dv.$primary, $amount: 0.5);
+  background-color: var(--bulma-navbar-background-color);
   min-height: 0px;
   
-  &.transparent:not(.is-active) {
-    background-color: transparentize($color: dv.$primary, $amount: 1);
+  &.is-transparent {
+    // background-color: transparentize($color: var(--bulma-navbar-background-color), $amount: 1);
+    background-color: rgba(var(--bulma-navbar-background-color), 0.8);
     min-height: 120px;
-    box-shadow: 0 5px 11px 0px rgba(iv.$black, 0);
+    box-shadow: none;
   }
-
 }

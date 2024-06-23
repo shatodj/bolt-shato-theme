@@ -42,7 +42,7 @@ export default () =>
       feed({ selector: ".feed-item" });
 
       // navbar animation
-      navbar(".navbar.transparent", 50);
+      navbar(".navbar.is-transparent", 50);
 
       resolve();
     } catch (error) {

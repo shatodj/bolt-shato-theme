@@ -1,32 +1,7 @@
 @charset "utf-8";
 
-// @use "bulma/sass/utilities" with (
-//     $family-primary: '"Nunito", sans-serif'
-// );
-
-@use "bulma/sass/utilities/initial-variables" as iv;
+@use "bulma" as bulma;
 @use "bulma/sass/utilities/derived-variables" as dv;
-
-// @forward "bulma/sass/base";
-// @forward "bulma/sass/elements";
-// @forward "bulma/sass/grid";
-// @forward "bulma/sass/layout";
-// @forward "bulma/sass/components";
-
-@forward "bulma/sass";
-
-// Import the Google Font
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
-
-// @import "./functions.scss";
-// @import "./has-image-centered.scss";
-// @import "./overlays.scss";
-// @import "./lazy.scss";
-// @import "./lazy-background.scss";
-
-// @import "../components/navbar.scss";
-// @import "../components/gallery.scss";
-// @import "../components/feed.scss";
 
 .block:not(:last-child) {
   margin-bottom: 1.5rem;
@@ -40,18 +15,6 @@
 
 .is-no-border {
   border: none;
-}
-
-.title {
-  font-family: dv.$family-secondary;
-}
-
-.button,
-.button.is-primary,
-.button:active,
-.button:hover {
-  border-color: iv.$white;
-  text-transform: uppercase;
 }
 
 // new size for icon
@@ -93,41 +56,6 @@
   white-space: nowrap;
   font-weight: 400;
 }
-
-// .pricing-table {
-//   .pricing-plan {
-//     width: 20%;
-//     border
-
-//     &.is-primary {
-//       .plan-price .plan-price-amount {
-//         color: utilities.$primary;
-//       }
-
-//       .plan-footer .button {
-//         background-color: utilities.$primary;
-
-//         &:active, &:hover {
-//           background-color: utilities.$primary;
-//         }
-//       }
-//     }
-//   }
-
-//   @include mixins.tablet-only {
-//     .pricing-plan {
-//       width: 30%;
-//     }
-//   }
-
-//   @include mixins.mobile {
-//     display: block;
-
-//     .pricing-plan {
-//       width: initial;
-//     }
-//   }
-// }
 
 .without-pointer-events {
   pointer-events: none;

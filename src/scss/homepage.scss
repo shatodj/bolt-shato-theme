@@ -9,8 +9,9 @@
 // @import "partials/sections.scss";
 // @import "components/pricing-table.scss";
 
-@use "bulma/sass/utilities/mixins" as bulma-mixins;
+@use "partials/minimal";
 @use "partials/mixins";
+@use "bulma/sass/utilities/mixins" as bulma-mixins;
 
 @forward "bulma-carousel/src/sass/index.sass";
 @forward "partials/minimal";

@@ -18,7 +18,6 @@
 {% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
 
 {% block navbar %}
-	{# {{ include('navbar.twig') }} #}
 	{% include "navbar.twig" with { isTransparent: theme.layout.sections.index.is_navbar_transparent } %}
 {% endblock %}
 

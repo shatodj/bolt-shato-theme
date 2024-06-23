@@ -1,7 +1,6 @@
-@use "bulma/sass/utilities/derived-variables" as dv;
+@use "partials/minimal";
 @use "partials/mixins";
-
-@forward "partials/minimal";
+@use "bulma/sass/utilities/derived-variables" as dv;
 
 .logo {
     @include mixins.logo(300px, "logo01.svg");
