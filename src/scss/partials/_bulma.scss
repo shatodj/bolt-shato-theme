@@ -1,10 +1,8 @@
 @charset "utf-8";
 
-$primary: #2D65BC;
-
 @use "bulma/sass/utilities" with (
   $family-primary: '"Nunito", sans-serif',
-  $primary: $primary
+  $primary: #4d0000
 );
 
 @forward "bulma/sass/utilities";

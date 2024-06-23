@@ -34,7 +34,7 @@
 		isParalax: isParalax|default(false), 
 		content: contentWithAnchor,
 		htmlTag: "section", 
-		class: "section " ~ sectionExtraClass
+		class: sectionExtraClass ~ "theme-" ~ bgColor
 	} -%}
 		{{ block("lazy_background_wrapper") }}
 	{%- endwith -%}
@@ -79,7 +79,7 @@
 		isParalax: false, 
 		content: heroBody,
 		htmlTag: "section", 
-		class: "hero " ~ class|default
+		class: class|default
 	} -%}
 		{{ block("lazy_background_wrapper") }}
 	{%- endwith -%}
@@ -238,7 +238,7 @@
 		{% endif %}
 		
 		{# Actual section with content #}
-		<{{htmlTag|default("div")}} class="{{class|default}} shpr-section with-transparent-overlay">
+		<{{htmlTag|default("div")}} class="{{class|default}} shpr-section">
 			{{ content }}
 		</{{htmlTag|default("div")}}>
 	</div>

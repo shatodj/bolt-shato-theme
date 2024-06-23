@@ -1,6 +1,12 @@
 # template_directory: twig
 homepage: 'homepage'
 
+# NOTE: - Extra classes help:
+# with-transparent-overlay
+# with-semi-transparent-overlay
+# is-fullheight
+# has-text-centered
+
 # Global layout settings
 layout:
   is_navbar_full_width: false
@@ -10,22 +16,22 @@ layout:
     index:
       is_navbar_fixed: false
       is_navbar_transparent: true
-      header_extra_class: is-primary is-bold is-fullheight
+      has_navbar_logo: false
+      navbar_alignment: start # start, end
+      header_extra_class: hero shpr-section is-primary is-bold is-fullheight with-transparent-overlay
     record:
       is_navbar_fixed: true
       is_navbar_transparent: false
-      header_extra_class: is-primary is-bold is-medium
+      header_extra_class: hero shpr-section is-primary is-bold is-medium with-semi-transparent-overlay
   class:
     html: theme-light
     navbar: is-primary is-fixed-top
     # header_index: is-section-primary is-bold is-large
     # header_record: is-section-primary is-bold is-medium
     # header_listing: is-section-primary is-bold is-medium
-    section: is-small # if using paralax, use rather is-medium
-    record: is-small
-    listing: is-small
-    footer: is-section-primary
-    copyright: is-section-dark has-text-centered
+    section: section is-medium shpr-section is-small # do not add theme-light or theme-dark. It is controled by color_iteration
+    footer: section is-small shpr-section is-primary theme-dark
+    copyright: section is-small theme-dark has-text-centered
   
 # Section content blocks specs.
 section:

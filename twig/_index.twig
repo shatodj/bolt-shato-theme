@@ -18,7 +18,13 @@
 {% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
 
 {% block navbar %}
-	{% include "navbar.twig" with { isTransparent: theme.layout.sections.index.is_navbar_transparent } %}
+	{% 
+		include "navbar.twig" with { 
+			isTransparent: theme.layout.sections.index.is_navbar_transparent,
+			navbarClassSuffix: theme.layout.sections.index.navbar_alignment,
+			hasBrandLogo: theme.layout.sections.index.has_navbar_logo
+		}	
+	%}
 {% endblock %}
 
 {% block content %}
