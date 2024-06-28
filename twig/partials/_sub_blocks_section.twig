@@ -159,6 +159,7 @@
 			</div>
 		</nav>
 	{% endif %}
+
 {% endblock %}
 
 {% block section_content_gallery %}
@@ -211,7 +212,7 @@
 			{% set template = 'twig/contentblock/' ~ templateName ~ '.twig' %}
 		{% endif %}
 		
-		{% include template with { content: subBlockContent } %}		
+		{% include template with { content: subBlockContent, section: section } %}		
 	{% endif -%}
 {% endblock %}
 

@@ -23,7 +23,7 @@ const preloadImage = (src) =>
  */
 export default (element, onSuccess, onError) => {
   if (!element.tagName === "IMG") {
-    console.warn("Unalble to progressive load non image element.");
+    console.warn("Unable to progressive load non image element.");
     return;
   }
 

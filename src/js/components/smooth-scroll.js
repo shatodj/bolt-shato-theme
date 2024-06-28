@@ -7,6 +7,16 @@ document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach((anchor) => {
     e.preventDefault();
     const hash = href[0] === "/" ? href.substr(1) : href;
 
+    document.addEventListener(
+      "scrollend",
+      () => {
+        document.location.hash = hash;
+      },
+      {
+        once: true,
+      },
+    );
+
     document.querySelector(hash).scrollIntoView({
       behavior: "smooth",
     });

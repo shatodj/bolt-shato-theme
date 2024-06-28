@@ -10,6 +10,22 @@
     {{ m.script('dist/js/record-bundle.js') }}
 {% endblock %}
 
+{% block document %}
+	{% set htmlClass = theme.layout.sections.record.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+	{{ parent() }}
+{% endblock %}
+
+{% block navbar %}
+	{% 
+		include "navbar.twig" with { 
+			isTransparent: theme.layout.sections.record.is_navbar_transparent,
+            isFixed: theme.layout.sections.record.is_navbar_fixed,
+			navbarClassSuffix: theme.layout.sections.record.navbar_alignment,
+			hasBrandLogo: theme.layout.sections.record.has_navbar_logo
+		}	
+	%}
+{% endblock %}
+
 {% block content %}
 
 	{% if record is defined %}
