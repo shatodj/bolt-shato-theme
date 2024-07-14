@@ -9,9 +9,7 @@ homepage: 'homepage'
 
 # Global layout settings
 layout:
-  is_navbar_full_width: false
   use_paralax: true
-  use_searchbar_in_navigation: false
   sections:
     index:
       is_navbar_fixed: true
@@ -48,6 +46,16 @@ section:
   # Sections color iteration 
   # eg: ['light', 'primary', 'dark'] 
   color_iteration: ['light', 'dark'] 
+
+navbar:
+  is_full_width: false
+  use_search_bar: false
+  menu_id: main
+
+footer:
+  menu_id: social
+  menu_template: twig/partials/_sub_menu_social.twig # twig/partials/_sub_menu_social.twig or twig/partials/_sub_menu_footert.twig
+  contact_form_id: contact # Contact form located in the footer. If empty no contact form will be used in the footer
 
 # Thumbnails configuration
 thumbnails:

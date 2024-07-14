@@ -1,6 +1,6 @@
 {% extends "twig/_navbar.twig" %}
 
 {% block navbar_last_item %}
-    {% set useSearchbar = config.get("theme/layout/use_searchbar_in_navigation")|default(false) %}
+    {% set useSearchbar = theme.navbar.use_search_bar|default(false) %}
     {{ parent() }}
 {% endblock %}

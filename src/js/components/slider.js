@@ -8,7 +8,7 @@ export default ({ selector, ...options }) => {
 
   const carousels = bulmaCarousel.attach(selector, {
     slidesToScroll: 1,
-    slidesToShow: 3,
+    slidesToShow: 2,
     infinite: false,
     ...options,
   });

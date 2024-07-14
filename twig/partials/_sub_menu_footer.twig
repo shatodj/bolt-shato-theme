@@ -16,7 +16,7 @@
     {% apply spaceless %}
     <p class="level-item">
         <a href="/{{ item.link }}" title='{{ item.title|default('')|escape }}' class='{{ item.class|default('') }}'>
-            {{- item.label|default('-') -}}
+            {{- __(item.label) -}}
         </a>
     </p>
     {% endapply %}

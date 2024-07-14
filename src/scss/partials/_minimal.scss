@@ -2,6 +2,7 @@
 
 @use "bulma" as bulma;
 @use "bulma/sass/utilities/derived-variables" as dv;
+@use "mixins";
 
 .block:not(:last-child) {
   margin-bottom: 1.5rem;
@@ -70,4 +71,18 @@
 .feed-profile-card {
   position: sticky;
   top: var(--bulma-navbar-height);
+}
+
+.shpr-footer-block {
+  overflow: hidden;
+  .logo {
+      @include mixins.logo(300px, "logo01.svg");
+      background-position-x: right;
+      align-self: center;
+      color: transparentize($color: dv.$light, $amount: 1);
+  }
+
+  .social-menu {
+      --bulma-link-text: var(--bulma-text-strong);
+  }
 }

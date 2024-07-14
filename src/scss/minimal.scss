@@ -6,16 +6,6 @@
     @include mixins.logo(300px, "logo01.svg");
 }
 
-.shpr-footer-block {
-    overflow: hidden;
-    .logo {
-        @include mixins.logo(300px, "logo01.svg");
-        background-position-x: right;
-        align-self: center;
-        color: transparentize($color: dv.$light, $amount: 1);
-    }
-}
-
 .maintenance .logo {
     background-position-x: center;
 }

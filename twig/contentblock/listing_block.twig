@@ -3,7 +3,7 @@
 {# Custom Listing - displaying block  #}
 {% block contentlink_block %}
     {% set listClass = 'columns is-multiline' %}
-    {% set columnClass = 'column is-full' %}
+    {% set columnClass = 'column is-half' %}
     {% set columnTemplate = 'twig/contentblock/content_block.twig' %}
 
     {% set content = content is not empty and content|length >= 3 ? content|slice(0, 3) : content %}

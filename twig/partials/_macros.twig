@@ -162,7 +162,6 @@
 	{% for section in sections %}
 		{# Set body of the section #}
 		{% set content %}
-			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 			<div class="container">
 				{% with { 'section': section } %}
 				{{ block('section_content', "section_blocks.twig") }}

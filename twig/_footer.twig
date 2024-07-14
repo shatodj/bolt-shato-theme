@@ -12,17 +12,23 @@
 
                 {% block footer_content %}
                     {% set listData = listData|default({
-                            "slides-to-scroll": 1,
-                            "slides-to-show": 2
-                        }) %}
+                        "slides-to-scroll": 1,
+                        "slides-to-show": 2
+                    }) %}
 
-                        <div class="shpr-footer-block">
-                            {% for section in sections %}
-                                {% with { section: section, listdata: listData, columnClass: 'column is-half' }%}
-                                {{ block('section_content', 'section_blocks.twig') }}
-                                {%- endwith -%}
-                            {% endfor %}
-                        </div>
+                    <div class="shpr-footer-block">
+                        {% for section in sections %}
+                            {% with { section: section, listdata: listData, columnClass: 'column is-half' }%}
+                            {{ block('section_content', 'section_blocks.twig') }}
+                            {%- endwith -%}
+                        {% endfor %}
+
+                        {% set usedMenu = theme.footer.menu_id|default %}
+                        {% set menuTemplate = theme.footer.menu_template|default %}
+                        {% if usedMenu is defined %}
+                            {{ menu(usedMenu, menuTemplate) }}
+                        {% endif %}
+                    </div>
                 {% endblock %}
             </div>
         </div>
