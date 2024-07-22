@@ -46,7 +46,11 @@
 				</figure>
 			</div>
 		{% endif %}
-		
+
+        {% if record.video.responsive|default is not empty %}
+            {{ m.video(record.video) }}
+        {% endif %}
+        
 		<footer class="card-footer">
             {% set shareIcon %}
                 <span class="icon">

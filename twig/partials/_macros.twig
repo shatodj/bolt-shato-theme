@@ -95,6 +95,19 @@
 	{% endif %}
 {% endmacro %}
 
+{# Video #}
+{% macro video(video) %}
+	{% from _self import error %}
+
+	{% if video.responsive|default is not empty %}
+		<div class="flex-video {{ video.ratio|default(1) > 1.5 ? 'widescreen' }}">
+			{{ video.responsive }}
+		</div>
+	{% else %}
+		{{ error("The video has no responsive property.") }}
+	{% endif %}
+{% endmacro %}
+
 {# Generate stylesheet entry #}
 {% macro stylesheet(style) %}
 	{# Defer loading of non-critical styles #}
@@ -191,4 +204,13 @@
 	} %}
 	{{ block("link_wrapper", "blocks.twig") }}
 	{% endwith %}
+{% endmacro %}
+
+{# Error macro #}
+{% macro error(message) %}
+	{%- with { 
+		message: __(message)
+	} -%}
+		{{ block("error_block", "blocks.twig") }}
+	{%- endwith -%}
 {% endmacro %}

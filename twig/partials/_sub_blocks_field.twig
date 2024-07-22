@@ -45,9 +45,7 @@
 {% endblock %}
 
 {% block video %}
-    <div class="flex-video {{ field.ratio|default(1) > 1.5 ? 'widescreen' }}">
-        {{ field.responsive }}
-    </div>
+    {{ m.video(field) }}
 {% endblock %}
 
 {% block contentlink %}

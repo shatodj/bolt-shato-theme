@@ -21,18 +21,11 @@
 		{% endset %}
 	{% endif %}
 
-	{% set contentWithAnchor %}
-		{% if section.slug is defined %}
-			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
-		{% endif %}
-		{{ content }}
-	{% endset %}
-
 	{# Wrap section in lazy-background element #}
 	{%- with { 
 		bgImages: bgImages|default, 
 		isParalax: isParalax|default(false), 
-		content: contentWithAnchor,
+		content: content,
 		htmlTag: "section", 
 		class: sectionExtraClass ~ "theme-" ~ bgColor
 	} -%}
@@ -112,6 +105,11 @@
 {# Section content block #}
 {# Showing content of 'block' content type #}
 {% block section_content %}
+
+	{% if section.slug is defined %}
+		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+	{% endif %}
+
 	<h2 class="title is-3 is-size-4-mobile is-spaced">{{ section|title|default }}</h2>
 
 	{%- if section.content is not empty %}

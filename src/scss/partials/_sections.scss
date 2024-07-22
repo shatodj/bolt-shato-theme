@@ -7,7 +7,7 @@
 
     .shpr-section-anchor {
         position: absolute;
-        top: -20px;
+        top: calc(var(--bulma-navbar-height) * -1);
     }
 
     background: unset !important; 

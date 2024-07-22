@@ -13,13 +13,7 @@
 @use "partials/mixins";
 @use "bulma/sass/utilities/mixins" as bulma-mixins;
 
-@forward "bulma-carousel/src/sass/index.sass";
 @forward "partials/minimal";
-@forward "partials/sections";
-@forward "partials/lazy";
-@forward "partials/lazy-background";
-@forward "partials/overlays";
-
 
 .hero {
   .shpr-background {

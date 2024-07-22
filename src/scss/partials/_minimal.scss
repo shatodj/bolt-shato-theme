@@ -4,6 +4,13 @@
 @use "bulma/sass/utilities/derived-variables" as dv;
 @use "mixins";
 
+@forward "bulma-carousel/src/sass/index.sass";
+@forward "sections";
+@forward "lazy";
+@forward "lazy-background";
+@forward "overlays";
+@forward "has-image-centered";
+
 .block:not(:last-child) {
   margin-bottom: 1.5rem;
 }
@@ -84,5 +91,40 @@
 
   .social-menu {
       --bulma-link-text: var(--bulma-text-strong);
+  }
+}
+
+/**
+ * Styles for 'responsive video embeds'
+ */
+.responsive-video, .embed-responsive {
+  height: 0;
+  padding-top: 25px;
+  padding-bottom: 67.5%;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+
+  &.vimeo {
+    padding-top: 0;
+  }
+
+  &.widescreen {
+    padding-bottom: 57.25%;
+  }
+
+  embed,
+  iframe,
+  object,
+  video {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  @media (max-width: 767px) {
+    padding-top: 0;
   }
 }
