@@ -30,6 +30,14 @@
 							</p>
 						</div>
 					</div>
+                    {% if author.contentlink|default is not empty %}
+                        <div class="card-footer">
+                            <a href="{{ author.contentlink }}" target="_blank" class="card-footer-item">
+                                <span class="icon"><i class="fab fa-linkedin"></i> </span>
+                                <span>{{ __("View profile") }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
 				</div>
 			{% endfor %}
 		</div>
