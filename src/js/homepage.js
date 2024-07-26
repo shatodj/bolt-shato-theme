@@ -3,6 +3,11 @@
 import "../scss/homepage.scss";
 
 import init from "./partials/main.js";
-import "./components/smooth-scroll.js";
+import smoothScroll from "./components/smooth-scroll.js";
 
-init().then(() => {});
+init().then(() => {
+  smoothScroll({
+    selector: ".shpr-section-anchor",
+    topTreshold: 200,
+  });
+});

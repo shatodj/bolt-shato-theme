@@ -82,6 +82,10 @@
 {# Hero component content #}
 {# Showing content fo Hero component block #}
 {% block hero_content %}
+	{% if section.slug is defined %}
+		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+	{% endif %}
+
 	<h1 class="title is-1 is-3-mobile is-spaced">{{ section|title|default }}</h1>
 	
 	{% if includeInfo|default(false) %}

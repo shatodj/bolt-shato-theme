@@ -46,7 +46,7 @@
 			{% endif %}
 		{% endblock %}
 
-		{% with { excludedFields: ['image', 'teaser', 'introduction'] } %}
+		{% with { excludedFields: ['image', 'teaser', 'introduction', 'seo'] } %}
 		{{ block("record_body") }}
 		{% endwith %}
 		
