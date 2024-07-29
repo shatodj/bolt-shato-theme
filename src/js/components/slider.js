@@ -4,11 +4,11 @@ import bulmaCarousel from "bulma-carousel";
  * @param {object} options
  */
 export default ({ selector, ...options }) => {
-  // See: https://creativebulma.net/product/carousel/demo#
+  // See: https://bulma-carousel.onrender.com/
 
   const carousels = bulmaCarousel.attach(selector, {
-    slidesToScroll: 1,
-    slidesToShow: 2,
+    // slidesToScroll: 1,
+    // slidesToShow: 2,
     infinite: false,
     ...options,
   });
@@ -17,7 +17,6 @@ export default ({ selector, ...options }) => {
     // reset className
     if (carousel.slides) {
       carousel.slides.forEach((slide) => {
-        // eslint-disable-next-line no-param-reassign
         const { firstElementChild } = slide;
         if (firstElementChild) {
           firstElementChild.className = "column";

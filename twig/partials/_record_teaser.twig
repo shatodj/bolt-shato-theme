@@ -1,6 +1,11 @@
 
 {% set record_title = record|title|default(record.title|default) %}
-{% set record_teaser = record.teaser|striptags|default(record.introduction|striptags|default(record.excerpt(300, false))) %}
+{% set 
+    record_teaser = record.teaser|striptags
+        |default(record.introduction|striptags)
+        |default(record.excerpt(300, false))
+        
+%}
 {% set tag = tag|default("h2") %}
 {% set classHeader = classHeader|default("title is-5") %}
 {% set classTeaser = classTeaser|default %}

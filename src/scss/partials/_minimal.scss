@@ -128,3 +128,23 @@
     padding-top: 0;
   }
 }
+
+.section, .hero {
+
+  --bulma-title-color: var(--bulma-text-strong) !important;
+  --bulma-title-strong-color: var(--bulma-text-strong) !important;
+
+  .title, .subtitle  {
+    color: var(--bulma-text-strong); 
+  }
+  
+  .content {
+      color: var(--bulma-text-strong);
+  }
+}
+
+.navbar {
+  .navbar-item, .navbar-link {
+    color: var(--bulma-text-strong)
+  }
+}

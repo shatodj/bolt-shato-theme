@@ -42,11 +42,18 @@
 		{% block record_header %}
 			{% if homepage %}
 				{% set themeLayout = themeConfig.layout.sections.index %}
-				{% include "twig/partials/_record_header.twig" with { extraClass: themeLayout.header_extra_class } %}
+				{% embed "twig/partials/_record_header.twig" with { extraClass: themeLayout.header_extra_class } %}
+					{# Customize header body cointent #}
+					{% block header_content %}
+						<div class="columns">
+							<div class="column is-half">{{ parent() }}</div>
+						</div>
+					{% endblock %}
+				{% endembed %}
 			{% endif %}
 		{% endblock %}
 
-		{% with { excludedFields: ['image', 'teaser', 'introduction', 'seo'] } %}
+		{% with { excludedFields: ['image', 'teaser', 'introduction', 'content', 'seo', 'sections'] } %}
 		{{ block("record_body") }}
 		{% endwith %}
 		
@@ -55,6 +62,6 @@
 
 	{% block sections %}
 		{{ m.sectionsByRecord(homepage, isParalax) }}
-		{{ m.sectionsByGroup('homepage', isParalax) }}
+		{# {{ m.sectionsByGroup('homepage', isParalax) }} #}
 	{% endblock %}
 {% endblock %}

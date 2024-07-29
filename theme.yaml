@@ -16,16 +16,16 @@ layout:
       is_navbar_transparent: true
       has_navbar_logo: false
       navbar_alignment: start # start, end
-      header_extra_class: hero shpr-section is-primary is-bold is-fullheight with-transparent-overlay
+      header_extra_class: hero shpr-section is-primary is-bold is-fullheight with-transparent-overlay theme-dark
     record:
       is_navbar_fixed: false
       is_navbar_transparent: false
       has_navbar_logo: false
       navbar_alignment: start # start, end
-      header_extra_class: hero shpr-section is-primary is-bold is-medium with-semi-transparent-overlay
+      header_extra_class: hero shpr-section is-primary is-bold is-medium with-semi-transparent-overlay theme-dark
   class:
     html: theme-light
-    navbar: is-primary
+    navbar: is-primary theme-dark
     # header_index: is-section-primary is-bold is-large
     # header_record: is-section-primary is-bold is-medium
     # header_listing: is-section-primary is-bold is-medium

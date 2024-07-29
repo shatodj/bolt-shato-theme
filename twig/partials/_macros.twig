@@ -169,10 +169,13 @@
 	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
 	{# Get All related blocks mapped to the record #}
-	{% set sections = record|related(themeSection.sectionblock_name) %}
+	{# {% set sections = record|related(themeSection.sectionblock_name) %} #}
+	{% set sections = record.sections %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
+		{% set section = section|selected %}
+
 		{# Set body of the section #}
 		{% set content %}
 			<div class="container">
@@ -183,8 +186,9 @@
 		{% endset %}
 
 		{# set different color for each section #}
-		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length] %}
+		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length]|default(color_iteration[0]) %}
 		{% with { 
+			section: section,
 			content: content,
 			image: section.image,
 			bgColor: currentColor,

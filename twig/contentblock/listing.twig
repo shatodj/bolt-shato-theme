@@ -13,15 +13,9 @@
 				classListWide: 'columns',
 				classColumn: 'column is-half',
 				classColumnWide: 'column',
-				dataList: { 
-					"slides-to-scroll": 1,
-                    "slides-to-show": 3
-				},
 				templateColumn: 'twig/contentblock/content.twig'
 			} %}
 
-			{# NOT WORKING #}
-			{# {% set dataString = listData|default(defaults.dataList)|map((last, first) => "data-#{first}=#{last}")|join(" ") %} #}
 			{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
 			<ul class="{{ listClass }}" {# {{ dataString }} #}>
 				{%- for entry in content|filter(e => e.status == 'published') -%}

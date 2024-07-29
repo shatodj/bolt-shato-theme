@@ -97,6 +97,11 @@
 		<div class="subtitle content">{{ teaser }}</div>
 	{% endif %}
 
+	{% set content = section.content|default %}
+	{% if content is not empty %}
+		<div class="content">{{ content }}</div>
+	{% endif %}
+	
 	{% if includeMeta|default(false) %}
 		{% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
 	{% endif %}
@@ -114,7 +119,7 @@
 		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 	{% endif %}
 
-	<h2 class="title is-3 is-size-4-mobile is-spaced">{{ section|title|default }}</h2>
+	<h2 class="title is-3 is-size-4-mobile is-spaced">{{ section.title|default }}</h2>
 
 	{%- if section.content is not empty %}
 		<div class="content">
@@ -138,9 +143,9 @@
 	{% endwith %}
 
 	{# showing the gallery if added to the block #}
-	{% if section.gallery|length %}
+	{% if section.gallery|default is not empty %}
 		<section>
-			{% with { 'gallery': section.gallery } %}
+			{% with { 'section': section } %}
 			{{ block("section_content_gallery") }}
 			{% endwith %}
 		</section>
@@ -164,28 +169,23 @@
 
 {% endblock %}
 
+{# Section gallery content #}
+
 {% block section_content_gallery %}
 
-	{% import "twig/partials/_macros.twig" as m %}
+	{% set gallery = section.gallery|selected %}
+	{% set galleryTemplate = section.galleryTemplate|default %}
 
+	{# Generate template name in case is contenttemplate is not defined #}
+	{% if galleryTemplate is not empty %}
+		{% set template = galleryTemplate %}
+	{% else %}
+		{% set template = 'twig/gallery/gallery_grid.twig' %}
+	{% endif %}
+	
 	<div class="shpr-gallery">
-		<div class="use-magnific imagelist columns is-mobile is-multiline">
-			{% for image in gallery|default([]) %}
-			<div class="column is-6-mobile is-3-desktop">
-				<div class="card">
-					<div class="card-image">
-						<figure class="image">
-							{{ m.lazyImagePopup(image, alias|default("gallery"), aliasBig|default("gallery-big"), "is-2x3", true) }}
-						</figure>
-					</div>
-					<div class="card-content is-overlay is-clipped without-pointer-events">
-						<span class="tag is-info">
-							{{ image.alt|default }}
-						</span> 
-					</div>
-				</div>
-			</div>
-			{% endfor %}
+		<div class="use-magnific imagelist">
+			{% include template with { gallery: gallery, section: section } %}	
 		</div>
 	</div>
 {% endblock %}
@@ -231,7 +231,7 @@
 #}
 {% block lazy_background_wrapper %}
 	<div class="shpr-lazy-background" data-src="{{ bgImages|default }}">
-				
+
 		{# Adding empty elements to handle dynamic background styling - see lazy-section-backgorund.js #}
 		{% if bgImages|default is not empty %}
 			{% if isParalax|default == true %}

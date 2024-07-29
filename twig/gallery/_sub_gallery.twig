@@ -1,0 +1,12 @@
+{% import "twig/partials/_macros.twig" as m %}
+
+{% block gallery %}
+	{% for image in gallery.galleryImages|default([]) %}
+        {% block gallery_image %}
+            {% import "twig/partials/_macros.twig" as m %}
+            <figure class="image">
+                {{ m.lazyImagePopup(image, alias|default("gallery"), aliasBig|default("gallery-big"), "is-2x3", true) }}
+            </figure>
+        {% endblock %}
+    {% endfor %}
+{% endblock %}
