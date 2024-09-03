@@ -10,6 +10,7 @@
 @forward "lazy-background";
 @forward "overlays";
 @forward "has-image-centered";
+@forward "marquee";
 
 .block:not(:last-child) {
   margin-bottom: 1.5rem;
@@ -30,6 +31,10 @@
   &.is-ultra-large {
     width: 5rem;
     height: 5rem;
+  }
+
+  &.is-rounded {
+    border-radius: var(--bulma-radius-rounded);
   }
 }
 
@@ -133,6 +138,8 @@
 
   --bulma-title-color: var(--bulma-text-strong) !important;
   --bulma-title-strong-color: var(--bulma-text-strong) !important;
+
+  --bulma-label-color: var(--bulma-text-strong);
 
   .title, .subtitle  {
     color: var(--bulma-text-strong); 

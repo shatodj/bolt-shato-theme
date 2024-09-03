@@ -17,7 +17,7 @@
 			} %}
 
 			{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
-			<ul class="{{ listClass }}" {# {{ dataString }} #}>
+			<ul class="{{ listClass }}">
 				{%- for entry in content|filter(e => e.status == 'published') -%}
 					{% block list_item %}
 						

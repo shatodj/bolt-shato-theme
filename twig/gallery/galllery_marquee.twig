@@ -1,0 +1,17 @@
+{% extends "twig/gallery/_sub_gallery.twig" %}
+
+{% import "twig/partials/_macros.twig" as m %}
+
+{% block gallery_image_cells %} 
+    <div class="marquee marquee--6">
+        {{ parent() }}
+    </div>
+{% endblock %} 
+
+{% block gallery_image %}
+    <img class="marquee__item" src="{{ image|thumbnail(200, 100, "n") }}" width="200" height="100" alt="">
+{% endblock %}
+
+{% block gallery_figure %}
+    {# empty #}
+{% endblock %}

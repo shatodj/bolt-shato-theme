@@ -12,16 +12,14 @@
                         {{ m.lazyImage(content.image, 'card') }}
                     {% endset %}
                     
-                    {%- with { 
-                        content: cardContent, link: content|link
-                    } -%}
+                    {%- with { content: cardContent, link: content|link } -%}
                         {{ block("link_wrapper", "blocks.twig") }}
                     {%- endwith -%}
                 </figure>
             </div>
         {% endif %}
         <div class="card-content">
-            {{ parent() }}
+            {% include "twig/partials/_record_teaser.twig" with { use_link: true, use_read_more: true, record: content } %}
         </div>
     </div>
 

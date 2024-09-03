@@ -18,8 +18,16 @@
     {% set attr = attr|default({})|merge({
         'class': 'input'
     }) %}
+
+    {%- set type = type|default('text') -%}
+    {%- if type == 'range' or type == 'color' -%}
+        {# Attribute "required" is not supported #}
+        {%- set required = false -%}
+    {%- endif -%}
     
-    {{- parent() -}}   
+    {# {{- parent() -}} #}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+
 {% endblock %}
 {
 {% block choice_widget %}

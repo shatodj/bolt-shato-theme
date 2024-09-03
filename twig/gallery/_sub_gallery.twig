@@ -1,12 +1,33 @@
 {% import "twig/partials/_macros.twig" as m %}
 
 {% block gallery %}
-	{% for image in gallery.galleryImages|default([]) %}
-        {% block gallery_image %}
-            {% import "twig/partials/_macros.twig" as m %}
-            <figure class="image">
-                {{ m.lazyImagePopup(image, alias|default("gallery"), aliasBig|default("gallery-big"), "is-2x3", true) }}
-            </figure>
-        {% endblock %}
-    {% endfor %}
+    {% block gallery_content %}
+
+        {% set title = gallery|title|default(gallery.title) %}
+
+        {# {% if title is not empty %}    
+            <div class="title is-5">
+                {{ title }}
+            </div>
+        {% endif %} #}
+
+        {% if gallery.content|default is not empty %}    
+            <div class="block content">
+                {{ gallery.content }}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block gallery_image_cells %}
+        {% for image in gallery.galleryImages|default([]) %}
+            {% block gallery_image %}
+                {% import "twig/partials/_macros.twig" as m %}
+                <figure class="image">
+                    {% block gallery_figure %}
+                        {{ m.lazyImagePopup(image, alias|default("gallery"), aliasBig|default("gallery-big"), "is-2x3", true) }}
+                    {% endblock %}
+                </figure>
+            {% endblock %}
+        {% endfor %}
+    {% endblock %}
 {% endblock %}
