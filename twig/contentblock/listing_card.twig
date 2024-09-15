@@ -1,9 +1,0 @@
-{% extends "twig/contentblock/listing.twig" %}
-
-{% block contentlink_block %}
-    {% set listClass = 'columns is-multiline' %}
-    {% set columnClass = 'column is-half' %}
-    {% set columnTemplate = 'twig/contentblock/content_card.twig' %}
-
-    {{ parent() }}
-{% endblock %}

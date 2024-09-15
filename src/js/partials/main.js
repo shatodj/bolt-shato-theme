@@ -7,6 +7,7 @@ import feed from "../components/feed.js";
 import lazyMedia from "./lazy.js";
 import scaredElement from "../components/scared-element.js";
 import lazySectionBackground from "./lazy-background.js";
+import marquee from "../components/marquee.js";
 
 /**
  * Init script
@@ -43,6 +44,8 @@ export default () =>
 
       // navbar animation
       navbar(".navbar.is-transparent", 50);
+
+      marquee({ selector: ".marquee" });
 
       resolve();
     } catch (error) {

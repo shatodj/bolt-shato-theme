@@ -13,18 +13,20 @@
 				classListWide: 'columns',
 				classColumn: 'column is-half',
 				classColumnWide: 'column',
-				templateColumn: 'twig/contentblock/content.twig'
 			} %}
 
 			{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
+			{% set template =  section.content_block_template|default('twig/contentblock/blocks/content.twig') %}
+			
 			<ul class="{{ listClass }}">
 				{%- for entry in content|filter(e => e.status == 'published') -%}
 					{% block list_item %}
 						
 						{% set columnClass = content|length == 1 ? columnClassWide|default(defaults.classColumnWide) : columnClass|default(defaults.classColumn) %}
+						
 						<li class="{{ columnClass }}">
 							{% with { content: entry } %}
-							{{ block('contentlink_block', columnTemplate|default(defaults.templateColumn) )}}
+							{{ block('contentlink_block', template )}}
 							{% endwith %}
 						</li>
 

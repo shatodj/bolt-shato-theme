@@ -10,7 +10,6 @@
 @forward "lazy-background";
 @forward "overlays";
 @forward "has-image-centered";
-@forward "marquee";
 
 .block:not(:last-child) {
   margin-bottom: 1.5rem;
@@ -153,5 +152,18 @@
 .navbar {
   .navbar-item, .navbar-link {
     color: var(--bulma-text-strong)
+  }
+}
+
+.box-on-hover { 
+
+  border-radius: var(--bulma-radius-large);
+  transition: all 400ms cubic-bezier(.47,1.64,.41,.8); // bounce effect
+
+  &:hover {
+    box-shadow: var(--bulma-shadow);
+    background-color: var(--bulma-white);
+    padding: var(--bulma-block-spacing);
+    margin: calc(var(--bulma-block-spacing) * -1);
   }
 }

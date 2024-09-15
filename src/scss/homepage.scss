@@ -15,10 +15,19 @@
 
 @forward "partials/minimal";
 
-.hero {
-  .shpr-background {
+.hero-wrapper .shpr-background {
+
+  @include bulma-mixins.mobile {
     background-size: contain;
   }
+  background-position-y: top;
+  background-position-x: right;
+  background-repeat: no-repeat;
+
+  background-color: var(--bulma-primary);
+}
+
+.hero {
   .logo {
     @include mixins.logo(10em, "logo01.svg")
   }

@@ -16,7 +16,7 @@ layout:
       is_navbar_transparent: true
       has_navbar_logo: false
       navbar_alignment: start # start, end
-      header_extra_class: hero shpr-section is-primary is-bold is-fullheight with-transparent-overlay theme-dark
+      header_extra_class: hero shpr-section is-primary is-bold with-transparent-overlay theme-dark is-fullheight
     record:
       is_navbar_fixed: false
       is_navbar_transparent: false

@@ -1,4 +1,6 @@
 
+@use "bulma/sass/utilities/mixins" as bulma-mixins;
+
 @mixin shpr-bck-image {
     background-size: cover;
     background-attachment: fixed;
@@ -26,6 +28,10 @@
             background:url(
                 data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAF0lEQVQYV2NkQAKMUPZ/BgYGRhgHLAYAEnEBBJU1VYUAAAAASUVORK5CYII=
             ) repeat fixed;
+        }
+
+        @include bulma-mixins.mobile {
+            display: none;
         }
     }
 

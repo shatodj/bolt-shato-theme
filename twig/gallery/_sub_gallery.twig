@@ -3,31 +3,35 @@
 {% block gallery %}
     {% block gallery_content %}
 
-        {% set title = gallery|title|default(gallery.title) %}
+        {# {% set title = gallery|title|default(gallery.title) %} #}
+        {% block gallery_title %}
+            {% if gallery.title is not empty %}    
+                <div class="title is-5">
+                    {{ gallery.title }}
+                </div>
+            {% endif %}
+        {% endblock %}
 
-        {# {% if title is not empty %}    
-            <div class="title is-5">
-                {{ title }}
-            </div>
-        {% endif %} #}
-
-        {% if gallery.content|default is not empty %}    
-            <div class="block content">
-                {{ gallery.content }}
-            </div>
-        {% endif %}
-    {% endblock %}
-
-    {% block gallery_image_cells %}
-        {% for image in gallery.galleryImages|default([]) %}
-            {% block gallery_image %}
-                {% import "twig/partials/_macros.twig" as m %}
-                <figure class="image">
-                    {% block gallery_figure %}
-                        {{ m.lazyImagePopup(image, alias|default("gallery"), aliasBig|default("gallery-big"), "is-2x3", true) }}
-                    {% endblock %}
-                </figure>
-            {% endblock %}
-        {% endfor %}
+        {% block gallery_description %}
+            {% if gallery.content|default is not empty %}    
+                <div class="block content">
+                    {{ gallery.content }}
+                </div>
+            {% endif %}
+        {% endblock %}
+    
+        {% block gallery_image_cells %}
+            {% for image in gallery.galleryImages|default([]) %}
+                {% block gallery_image %}
+                    {% import "twig/partials/_macros.twig" as m %}
+                    <figure class="image">
+                        {% block gallery_figure %}
+                            {{ m.lazyImagePopup(image, alias|default("gallery"), aliasBig|default("gallery-big"), "is-2x3", true) }}
+                        {% endblock %}
+                    </figure>
+                {% endblock %}
+            {% endfor %}
+        {% endblock %}
+        
     {% endblock %}
 {% endblock %}

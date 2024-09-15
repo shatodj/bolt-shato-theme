@@ -74,7 +74,9 @@
 		htmlTag: "section", 
 		class: class|default
 	} -%}
+		{% with { 'className': "hero-wrapper" } %}
 		{{ block("lazy_background_wrapper") }}
+		{% endwith %}
 	{%- endwith -%}
 
 {% endblock %}
@@ -143,7 +145,7 @@
 	{% endwith %}
 
 	{# showing the gallery if added to the block #}
-	{% if section.gallery|default is not empty %}
+	{% if section.galleryContent|default is not empty %}
 		<section>
 			{% with { 'section': section } %}
 			{{ block("section_content_gallery") }}
@@ -152,7 +154,7 @@
 	{% endif %}
 
 	{# Showing links / actions for the Block #}
-	{% if section.links|length > 0 or section.editlink() %}
+	{% if section.links|length > 0 or section|edit_link|default is not empty %}
 		<nav class="shpr-actions columns">
 			<div class="column has-text-centered">
 				{% for link in section.links %}	
@@ -173,7 +175,7 @@
 
 {% block section_content_gallery %}
 
-	{% set gallery = section.gallery|selected %}
+	{% set gallery = section.galleryContent|selected %}
 	{% set galleryTemplate = section.galleryTemplate|default %}
 
 	{# Generate template name in case is contenttemplate is not defined #}
@@ -205,13 +207,13 @@
 	{% if subBlockContent is not empty %}
 	
 		{# Generate template name in case is contenttemplate is not defined #}
-		{% if contenttemplate|default is not empty %}
-			{% set template = contenttemplate %}
-		{% elseif section.contenttemplate|default is not empty %}
-			{% set template = section.contenttemplate %}
+		{% if content_list_template|default is not empty %}
+			{% set template = content_list_template %}
+		{% elseif section.content_list_template|default is not empty %}
+			{% set template = section.content_list_template %}
 		{% else %}
-			{% set templateName = subBlockContent is iterable ? 'listing' : 'content' %}
-			{% set template = 'twig/contentblock/' ~ templateName ~ '.twig' %}
+			{% set templateSubPath = subBlockContent is iterable ? 'listings/listing' : 'block/content' %}
+			{% set template = 'twig/contentblock/' ~ templateSubPath ~ '.twig' %}
 		{% endif %}
 		
 		{% include template with { content: subBlockContent, section: section } %}		
@@ -230,7 +232,7 @@
 	class: string
 #}
 {% block lazy_background_wrapper %}
-	<div class="shpr-lazy-background" data-src="{{ bgImages|default }}">
+	<div class="shpr-lazy-background {{ className|default }}" data-src="{{ bgImages|default }}">
 
 		{# Adding empty elements to handle dynamic background styling - see lazy-section-backgorund.js #}
 		{% if bgImages|default is not empty %}
