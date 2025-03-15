@@ -1,8 +1,6 @@
 {% extends 'twig/partials/_master.twig' %}
 {% import "twig/partials/_macros.twig" as m %}
 
-{% set headerBlockClass = "hero is-header " ~ theme.layout.class.header_record|default("is-primary") %}
-
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
     {{ m.stylesheet_inline('dist/css/record-bundle.css') }}
@@ -12,6 +10,21 @@
     {{ m.script('dist/js/record-bundle.js') }}
 {% endblock %}
 
+{% block document %}
+	{% set htmlClass = theme.layout.sections.record.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+	{{ parent() }}
+{% endblock %}
+
+{% block navbar %}
+	{% 
+		include "navbar.twig" with { 
+			isTransparent: theme.layout.sections.record.is_navbar_transparent,
+            isFixed: theme.layout.sections.record.is_navbar_fixed,
+			navbarClassSuffix: theme.layout.sections.record.navbar_alignment,
+			hasBrandLogo: theme.layout.sections.record.has_navbar_logo
+		}	
+	%}
+{% endblock %}
 
 {% block content %}
 
@@ -23,7 +36,8 @@
         <article>
             {% block body %}
                 {% block record_header %}
-                    {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass} %}
+                    {% set themeLayout = theme.layout.sections.record %}
+                    {% include "twig/partials/_record_header.twig" with { extraClass: themeLayout.header_extra_class} %}
                 {% endblock %}
 
                 {% block record_body %}
@@ -41,9 +55,11 @@
                     {% if recordContent is not empty %}
                         {% set recordExtraClass = config.get("theme/layout/class/record")|default %}
                         <section class="section shpr-section {{ recordExtraClass }}">
-                            <div class="container content">
+                            <div class="container">
                                 {% block record_body_content %}
-                                    {{ recordContent }}
+                                    <div class="content">
+                                        {{ recordContent }}
+                                    </div>
                                 {% endblock %}
                             </div>
                         </section>

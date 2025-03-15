@@ -1,25 +1,36 @@
 {# Navbar #}
-<nav id="navbar-toggle" class="navbar {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
-    <div class="container {{ theme.layout.is_navbar_full_width ? "is-fluid" }}">
-        <div class="navbar-brand shpr-brand">
-            {% block navbar_brand %}
-                <a class="title is-5 navbar-item has-text-weight-bold" href="/">
-                    {{ config.get('general/sitename') }}
-                </a>
-            {% endblock %}
-            {% block navbar_burger_menu %}
-                <span class="navbar-burger burger" data-target="navbar-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </span>
-            {% endblock %}
-        </div>
+
+{% set isTransparentClass = isTransparent|default == true ? "is-transparent" : "" %}
+{% set isFixedClass = isFixed|default == true ? 'is-fixed-top' : "" %}
+{% set navbarClassSuffix = navbarClassSuffix|default("end") %}
+{% if hasBrandLogo is not defined %}
+    {% set hasBrandLogo = true %}
+{% endif %}
+
+<nav id="navbar-toggle" class="navbar {{ isTransparentClass }} {{ isFixedClass}} {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
+    <div class="container {{ theme.navbar.is_full_width ? "is-fluid" }}">
+       {% if hasBrandLogo  %}
+            <div class="navbar-brand shpr-brand">
+                {% block navbar_brand %}
+                    <a class="title is-5 navbar-item has-text-weight-bold" href="/">
+                        {{ config.get('general/sitename') }}
+                    </a>
+                {% endblock %}
+            </div>
+        {% endif %}
+        {% block navbar_burger_menu %}
+            <span class="navbar-burger burger" data-target="navbar-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        {% endblock %}
         <div class="navbar-menu">
-            <div class="navbar-end">
+            <div class="navbar-{{ navbarClassSuffix }}">
                 <ul class="navbar-item no-link-color">
                     {% apply spaceless %}
-                        {% set usedMenu = config.get('theme/layout/used_navigation_menu')|default("main") %}
+                        {% set usedMenu = theme.navbar.menu_id|default("main") %}
                         {{ menu(usedMenu, 'twig/partials/_sub_menu_navbar.twig') }}
                     {% endapply %}
                 </ul>

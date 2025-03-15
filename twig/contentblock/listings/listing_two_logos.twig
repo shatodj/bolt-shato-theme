@@ -1,0 +1,44 @@
+{# Contentlink Listing content #}
+{# ContentBlock filled for ITERABLE content #}
+{# Require: content #}
+{% block contentlink_block_with_validation %}
+	{% if content is not iterable %}
+		{% with { message: 'Received content is not iterable or invalid.' } %}
+		{{ block('error_block', 'blocks.twig') }}
+		{% endwith %}
+	{% elseif content|length > 0 %}
+		{% block contentlink_block %}
+
+			<ul class="columns">
+				{% for entry in content|filter(e => e.status == 'published')|slice(0, 2) %}
+					<li class="column is-one-quarter has-text-centered">
+						{% if entry.image|default is not empty %}
+							<figure class="image block">
+								{% import "twig/partials/_macros.twig" as m %}
+								{{ m.lazyImage(entry.image, "block") }}
+							</figure>
+						{% endif %}
+
+						<div class="block">
+							{{ entry|title }}
+						</div>
+					</li>
+				{% endfor %}
+
+				{% set content3 = content[2]|default %}
+				<li class="column">
+					<div class="section">
+						<div class="content">
+							{{ content3.content }}
+						</div>
+					</div>
+				</li>
+
+			</ul>
+		{% endblock %}
+	{% else %}
+		{% with { message: 'There is no content yet.' } %}
+		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{% endwith %}
+	{% endif %}
+{% endblock %}

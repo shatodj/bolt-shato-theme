@@ -1,0 +1,32 @@
+{% extends "twig/_record.twig" %}
+{% import "twig/partials/_macros.twig" as m %}
+
+{% block document %}
+	{{ parent() }}
+{% endblock %}
+
+{% block record_header %}
+    {# empty #}
+{% endblock %}
+
+{% block record_body_content %}
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+            {% include "twig/partials/_sub_feed.twig" with { record: record } %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block record_footer %}
+    {# empty #}
+{% endblock %}
+
+
+{# Standard SECTIONS #}
+{% block sections %}
+    {% if record|default is not empty %}
+        {{ m.sectionsByRecord(record) }}
+    {% endif %}
+
+    {# {{ m.sectionsByGroup("listing") }} #}
+{% endblock %}

@@ -1,8 +1,47 @@
+{% import "twig/partials/_macros.twig" as m %}
+
 {% set footerTaxonomyGroup = 'footer' %}
+{% set themeConfig = config.get('theme') %}
+{% set isParalax = themeConfig.layout.use_paralax|default(true) %}
 
 {# Footer #}
+
 {% block footer_section %}
-    <footer id="footer" role="contentinfo">
+    <footer role="contentinfo">
+        {{ m.sectionsByGroup("footer", isFooterSection = true) }}
+    </footer>
+
+    {# <footer role="contentinfo">
+        <div class="{{ theme.layout.class.footer|default }}">
+            <div class="container">
+                {% set themeSection = config.get('theme/section') %}
+                {% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): footerTaxonomyGroup } %}
+
+                {% block footer_content %}
+                    {% set listData = listData|default({
+                        "slides-to-scroll": 1,
+                        "slides-to-show": 2
+                    }) %}
+
+                    <div class="shpr-footer-block">
+                        {% for section in sections %}
+                            {% with { section: section, listdata: listData, columnClass: 'column is-half' }%}
+                            {{ block('section_content', 'section_blocks.twig') }}
+                            {%- endwith -%}
+                        {% endfor %}
+
+                        {% set usedMenu = theme.footer.menu_id|default %}
+                        {% set menuTemplate = theme.footer.menu_template|default %}
+                        {% if usedMenu is defined %}
+                            {{ menu(usedMenu, menuTemplate) }}
+                        {% endif %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </footer> #}
+
+    {# <footer id="footer" role="contentinfo">
         <div class="section is-medium shpr-section {{ theme.layout.class.footer|default('is-section-dark') }}">
             <div class="container">
 
@@ -33,5 +72,5 @@
                 {{ copyright.content|default(copyright.teaser|default(defaultCopyright)) }}
             </div>
         </div>
-    </footer>
+    </footer> #}
 {% endblock %}

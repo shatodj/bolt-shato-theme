@@ -24,8 +24,8 @@
 {% macro display_menu_item(item, loop, extraParams) %}
     {% apply spaceless %}
     
-        <a href="{{ item.link }}" target="_blank" title='{{ item.title|default('')|escape }}' class='icon {{ extraParams.extraClass|default }}'>
-            <i class="fab fa-3x {{ item.class|default() }} {{ extraParams.extraClassIcon|default }}"></i>
+        <a href="{{ item.link }}" target="_blank" title='{{ item.title|default('')|escape }}' class='icon is-large {{ extraParams.extraClass|default }}'>
+            <i class="fa-3x {{ item.class|default() }} {{ extraParams.extraClassIcon|default }}"></i>
         </a>
     
     {% endapply %}
@@ -36,9 +36,10 @@
 
 {# The main menu loop: Iterates over the items, calling `display_menu_item` #}
 
-{% for item in menu %}
-    {% if loop.index < limit + 1 and item.label is defined %}
-        {{ display_menu_item(item, loop, { 'extraClass': class } ) }}
-    {% endif %}
-{% endfor %}
-
+<div class="social-menu">
+    {% for item in menu %}
+        {% if loop.index < limit + 1 and item.label is defined %}
+            {{ display_menu_item(item, loop, { 'extraClass': class } ) }}
+        {% endif %}
+    {% endfor %}
+</div>

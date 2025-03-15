@@ -35,6 +35,13 @@
 	{%- endwith -%}
 {% endblock %}
 
+{# Customize header body cointent #}
+{% block header_content %}
+	<div class="columns">
+		<div class="column is-half">{{ parent() }}</div>
+	</div>
+{% endblock %}
+
 {# Use SVG LOGO on the index header #}
 {# 
 {% block header %}     

@@ -1,0 +1,89 @@
+.marquee {
+    display: flex;
+    block-size: var(--marquee-item-height);
+    // margin-block: var(--marquee-item-height);
+    position: relative;
+    overflow-x: hidden;
+    align-items: center;
+    justify-content: center;
+
+    --marquee-item-width: 200px;
+    --marquee-item-height: 200px;
+    --marquee-duration: 32s;
+  }
+  
+  // .marquee--8 {
+  //   --marquee-item-width: 100px;
+  //   --marquee-item-height: 100px;
+  //   --marquee-duration: 36s;
+  //   --marquee-items: 8;
+  // }
+  
+  // .marquee--7 {
+  //   --marquee-item-width: 150px;
+  //   --marquee-item-height: 150px;
+  //   --marquee-duration: 36s;
+  //   --marquee-items: 7;
+  // }
+
+  // .marquee--6 {
+  //   --marquee-item-width: 200px;
+  //   --marquee-item-height: 200px;
+  //   --marquee-duration: 32s;
+  //   --marquee-items: 6;
+  // }
+  
+  // .marquee--5 {
+  //   --marquee-item-width: 225px;
+  //   --marquee-item-height: 225px;
+  //   --marquee-duration: 30s;
+  //   --marquee-items: 5;
+  // }
+
+  // .marquee--4 {
+  //   --marquee-item-width: 225px;
+  //   --marquee-item-height: 225px;
+  //   --marquee-duration: 28s;
+  //   --marquee-items: 4;
+  // }
+
+  // .marquee--3 {
+  //   --marquee-item-width: 225px;
+  //   --marquee-item-height: 125px;
+  //   --marquee-duration: 24s;
+  //   --marquee-items: 3;
+  // }
+
+  // .marquee--2 {
+  //   --marquee-item-width: 225px;
+  //   --marquee-item-height: 225px;
+  //   --marquee-duration: 18s;
+  //   --marquee-items: 2;
+  // }
+
+  // .marquee--1 {
+  //   --marquee-item-width: 225px;
+  //   --marquee-item-height: 225px;
+  //   --marquee-duration: 16s;
+  //   --marquee-items: 1;
+  // }  
+
+  .marquee__item {
+    --marquee-item-offset: max(
+      calc(var(--marquee-item-width) * var(--marquee-items)),
+      calc(100% + var(--marquee-item-width))
+    );
+    --marquee-delay: calc(var(--marquee-duration) / var(--marquee-items) * (var(--marquee-items) - var(--marquee-item-index)) * -1);
+    position: absolute;
+    inset-inline-start: var(--marquee-item-offset);
+    transform: translateX(-50%);
+    animation: go linear var(--marquee-duration) var(--marquee-delay, 0s) infinite;
+    width: var(--marquee-item-width);
+    height: auto;
+  }
+  
+  @keyframes go {
+    to {  
+      inset-inline-start: calc(var(--marquee-item-width) * -1);
+    }
+  }

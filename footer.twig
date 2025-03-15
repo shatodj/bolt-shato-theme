@@ -1,7 +1,7 @@
 {% extends "twig/_footer.twig" %}
 
 {# using `section_content_list_blocks` instead of `section_content` to render only title and listing contentblocks of the section #}
-{% block footer_content %}
+{# {% block footer_content %}
     <div class="shpr-footer-block section">
         {% for section in sections %}
             <h2 class="title is-3 is-size-4-mobile is-spaced">{{ section|title|default(__("Contact")) }}</h2>
@@ -10,23 +10,27 @@
             {%- endwith -%}
         {% endfor %}
     </div>
-{% endblock %}
+{% endblock %} #}
 
 {# Example whaving concact form using boltforms extension #}
+
 {# {% block footer_content %}
-    <div class="shpr-footer-block section">
-        <div class="columns">
-            <div class="column">
+    <div class="columns shpr-footer-block"> 
+        <div class="column">
             {% for section in sections %}
                 <h2 class="title is-3 is-size-4-mobile is-spaced">{{ section|title|default(__("Contact")) }}</h2>
                 {% with { 'section': section, 'title_class': 'is-5' }%}
                 {{ block('section_content_list_blocks', 'section_blocks.twig') }}
                 {%- endwith -%}
             {% endfor %}
-            </div>
-            <div class="column">
-                {{ boltform('contact') }}
-            </div>
+
+            {{ parent() }}
         </div>
+
+    {% if theme.footer.contact_form_id is not empty %}
+        <div class="column">
+            {{ boltform(theme.footer.contact_form_id) }}
+        </div>
+    {% endif %}
     </div>
 {% endblock %} #}

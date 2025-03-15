@@ -2,30 +2,36 @@
 
 {% block common_fields %}
 
-    {# HTML, Textarea, Text and Markdown fields #}
-    {% if type in ['html', 'textarea', 'text', 'markdown'] %}
-        {# Contentlink #}
-        {% if field.name == "contentlink" %}
-            {{ block("contentlink") }}
-        {% else %}
-            {% set tag = (field.name in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
-            {{ block('text_field') }}
+    {% if type in ['seo'] %}
+        {# DO nothing #}
+    {% else %}
+        
+        {# HTML, Textarea, Text and Markdown fields #}
+        {% if type in ['html', 'textarea', 'text', 'markdown'] %}
+            {# Contentlink #}
+            {% if field.name == "contentlink" %}
+                {{ block("contentlink") }}
+            {% else %}
+                {% set tag = (field.name in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
+                {{ block('text_field') }}
+            {% endif %}
         {% endif %}
-    {% endif %}
 
-    {# Image fields #}
-    {% if type == "image" and field.filename is not empty %}
-        {{ block("image") }}
-    {% endif %}
+        {# Image fields #}
+        {% if type == "image" and field.filename is not empty %}
+            {{ block("image") }}
+        {% endif %}
 
-    {# File fields #}
-    {% if type == "file" and field is not empty %}
-        {{ block("file") }}
-    {% endif %}
+        {# File fields #}
+        {% if type == "file" and field is not empty %}
+            {{ block("file") }}
+        {% endif %}
 
-    {# Video fields #}
-    {% if type == "video" and field.responsive|default is not empty %}
-       {{ block("video") }}
+        {# Video fields #}
+        {% if type == "video" and field.responsive|default is not empty %}
+        {{ block("video") }}
+        {% endif %}
+
     {% endif %}
 
 {% endblock %}
@@ -45,9 +51,7 @@
 {% endblock %}
 
 {% block video %}
-    <div class="flex-video {{ field.ratio|default(1) > 1.5 ? 'widescreen' }}">
-        {{ field.responsive }}
-    </div>
+    {{ m.video(field) }}
 {% endblock %}
 
 {% block contentlink %}

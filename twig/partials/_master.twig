@@ -1,38 +1,33 @@
 {# Import macros #}
 {% import "twig/partials/_macros.twig" as m %}
 
-{% apply spaceless %}
-	{% set routeParams = app.request.get('_route_params') %}
-	{% set contentTypeSlug = routeParams.contenttypeslug is defined ? routeParams.contenttypeslug : 'homepage' %}
 
-	{% set script = 'dist/js/' ~ contentTypeSlug ~ '-bundle.js' %}
-	{% set style = 'dist/css/' ~ contentTypeSlug ~ '-bundle.css' %}
+{% set routeParams = app.request.get('_route_params') %}
+{% set contentTypeSlug = routeParams.contenttypeslug is defined ? routeParams.contenttypeslug : 'homepage' %}
 
-	{% set htmlThemeClass = config.get('theme/layout/class/html') %}
-	{% set htmlClass = htmlThemeClass|default ~ " " ~ documentClass|default %}
-{% endapply %}
+{% set script = 'dist/js/' ~ contentTypeSlug ~ '-bundle.js' %}
+{% set style = 'dist/css/' ~ contentTypeSlug ~ '-bundle.css' %}
+
+{% set htmlThemeClass = theme.layout.class.html  %}
 
 <!DOCTYPE html>
 
 {% block document %}
-		
-	<html lang="{{ htmllang() }}" class="{{ htmlClass }}">
+	<html lang="{{ htmllang() }}" class="{{ htmlThemeClass }} {{ htmlClass }}">
 		<head>
 			<meta charset="utf-8">
 			<meta http-equiv="x-ua-compatible" content="ie=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 
+			{# Bulma css #}
+			{{ m.stylesheet_inline('dist/css/bulma-bundle.css') }}
+
 			{# Minimal styles #}
 			{% block stylesheet %}
 				{{ m.stylesheet_inline(style) }}
 			{% endblock %}
-
-			{# Google Fonts #}
-			{{ m.stylesheet('dist/css/woff.css') }}
 			
-			{# Additional non-critical styles #}
-			
-			<link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
+			<link rel="shortcut icon" type="image/ico" href="/favicon.png"/>
 			
 			{# make sure to always display a proper title: The record's title if there is one, appended with the #}
 			{# sitename. If there is no title, we append the sitename with the payoff, if there is one.  #}

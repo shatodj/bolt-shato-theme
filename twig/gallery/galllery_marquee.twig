@@ -1,0 +1,25 @@
+{% extends "twig/gallery/_sub_gallery.twig" %}
+
+{% import "twig/partials/_macros.twig" as m %}
+
+{% block gallery_image_cells %} 
+    {% set galleryImages = gallery.galleryImages|default([])|slice(0,8) %}
+    {% set count = galleryImages|default([])|slice(0,8)|length %}
+    {% if count > 0 %}    
+        <div class="marquee">
+            {% for image in gallery.galleryImages|default([]) %}
+                {% with { image: image } %}
+                {{ block("gallery_image") }}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %} 
+
+{% block gallery_image %}
+    <img class="marquee__item" src="{{ image|thumbnail(400, 300, "m") }}" alt="{{ image }}">
+{% endblock %}
+
+{% block gallery_figure %}
+    {# empty #}
+{% endblock %}

@@ -1,13 +1,9 @@
  {% if record|default is not empty && record|edit_link %}
     <div class="edit-record-bar">
-        <div class="notification is-info has-text-centered">
-            <div class="container">
-                <span class="edit-link">
-                    {% with { 'record': record } %}
-                    {{ block('edit_button', "blocks.twig") }}
-                    {% endwith %}
-                </span> 
-            </div>  
-        </div>
+        <span class="edit-link">
+            {% with { 'record': record } %}
+            {{ block('edit_button', "blocks.twig") }}
+            {% endwith %}
+        </span>
     </div>
 {% endif %}

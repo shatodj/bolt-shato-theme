@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+@use "bulma/sass/utilities" with (  
+  $family-primary: '"Nunito", sans-serif',
+  $primary: hsl(200, 93%, 40%),
+  $link: hsl(200, 93%, 20%),
+);
+
+@forward "bulma/sass";
+
+// @forward "bulma/sass/base";
+// @forward "bulma/sass/themes";
+// @forward "bulma/sass/elements";
+// @forward "bulma/sass/form";
+// @forward "bulma/sass/components";
+// @forward "bulma/sass/grid";
+// @forward "bulma/sass/layout";
+// @forward "bulma/sass/helpers";
+
+// Import the Google Font
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");

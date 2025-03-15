@@ -1,0 +1,150 @@
+
+@use "mixins";
+
+@forward "sections";
+@forward "lazy";
+@forward "lazy-background";
+@forward "overlays";
+@forward "has-image-centered";
+
+.block:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.no-link-color {
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
+
+.is-no-border {
+  border: none;
+}
+
+// new size for icon
+.icon {
+  &.is-ultra-large {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  &.is-rounded {
+    border-radius: var(--bulma-radius-rounded);
+  }
+}
+
+.shpr-icon {
+  border: 1px solid var(--bulma-light);
+  margin-right: 0.5rem;
+
+  &.is-multiline {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.slider {
+  overflow: hidden;
+}
+
+.field.shpr-search {
+  .field-label {
+    flex-grow: 0;
+  }
+}
+
+.imageholder {
+  display: block;
+  
+  .img {
+    display: block;
+  }
+}
+
+.price {
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.without-pointer-events {
+  pointer-events: none;
+}
+
+.edit-record-bar {
+  position: fixed;
+  bottom: 0; right: 0; left: 0;
+  z-index: 10;
+}
+
+.feed-profile-card {
+  position: sticky;
+  top: var(--bulma-navbar-height);
+}
+
+.shpr-footer-block {
+  overflow: hidden;
+  .logo {
+      @include mixins.logo(300px, "logo01.svg");
+      background-position-x: right;
+      align-self: center;
+      color: var(--bulma-light);
+  }
+
+  // .social-menu {
+  //     --bulma-link-text: var(--bulma-text-strong);
+  // }
+}
+
+/**
+ * Styles for 'responsive video embeds'
+ */
+.responsive-video, .embed-responsive {
+  height: 0;
+  padding-top: 25px;
+  padding-bottom: 67.5%;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+
+  &.vimeo {
+    padding-top: 0;
+  }
+
+  &.widescreen {
+    padding-bottom: 57.25%;
+  }
+
+  embed,
+  iframe,
+  object,
+  video {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  @media (max-width: 767px) {
+    padding-top: 0;
+  }
+}
+
+.navbar {
+  .navbar-item, .navbar-link {
+    // color: var(--bulma-text-strong)
+  }
+}
+
+.box-on-hover { 
+
+  border-radius: var(--bulma-radius-large);
+  transition: all 400ms cubic-bezier(.47,1.64,.41,.8); // bounce effect
+
+  &:hover {
+    box-shadow: var(--bulma-shadow);
+    background-color: var(--bulma-white);
+    padding: var(--bulma-block-spacing);
+    margin: calc(var(--bulma-block-spacing) * -1);
+  }
+}

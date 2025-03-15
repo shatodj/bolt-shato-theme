@@ -1,0 +1,59 @@
+@use "bulma/sass/utilities/initial-variables" as iv;
+
+@mixin gradient($direction, $list) {
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);
+}
+
+@mixin fade($alpha) {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: transparentize(iv.$black, $alpha);
+  z-index: -2;
+}
+
+@mixin fadeFill($direction: 0deg, $alpha: 0.3) {
+  $colorList: transparentize(iv.$black, $alpha), transparentize(iv.$black, 1), transparentize(iv.$black, 1), transparentize(iv.$black, 1);
+
+  @include fade($alpha);
+  @include gradient($direction, $colorList);
+}
+
+// .floor-fade-light > *, 
+// .floor-fade > *
+// .luster-fade > *,
+// .luster-fade-light > *,
+// .fade > *,
+// .fade-light > * {
+//   z-index: 2;
+// }
+
+.floor-fade::after {
+  @include fadeFill(0deg, 0.3);
+}
+
+.floor-fade-light::after {
+  @include fadeFill(0deg, 0.8);
+}
+
+.luster-fade::after {
+  @include fadeFill(180deg, 0.3);
+}
+
+.luster-fade-light::after {
+  @include fadeFill(180deg, 0.8);
+}
+
+.fade::after {
+  @include fade(0.3);
+}
+
+.fade-light::after {
+  @include fade(0.8);
+}

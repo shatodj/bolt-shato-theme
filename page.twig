@@ -10,8 +10,8 @@
     {{ m.script('dist/js/page-bundle.js') }}
 {% endblock %}
 
-{% block record_footer %}
-    {# empty #}
+{% block document %}
+	{{ parent() }}
 {% endblock %}
 
 {# Standard SECTIONS #}

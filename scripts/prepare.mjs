@@ -9,6 +9,7 @@ const ENV_FILES = [path.resolve("./config/env.json.dist")];
 const BOLT_CONFIG_FILES = [
   path.resolve("./../../../config/bolt/contenttypes.yaml"),
   path.resolve("./../../../config/bolt/taxonomy.yaml"),
+  path.resolve("./../../../config/bolt/menu.yaml"),
 ];
 
 const THEME_CONFIG_DIR = path.resolve("./config");

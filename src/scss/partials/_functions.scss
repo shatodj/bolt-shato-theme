@@ -1,0 +1,26 @@
+/// Asset URL builder
+/// @access private
+/// @param {String} $type - Asset type, matching folder name
+/// @param {String} $file - Asset file name, including extension
+/// @return {String} - A string leading to the asset
+@function asset($type, $file) { 
+  @return $type+"/"+$file;
+}
+
+/// Image asset helper
+/// @access public
+/// @param {String} $file - Asset file name, including extension
+/// @return {URL} - A `url()` function leading to the image
+/// @require {function} asset
+@function image($file) {
+  @return asset("images", $file);
+}
+
+/// Font asset helper 
+/// @access public
+/// @param {String} $file - Asset file name, including extension
+/// @return {URL} - A `url()` function leading to the image
+/// @require {function} asset
+@function font($file) {
+  @return asset("fonts", $file);
+}

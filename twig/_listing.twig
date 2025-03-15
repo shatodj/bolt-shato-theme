@@ -10,15 +10,32 @@
 	{{ m.script('dist/js/listing-bundle.js') }}
 {% endblock %}
 
+{% block document %}
+	{% set htmlClass = theme.layout.sections.listing.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+	{{ parent() }}
+{% endblock %}
+
+
+{% block navbar %}
+	{% 
+		include "navbar.twig" with { 
+			isTransparent: theme.layout.sections.listing.is_navbar_transparent,
+            isFixed: theme.layout.sections.listing.is_navbar_fixed,
+			navbarClassSuffix: theme.layout.sections.listing.navbar_alignment,
+			hasBrandLogo: theme.layout.sections.listing.has_navbar_logo
+		}	
+	%}
+{% endblock %}
+
 {# Main content block #}
 {% block content %}
 
     {% if contenttype|default is not empty%}
-        {% setcontent blck = "block/" ~ contenttype.slug %}
+        {% setcontent record = "block/" ~ contenttype.slug %}
     {% endif %}
 
     {% block record_edit %}
-        {% include "twig/partials/_record_edit.twig" with { record: blck|default }%}
+        {% include "twig/partials/_record_edit.twig" with { record: record|default }%}
     {% endblock %}
 
     {# Content to be renderred in header #}
@@ -30,14 +47,14 @@
                         {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
                     </h1>
                 {% else %}
-                    {% if blck|default is not empty %}
+                    {% if record|default is not empty %}
                         {% include "twig/partials/_record_teaser.twig" with { 
-                            record: blck, 
+                            record: record, 
                             classHeader:"title is-2 is-4-mobile", 
                             classTeaser: "subtitle is-4 is-6-mobile", 
                             use_read_more: true} 
                         %}
-                    {% else %}
+                    {% elseif contenttype|default is not empty %}
                         <h1 class="title is-2 is-4-mobile">{{ contenttype.name }}</h1>
                     {% endif %}
                     
@@ -48,8 +65,8 @@
 
     {% set listContent %}
         <section class="content">
-            {% if blck|default is not empty and blck.content|default is not empty %}
-                {{ blck.content }}
+            {% if record|default is not empty and record.content|default is not empty %}
+                {{ record.content }}
                 <div class="divider"></div>
             {% endif %}
         </section>
@@ -64,12 +81,11 @@
                         </div>
                         {% if record.image is not empty %}
                             <div class="column">
-                                {# TODO: use this as block also use the same for gallery #}
-                                <div class="card">
-                                    <div class="card-image">
-                                        {% include "twig/partials/_sub_image.twig" with { link: record|link, image: record.image, thumbname: "listing" } %}
-                                    </div>
-                                </div>
+                                {% include "twig/partials/_sub_image.twig" with { 
+                                    link: record|link, 
+                                    image: record.image, 
+                                    thumbname: "listing" 
+                                } %}
                             </div>
                         {% endif %}
                     {% endblock %}
@@ -89,14 +105,14 @@
     {% endset %}
 
     {# Header section #}
+    
     {% block record_header %}
-        {% with { 
+        {% set themeLayout = theme.layout.sections.listing %}
+        {% include "twig/partials/_listing_header.twig" with { 
             content: headerContent,
-            image: blck|default is not empty ? blck.image|default(null) : null,
-            class: config.get('theme/layout/class/header_listing')|default
+            record: record,
+            extraClass: themeLayout.header_extra_class|default
         }%}
-            {{ block('hero', 'section_blocks.twig') }}
-        {%- endwith -%}
     {% endblock %}
     
     {% block record_body %}

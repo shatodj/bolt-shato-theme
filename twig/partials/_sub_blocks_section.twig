@@ -1,9 +1,12 @@
 {# Theme section block #}
-{# Required: content, bgColor #}
-{# Optional: isParalax, image, section  #}
+{# Required: content #}
+{# Optional: isParalax, image, section, isFooterSection  #}
 {% block section %}
 
-	{% set sectionExtraClass = config.get("theme/layout/class/section")|default %}
+	{% set sectionExtraClass = isFooterSection|default(false)
+		? config.get("theme/layout/class/footer")|default 
+		: config.get("theme/layout/class/section")|default 
+	%}
 
 	{# Section images initialization #}
 	{% if image|default is not empty %}
@@ -21,31 +24,25 @@
 		{% endset %}
 	{% endif %}
 
-	{% set contentWithAnchor %}
-		{% if section.slug is defined %}
-			<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
-		{% endif %}
-		{{ content }}
-	{% endset %}
-
 	{# Wrap section in lazy-background element #}
 	{%- with { 
 		bgImages: bgImages|default, 
 		isParalax: isParalax|default(false), 
-		content: contentWithAnchor,
+		content: content,
 		htmlTag: "section", 
-		class: "section is-section-" ~ bgColor ~ " " ~ sectionExtraClass
+		class: sectionExtraClass
 	} -%}
 		{{ block("lazy_background_wrapper") }}
 	{%- endwith -%}
 
 {% endblock %}
 
-
 {# Render Hero Block #}
 {# Required: content #}
 {# optional: image #}
 {% block hero %}
+
+	{% set heroExtraClass = config.get("theme/layout/class/header")|default("") %}
 
 	{# Section images initialization #}
 	{% if image|default is not empty %}
@@ -79,9 +76,11 @@
 		isParalax: false, 
 		content: heroBody,
 		htmlTag: "section", 
-		class: "hero " ~ class|default
+		class: heroExtraClass ~ " " ~ class|default("")
 	} -%}
+		{% with { 'className': "hero-wrapper" } %}
 		{{ block("lazy_background_wrapper") }}
+		{% endwith %}
 	{%- endwith -%}
 
 {% endblock %}
@@ -89,6 +88,10 @@
 {# Hero component content #}
 {# Showing content fo Hero component block #}
 {% block hero_content %}
+	{% if section.slug is defined %}
+		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+	{% endif %}
+
 	<h1 class="title is-1 is-3-mobile is-spaced">{{ section|title|default }}</h1>
 	
 	{% if includeInfo|default(false) %}
@@ -100,6 +103,11 @@
 		<div class="subtitle content">{{ teaser }}</div>
 	{% endif %}
 
+	{% set content = section.content|default %}
+	{% if content is not empty %}
+		<div class="content">{{ content }}</div>
+	{% endif %}
+	
 	{% if includeMeta|default(false) %}
 		{% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
 	{% endif %}
@@ -112,20 +120,25 @@
 {# Section content block #}
 {# Showing content of 'block' content type #}
 {% block section_content %}
-	<h2 class="title is-3 is-size-4-mobile is-spaced">{{ section|title|default }}</h2>
 
-	{%- if section.content is not empty %}
+	{% if section.slug is defined %}
+		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+	{% endif %}
+
+	<h2 class="title is-3 is-size-4-mobile is-spaced">{{ section.title|default }}</h2>
+
+	{%- if section.content|default is not empty %}
 		<div class="content">
 			{{ section.content }}
 		</div>
 	{% endif -%}
 
 	{# Embedded field #}
-	{%- if section.embedded is not empty %}
+	{%- if section.embedded|default is not empty %}
 		{{ section.embedded.html|raw }}
 	{% endif %}
 	{# Textarea field considered as embedded with raw not sanitized data #}
-	{%- if section.embedded_raw is not empty %}
+	{%- if section.embedded_raw|default is not empty %}
 		{{ section.embedded_raw|raw }}
 	{% endif %}
 
@@ -136,22 +149,25 @@
 	{% endwith %}
 
 	{# showing the gallery if added to the block #}
-	{% if section.gallery|length %}
+	{% if section.galleryContent|default is not empty %}
 		<section>
-			{% with { 'gallery': section.gallery } %}
+			{% with { 'section': section } %}
 			{{ block("section_content_gallery") }}
 			{% endwith %}
 		</section>
 	{% endif %}
 
 	{# Showing links / actions for the Block #}
-	{% if section.links|length > 0 or section.editlink() %}
+
+	{% set shouldShowEdit = section.content is defined %}
+
+	{% if section.links|default([])|length > 0 or shouldShowEdit %}
 		<nav class="shpr-actions columns">
 			<div class="column has-text-centered">
 				{% for link in section.links %}	
 					<a href="{{ link.contentlink }}" class="button">{{ link.title|markdown|excerpt(45) }}</a>
 				{% endfor %}
-				{% if section|edit_link %}
+				{% if section|edit_link|default %}
 					{% with { 'record': section } %}
 					{{ block('edit_button', 'blocks.twig') }}
 					{% endwith %}
@@ -159,30 +175,26 @@
 			</div>
 		</nav>
 	{% endif %}
+
 {% endblock %}
+
+{# Section gallery content #}
 
 {% block section_content_gallery %}
 
-	{% import "twig/partials/_macros.twig" as m %}
+	{% set gallery = section.galleryContent|selected %}
+	{% set galleryTemplate = section.galleryTemplate|default %}
 
+	{# Generate template name in case is contenttemplate is not defined #}
+	{% if galleryTemplate is not empty %}
+		{% set template = galleryTemplate %}
+	{% else %}
+		{% set template = 'twig/gallery/gallery_grid.twig' %}
+	{% endif %}
+	
 	<div class="shpr-gallery">
-		<div class="use-magnific imagelist columns is-mobile is-multiline">
-			{% for image in gallery|default([]) %}
-			<div class="column is-6-mobile is-3-desktop">
-				<div class="card">
-					<div class="card-image">
-						<figure class="image">
-							{{ m.lazyImagePopup(image, alias|default("gallery"), aliasBig|default("gallery-big"), "is-2x3", true) }}
-						</figure>
-					</div>
-					<div class="card-content is-overlay is-clipped without-pointer-events">
-						<span class="tag is-info">
-							{{ image.alt|default }}
-						</span> 
-					</div>
-				</div>
-			</div>
-			{% endfor %}
+		<div class="use-magnific imagelist">
+			{% include template with { gallery: gallery, section: section } %}	
 		</div>
 	</div>
 {% endblock %}
@@ -202,16 +214,16 @@
 	{% if subBlockContent is not empty %}
 	
 		{# Generate template name in case is contenttemplate is not defined #}
-		{% if contenttemplate|default is not empty %}
-			{% set template = contenttemplate %}
-		{% elseif section.contenttemplate|default is not empty %}
-			{% set template = section.contenttemplate %}
+		{% if content_list_template|default is not empty %}
+			{% set template = content_list_template %}
+		{% elseif section.content_list_template|default is not empty %}
+			{% set template = section.content_list_template %}
 		{% else %}
-			{% set templateName = subBlockContent is iterable ? 'listing' : 'content' %}
-			{% set template = 'twig/contentblock/' ~ templateName ~ '.twig' %}
+			{% set templateSubPath = subBlockContent is iterable ? 'listings/listing' : 'block/content' %}
+			{% set template = 'twig/contentblock/' ~ templateSubPath ~ '.twig' %}
 		{% endif %}
 		
-		{% include template with { content: subBlockContent } %}		
+		{% include template with { content: subBlockContent, section: section } %}		
 	{% endif -%}
 {% endblock %}
 
@@ -227,8 +239,8 @@
 	class: string
 #}
 {% block lazy_background_wrapper %}
-	<div class="shpr-lazy-background" data-src="{{ bgImages|default }}">
-				
+	<div class="shpr-lazy-background {{ className|default }}" data-src="{{ bgImages|default }}">
+
 		{# Adding empty elements to handle dynamic background styling - see lazy-section-backgorund.js #}
 		{% if bgImages|default is not empty %}
 			{% if isParalax|default == true %}
@@ -238,7 +250,7 @@
 		{% endif %}
 		
 		{# Actual section with content #}
-		<{{htmlTag|default("div")}} class="shpr-section with-transparent-overlay {{class|default}}">
+		<{{htmlTag|default("div")}} class="{{class|default}} shpr-section">
 			{{ content }}
 		</{{htmlTag|default("div")}}>
 	</div>

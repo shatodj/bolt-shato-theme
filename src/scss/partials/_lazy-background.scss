@@ -1,0 +1,64 @@
+
+@use "bulma/sass/utilities/mixins" as bulma-mixins;
+
+@mixin shpr-bck-image {
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 50%;
+
+    transition: opacity 0.5s ease-out;
+
+    opacity: 0;
+}
+
+.shpr-lazy-background {
+    position: relative;
+    
+    .shpr-background {
+        @include shpr-bck-image();
+    }
+
+    .shpr-background-paralax {
+        width: 100%; height: 250px;
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 0; right: 0;
+            background:url(
+                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAF0lEQVQYV2NkQAKMUPZ/BgYGRhgHLAYAEnEBBJU1VYUAAAAASUVORK5CYII=
+            ) repeat fixed;
+        }
+
+        @include bulma-mixins.mobile {
+            display: none;
+        }
+    }
+
+    .shpr-background-overlay {
+        position: absolute;
+        z-index: -10;
+        top: 0; bottom: 0; left: 0; right: 0;
+    }
+
+
+    &.is-loaded {
+        .shpr-background {
+            opacity: 1;
+        }
+
+        .shpr-section.with-semi-transparent-overlay::before {
+            opacity: 0.85;
+        }
+
+        .shpr-section.with-transparent-overlay::before {
+            opacity: 0;
+        }
+    }
+
+    &.is-header {
+        .shpr-background-overlay {
+            z-index: 0;
+        }
+    }
+}

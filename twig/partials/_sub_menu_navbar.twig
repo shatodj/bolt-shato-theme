@@ -4,20 +4,20 @@
 		{% if item.submenu %}
 			<div class="navbar-item has-dropdown is-hoverable is-dark">
 				<span class="navbar-link is-arrowless">
-					{{ item.label }}
+					{{ __(item.label) }}
 				</span>
 
 				<ul class="navbar-dropdown">
 					{% for submenu in item.submenu %}
 						<li class="navbar-item">
-							<a href="{{ submenu.link }}">{{ submenu.label }}</a>
+							<a href="{{ submenu.link }}">{{ __(submenu.label) }}</a>
 						</li>
 					{% endfor %}
 				</ul>
 			</div>
 		{% else %}
 			<li class="navbar-item">
-				<a href="{{ item.link }}">{{ item.label }}</a>
+				<a href="{{ item.link }}">{{ __(item.label) }}</a>
 			</li>
 		{% endif %}
 	{% endfor %}

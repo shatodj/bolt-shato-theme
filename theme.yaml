@@ -1,23 +1,48 @@
 # template_directory: twig
 homepage: 'homepage'
 
+# NOTE: - Extra classes help:
+# with-transparent-overlay
+# with-semi-transparent-overlay
+# is-fullheight
+# has-text-centered
+
 # Global layout settings
 layout:
-  is_navbar_full_width: false
   use_paralax: true
-  use_searchbar_in_navigation: true
+  sections:
+    index:
+      is_navbar_fixed: true
+      is_navbar_transparent: true
+      has_navbar_logo: false
+      navbar_alignment: start # start, end
+      header_extra_class: is-fullheight
+    record:
+      is_navbar_fixed: false
+      is_navbar_transparent: false
+      has_navbar_logo: false
+      navbar_alignment: start # start, end
+      header_extra_class: is-medium
+    entry:
+      is_navbar_fixed: false
+      is_navbar_transparent: false
+      has_navbar_logo: false
+      navbar_alignment: start # start, end
+      header_extra_class: is-medium 
+    listing:
+      is_navbar_fixed: false
+      is_navbar_transparent: false
+      has_navbar_logo: false
+      navbar_alignment: start # start, end
+      header_extra_class: is-small
+    
   class:
-    # html: "has-navbar-fixed-top"
-    html: ""
-    navbar: is-primary is-fixed-top
-    header_index: is-section-primary is-bold is-large
-    header_record: is-section-primary is-bold is-medium
-    header_listing: is-section-primary is-bold is-medium
-    section: is-small # if using paralax, use rather is-medium
-    record: is-small
-    listing: is-small
-    footer: is-section-primary
-    copyright: is-section-dark has-text-centered
+    html: "theme-light"
+    navbar: is-link
+    header: hero is-link is-bold with-transparent-overlay
+    section: section is-medium is-small
+    footer: footer has-text-light has-background-link theme-dark
+    copyright: section is-small has-text-centered
   
 # Section content blocks specs.
 section:
@@ -31,7 +56,18 @@ section:
   taxonomy_name: sectiongroups
   # Sections color iteration 
   # eg: ['light', 'primary', 'dark'] 
-  color_iteration: ['light'] 
+  # color_iteration: ['light', 'dark'] 
+
+navbar:
+  is_full_width: false
+  use_search_bar: false
+  menu_id: main
+
+footer:
+  menu_id: social
+  menu_template: twig/partials/_sub_menu_social.twig # twig/partials/_sub_menu_social.twig or twig/partials/_sub_menu_footert.twig
+  contact_form_id: contact # Contact form located in the footer. If empty no contact form will be used in the footer
+  # contact_form_id: "" # Contact form located in the footer. If empty no contact form will be used in the footer
 
 # Thumbnails configuration
 thumbnails:
@@ -53,7 +89,7 @@ thumbnails:
       size: [480, 480]
       fit: c
     card:
-      size: [400, 225]
+      size: [1024, 576]
       fit: c
     record:
       size: [752, 400]
@@ -61,3 +97,12 @@ thumbnails:
     product:
       size: [400, 400]
       fit: c
+    feed:
+      size: [1024, 576]
+      fit: c
+    block:
+      size: [400, 225]
+      fit: f
+    logo:
+      size: [300, 300]
+      fit: n

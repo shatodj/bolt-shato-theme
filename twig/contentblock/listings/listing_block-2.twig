@@ -1,0 +1,12 @@
+{% extends "twig/contentblock/listings/listing.twig" %}
+
+{# Custom Listing - displaying block  #}
+{% block contentlink_block %}
+    {% set listClass = 'columns is-multiline is-8' %}
+    {% set columnClass = 'column is-half' %}
+
+    {# {% set content = content is not empty and content|length >= 3 ? content|slice(0, 3) : content %} #}
+    
+    {{ parent() }}
+{% endblock %}
+

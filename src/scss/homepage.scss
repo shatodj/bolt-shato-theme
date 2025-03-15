@@ -1,24 +1,28 @@
 @charset "utf-8";
 
-@import "./minimal.scss";
-@import "../../node_modules/bulma/sass/components/message.sass";
-@import "../../node_modules/bulma/sass/components/card.sass";
-@import "../../node_modules/bulma/sass/elements/tag.sass";
-@import "../../node_modules/bulma-carousel/src/sass/index.sass";
+@use "partials/minimal";
+@use "partials/mixins";
+@use "bulma/sass/utilities/mixins" as bulma-mixins;
 
-@import "partials/sections.scss";
-@import "components/pricing-table.scss";
+.hero-wrapper .shpr-background {
 
-.hero {
-  .shpr-background {
+  @include bulma-mixins.mobile {
     background-size: contain;
   }
+  background-position-y: top;
+  background-position-x: right;
+  background-repeat: no-repeat;
+
+  background-color: var(--bulma-primary);
+}
+
+.hero {
   .logo {
-    @include logo(10em, "logo01.svg")
+    @include mixins.logo(10em, "logo01.svg")
   }
 }
 
-@include mobile {
+@include bulma-mixins.mobile {
   .hero .logo {
     display: none;
   }

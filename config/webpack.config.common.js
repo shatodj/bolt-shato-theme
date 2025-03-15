@@ -21,18 +21,19 @@ const OUTPUT_DIR = {
 
 let config = {
   entry: {
-    minimal: `${SRC_DIR}/js/minimal.js`,
+    // minimal: `${SRC_DIR}/js/minimal.js`,
     homepage: `${SRC_DIR}/js/homepage.js`,
     record: `${SRC_DIR}/js/record.js`,
     page: `${SRC_DIR}/js/record.js`,
     entry: `${SRC_DIR}/js/entry.js`,
     listing: `${SRC_DIR}/js/listing.js`,
-    product: `${SRC_DIR}/js/product.js`,
-    products: `${SRC_DIR}/js/products.js`,
-    service: `${SRC_DIR}/js/service.js`,
-    services: `${SRC_DIR}/js/services.js`,
-    search: `${SRC_DIR}/js/search.js`,
+    // product: `${SRC_DIR}/js/product.js`,
+    // products: `${SRC_DIR}/js/products.js`,
+    // service: `${SRC_DIR}/js/service.js`,
+    // services: `${SRC_DIR}/js/services.js`,
+    // search: `${SRC_DIR}/js/search.js`,
     fontawesome: `${SRC_DIR}/js/fontawesome.js`,
+    bulma: `${SRC_DIR}/js/bulma.js`,
   },
 //   mode,
 //   devtool: mode === 'production' ? false : 'inline-source-map',
@@ -123,7 +124,6 @@ let config = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: `${SRC_DIR}/fonts/**`, to: `${OUTPUT_DIR.FONT}/[name][ext]` },
         { from: `${SRC_DIR}/images/**`, to: `${OUTPUT_DIR.IMAGE}/[name][ext]` },
       ],
     }),
