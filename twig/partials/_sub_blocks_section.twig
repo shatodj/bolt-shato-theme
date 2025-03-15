@@ -1,9 +1,12 @@
 {# Theme section block #}
-{# Required: content, bgColor #}
-{# Optional: isParalax, image, section  #}
+{# Required: content #}
+{# Optional: isParalax, image, section, isFooterSection  #}
 {% block section %}
 
-	{% set sectionExtraClass = config.get("theme/layout/class/section")|default %}
+	{% set sectionExtraClass = isFooterSection|default(false)
+		? config.get("theme/layout/class/footer")|default 
+		: config.get("theme/layout/class/section")|default 
+	%}
 
 	{# Section images initialization #}
 	{% if image|default is not empty %}
@@ -27,18 +30,19 @@
 		isParalax: isParalax|default(false), 
 		content: content,
 		htmlTag: "section", 
-		class: sectionExtraClass ~ "theme-" ~ bgColor
+		class: sectionExtraClass
 	} -%}
 		{{ block("lazy_background_wrapper") }}
 	{%- endwith -%}
 
 {% endblock %}
 
-
 {# Render Hero Block #}
 {# Required: content #}
 {# optional: image #}
 {% block hero %}
+
+	{% set heroExtraClass = config.get("theme/layout/class/header")|default("") %}
 
 	{# Section images initialization #}
 	{% if image|default is not empty %}
@@ -72,7 +76,7 @@
 		isParalax: false, 
 		content: heroBody,
 		htmlTag: "section", 
-		class: class|default
+		class: heroExtraClass ~ " " ~ class|default("")
 	} -%}
 		{% with { 'className': "hero-wrapper" } %}
 		{{ block("lazy_background_wrapper") }}
@@ -123,18 +127,18 @@
 
 	<h2 class="title is-3 is-size-4-mobile is-spaced">{{ section.title|default }}</h2>
 
-	{%- if section.content is not empty %}
+	{%- if section.content|default is not empty %}
 		<div class="content">
 			{{ section.content }}
 		</div>
 	{% endif -%}
 
 	{# Embedded field #}
-	{%- if section.embedded is not empty %}
+	{%- if section.embedded|default is not empty %}
 		{{ section.embedded.html|raw }}
 	{% endif %}
 	{# Textarea field considered as embedded with raw not sanitized data #}
-	{%- if section.embedded_raw is not empty %}
+	{%- if section.embedded_raw|default is not empty %}
 		{{ section.embedded_raw|raw }}
 	{% endif %}
 
@@ -154,13 +158,16 @@
 	{% endif %}
 
 	{# Showing links / actions for the Block #}
-	{% if section.links|length > 0 or section|edit_link|default is not empty %}
+
+	{% set shouldShowEdit = section.content is defined %}
+
+	{% if section.links|default([])|length > 0 or shouldShowEdit %}
 		<nav class="shpr-actions columns">
 			<div class="column has-text-centered">
 				{% for link in section.links %}	
 					<a href="{{ link.contentlink }}" class="button">{{ link.title|markdown|excerpt(45) }}</a>
 				{% endfor %}
-				{% if section|edit_link %}
+				{% if section|edit_link|default %}
 					{% with { 'record': section } %}
 					{{ block('edit_button', 'blocks.twig') }}
 					{% endwith %}

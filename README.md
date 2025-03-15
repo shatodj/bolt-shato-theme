@@ -39,6 +39,14 @@ The theme is designed to provide an easy way to extend core elements in the temp
     bin/console bolt:copy-theme shatodj/bolt-shato-theme
     ```
 
+1. Install Bolt dependencies
+
+    ```
+    composer require bolt/forms
+    composer require appolodev/bolt-seo
+
+    ```
+
 1. Install project dependencies in the theme's directory:
 
     ```

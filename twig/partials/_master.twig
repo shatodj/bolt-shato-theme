@@ -19,16 +19,13 @@
 			<meta http-equiv="x-ua-compatible" content="ie=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 
+			{# Bulma css #}
+			{{ m.stylesheet_inline('dist/css/bulma-bundle.css') }}
+
 			{# Minimal styles #}
 			{% block stylesheet %}
 				{{ m.stylesheet_inline(style) }}
 			{% endblock %}
-
-			{# Google Fonts #}
-			{# TODO: Should be added by bulma css #}
-			{# {{ m.stylesheet('dist/css/woff.css') }} #}
-			
-			{# Additional non-critical styles #}
 			
 			<link rel="shortcut icon" type="image/ico" href="/favicon.png"/>
 			

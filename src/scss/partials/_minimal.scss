@@ -1,10 +1,6 @@
-@charset "utf-8";
 
-@use "bulma" as bulma;
-@use "bulma/sass/utilities/derived-variables" as dv;
 @use "mixins";
 
-@forward "bulma-carousel/src/sass/index.sass";
 @forward "sections";
 @forward "lazy";
 @forward "lazy-background";
@@ -18,6 +14,7 @@
 .no-link-color {
   a {
     color: inherit;
+    text-decoration: inherit;
   }
 }
 
@@ -38,7 +35,7 @@
 }
 
 .shpr-icon {
-  border: 1px solid dv.$light;
+  border: 1px solid var(--bulma-light);
   margin-right: 0.5rem;
 
   &.is-multiline {
@@ -90,12 +87,12 @@
       @include mixins.logo(300px, "logo01.svg");
       background-position-x: right;
       align-self: center;
-      color: transparentize($color: dv.$light, $amount: 1);
+      color: var(--bulma-light);
   }
 
-  .social-menu {
-      --bulma-link-text: var(--bulma-text-strong);
-  }
+  // .social-menu {
+  //     --bulma-link-text: var(--bulma-text-strong);
+  // }
 }
 
 /**
@@ -133,25 +130,9 @@
   }
 }
 
-.section, .hero {
-
-  --bulma-title-color: var(--bulma-text-strong) !important;
-  --bulma-title-strong-color: var(--bulma-text-strong) !important;
-
-  --bulma-label-color: var(--bulma-text-strong);
-
-  .title, .subtitle  {
-    color: var(--bulma-text-strong); 
-  }
-  
-  .content {
-      color: var(--bulma-text-strong);
-  }
-}
-
 .navbar {
   .navbar-item, .navbar-link {
-    color: var(--bulma-text-strong)
+    // color: var(--bulma-text-strong)
   }
 }
 

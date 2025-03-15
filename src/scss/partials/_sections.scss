@@ -10,7 +10,6 @@
         top: calc(var(--bulma-navbar-height) * -1);
     }
 
-    background: unset !important; 
     position: relative;
 
     &::before {
@@ -22,7 +21,7 @@
     }
 
     &.is-primary::before {
-        background-color: dv.$primary;
+        background-color: var(--bulma-primary-rgb)
     }
 
     .shpr-actions {

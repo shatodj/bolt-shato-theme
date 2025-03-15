@@ -1,10 +1,17 @@
+{% import "twig/partials/_macros.twig" as m %}
+
 {% set footerTaxonomyGroup = 'footer' %}
+{% set themeConfig = config.get('theme') %}
+{% set isParalax = themeConfig.layout.use_paralax|default(true) %}
 
 {# Footer #}
 
 {% block footer_section %}
-
     <footer role="contentinfo">
+        {{ m.sectionsByGroup("footer", isFooterSection = true) }}
+    </footer>
+
+    {# <footer role="contentinfo">
         <div class="{{ theme.layout.class.footer|default }}">
             <div class="container">
                 {% set themeSection = config.get('theme/section') %}
@@ -32,7 +39,7 @@
                 {% endblock %}
             </div>
         </div>
-    </footer>
+    </footer> #}
 
     {# <footer id="footer" role="contentinfo">
         <div class="section is-medium shpr-section {{ theme.layout.class.footer|default('is-section-dark') }}">

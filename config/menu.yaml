@@ -1,0 +1,14 @@
+social:
+  - label: 'Facebook'
+    title: Facebook
+    link: https://facebook.com/'
+    class: fab fa-facebook
+    submenu: null
+    uri: ''
+     
+  - label: 'Instagram'
+    title: Instagram
+    link: 'https://instagram.com/'
+    class: fab fa-linkedin
+    submenu: null
+    uri: ''

@@ -20,7 +20,14 @@
     {% set recordMeta %}
         {% include "twig/partials/_record_meta.twig" with {'extended': true} %}
     {% endset %}
-    {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass, extraContent: recordMeta} %}
+    
+    {% set themeLayout = theme.layout.sections.entry %}
+
+    {% include "twig/partials/_record_header.twig" with { 
+        extraClass: themeLayout.header_extra_class, 
+        extraContent: recordMeta
+    } %}
+    {# {% include "twig/partials/_record_header.twig" with { extraClass: headerBlockClass, extraContent: recordMeta} %} #}
 {% endblock %}
 
 {% block record_footer %}

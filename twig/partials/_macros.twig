@@ -129,9 +129,8 @@
 
 {# Section macro #}
 {# Create section from block content type by the group taxonomy. #}
-{% macro sectionsByGroup(groupName, isParalax = false, color_iteration = null ) %}
+{% macro sectionsByGroup(groupName, isFooterSection = false, isParalax = false) %}
 	{% set themeSection = config.get('theme/section') %}
-	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
 	{# Get All blocks by the group #}
 	{% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): groupName } %}
@@ -148,13 +147,12 @@
 			</div>
 		{% endset %}
 		
-		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length]|default(color_iteration[0]) %}
 		
 		{% with { 
 			section: section,
 			content: content,
 			image: section.image,
-			bgColor: currentColor,
+			isFooterSection: isFooterSection,
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
 			{{ block('section', "section_blocks.twig") }}
@@ -164,9 +162,8 @@
 
 {# Section macro #}
 {# Create section from block content type by the record's related #}
-{% macro sectionsByRecord(record, isParalax = false, color_iteration = null ) %}
+{% macro sectionsByRecord(record, isParalax = false) %}
 	{% set themeSection = config.get('theme/section') %}
-	{% set color_iteration = color_iteration|default([])|length == 0 ? themeSection.color_iteration : color_iteration %}
 
 	{# Get All related blocks mapped to the record #}
 	{# {% set sections = record|related(themeSection.sectionblock_name) %} #}
@@ -186,12 +183,10 @@
 		{% endset %}
 
 		{# set different color for each section #}
-		{% set currentColor = color_iteration[(loop.index - 1) % color_iteration|length]|default(color_iteration[0]) %}
 		{% with { 
 			section: section,
 			content: content,
-			image: section.image,
-			bgColor: currentColor,
+			image: section.image|default,
 			isParalax: isParalax|default(false) and loop.index > 1 
 		}%}
 			{{ block('section', "section_blocks.twig") }}

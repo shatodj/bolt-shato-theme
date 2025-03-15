@@ -16,22 +16,33 @@ layout:
       is_navbar_transparent: true
       has_navbar_logo: false
       navbar_alignment: start # start, end
-      header_extra_class: hero shpr-section is-primary is-bold with-transparent-overlay theme-dark is-fullheight
+      header_extra_class: is-fullheight
     record:
       is_navbar_fixed: false
       is_navbar_transparent: false
       has_navbar_logo: false
       navbar_alignment: start # start, end
-      header_extra_class: hero shpr-section is-primary is-bold is-medium with-semi-transparent-overlay theme-dark
+      header_extra_class: is-medium
+    entry:
+      is_navbar_fixed: false
+      is_navbar_transparent: false
+      has_navbar_logo: false
+      navbar_alignment: start # start, end
+      header_extra_class: is-medium 
+    listing:
+      is_navbar_fixed: false
+      is_navbar_transparent: false
+      has_navbar_logo: false
+      navbar_alignment: start # start, end
+      header_extra_class: is-small
+    
   class:
-    html: theme-light
-    navbar: is-primary theme-dark
-    # header_index: is-section-primary is-bold is-large
-    # header_record: is-section-primary is-bold is-medium
-    # header_listing: is-section-primary is-bold is-medium
-    section: section is-medium shpr-section is-small # do not add theme-light or theme-dark. It is controled by color_iteration
-    footer: section is-small shpr-section is-primary theme-dark
-    copyright: section is-small theme-dark has-text-centered
+    html: "theme-light"
+    navbar: is-link
+    header: hero is-link is-bold with-transparent-overlay
+    section: section is-medium is-small
+    footer: footer has-text-light has-background-link theme-dark
+    copyright: section is-small has-text-centered
   
 # Section content blocks specs.
 section:
@@ -45,7 +56,7 @@ section:
   taxonomy_name: sectiongroups
   # Sections color iteration 
   # eg: ['light', 'primary', 'dark'] 
-  color_iteration: ['light', 'dark'] 
+  # color_iteration: ['light', 'dark'] 
 
 navbar:
   is_full_width: false
@@ -56,6 +67,7 @@ footer:
   menu_id: social
   menu_template: twig/partials/_sub_menu_social.twig # twig/partials/_sub_menu_social.twig or twig/partials/_sub_menu_footert.twig
   contact_form_id: contact # Contact form located in the footer. If empty no contact form will be used in the footer
+  # contact_form_id: "" # Contact form located in the footer. If empty no contact form will be used in the footer
 
 # Thumbnails configuration
 thumbnails:

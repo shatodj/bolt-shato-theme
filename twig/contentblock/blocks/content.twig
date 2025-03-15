@@ -21,14 +21,6 @@
 
 				
 				<div class="columns is-3">
-					{% if content.icon|default is not empty %}
-						<div class="column is-narrow">
-							<figure class="icon is-ultra-large has-background-primary has-text-light is-rounded">
-								<i class="{{ content.icon }} fa-2x is-rounded"></i>
-							</figure>
-						</div>
-					{% endif %}
-
 					<div class="column">
 						{% include "twig/partials/_record_teaser.twig" with { use_link: true, use_read_more: true, record: content, excerpt: false } %}
 
