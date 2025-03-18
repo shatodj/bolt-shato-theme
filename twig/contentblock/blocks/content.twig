@@ -22,14 +22,16 @@
 				
 				<div class="columns is-3">
 					<div class="column">
-						{% include "twig/partials/_record_teaser.twig" with { use_link: true, use_read_more: true, record: content, excerpt: false } %}
+						<div class="content">
+							{% include "twig/partials/_record_teaser.twig" with { use_link: true, use_read_more: true, record: content, excerpt: false } %}
 
-						<div class="columns">
-							{% for link in content.links %}	
-								<div class="column is-narrow">
-									<a href="{{ link.contentlink }}" class="button">{{ link.title|markdown|excerpt(45) }}</a>
-								</div>
-							{% endfor %}
+							<div class="columns">
+								{% for link in content.links %}	
+									<div class="column is-narrow">
+										<a href="{{ link.contentlink }}" class="button">{{ link.title|markdown|excerpt(45) }}</a>
+									</div>
+								{% endfor %}
+							</div>
 						</div>
 					</div>
 				</div>

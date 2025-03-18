@@ -37,7 +37,6 @@
 
     .shpr-background-overlay {
         position: absolute;
-        z-index: -10;
         top: 0; bottom: 0; left: 0; right: 0;
     }
 
@@ -47,12 +46,26 @@
             opacity: 1;
         }
 
-        .shpr-section.with-semi-transparent-overlay::before {
-            opacity: 0.85;
+        .shpr-section.section {
+            background: var(--bulma-background);
         }
 
-        .shpr-section.with-transparent-overlay::before {
-            opacity: 0;
+        .shpr-section.hero.with-semi-transparent-overlay {
+            background: hsla(
+                var(--bulma-hero-h), 
+                var(--bulma-hero-s), 
+                var(--bulma-hero-background-l), 
+                0.85
+            );
+        }
+
+        .shpr-section.hero.with-transparent-overlay {
+            background: hsla(
+                var(--bulma-hero-h), 
+                var(--bulma-hero-s), 
+                var(--bulma-hero-background-l), 
+                0
+            );
         }
     }
 

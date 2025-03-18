@@ -1,0 +1,29 @@
+{% block header_content %}
+    {% if section.slug is defined %}
+		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+	{% endif %}
+
+	<h1 class="title is-1 is-3-mobile is-spaced">{{ section|title|default }}</h1>
+	
+	{% if includeInfo|default(false) %}
+		{% include "twig/partials/_record_info.twig" %}
+	{% endif %}
+
+	{% set teaser = section.introduction|default(section.teaser|default) %}
+	{% if teaser is not empty %}
+		<div class="subtitle content">{{ teaser }}</div>
+	{% endif %}
+
+	{% set content = section.content|default %}
+	{% if content is not empty %}
+		<div class="content">{{ content }}</div>
+	{% endif %}
+	
+	{% if includeMeta|default(false) %}
+		{% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
+	{% endif %}
+
+	{% if includeTaxonomy|default(false) %}
+		{% include 'twig/partials/_record_taxonomy.twig' with { 'record': record } %}
+	{% endif %}
+{% endblock %}

@@ -43,7 +43,7 @@
 			{% if homepage %}
 				{% set themeLayout = themeConfig.layout.sections.index %}
 				{% embed "twig/partials/_record_header.twig" with { extraClass: themeLayout.header_extra_class } %}
-					{# Customize header body cointent #}
+					{# Customize header body content #}
 					{% block header_content %}
 						<div class="columns">
 							<div class="column is-half">{{ parent() }}</div>

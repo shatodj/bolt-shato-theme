@@ -8,7 +8,22 @@
 
 {% block footer_section %}
     <footer role="contentinfo">
-        {{ m.sectionsByGroup("footer", isFooterSection = true) }}
+        {# Get All blocks by the group #}
+        {% set themeSection = config.get('theme/section') %}
+        {% set extraClass = config.get("theme/layout/class/footer")|default %}
+        {% set groupName = "footer" %}
+
+	    {% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): groupName } %}
+
+        {% for section in sections %}
+            {% embed "twig/partials/_sub_hero.twig" with { extraClass: extraClass } %}
+                {% block content %}
+                    <div class="container">
+                        {% include "twig/partials/_sub_section_content.twig" with { section: section } %}
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        {% endfor %}
     </footer>
 
     {# <footer role="contentinfo">

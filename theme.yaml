@@ -16,7 +16,7 @@ layout:
       is_navbar_transparent: true
       has_navbar_logo: false
       navbar_alignment: start # start, end
-      header_extra_class: is-fullheight
+      header_extra_class: is-large  #is-fullheight
     record:
       is_navbar_fixed: false
       is_navbar_transparent: false
@@ -39,9 +39,9 @@ layout:
   class:
     html: "theme-light"
     navbar: is-link
-    header: hero is-link is-bold with-transparent-overlay
-    section: section is-medium is-small
-    footer: footer has-text-light has-background-link theme-dark
+    header: hero is-link is-bold with-semi-transparent-overlay
+    section: section is-medium is-small with-semi-transparent-overlay
+    footer: hero is-link
     copyright: section is-small has-text-centered
   
 # Section content blocks specs.

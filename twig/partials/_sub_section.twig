@@ -1,0 +1,66 @@
+{# {% extends "twig/partials/_sub_section_background.twig" %} #}
+
+{# Theme section block #}
+{# Required: content #}
+{# Optional: isParalax, image, section, extraClass  #}
+{% block section %}
+
+	{# Section images initialization #}
+	{% if image|default is not empty %}
+		{% import "twig/partials/_macros.twig" as m %}
+		{% set bgImages = m.progressive_thumbimage(image) %}
+	{% endif %}
+	
+	<div class="shpr-lazy-background" data-src="{{ bgImages|default }}">
+
+		{# Adding empty elements to handle dynamic background styling - see lazy-section-background.js #}
+		{% if bgImages|default is not empty %}
+			{% if isParalax|default == true %}
+				<div class="shpr-background shpr-background-paralax"></div>
+			{% endif %}	
+			<div class="shpr-background shpr-background-overlay"></div>
+		{% endif %}
+		
+		{# Actual section with content #}
+		<section class="{{extraClass|default}} shpr-section">
+			{% block section_content %}
+				{% block content %}
+					<pre>content</pre>	
+				{% endblock %}
+			{% endblock %}
+		</section>
+	</div>
+
+	{# {% if content is not defined %}
+		{% set content %}
+			{%- with { 
+				message: __("The content property of the section block was not set.")
+			} -%}
+				{{ block("error_block", "blocks.twig") }}
+			{%- endwith -%}
+		{% endset %}
+	{% endif %} #}
+
+	{# {% embed "twig/partials/_sub_section_background.twig" %}
+		{% block content %}
+			{%- with { 
+				message: __("The content property of the section block was not set.")
+			} -%}
+				{{ block("error_block", "blocks.twig") }}
+			{%- endwith -%}
+		{% endblock %}
+	{% endembed %} #}
+
+
+	{# Wrap section in lazy-background element #}
+	{# {%- with { 
+		bgImages: bgImages|default, 
+		isParalax: isParalax|default(false), 
+		content: content,
+		htmlTag: "section", 
+		class: sectionExtraClass
+	} -%}
+		{{ block("lazy_background_wrapper") }}
+	{%- endwith -%} #}
+
+{% endblock %}

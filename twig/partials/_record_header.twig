@@ -4,25 +4,13 @@
     {% endwith %}
 
 {% else %}
-    
-    {% set content %}
-        <div class="container">
-            {% block header_content %}
-                {% with { 'section': record } %}
-                {{ block('hero_content', "section_blocks.twig") }}
-                {%- endwith -%}
+    {% set class = extraClass|default ~ " " ~ config.get("theme/layout/class/header") %}
 
-                {{ extraContent|default }}
-            {% endblock %}
-        </div>
-    {% endset %}
-    
-    {% with { 
-        content: content,
-        image: record.image|default,
-        class: extraClass|default('')
-    }%}
-        {{ block('hero', "section_blocks.twig") }}
-    {%- endwith -%}
-
+    {% embed "twig/partials/_sub_hero.twig" with { extraClass: class, image: record.image, isParalax: false} %}
+        {% block content %}
+            <div class="container">
+                {% include "twig/partials/_record_header_content.twig" with { section: record } %}
+            </div>
+        {% endblock %}
+    {% endembed %}
 {% endif %}
