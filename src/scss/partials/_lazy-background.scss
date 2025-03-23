@@ -1,21 +1,18 @@
 
 @use "bulma/sass/utilities/mixins" as bulma-mixins;
 
-@mixin shpr-bck-image {
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: 50% 50%;
-
-    transition: opacity 0.5s ease-out;
-
-    opacity: 0;
-}
-
 .shpr-lazy-background {
     position: relative;
     
     .shpr-background {
-        @include shpr-bck-image();
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: 50% 50%;
+        transition: opacity 0.5s ease-out;
+
+        opacity: 0;
     }
 
     .shpr-background-paralax {
@@ -35,11 +32,20 @@
         }
     }
 
-    .shpr-background-overlay {
-        position: absolute;
-        top: 0; bottom: 0; left: 0; right: 0;
-    }
+    .shpr-background-video {
+    
+        @include bulma-mixins.mobile {
+            display: none;
+        }
 
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 0; right: 0;
+            background: rgb(2,0,36);
+            background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 46%, rgba(0,0,0,0) 80%, rgba(0,0,0,1) 100%);
+        }
+    }
 
     &.is-loaded {
         .shpr-background {

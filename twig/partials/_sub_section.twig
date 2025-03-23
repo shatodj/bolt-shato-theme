@@ -1,8 +1,6 @@
-{# {% extends "twig/partials/_sub_section_background.twig" %} #}
-
 {# Theme section block #}
 {# Required: content #}
-{# Optional: isParalax, image, embedded, section, extraClass  #}
+{# Optional: isParalax, image, embedded, extraClass  #}
 {% block section %}
 
 	{# Section images initialization #}
@@ -20,8 +18,10 @@
 		{% if isParalax|default == true %}
 			<div class="shpr-background shpr-background-paralax"></div>
 		{% endif %}	
-		<div class="shpr-background shpr-background-overlay"></div>
 		
+		<div class="shpr-background shpr-background-overlay"></div>
+		<div class="shpr-background shpr-background-video"></div>
+
 		{# Actual section with content #}
 		<section class="{{extraClass|default}} shpr-section">
 			{% block section_content %}
@@ -31,37 +31,4 @@
 			{% endblock %}
 		</section>
 	</div>
-
-	{# {% if content is not defined %}
-		{% set content %}
-			{%- with { 
-				message: __("The content property of the section block was not set.")
-			} -%}
-				{{ block("error_block", "blocks.twig") }}
-			{%- endwith -%}
-		{% endset %}
-	{% endif %} #}
-
-	{# {% embed "twig/partials/_sub_section_background.twig" %}
-		{% block content %}
-			{%- with { 
-				message: __("The content property of the section block was not set.")
-			} -%}
-				{{ block("error_block", "blocks.twig") }}
-			{%- endwith -%}
-		{% endblock %}
-	{% endembed %} #}
-
-
-	{# Wrap section in lazy-background element #}
-	{# {%- with { 
-		bgImages: bgImages|default, 
-		isParalax: isParalax|default(false), 
-		content: content,
-		htmlTag: "section", 
-		class: sectionExtraClass
-	} -%}
-		{{ block("lazy_background_wrapper") }}
-	{%- endwith -%} #}
-
 {% endblock %}

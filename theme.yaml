@@ -16,7 +16,7 @@ layout:
       is_navbar_transparent: true
       has_navbar_logo: false
       navbar_alignment: start # start, end
-      header_extra_class: is-large  #is-fullheight
+      header_extra_class: is-large  #is-fullheight is-halfheight
     record:
       is_navbar_fixed: false
       is_navbar_transparent: false

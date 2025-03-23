@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 
 /**
@@ -6,7 +7,12 @@
 export default (url, element) => {
   // Check if the element exists.
   if (!element) {
-    console.error("Embedded element not found.");
+    console.warn("Embedded element not found.");
+    return;
+  }
+
+  if (!url) {
+    console.warn("Invalid Youtube Video URL");
     return;
   }
 
@@ -30,8 +36,10 @@ export default (url, element) => {
 
   // Create wrapper div for responsiveness
   const wrapper = document.createElement("div");
-  wrapper.style.position = "relative";
+  wrapper.style.height = "100%";
   wrapper.style.width = "100%";
+  wrapper.style.position = "absolute";
+  wrapper.style.margin = "auto";
   wrapper.style.paddingBottom = "56.25%"; // 16:9 aspect ratio
   wrapper.style.overflow = "hidden";
 

@@ -12,8 +12,9 @@
         isParalax: false
     } %}
         {% block content %}
+            {% set template = record.header_template|default("twig/header/_sub_header_content.twig") %}
             <div class="container">
-                {% include "twig/partials/_record_header_content.twig" with { section: record } %}
+                {% include template with { section: record } %}
             </div>
         {% endblock %}
     {% endembed %}

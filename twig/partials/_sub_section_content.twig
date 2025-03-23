@@ -40,7 +40,7 @@
 
 	{% set shouldShowEdit = section.content is defined %}
 
-	{% if section.links|default([])|length > 0 or shouldShowEdit %}
+	{# {% if section.links|default([])|length > 0 or shouldShowEdit %}
 		<nav class="shpr-actions columns">
 			<div class="column has-text-centered">
 				{% for link in section.links %}	
@@ -53,6 +53,6 @@
 				{% endif %}
 			</div>
 		</nav>
-	{% endif %}
+	{% endif %} #}
 
 {% endblock %}

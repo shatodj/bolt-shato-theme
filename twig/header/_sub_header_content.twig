@@ -1,0 +1,41 @@
+{% block header %}
+
+    {% block header_content %}
+
+        {% block header_content_anchor %}
+            {% if section.slug is defined %}
+                <div class="shpr-section-anchor" id="{{ section.slug }}"></div>
+            {% endif %}    
+        {% endblock %}
+
+        {% block header_content_title %}
+            <h1 class="title is-1 is-3-mobile is-spaced">{{ section.header_title|default }}</h1>
+        {% endblock %}
+        
+        {# {% if includeInfo|default(false) %}
+            {% include "twig/partials/_record_info.twig" %}
+        {% endif %} #}
+
+        {% block header_content_teaser %}
+            {% set teaser = section.header_content|default(section.teaser|default) %}
+            {% if teaser is not empty %}
+                <div class="subtitle content">{{ teaser }}</div>
+            {% endif %}
+        {% endblock %}
+
+        {% block header_content_links %}
+            {% if section.header_links|default is not empty %}
+                {% include "twig/partials/_sub_section_links.twig" with { links: section.header_links }  %}
+            {% endif %}
+        {% endblock %}
+        
+        {% if includeMeta|default(false) %}
+            {% include 'twig/partials/_record_meta.twig' with {'extended': true} %}
+        {% endif %}
+
+        {% if includeTaxonomy|default(false) %}
+            {% include 'twig/partials/_record_taxonomy.twig' with { 'record': record } %}
+        {% endif %}
+
+    {% endblock %}
+{% endblock %}

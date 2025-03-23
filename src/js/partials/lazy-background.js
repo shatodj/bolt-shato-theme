@@ -25,7 +25,7 @@ const proccessElement = (element) => {
 
   youtubeVideoOverlay(
     element.dataset.embedded,
-    element.querySelector(".shpr-background-overlay"),
+    element.querySelector(".shpr-background-video"),
   );
 };
 
