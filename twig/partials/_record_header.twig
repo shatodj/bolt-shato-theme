@@ -2,11 +2,15 @@
     {% with {'message': "The 'record' is not defined"} %}
     {{ block('error_block', "blocks.twig")}}
     {% endwith %}
-
 {% else %}
     {% set class = extraClass|default ~ " " ~ config.get("theme/layout/class/header") %}
 
-    {% embed "twig/partials/_sub_hero.twig" with { extraClass: class, image: record.image, isParalax: false} %}
+    {% embed "twig/partials/_sub_hero.twig" with { 
+        extraClass: class,
+        image: record.header_image,
+        embedded: record.header_embedded,
+        isParalax: false
+    } %}
         {% block content %}
             <div class="container">
                 {% include "twig/partials/_record_header_content.twig" with { section: record } %}

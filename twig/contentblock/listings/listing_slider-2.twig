@@ -2,7 +2,8 @@
 
 {# Custom Listing - displaying block  #}
 {% block contentlink_block %}
-    {% set listClass = 'columns is-multiline is-8' %}
+	{% set listClass = 'columns slider' %}
+	{% set listExtraAttributes = 'data-slides-to-show=2' %}
     {% set columnClass = 'column is-half' %}
 
     {{ parent() }}

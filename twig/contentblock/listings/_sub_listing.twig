@@ -9,8 +9,9 @@
 	{% elseif content|length > 0 %}
 		{% block contentlink_block %}
 			{% set defaults = {
-				classList: 'columns slider',
+				classList: 'columns',
 				classListWide: 'columns',
+				listExtraAttributes: '',
 				classColumn: 'column is-half',
 				classColumnWide: 'column',
 			} %}
@@ -18,7 +19,7 @@
 			{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
 			{% set template =  section.content_block_template|default('twig/contentblock/blocks/content.twig') %}
 			
-			<ul class="{{ listClass }}">
+			<ul class="{{ listClass }}" {{ listExtraAttributes|default(defaults.listExtraAttributes) }}>
 				{%- for entry in content|filter(e => e.status == 'published') -%}
 					{% block list_item %}
 						

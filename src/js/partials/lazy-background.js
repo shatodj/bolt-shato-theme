@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 import inView from "in-view";
 import progressiveImage from "./progressive-image.js";
+import youtubeVideoOverlay from "./youtube-video-overlay.js";
 
 /**
  * Proccess element / section
@@ -20,6 +21,11 @@ const proccessElement = (element) => {
     () => {
       element.classList.add("is-error");
     },
+  );
+
+  youtubeVideoOverlay(
+    element.dataset.embedded,
+    element.querySelector(".shpr-background-overlay"),
   );
 };
 

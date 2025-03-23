@@ -3,20 +3,15 @@
 		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 	{% endif %}
 
-	<h1 class="title is-1 is-3-mobile is-spaced">{{ section|title|default }}</h1>
+	<h1 class="title is-1 is-3-mobile is-spaced">{{ section.header_title|default }}</h1>
 	
-	{% if includeInfo|default(false) %}
+	{# {% if includeInfo|default(false) %}
 		{% include "twig/partials/_record_info.twig" %}
-	{% endif %}
+	{% endif %} #}
 
-	{% set teaser = section.introduction|default(section.teaser|default) %}
+	{% set teaser = section.header_content|default(section.teaser|default) %}
 	{% if teaser is not empty %}
 		<div class="subtitle content">{{ teaser }}</div>
-	{% endif %}
-
-	{% set content = section.content|default %}
-	{% if content is not empty %}
-		<div class="content">{{ content }}</div>
 	{% endif %}
 	
 	{% if includeMeta|default(false) %}
