@@ -3,6 +3,7 @@
 import inView from "in-view";
 import progressiveImage from "./progressive-image.js";
 import youtubeVideoOverlay from "./youtube-video-overlay.js";
+import videoOverlay from "./video-overlay.js";
 
 /**
  * Proccess element / section
@@ -25,6 +26,11 @@ const proccessElement = (element) => {
 
   youtubeVideoOverlay(
     element.dataset.embedded,
+    element.querySelector(".shpr-background-video"),
+  );
+
+  videoOverlay(
+    element.dataset.video,
     element.querySelector(".shpr-background-video"),
   );
 };

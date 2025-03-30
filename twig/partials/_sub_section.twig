@@ -5,15 +5,24 @@
 
 	{# Section images initialization #}
 	{% if image|default is not empty %}
-		{% import "twig/partials/_macros.twig" as m %}
+		{% import "twig/partials/_macros.twig" as m %}	
 		{% set bgImages = m.progressive_thumbimage(image) %}
 	{% endif %}
 
-	{% if embedded|default is not empty %}
-		{% set bgVideo = embedded.url|default %}
+	{% if embedded|default is not empty && video|default is empty %}
+		{% set bgEmbedded = embedded.url|default %}
 	{% endif %}
+
+	{% set bgImagesAttr = bgImages|default is not empty ? ('data-src="' ~ bgImages|default ~ '"') : ''  %}
+	{% set bgEmbeddedAttr = bgEmbedded|default is not empty ? ('data-embedded="' ~ bgEmbedded|default ~ '"') : ''  %}
+	{% set bgVideoAttr = video|default is not empty ? ('data-video="' ~ video|default ~ '"') : ''  %}
 	
-	<div class="shpr-lazy-background" data-src="{{ bgImages|default }}" data-embedded="{{ bgVideo|default }}">
+	<div 
+		class="shpr-lazy-background" 
+		{{ bgImagesAttr|raw }}
+		{{ bgEmbeddedAttr|raw }}
+		{{ bgVideoAttr|raw }}
+	>
 		{# Adding empty elements to handle dynamic background styling - see lazy-section-background.js #}
 		{% if isParalax|default == true %}
 			<div class="shpr-background shpr-background-paralax"></div>
