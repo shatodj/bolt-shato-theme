@@ -71,7 +71,15 @@
 }
 
 .edit-record-bar {
-  position: fixed;
+
+  &.is-absolute {
+    position: absolute;
+  }
+
+  &.is-fixed {
+    position: fixed;
+  }
+
   bottom: 0; right: 0; left: 0;
   z-index: 10;
 }

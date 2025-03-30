@@ -1,0 +1,40 @@
+{# Entry block #}
+{# Content of contentype 'block' and 'contentlink' filed for NOT iterable content #}
+{% block contentlink_block_with_validation %}
+	{% if content|default is empty %}
+		{% with { message: 'No content retireved.' } %}
+		{{ block('error_block', 'blocks.twig') }}
+		{% endwith %}
+	{% elseif content|default is iterable %}
+		{% with { message: 'Received content IS iterable and is not valid for this template.' } %}
+		{{ block('error_block', 'blocks.twig') }}
+		{% endwith %}
+	{% else %}
+		{% block contentlink_block %}
+			<div> 
+				{% block contentlink_block_image %}
+					{% if content.image|default is not empty %}
+						<figure class="image block">
+							{% import "twig/partials/_macros.twig" as m %}
+							{{ m.lazyImage(content.image, alias|default("block"), extraClass|default) }}
+						</figure>
+					{% endif %}
+				{% endblock %}
+
+				{% block contentlink_block_content %}
+					<div class="content">
+						{% include "twig/partials/_record_teaser.twig" with { use_link: true, use_read_more: true, record: content, excerpt: false } %}
+
+						<div class="columns">
+							{% for link in content.links %}	
+								<div class="column is-narrow">
+									<a href="{{ link.contentlink }}" class="button">{{ link.title|markdown|excerpt(45) }}</a>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				{% endblock %}
+			</div>
+		{% endblock %}
+	{% endif %}
+{% endblock %}

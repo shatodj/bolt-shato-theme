@@ -2,9 +2,9 @@
 
 {# Custom Listing - displaying block  #}
 {% block contentlink_block %}
-    {% set listClass = 'columns slider' %}
+    {% set listClass = 'columns slider is-size-7' %}
     {% set listExtraAttributes = 'data-slides-to-show=4' %}
-    {% set columnClass = 'column is-one-quarter' %}
+    {% set columnClass = 'column' %}
 
     {{ parent() }}
 {% endblock %}

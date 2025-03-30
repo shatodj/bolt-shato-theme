@@ -1,5 +1,5 @@
  {% if record|default is not empty && record|edit_link %}
-    <div class="edit-record-bar">
+    <div class="edit-record-bar {{ extraClass|default("is-fixed") }}">
         <span class="edit-link">
             {% with { 'record': record } %}
             {{ block('edit_button', "blocks.twig") }}

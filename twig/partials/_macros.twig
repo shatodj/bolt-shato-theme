@@ -176,27 +176,12 @@
 				<div class="container">
 					{% include "twig/partials/_sub_section_content.twig" with { section: section } %}
 				</div>
+
+				{# Edit section record #}
+				{% include "twig/partials/_record_edit.twig" with { record: section, extraClass: "is-absolute" } %}
 			{% endblock %}
 		{% endembed %}
 
-		{# Set body of the section #}
-		{# {% set content %}
-			<div class="container">
-				{% with { 'section': section } %}
-				{{ block('section_content', "section_blocks.twig") }}
-				{%- endwith -%}	
-			</div>
-		{% endset %} #}
-
-		{# set different color for each section #}
-		{# {% with { 
-			section: section,
-			content: content,
-			image: section.image|default,
-			isParalax: isParalax|default(false) and loop.index > 1 
-		}%}
-			{{ block('section', "section_blocks.twig") }}
-		{%- endwith -%} #}
 	{% endfor %}
 {% endmacro %}
 
