@@ -128,32 +128,6 @@
 {% endmacro %}
 
 {# Section macro #}
-{# Create section from block content type by the group taxonomy. #}
-{% macro sectionsByGroup(groupName, isParalax = false) %}
-	{% set themeSection = config.get('theme/section') %}
-	{% set extraClass = config.get("theme/layout/class/section")|default %}
-
-	{# Get All blocks by the group #}
-	{% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): groupName } %}
-
-	{# loop over the section with homepage group #}
-	{% for section in sections %}
-		{% embed "twig/partials/_sub_section.twig" with {
-			section: section,
-			image: section.image|default,
-			extraClass: extraClass,
-			isParalax: isParalax|default(false) and loop.index > 1 
-		} %}
-			{% block section_content %}
-				<div class="container">
-					{% include "twig/partials/_sub_section_content.twig" with { section: section } %}
-				</div>
-			{% endblock %}
-		{% endembed %}
-	{% endfor %}
-{% endmacro %}
-
-{# Section macro #}
 {# Create section from block content type by the record's related #}
 {% macro sectionsByRecord(record, isParalax = false) %}
 	{% set themeSection = config.get('theme/section') %}
@@ -165,20 +139,23 @@
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
 		{% set section = section|selected %}
+		{% set template = section.section_template|default("twig/section/_sub_section.twig") %}
 
-		{% embed "twig/partials/_sub_section.twig" with {
+		{% embed template with {
 			section: section,
 			image: section.image|default,
 			extraClass: extraClass,
-			isParalax: isParalax|default(false) and loop.index > 1 
+			isParalax: isParalax|default(false)
 		} %}
 			{% block section_content %}
-				<div class="container">
-					{% include "twig/partials/_sub_section_content.twig" with { section: section } %}
-				</div>
+				<div class="hero-body">
+					<div class="container">
+						{% include "twig/section/content/_sub_section_content.twig" with { section: section } %}
+					</div>
 
-				{# Edit section record #}
-				{% include "twig/partials/_record_edit.twig" with { record: section, extraClass: "is-absolute" } %}
+					{# Edit section record #}
+					{% include "twig/partials/_record_edit.twig" with { record: section, extraClass: "is-absolute" } %}
+				</div>
 			{% endblock %}
 		{% endembed %}
 

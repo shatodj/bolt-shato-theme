@@ -61,7 +61,7 @@
 		</div>
 	{% endset %}
 
-	{% embed "twig/partials/_sub_section.twig" with { 
+	{% embed "twig/section/_sub_section.twig" with { 
 		bgColor: 'primary',
         isParalax: false,
 		class: extraClass|default(config.get('theme/layout/class/header_record'))

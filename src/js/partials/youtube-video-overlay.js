@@ -4,7 +4,7 @@
 /**
  * Create Embedded video iframe from youtube video
  */
-export default (url, element) => {
+export default (url, element, onSuccess) => {
   // Check if the element exists.
   if (!element) {
     console.warn("Embedded element not found.");
@@ -52,4 +52,6 @@ export default (url, element) => {
 
   // Append to body or any specific element
   element.appendChild(wrapper);
+
+  onSuccess();
 };

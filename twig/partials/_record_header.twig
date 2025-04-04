@@ -4,8 +4,9 @@
     {% endwith %}
 {% else %}
     {% set class = extraClass|default ~ " " ~ config.get("theme/layout/class/header") %}
+    {% set template = record.header_section_template|default("twig/section/_sub_section.twig") %}
 
-    {% embed "twig/partials/_sub_hero.twig" with { 
+    {% embed template with { 
         extraClass: class,
         image: record.header_image,
         embedded: record.header_embedded,
@@ -13,9 +14,16 @@
         isParalax: false
     } %}
         {% block content %}
-            {% set template = record.header_template|default("twig/header/_sub_header_content.twig") %}
+            {% set template = record.header_content_template|default("twig/header/_sub_header_content.twig") %}
+            
             <div class="container">
-                {% include template with { section: record } %}
+                {% include template with { section: record, extraClass: extraClass } %}
+            </div>
+        {% endblock %}
+
+        {% block section_content %}
+            <div class="hero-body">
+                {{ parent() }}
             </div>
         {% endblock %}
     {% endembed %}

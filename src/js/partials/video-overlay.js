@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 
-export default (fileUrl, element) => {
+export default (fileUrl, element, onSuccess) => {
   // Check if the element exists.
   if (!element) {
     console.warn("Embedded element not found.");
@@ -9,7 +9,7 @@ export default (fileUrl, element) => {
   }
 
   if (!fileUrl) {
-    console.warn("Invalid Youtube Video URL");
+    console.warn("Invalid Video File path");
     return;
   }
 
@@ -21,9 +21,7 @@ export default (fileUrl, element) => {
   videoElement.muted = true;
   videoElement.loop = true;
 
-  // Apply responsive styling
-  videoElement.style.width = "100%"; // Full width of the parent container
-  videoElement.style.height = "auto"; // Maintain aspect ratio
-
   element.appendChild(videoElement);
+
+  onSuccess();
 };

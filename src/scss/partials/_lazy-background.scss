@@ -16,12 +16,14 @@
     }
 
     .shpr-background-paralax {
-        width: 100%; height: 250px;
+        width: 100%; 
+        height: 250px;
         position: relative;
-        &::after {
+        &::before {
             content: '';
             position: absolute;
             top: 0; bottom: 0; left: 0; right: 0;
+            z-index: 1;
             background:url(
                 data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAF0lEQVQYV2NkQAKMUPZ/BgYGRhgHLAYAEnEBBJU1VYUAAAAASUVORK5CYII=
             ) repeat fixed;
@@ -33,10 +35,6 @@
     }
 
     .shpr-background-video {
-    
-        @include bulma-mixins.mobile {
-            display: none;
-        }
 
         &::after {
             content: '';
@@ -45,6 +43,12 @@
             background: rgb(2,0,36);
             background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 46%, rgba(0,0,0,0) 80%, rgba(0,0,0,1) 100%);
         }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
     &.is-loaded {
@@ -52,26 +56,26 @@
             opacity: 1;
         }
 
-        .shpr-section.section {
+        .shpr-section.section, .shpr-section.hero {
             background: var(--bulma-background);
-        }
 
-        .shpr-section.hero.with-semi-transparent-overlay {
-            background: hsla(
-                var(--bulma-hero-h), 
-                var(--bulma-hero-s), 
-                var(--bulma-hero-background-l), 
-                0.65
-            );
-        }
-
-        .shpr-section.hero.with-transparent-overlay {
-            background: hsla(
-                var(--bulma-hero-h), 
-                var(--bulma-hero-s), 
-                var(--bulma-hero-background-l), 
-                0
-            );
+            &.with-semi-transparent-overlay {
+                background: hsla(
+                    var(--bulma-hero-h), 
+                    var(--bulma-hero-s), 
+                    var(--bulma-hero-background-l), 
+                    0.65
+                );
+            }
+        
+            &.with-transparent-overlay {
+                background: hsla(
+                    var(--bulma-hero-h), 
+                    var(--bulma-hero-s), 
+                    var(--bulma-hero-background-l), 
+                    0
+                );
+            }
         }
     }
 

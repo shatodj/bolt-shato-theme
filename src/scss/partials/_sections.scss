@@ -12,14 +12,6 @@
 
     position: relative;
 
-    &::before {
-        content: '';
-        background-color: var(--bulma-scheme-main-bis);
-        position: absolute;
-        top: 0; bottom: 0; left: 0; right: 0;
-        z-index: -2;
-    }
-
     &.is-primary::before {
         background-color: var(--bulma-primary-rgb)
     }

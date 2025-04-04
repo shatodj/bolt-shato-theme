@@ -24,15 +24,25 @@ const proccessElement = (element) => {
     },
   );
 
-  youtubeVideoOverlay(
-    element.dataset.embedded,
-    element.querySelector(".shpr-background-video"),
-  );
+  if (element.dataset.embedded != null) {
+    youtubeVideoOverlay(
+      element.dataset.embedded,
+      element.querySelector(".shpr-background-video"),
+      () => {
+        element.classList.add("is-loaded");
+      },
+    );
+  }
 
-  videoOverlay(
-    element.dataset.video,
-    element.querySelector(".shpr-background-video"),
-  );
+  if (element.dataset.video != null) {
+    videoOverlay(
+      element.dataset.video,
+      element.querySelector(".shpr-background-video"),
+      () => {
+        element.classList.add("is-loaded");
+      },
+    );
+  }
 };
 
 export default ({ elementSelector }) => {

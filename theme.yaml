@@ -40,7 +40,7 @@ layout:
     html: "theme-light"
     navbar: is-link
     header: hero is-link is-bold with-semi-transparent-overlay #with-transparent-overlay #with-semi-transparent-overlay
-    section: section is-medium is-small with-semi-transparent-overlay
+    section: hero is-medium is-small # with-semi-transparent-overlay
     footer: hero is-link
     copyright: section is-small has-text-centered
   
