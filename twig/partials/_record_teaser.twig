@@ -21,13 +21,15 @@
 </{{tag}}>
 
 {% if record_teaser is not empty %}
-    <p class="{{ classTeaser }} no-link-color block">
-        {% if use_link && record|link|default is not empty %}
-            <a href="{{ record|link }}">{{ record_teaser }}</a>
-        {% else %}
-            <span>{{ record_teaser }}</span> 
-        {% endif %}
-    </p>
+    <div class="content">
+        <p class="{{ classTeaser }} no-link-color">
+            {% if use_link && record|link|default is not empty %}
+                <a href="{{ record|link }}">{{ record_teaser }}</a>
+            {% else %}
+                <span>{{ record_teaser }}</span> 
+            {% endif %}
+        </p>
+    </div>
 {% endif %}
 
 <div class="block">

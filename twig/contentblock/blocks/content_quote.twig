@@ -1,0 +1,21 @@
+{% extends "twig/contentblock/blocks/_sub_content.twig" %}
+
+{% block contentlink_block_image %}
+    {# empty #}
+{% endblock %}
+
+{% block contentlink_block_content %}
+    <blockquote class="shpr-quote">
+        <div class="content">
+            {{ content.content|striptags }}
+        </div>
+    </blockquote>
+
+    <div class="is-italic has-text-weight-bold">
+        {% if content.title|default is not empty %}
+            <span class="has-text-weight-normal">-</span>
+            {{ content.title|striptags }}
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -2,3 +2,22 @@
 
 @use "partials/bulma" as bulma;
 @forward "bulma-carousel/src/sass/index.sass";
+
+.hero, .section {
+  // default variables will be replaced by bulma selectors
+  // when using coloring classes (.is-primary, .is-link ...)
+  --bulma-hero-h: var(--bulma-scheme-h);
+  --bulma-hero-s: var(--bulma-scheme-s);
+  --bulma-hero-background-l: var(--bulma-background-l);
+
+  --bulma-text-strong: hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l));
+
+  .content {
+    --bulma-content-blockquote-background-color: hsl(
+      var(--bulma-hero-h),
+      var(--bulma-hero-s),
+      var(--bulma-hero-background-l)
+    );
+  }
+}
+

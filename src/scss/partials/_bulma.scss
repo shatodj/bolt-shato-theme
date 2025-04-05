@@ -22,10 +22,3 @@
 // @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,700");
 
-.hero, .section {
-  // default variables will be replaced by bulma selectors
-  // when using coloring classes (.is-primary, .is-link ...)
-  --bulma-hero-h: var(--bulma-scheme-h);
-  --bulma-hero-s: var(--bulma-scheme-s);
-  --bulma-hero-background-l: var(--bulma-background-l);
-}

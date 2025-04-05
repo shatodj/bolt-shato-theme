@@ -1,0 +1,31 @@
+:root {
+    --shpr-quote-background-color: var(--bulma-background-bis);
+    --shpr-quote-border-left: 5px solid var(--bulma-border);
+    --shpr-quote-padding: 1.25em 1.5em;
+}
+
+.shpr-quote {
+    position: relative;
+    // padding: var(--shpr-quote-padding);
+    background-color: var(--shpr-quote-background-color);
+    // border-left: var(--shpr-quote-border-left);
+    padding-top: 3.5em;
+
+    .icon {
+        position: absolute;
+        top: 0;
+        opacity: 0.5;
+    }
+}
+
+.hero, .section {
+
+    // custom style
+    .shpr-quote {
+        --shpr-quote-background-color: hsl(
+            var(--bulma-hero-h),
+            var(--bulma-hero-s),
+            var(--bulma-hero-background-l)
+        );
+    }
+}

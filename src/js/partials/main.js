@@ -8,6 +8,7 @@ import lazyMedia from "./lazy.js";
 import scaredElement from "../components/scared-element.js";
 import lazySectionBackground from "./lazy-background.js";
 import marquee from "../components/marquee.js";
+import quote from "../components/quote.js";
 
 /**
  * Init script
@@ -45,7 +46,11 @@ export default () =>
       // navbar animation
       navbar(".navbar.is-transparent", 50);
 
+      // marquee
       marquee({ selector: ".marquee" });
+
+      // quotes
+      quote({ selector: ".shpr-quote" });
 
       resolve();
     } catch (error) {
