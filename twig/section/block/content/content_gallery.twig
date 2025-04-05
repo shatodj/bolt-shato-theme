@@ -1,0 +1,38 @@
+{% extends "twig/section/block/content/_sub_content.twig" %}
+
+{% block title %}
+    {# {% set titleClass = "subtitle is-5 has-text-centered" %}
+    {{ parent() }} #}
+{% endblock %}
+
+{% block teaser %}
+    <p class="no-link-color">
+        <a href="{{ content|link }}">
+            {% apply spaceless %}
+                {{ content.description|default('')|excerpt(220) }}
+            {% endapply %}
+        </a>
+    </p>
+{% endblock %}
+
+{% block body %}
+    {% set relatedgalleries = content.related('gallery') %}
+	{% if relatedgalleries|length > 0 %}
+		{% for gallery in relatedgalleries %}
+			<section class="level">
+				<header>
+					<h3 class="title is-5">
+						{{ gallery.title }}
+					</h3>
+				</header>
+				<div class="shpr-gallery">
+					{% with { 'gallery': gallery.imagelist } %}
+					{{ block("section_content_gallery", "seaction_blocks.twig") }}
+					{% endwith %}
+				</div>
+			</section>
+		{% endfor %}
+	{% endif %}
+{% endblock %}
+
+{% block actions %}{% endblock %}

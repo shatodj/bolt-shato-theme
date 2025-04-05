@@ -1,0 +1,10 @@
+{% extends "twig/section/block/listing/_sub_listing.twig" %}
+
+{# Custom Listing - displaying block  #}
+{% block contentlink_block %}
+    {% set listClass = 'columns is-multiline' %}
+    {% set columnClass = 'column is-one-third' %}
+
+    {{ parent() }}
+{% endblock %}
+

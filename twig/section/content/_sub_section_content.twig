@@ -28,17 +28,15 @@
     } %}
 
 	{# showing the gallery if added to the block #}
-	{% if section.galleryContent|default is not empty %}
+	{# {% if section.galleryContent|default is not empty %}
 		<section>
             {% include "twig/partials/_sub_section_content_gallery.twig" with {
                 section: section
             } %}
 		</section>
-	{% endif %}
+	{% endif %} #}
 
 	{# Showing links / actions for the Block #}
-
-	{% set shouldShowEdit = section.content is defined %}
 
 	{# {% if section.links|default([])|length > 0 or shouldShowEdit %}
 		<nav class="shpr-actions columns">

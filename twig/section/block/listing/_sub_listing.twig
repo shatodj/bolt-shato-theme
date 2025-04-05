@@ -1,0 +1,43 @@
+{# Contentlink Listing content #}
+{# ContentBlock filled for ITERABLE content #}
+{# Require: content #}
+{% block contentlink_block_with_validation %}
+	{% if content is not iterable %}
+		{% with { message: 'Received content is not iterable or invalid.' } %}
+		{{ block('error_block', 'blocks.twig') }}
+		{% endwith %}
+	{% elseif content|length > 0 %}
+		{% block contentlink_block %}
+			{% set defaults = {
+				classList: 'columns',
+				classListWide: 'columns',
+				listExtraAttributes: '',
+				classColumn: 'column is-half',
+				classColumnWide: 'column',
+			} %}
+
+			{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
+			{% set template =  section.content_block_template|default('twig/section/block/content/content.twig') %}
+			
+			<ul class="{{ listClass }}" {{ listExtraAttributes|default(defaults.listExtraAttributes) }}>
+				{%- for entry in content|filter(e => e.status == 'published') -%}
+					{% block list_item %}
+						
+						{% set columnClass = content|length == 1 ? columnClassWide|default(defaults.classColumnWide) : columnClass|default(defaults.classColumn) %}
+						
+						<li class="{{ columnClass }}">
+							{% with { content: entry } %}
+							{{ block('contentlink_block', template )}}
+							{% endwith %}
+						</li>
+
+					{% endblock %}
+				{%- endfor -%}
+			</ul>
+		{% endblock %}
+	{% else %}
+		{% with { message: 'There is no content yet.' } %}
+		{{ block('error_block', 'twig/partials/_sub_section_blocks.twig') }}
+		{% endwith %}
+	{% endif %}
+{% endblock %}

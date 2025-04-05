@@ -1,0 +1,29 @@
+{% extends "twig/section/block/content/_sub_content.twig" %}
+
+{% block contentlink_block_image %}
+    {% set contentlink %}    
+        <div class="is-flex is-justify-content-center">
+            {% set extraClass = "is-rounded" %}
+            {% set alias = "square-small" %}
+            {{ parent() }}
+        </div>
+    {% endset %}
+
+    <div class="block">
+        {%- with { content: contentlink, link: content|link } -%}
+            {{ block("link_wrapper", "blocks.twig") }}
+        {%- endwith -%}
+    </div>
+{% endblock %}
+
+{% block contentlink_block_content %}
+    {% set contentlink %}
+        <div class="has-text-centered">
+            <h3 class="title is-5">{{ content|title|default(record.title|default) }} </h3>
+        </div>
+    {% endset %}
+
+    {%- with { content: contentlink, link: content|link } -%}
+        {{ block("link_wrapper", "blocks.twig") }}
+    {%- endwith -%}
+{% endblock %}

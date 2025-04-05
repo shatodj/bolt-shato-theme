@@ -16,19 +16,11 @@
 	    {% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): groupName } %}
 
         {% for section in sections %}
-            {% embed "twig/section/_sub_section.twig" with { extraClass: extraClass } %}
-                {% block content %}
-                    <div class="container">
-                        {% include "twig/section/content/_sub_section_content.twig" with { section: section } %}
-                    </div>
-                {% endblock %}
-
-                 {% block section_content %}
-                    <div class="hero-body">
-                        {{ parent() }}
-                    </div>
-                {% endblock %}
-            {% endembed %}
+            {% include "twig/partials/_sub_section.twig" with {
+                section: section,
+                extraClass: extraClass,
+                isParalax: isParalax|default(false)
+            } %}
         {% endfor %}
     </footer>
 

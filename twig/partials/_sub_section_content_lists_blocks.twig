@@ -18,10 +18,10 @@
 		{% elseif section.content_list_template|default is not empty %}
 			{% set template = section.content_list_template %}
 		{% else %}
-			{% set templateSubPath = subBlockContent is iterable ? 'listings/listing' : 'block/content' %}
-			{% set template = 'twig/contentblock/' ~ templateSubPath ~ '.twig' %}
+			{% set templateSubPath = subBlockContent is iterable ? 'listing/_sub_listing' : 'content/_sub_content' %}
+			{% set template = 'twig/section/block/' ~ templateSubPath ~ '.twig' %}
 		{% endif %}
-		
+
 		{% include template with { content: subBlockContent, section: section } %}		
 	{% endif -%}
 {% endblock %}
