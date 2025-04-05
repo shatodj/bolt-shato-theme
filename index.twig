@@ -11,36 +11,6 @@
 {% block navbar %}{% endblock %} 
 #}
 
-{# Customize header section#}
-{% block header %}     
-    {% set content %}
-		<div class="container">
-			{% if homepage %}
-                <h1 class="title is-1">{{ homepage|title }}</h1>
-                <div class="subtitle">
-					<div class="content">
-					{{ homepage.introduction|default }}
-					</div>
-				</div>
-            {% endif %}
-		</div>
-	{% endset %}
-
-	{# {% with { 
-		content: content,
-		image: homepage.image,
-        class: config.get('theme/layout/class/header_index')
-	}%}
-		{{ block('hero', 'section_blocks.twig') }}
-	{%- endwith -%} #}
-{% endblock %}
-
-{# Customize header body cointent #}
-{% block header_content %}
-	<div class="columns">
-		<div class="column is-half">{{ parent() }}</div>
-	</div>
-{% endblock %}
 
 {# Use SVG LOGO on the index header #}
 {# 

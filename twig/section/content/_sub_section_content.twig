@@ -4,7 +4,9 @@
 		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 	{% endif %}
 
-	<h2 class="title is-3 is-size-4-mobile is-spaced">{{ section.title|default }}</h2>
+	<h2 class="title is-3 is-size-4-mobile is-spaced">
+		{{ section.title|default }}
+	</h2>
 
 	{%- if section.content|default is not empty %}
 		<div class="content">

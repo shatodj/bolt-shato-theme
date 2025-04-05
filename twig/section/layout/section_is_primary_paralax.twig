@@ -1,9 +1,9 @@
-{% extends "twig/section/layout/_sub_section_layout.twig" %}
+{% extends "twig/section/layout/_sub_section_layout_paralax.twig" %}
 
 {% set primaryClass = config.get("theme/class/section_primary") %}
 
 {% block section %}
     {% set extraClass = extraClass|default ~ " " ~ primaryClass|default("is-primary") %}
-
+    
     {{ parent() }}
 {% endblock %}

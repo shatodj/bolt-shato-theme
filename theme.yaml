@@ -38,10 +38,18 @@ layout:
     
   class:
     html: "theme-light"
-    navbar: is-link
-    header: hero is-link is-bold with-semi-transparent-overlay #with-transparent-overlay #with-semi-transparent-overlay
+    navbar: is-primary
+    header: hero is-primary is-bold with-semi-transparent-overlay #with-transparent-overlay #with-semi-transparent-overlay
+    
+    # section classes
     section: hero is-medium is-small # with-semi-transparent-overlay
-    footer: hero is-link
+    section_primary: is-primary
+    
+    # TODO: make this work
+    # section_title: has-text-primary
+    # section_title_primary: has-text-link
+    
+    footer: hero is-large
     copyright: section is-small has-text-centered
   
 # Section content blocks specs.
@@ -63,10 +71,14 @@ navbar:
   use_search_bar: false
   menu_id: main
 
-footer:
-  menu_id: social
-  menu_template: twig/partials/_sub_menu_social.twig # twig/partials/_sub_menu_social.twig or twig/partials/_sub_menu_footert.twig
-  contact_form_id: contact # Contact form located in the footer. If empty no contact form will be used in the footer
+feature:
+  contact_form_id: contact # Contact form located in the feature section. If empty no contact form will be used in the feature section
+  google_map_id: google_map # Google map located in the feature section. If empty no google map will be used in the feature section
+
+# footer:
+  # menu_id: social
+  # menu_template: twig/partials/_sub_menu_social.twig # twig/partials/_sub_menu_social.twig or twig/partials/_sub_menu_footert.twig
+  # contact_form_id: contact # Contact form located in the footer. If empty no contact form will be used in the footer
   # contact_form_id: "" # Contact form located in the footer. If empty no contact form will be used in the footer
 
 # Thumbnails configuration

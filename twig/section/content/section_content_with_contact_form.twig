@@ -1,0 +1,11 @@
+{% extends "twig/section/content/_sub_section_content.twig" %}
+
+{% set contactFormId = config.get('theme/feature/contact_form_id') %}
+
+{% block section_content %}
+    {{ parent() }}
+
+    {% if contactFormId|default is not empty %}
+        {{ boltform(contactFormId) }}
+    {% endif %}
+{% endblock %}

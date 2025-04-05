@@ -3,8 +3,10 @@
 @use "bulma/sass/utilities" with (  
   $family-primary: '"Poppins", sans-serif',
   $family-secondary: '"Nunito", sans-serif',
-  $primary: hsl(200, 93%, 40%),
-  $link: hsl(200, 93%, 20%),
+  
+  // MUST BE HSL to work with the color scheme
+  $primary: hsl(210, 85%, 21%),
+  $link: hsl(37, 100%, 52%),
 );
 
 @forward "bulma/sass";

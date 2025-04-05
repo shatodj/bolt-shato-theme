@@ -10,11 +10,15 @@
 		{% set bgImages = m.progressive_thumbimage(image) %}
 	{% endif %}
 
-	{% set bgImagesAttr = bgImages|default is not empty ? ('data-src="' ~ bgImages|default ~ '"') : ''  %}
+	{% if bgImages|default is not empty %}
+		{% set bgImagesAttr = 'data-src="' ~ bgImages|default ~ '"') %}
+	
+		<div class="shpr-lazy-background" {{ bgImagesAttr|raw }}>
+			<div class="shpr-background shpr-background-overlay"></div>
 
-	<div class="shpr-lazy-background" {{ bgImagesAttr|raw }}>
-		<div class="shpr-background shpr-background-overlay"></div>
-
-        {{ parent() }}
-    </div>
+			{{ parent() }}
+		</div>
+	{% else %}
+		{{ parent() }}
+	{% endif %}
 {% endblock %}

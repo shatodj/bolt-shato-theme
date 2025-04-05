@@ -4,7 +4,7 @@
     {% endwith %}
 {% else %}
     {% set class = extraClass|default ~ " " ~ config.get("theme/layout/class/header") %}
-    {% set template = record.header_section_template|default("twig/section/layout/_sub_section.twig") %}
+    {% set template = record.header_section_template|default("twig/section/layout/_sub_section_layout.twig") %}
 
     {% embed template with { 
         extraClass: class,
