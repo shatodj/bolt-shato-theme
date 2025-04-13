@@ -34,6 +34,7 @@ let config = {
     // search: `${SRC_DIR}/js/search.js`,
     fontawesome: `${SRC_DIR}/js/fontawesome.js`,
     bulma: `${SRC_DIR}/js/bulma.js`,
+    custom: `${SRC_DIR}/js/custom.js`, // additional customization of the theme
   },
 //   mode,
 //   devtool: mode === 'production' ? false : 'inline-source-map',

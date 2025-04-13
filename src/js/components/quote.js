@@ -12,6 +12,7 @@ export default ({ selector }) => {
     quoteElement.classList.add("shpr-quote-icon");
     quoteElement.classList.add("icon");
     quoteElement.classList.add("is-large");
+    quoteElement.classList.add("has-text-link");
 
     const quoteFontElement = document.createElement("i");
     quoteFontElement.setAttribute("aria-hidden", "true");

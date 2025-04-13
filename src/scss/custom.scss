@@ -1,0 +1,15 @@
+.shpr-section {
+    // contrast title
+    &.hero, &.section {
+        &.is-primary .title {
+            --bulma-title-color: var(--bulma-link);
+        }
+
+        .title {
+            --bulma-title-color: var(--bulma-primary);
+        }
+    }
+
+    // contrast color quotes
+    --shpr-quote-background-color: var(--bulma-link);
+}

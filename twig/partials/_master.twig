@@ -26,7 +26,10 @@
 			{% block stylesheet %}
 				{{ m.stylesheet_inline(style) }}
 			{% endblock %}
-			
+
+			{#  Additional theme customization #}
+			{{ m.stylesheet_inline('dist/css/custom-bundle.css') }}
+
 			<link rel="shortcut icon" type="image/ico" href="/favicon.png"/>
 			
 			{# make sure to always display a proper title: The record's title if there is one, appended with the #}
@@ -66,7 +69,7 @@
 				{{ m.script(script) }}
 			{% endblock %}
 			
-			{# Font Awesome #}
+			{# Font Awesome v5 #}
 			{{ m.script('dist/js/fontawesome-bundle.js') }}
 
 			{# AdSense #}

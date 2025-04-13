@@ -25,7 +25,8 @@
 
         {% block header_content_links %}
             {% if section.header_links|default is not empty %}
-                {% include "twig/partials/_sub_section_links.twig" with { links: section.header_links }  %}
+                {# with_context = false will ignore parent template properties #}
+                {{ include("twig/partials/_sub_section_links.twig", { links: section.header_links }, with_context = false) }}
             {% endif %}
         {% endblock %}
         

@@ -4,15 +4,17 @@
 		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 	{% endif %}
 
-	<h2 class="title is-3 is-size-4-mobile is-spaced">
-		{{ section.title|default }}
-	</h2>
+	<div class="block mb-6">
+		<h2 class="title is-3 is-size-4-mobile is-spaced">
+			{{ section.title|default }}
+		</h2>
 
-	{%- if section.content|default is not empty %}
-		<div class="content">
-			{{ section.content }}
-		</div>
-	{% endif -%}
+		{%- if section.content|default is not empty %}
+			<div class="content">
+				{{ section.content }}
+			</div>
+		{% endif -%}
+	</div>
 
 	{# Embedded field #}
 	{%- if section.embedded|default is not empty %}
@@ -40,6 +42,10 @@
 
 	{# Showing links / actions for the Block #}
 
+	{% if section.links|default([])|length > 0 %}
+		{% include "twig/partials/_sub_section_links.twig" with { links: section.links, extraClass: "has-text-centered" } %}
+	{% endif %}
+	
 	{# {% if section.links|default([])|length > 0 or shouldShowEdit %}
 		<nav class="shpr-actions columns">
 			<div class="column has-text-centered">

@@ -35,20 +35,16 @@ layout:
       has_navbar_logo: false
       navbar_alignment: start # start, end
       header_extra_class: is-small
-    
+  
+  # NOTE: for additional theme customization check the following files:
+  # - js/custom.js
+  # - scss/custom.scss
+  
   class:
     html: "theme-light"
     navbar: is-primary
     header: hero is-primary is-bold with-semi-transparent-overlay #with-transparent-overlay #with-semi-transparent-overlay
-    
-    # section classes
-    section: hero is-medium is-small # with-semi-transparent-overlay
-    section_primary: is-primary
-    
-    # TODO: make this work
-    # section_title: has-text-primary
-    # section_title_primary: has-text-link
-    
+    section: hero is-medium # with-semi-transparent-overlay
     footer: hero is-large
     copyright: section is-small has-text-centered
   

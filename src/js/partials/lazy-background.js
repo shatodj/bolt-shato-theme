@@ -4,6 +4,7 @@ import inView from "in-view";
 import progressiveImage from "./progressive-image.js";
 import youtubeVideoOverlay from "./youtube-video-overlay.js";
 import videoOverlay from "./video-overlay.js";
+import googeMapOverlay from "./googe-map-overlay.js";
 
 /**
  * Proccess element / section
@@ -38,6 +39,17 @@ const proccessElement = (element) => {
     videoOverlay(
       element.dataset.video,
       element.querySelector(".shpr-background-video"),
+      () => {
+        element.classList.add("is-loaded");
+      },
+    );
+  }
+
+  if (element.dataset.googleMapId != null) {
+    const { googleMapId } = element.dataset;
+    googeMapOverlay(
+      googleMapId,
+      element.querySelector(".shpr-background-google-map"),
       () => {
         element.classList.add("is-loaded");
       },

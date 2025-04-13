@@ -14,14 +14,18 @@ export default (fileUrl, element, onSuccess) => {
   }
 
   // create video element
-  const videoElement = document.createElement("video");
-  videoElement.src = fileUrl;
-  videoElement.controls = false;
-  videoElement.autoplay = true;
-  videoElement.muted = true;
-  videoElement.loop = true;
+  const iframe = document.createElement("video");
+  iframe.src = fileUrl;
+  iframe.controls = false;
+  iframe.autoplay = true;
+  iframe.muted = true;
+  iframe.loop = true;
 
-  element.appendChild(videoElement);
+  // Apply responsive styles
+  iframe.style.width = "100%";
+  iframe.style.height = "100%";
+
+  element.appendChild(iframe);
 
   onSuccess();
 };

@@ -22,6 +22,8 @@
 			{% set template = 'twig/section/block/' ~ templateSubPath ~ '.twig' %}
 		{% endif %}
 
-		{% include template with { content: subBlockContent, section: section } %}		
+		<div class="block mb-6">
+			{% include template with { content: subBlockContent, section: section } %}		
+		</div>
 	{% endif -%}
 {% endblock %}
