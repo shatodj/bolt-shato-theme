@@ -12,6 +12,13 @@
 
   --bulma-text-strong: hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l));
 
+  // fix visibility of the outlined button
+  .button.is-outlined {
+    --bulma-button-h: var(--bulma-hero-h);
+    --bulma-button-s: var(--bulma-hero-s);
+    --bulma-button-l: var(--bulma-hero-color-l);
+  }
+
   .content {
     --bulma-content-blockquote-background-color: hsl(
       var(--bulma-hero-h),

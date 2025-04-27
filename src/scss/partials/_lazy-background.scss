@@ -80,6 +80,17 @@
                     0
                 );
             }
+
+            &.with-boxed-section-body {
+                .title, .subtitle, .content, .button {
+                    background: hsl(
+                        var(--bulma-hero-h), 
+                        var(--bulma-hero-s), 
+                        var(--bulma-hero-background-l)
+                    );
+                    padding: 20px;
+                }
+            }
         }
     }
 

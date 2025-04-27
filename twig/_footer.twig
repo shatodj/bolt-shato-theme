@@ -1,8 +1,8 @@
 {% import "twig/partials/_macros.twig" as m %}
 
 {% set footerTaxonomyGroup = 'footer' %}
-{% set themeConfig = config.get('theme') %}
-{% set isParalax = themeConfig.layout.use_paralax|default(true) %}
+{# {% set themeConfig = config.get('theme') %} #}
+{# {% set isParalax = themeConfig.layout.use_paralax|default(true) %} #}
 
 {# Footer #}
 
@@ -13,7 +13,7 @@
         {% set extraClass = config.get("theme/layout/class/footer")|default %}
         {% set groupName = "footer" %}
 
-	    {% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): groupName } %}
+	    {% setcontent sections = 'sections' where { 'sectiongroups' : groupName } %}
 
         {% for section in sections %}
             {% include "twig/partials/_sub_section.twig" with {
@@ -23,4 +23,13 @@
             } %}
         {% endfor %}
     </footer>
+    {#
+        <div class="section shpr-section {{ theme.layout.class.copyright|default('is-section-light') }} copyright">
+            <div class="container">
+                {% setcontent copyright = 'block/copyright' %}
+                {% set defaultCopyright = __("SHato's Bolt Webpack Boilerplate Theme (c) %date% All rights reserved.", { '%date%': "now"|date("Y") }) %}
+                {{ copyright.content|default(copyright.teaser|default(defaultCopyright)) }}
+            </div>
+        </div>
+    </footer> #}
 {% endblock %}

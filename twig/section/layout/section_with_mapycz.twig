@@ -1,0 +1,20 @@
+{% extends "twig/section/layout/_sub_section_layout.twig" %}
+
+{% set mapyczId = config.get("theme/feature/mapycz_id") %}
+
+{% block section %}
+    {% if mapyczId|default is not empty %}
+
+        {% set mapaczAttr = 'data-mapycz-id="' ~ mapyczId|default ~ '"'  %}
+    
+        <div class="shpr-lazy-background" {{ mapaczAttr|raw }}>
+            <div class="shpr-background shpr-background-overlay"></div>
+            <div class="shpr-background shpr-background-mapycz"></div>
+
+            {{ parent() }}
+        </div>
+
+    {% else %}
+        {{ parent()}}
+    {% endif %}
+{% endblock %}

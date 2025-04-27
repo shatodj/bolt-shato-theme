@@ -7,9 +7,9 @@
 {% block section %}
 
     {% embed template with {
-        section: section,
-        image: section.image|default,
         extraClass: extraClass,
+        image: section.image|default,
+        section: section,
         isParalax: isParalax|default(false)
     } %}
         {% block section_content %}

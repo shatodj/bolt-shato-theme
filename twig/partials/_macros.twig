@@ -134,7 +134,7 @@
 	{% set extraClass = config.get("theme/layout/class/section")|default %}
 
 	{# Get All blocks by the group #}
-	{% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): groupName } %}
+	{% setcontent sections = 'sections' where { 'sectiongroups': groupName } %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
@@ -149,7 +149,6 @@
 {# Section macro #}
 {# Create section from block content type by the record's related #}
 {% macro sectionsByRecord(record, isParalax = false) %}
-	{% set themeSection = config.get('theme/section') %}
 	{% set extraClass = config.get("theme/layout/class/section")|default %}
 
 	{# Get All related blocks mapped to the record #}
@@ -159,11 +158,13 @@
 	{% for section in sections %}
 		{% set section = section|selected %}
 
-		{% include "twig/partials/_sub_section.twig" with {
-			section: section,
-			extraClass: extraClass,
-			isParalax: isParalax|default(false)
-		}%}
+		{% if section|default is not empty and section.status == 'published' %}
+			{% include "twig/partials/_sub_section.twig" with {
+				section: section,
+				extraClass: extraClass,
+				isParalax: isParalax|default(false)
+			}%}
+		{% endif %}
 
 	{% endfor %}
 {% endmacro %}

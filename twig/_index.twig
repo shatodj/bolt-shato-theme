@@ -12,48 +12,16 @@
 	{{ m.script('dist/js/homepage-bundle.js') }}
 {% endblock %}
 
-{% set themeConfig = config.get('theme') %}
-{% set isParalax = themeConfig.layout.use_paralax|default(true) %}
-{% set homepageContentBlock = themeConfig.section.homepage_block|default('homepage') %}
-{% setcontent homepage = homepageContentBlock limit 1 returnsingle %}
+{% set themeConfig = config.get('theme/layout/sections/index') %}
 
-{% block document %}
-	{% set htmlClass = theme.layout.sections.index.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
-	{{ parent() }}
-{% endblock %}
+{% setcontent record = 'homepage' limit 1 returnsingle %}
 
-{% block navbar %}
-	{% 
-		include "navbar.twig" with { 
-			isTransparent: theme.layout.sections.index.is_navbar_transparent,
-			isFixed: theme.layout.sections.index.is_navbar_fixed,
-			navbarClassSuffix: theme.layout.sections.index.navbar_alignment,
-			hasBrandLogo: theme.layout.sections.index.has_navbar_logo
-		}	
-	%}
-{% endblock %}
-
-{% block content %}
-	{% block record_edit %}
-		{% include "twig/partials/_record_edit.twig" with { record: homepage }%}
-	{% endblock %}
-
-	{% block body %}
-		{% block record_header %}
-			{% if homepage %}
-				{% set themeLayout = themeConfig.layout.sections.index %}
-				{% include "twig/partials/_record_header.twig" with { extraClass: themeLayout.header_extra_class } %}
-			{% endif %}
-		{% endblock %}
-
-		{# {% with { excludedFields: ['image', 'teaser', 'introduction', 'content', 'seo', 'sections'] } %}
-		{{ block("record_body") }}
-		{% endwith %} #}
-		
-		{{ block("record_footer") }}
-	{% endblock %}
-
-	{% block sections %}
-		{{ m.sectionsByRecord(homepage, isParalax) }}
-	{% endblock %}
+{% block body %}
+	{{ block("record_header") }}
+	
+	{# {% with { excludedFields: ['image', 'teaser', 'introduction', 'content', 'seo', 'sections'] } %}
+	{{ block("record_body") }}
+	{% endwith %} #}
+	
+	{{ block("record_footer") }}
 {% endblock %}

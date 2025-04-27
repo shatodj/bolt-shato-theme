@@ -8,8 +8,28 @@
         .title {
             --bulma-title-color: var(--bulma-primary);
         }
-    }
+    
 
-    // contrast color quotes
-    --shpr-quote-background-color: var(--bulma-link);
+        // contrast buttons
+        &.is-primary {
+            .button.is-outlined {
+                --bulma-button-h: var(--bulma-link-h);
+                --bulma-button-s: var(--bulma-link-s);
+                --bulma-button-l: var(--bulma-link-l);
+            }
+        }
+
+        .button.is-outlined {
+            --bulma-button-h: var(--bulma-primary-h);
+            --bulma-button-s: var(--bulma-primary-s);
+            --bulma-button-l: var(--bulma-primary-l);
+        }
+
+        // contrast color quotes
+        &.is-primary {
+            --shpr-quote-background-color: var(--bulma-link);
+        }
+
+        --shpr-quote-background-color: var(--bulma-primary);
+    }
 }

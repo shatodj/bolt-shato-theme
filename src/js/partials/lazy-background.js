@@ -4,7 +4,7 @@ import inView from "in-view";
 import progressiveImage from "./progressive-image.js";
 import youtubeVideoOverlay from "./youtube-video-overlay.js";
 import videoOverlay from "./video-overlay.js";
-import googeMapOverlay from "./googe-map-overlay.js";
+import mapyczOverlay from "./mapycz-overlay.js";
 
 /**
  * Proccess element / section
@@ -45,11 +45,11 @@ const proccessElement = (element) => {
     );
   }
 
-  if (element.dataset.googleMapId != null) {
-    const { googleMapId } = element.dataset;
-    googeMapOverlay(
-      googleMapId,
-      element.querySelector(".shpr-background-google-map"),
+  if (element.dataset.mapyczId != null) {
+    const { mapyczId } = element.dataset;
+    mapyczOverlay(
+      mapyczId,
+      element.querySelector(".shpr-background-mapycz"),
       () => {
         element.classList.add("is-loaded");
       },

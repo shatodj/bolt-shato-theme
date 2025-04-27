@@ -17,7 +17,7 @@
 			} %}
 
 			{% set listClass = content|length == 1 ? listClassWide|default(defaults.classListWide) : listClass|default(defaults.classList) %}
-			{% set template =  section.content_block_template|default('twig/section/block/content/content.twig') %}
+			{% set template =  section.section_block_content_template|default('twig/section/block/content/_sub_content.twig') %}
 			
 			<ul class="{{ listClass }}" {{ listExtraAttributes|default(defaults.listExtraAttributes) }}>
 				{%- for entry in content|filter(e => e.status == 'published') -%}

@@ -2,12 +2,15 @@
 {% block section_content_list_blocks %}
 	{% set subBlockContent = [] %}
 
-	{%- if section.contentlink|default is not empty and not (section.contentlink starts with 'http') %}
-		{% setcontent subBlockContent = section.contentlink where {status: 'published'} orderby 'publishedAt' limit section.contentlimit|default(0) %}
+	{%- if section.section_block_link|default is not empty and not (section.contentlink starts with 'http') %}
+		{% setcontent subBlockContent = section.section_block_link where { 
+			status: 'published'
+		} orderby 'publishedAt' limit section.section_block_limit|default(0) %}
 	{% endif %}
 
-	{% if section.contentselect|default is not empty %}
-		{% set subBlockContent = subBlockContent|merge(section.contentselect|selected) %}
+	{% if section.section_block_select|default is not empty %}
+	    {% set selectedBlocks = section.section_block_select|selected|filter(e => e.status == 'published') %}
+		{% set subBlockContent = subBlockContent|merge(selectedBlocks) %}
 	{% endif %}
 
 	{% if subBlockContent is not empty %}
@@ -15,8 +18,8 @@
 		{# Generate template name in case is contenttemplate is not defined #}
 		{% if content_list_template|default is not empty %}
 			{% set template = content_list_template %}
-		{% elseif section.content_list_template|default is not empty %}
-			{% set template = section.content_list_template %}
+		{% elseif section.section_block_list_template|default is not empty %}
+			{% set template = section.section_block_list_template %}
 		{% else %}
 			{% set templateSubPath = subBlockContent is iterable ? 'listing/_sub_listing' : 'content/_sub_content' %}
 			{% set template = 'twig/section/block/' ~ templateSubPath ~ '.twig' %}
