@@ -2,6 +2,8 @@
 
     {% block header_content %}
 
+        {% set title = section.header_title|default(section.title)|default("")  %}
+
         {% block header_content_anchor %}
             {% if section.slug is defined %}
                 <div class="shpr-section-anchor" id="{{ section.slug }}"></div>
@@ -9,7 +11,7 @@
         {% endblock %}
 
         {% block header_content_title %}
-            <h1 class="title is-1 is-3-mobile is-spaced">{{ section.header_title|default }}</h1>
+            <h1 class="title is-1 is-3-mobile is-spaced">{{ title }}</h1>
         {% endblock %}
         
         {# {% if includeInfo|default(false) %}

@@ -12,9 +12,10 @@
 
 {% set themeConfig = config.get('theme/layout/sections/record') %}
 {% set isParalax = themeConfig.is_paralax|default(false) %}
+{% set excludedFieldsMandatory = ['seo', 'teaser', 'header_title', 'title', 'template', 'sections'] %}
 
 {% block document %}
-	{% set htmlClass = themeConfig.is_navbar_transparent|default == false ? "has-navbar-fixed-top" %}
+	{% set htmlClass = themeConfig.is_navbar_animated|default == false ? "has-navbar-fixed-top" %}
 
 	{{ parent() }}
 {% endblock %}
@@ -22,7 +23,7 @@
 {% block navbar %}
 	{% 
 		include "navbar.twig" with { 
-			isTransparent: themeConfig.is_navbar_transparent,
+			isAnimated: themeConfig.is_navbar_animated,
             isFixed: themeConfig.is_navbar_fixed,
 			navbarClassSuffix: themeConfig.navbar_alignment,
 			hasBrandLogo: themeConfig.has_navbar_logo
@@ -32,6 +33,9 @@
 
 {% block content %}
 	{% if record is defined %}
+
+        {% set ef = excludedFields|default([])|merge(excludedFieldsMandatory) %}
+
         {% block record_edit %}
             {% include "twig/partials/_record_edit.twig" %}
         {% endblock %}
@@ -43,11 +47,10 @@
                 {% endblock %}
 
                 {% block record_body %}
-                    {% set ef = excludedFields|default([]) %}
                     {%- set recordContent -%}
                         {% apply spaceless %}
                             {% block fields %}
-                                {% with { 'record': record, exclude: ef|merge(['teaser']) } %}
+                                {% with { 'record': record, exclude: ef } %}
                                 {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
                                 {% endwith %}
                             {% endblock %}

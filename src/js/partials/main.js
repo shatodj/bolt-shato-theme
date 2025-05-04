@@ -5,7 +5,6 @@ import lightbox from "../components/lightbox.js";
 import navbar from "../components/navbar.js";
 import feed from "../components/feed.js";
 import lazyMedia from "./lazy.js";
-import scaredElement from "../components/scared-element.js";
 import lazySectionBackground from "./lazy-background.js";
 import marquee from "../components/marquee.js";
 import quote from "../components/quote.js";
@@ -37,14 +36,11 @@ export default () =>
       // Waiting for lazy modules to be loaded
       lightbox({ selector: ".use-magnific", delegate: "a.magnific" });
 
-      // hiding navbar on first home section (when menu is visible)
-      scaredElement(".navbar", ".hero-body>.container .title");
-
       // Feed item (read more)
       feed({ selector: ".feed-item" });
 
       // navbar animation
-      navbar(".navbar.is-transparent", 50);
+      navbar(".navbar.is-animated", 50);
 
       // marquee
       marquee({ selector: ".marquee" });

@@ -61,10 +61,10 @@
 		</div>
 	{% endset %}
 
-	{% embed "twig/section/layout/_sub_section.twig" with { 
+	{% embed "twig/section/layout/_sub_section_layout.twig" with { 
 		bgColor: 'primary',
         isParalax: false,
-		class: extraClass|default(config.get('theme/layout/class/header_record'))
+		extraClass: "section",
 	} %}
 		{% block section_content %}
 			{{ content }}

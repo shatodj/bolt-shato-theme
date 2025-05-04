@@ -4,9 +4,10 @@
     {% endwith %}
 {% else %}
     {% set class = extraClass|default ~ " " ~ config.get("theme/layout/class/header") %}
-    {% set template = record.header_section_template|default("twig/section/layout/_sub_section_layout.twig") %}
-    
-    {% embed template with { 
+    {% set template_layout = record.header_section_template|default("twig/section/layout/_sub_section_layout.twig") %}
+    {% set template_content = record.header_content_template|default("twig/header/_sub_header_content.twig") %}
+
+    {% embed template_layout with { 
         extraClass: class,
         image: record.header_image,
         embedded: record.header_embedded,
@@ -14,10 +15,10 @@
         isParalax: false
     } %}
         {% block content %}
-            {% set template = record.header_content_template|default("twig/header/_sub_header_content.twig") %}
+            
             
             <div class="container">
-                {% include template with { section: record, extraClass: extraClass } %}
+                {% include template_content with { section: record, extraClass: extraClass } %}
             </div>
         {% endblock %}
 

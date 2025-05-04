@@ -3,9 +3,20 @@
 	{% set subBlockContent = [] %}
 
 	{%- if section.section_block_link|default is not empty and not (section.contentlink starts with 'http') %}
-		{% setcontent subBlockContent = section.section_block_link where { 
-			status: 'published'
-		} orderby 'publishedAt' limit section.section_block_limit|default(0) %}
+		
+		{% set limitCount = section.section_block_limit|default(0) %}
+
+		{% if limitCount > 0  %}
+			{% setcontent subBlockContent = section.section_block_link where { 
+				status: 'published'
+			}  orderby 'publishedAt' limit limitCount %}
+
+		{% else %}
+			{% setcontent subBlockContent = section.section_block_link where { 
+				status: 'published'
+			}  orderby 'publishedAt' %}
+	
+		{% endif %}
 	{% endif %}
 
 	{% if section.section_block_select|default is not empty %}

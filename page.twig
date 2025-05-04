@@ -12,6 +12,11 @@
     {{ m.script('dist/js/page-bundle.js') }}
 {% endblock %}
 
+{% block content %}
+    {% set excludedFields = ["header_title"] %}
+    {{ parent() }}
+{% endblock %}
+
 {# Standard SECTIONS #}
 {% block sections %}
     {{ m.sectionsByRecord(record) }}

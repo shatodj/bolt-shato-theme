@@ -5,3 +5,31 @@
 }%}
     {{ block('hero', "section_blocks.twig") }}
 {%- endwith -%} #}
+
+{% if record|default is empty %}
+    {% with {'message': "The 'record' is not defined"} %}
+    {{ block('error_block', "blocks.twig")}}
+    {% endwith %}
+{% else %}
+    {% set class = extraClass|default ~ " " ~ config.get("theme/layout/class/header") %}
+    {% set template = record.header_section_template|default("twig/section/layout/_sub_section_layout.twig") %}
+    
+    {% embed template with { 
+        extraClass: class,
+        isParalax: false
+    } %}
+        {% block content %}
+            {% set template = record.header_content_template|default("twig/header/_sub_header_content.twig") %}
+            
+            <div class="container">
+                {% include template with { section: record, extraClass: extraClass } %}
+            </div>
+        {% endblock %}
+
+        {% block section_content %}
+            <div class="hero-body">
+                {{ parent() }}
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endif %}

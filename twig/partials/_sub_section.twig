@@ -1,12 +1,14 @@
 {# Required: section #}
 {# Optional: extraClass, isParalax #}
 
-{% set template = section.section_layout_template|default("twig/section/layout/_sub_section_layout.twig") %}
+{% set template_layout = section.section_layout_template|default("twig/section/layout/_sub_section_layout.twig") %}
 {% set template_content = section.section_content_template|default("twig/section/content/_sub_section_content.twig") %}
 
 {% block section %}
 
-    {% embed template with {
+    {% set extraContent = extraContent|default("") %}
+
+    {% embed template_layout with {
         extraClass: extraClass,
         image: section.image|default,
         section: section,
@@ -16,6 +18,8 @@
             <div class="hero-body">
                 <div class="container">
                     {% include template_content with { section: section } %}
+
+                    {{ extraContent }}
                 </div>
 
                 {# Edit section record #}
