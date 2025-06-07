@@ -1,7 +1,5 @@
-{% extends 'twig/partials/_master.twig' %}
+{% extends 'twig/_record.twig' %}
 {% import "twig/partials/_macros.twig" as m %}
-
-{% setcontent record = 'blocks/404-not-found' %}
 
 {% block stylesheet %}
 	{# Defer loading of non-critical styles #}
@@ -12,25 +10,23 @@
 	{{ m.script('dist/js/record-bundle.js') }}
 {% endblock %}
 
-{% set sectionClass = "section is-medium section-not-found" %}
+{% block document %}
+	{% set htmlClass = theme.layout.sections.listing.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+	{{ parent() }}
+{% endblock %}
 
 {% block content %}
 
-	<section class="{{ sectionClass }}">
-		<div class="container">
-			<div class="content">
-				{% if record %}
-					<h1 class="title">{{ record|title|default('404 not found') }}</h1>
-					{{ record.content|default('<p>The requested page was not found.</p>')|raw }}
-				{% else %}
-					<h1 class="title">404 not found</h1>
-					<p>
-						{{ __("The requested page was not found.") }}
-					</p>
-				{% endif %}
-			</div>
+	{% set sectionClass = "hero is-primary is-medium section-not-found shpr-section" %}
 
+	{% setcontent section = 'section/404-not-found' %}
+
+	{% embed "twig/partials/_sub_section.twig" with {
+		section: section,
+		extraClass: sectionClass
+	} %}
+		{% set extraContent %}
 			{% include "twig/partials/_sub_search_form.twig" %}
-		</div>
-	</section>
+		{% endset %}
+	{% endembed %}
 {% endblock content %}

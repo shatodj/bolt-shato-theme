@@ -1,5 +1,7 @@
-{% extends "record.twig" %}
+{% extends "twig/_record.twig" %}
 {% import "twig/partials/_macros.twig" as m %}
+
+{% set excludedFields = ['image', 'seo'] %}
 
 {% block stylesheet %}
     {# Defer loading of non-critical styles #}
@@ -10,8 +12,9 @@
     {{ m.script('dist/js/page-bundle.js') }}
 {% endblock %}
 
-{% block document %}
-	{{ parent() }}
+{% block content %}
+    {% set excludedFields = ["header_title"] %}
+    {{ parent() }}
 {% endblock %}
 
 {# Standard SECTIONS #}

@@ -1,0 +1,13 @@
+{# Required: links, is_centered #}
+
+{% block section_links %}
+    {% if links|default([])|length > 0 %}
+		<nav class="shpr-actions columns">
+			<div class="column {{ extraClass|default('') }}">
+				{% for link in links %}	
+					<a href="{{ link.contentlink }}" class="button is-outlined">{{ link.title|markdown|excerpt(45) }}</a>
+				{% endfor %}
+			</div>
+		</nav>
+	{% endif %}
+{% endblock %}

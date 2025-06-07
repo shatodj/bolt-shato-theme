@@ -1,72 +1,80 @@
 # template_directory: twig
 homepage: 'homepage'
 
-# NOTE: - Extra classes help:
-# with-transparent-overlay
-# with-semi-transparent-overlay
-# is-fullheight
-# has-text-centered
+# NOTE: - Extra classes that can helkp you to customize the theme:
+# - with-transparent-overlay
+#   Add transparent overlay to the hero or section
+# 
+# - with-semi-transparent-overlay
+#   Add semi-transparent overlay to the hero or section
+# 
+# - with-boxed-section-body
+#   Add boxed section body to the hero or section (can help to make the text more readable with transparent overlay)
+# 
+# - is-fullheight
+# - has-text-centered
 
 # Global layout settings
 layout:
-  use_paralax: true
   sections:
     index:
+      is_paralax: true
       is_navbar_fixed: true
-      is_navbar_transparent: true
-      has_navbar_logo: false
+      is_navbar_animated: true
+      has_navbar_logo: true
       navbar_alignment: start # start, end
-      header_extra_class: is-fullheight
+      header_extra_class: is-large  #is-fullheight is-halfheight
     record:
-      is_navbar_fixed: false
-      is_navbar_transparent: false
+      is_paralax: false
+      is_navbar_fixed: true
+      is_navbar_animated: true
       has_navbar_logo: false
       navbar_alignment: start # start, end
       header_extra_class: is-medium
     entry:
+      is_paralax: false
       is_navbar_fixed: false
-      is_navbar_transparent: false
+      is_navbar_animated: false
       has_navbar_logo: false
       navbar_alignment: start # start, end
       header_extra_class: is-medium 
     listing:
-      is_navbar_fixed: false
-      is_navbar_transparent: false
+      is_paralax: false
+      is_navbar_fixed: true
+      is_navbar_animated: false
       has_navbar_logo: false
       navbar_alignment: start # start, end
-      header_extra_class: is-small
-    
+      header_extra_class: is-medium
+  
+  # NOTE: for additional theme customization check the following files:
+  # - js/custom.js
+  # - scss/custom.scss
+
   class:
     html: "theme-light"
-    navbar: is-link
-    header: hero is-link is-bold with-transparent-overlay
-    section: section is-medium is-small
-    footer: footer has-text-light has-background-link theme-dark
+    navbar: is-primary
+    header: hero is-primary is-bold with-semi-transparent-overlay #with-transparent-overlay #with-semi-transparent-overlay
+    section: hero is-medium # with-semi-transparent-overlay
+    footer: hero is-medium with-transparent-overlay with-boxed-section-body
     copyright: section is-small has-text-centered
   
 # Section content blocks specs.
 section:
-  homepage_block: homepage
   homepage_template: index.twig
-  # Section block name. 
-  # Recommended value: sections
-  sectionblock_name: sections 
-  # Section block taxonomy name. 
-  # Recommended value: sectiongroups
-  taxonomy_name: sectiongroups
-  # Sections color iteration 
-  # eg: ['light', 'primary', 'dark'] 
-  # color_iteration: ['light', 'dark'] 
 
 navbar:
   is_full_width: false
   use_search_bar: false
   menu_id: main
 
-footer:
-  menu_id: social
-  menu_template: twig/partials/_sub_menu_social.twig # twig/partials/_sub_menu_social.twig or twig/partials/_sub_menu_footert.twig
-  contact_form_id: contact # Contact form located in the footer. If empty no contact form will be used in the footer
+feature:
+  contact_form_id: contact # Contact form located in the feature section. If empty no contact form will be used in the feature section
+  mapycz_id: hozunuveso # Map ID from Mapy.cz to pin the map location
+
+# footer:
+  # menu_id: social
+  # menu_template: twig/partials/_sub_menu_social.twig # twig/partials/_sub_menu_social.twig or twig/partials/_sub_menu_footert.twig
+  # contact_form_id: contact # Contact form located in the footer. If empty no contact form will be used in the footer
   # contact_form_id: "" # Contact form located in the footer. If empty no contact form will be used in the footer
 
 # Thumbnails configuration

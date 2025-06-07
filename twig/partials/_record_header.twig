@@ -2,27 +2,30 @@
     {% with {'message': "The 'record' is not defined"} %}
     {{ block('error_block', "blocks.twig")}}
     {% endwith %}
-
 {% else %}
-    
-    {% set content %}
-        <div class="container">
-            {% block header_content %}
-                {% with { 'section': record } %}
-                {{ block('hero_content', "section_blocks.twig") }}
-                {%- endwith -%}
+    {% set class = extraClass|default ~ " " ~ config.get("theme/layout/class/header") %}
+    {% set template_layout = record.header_section_template|default("twig/section/layout/_sub_section_layout.twig") %}
+    {% set template_content = record.header_content_template|default("twig/header/_sub_header_content.twig") %}
 
-                {{ extraContent|default }}
-            {% endblock %}
-        </div>
-    {% endset %}
-    
-    {% with { 
-        content: content,
-        image: record.image|default,
-        class: extraClass|default('')
-    }%}
-        {{ block('hero', "section_blocks.twig") }}
-    {%- endwith -%}
+    {% embed template_layout with { 
+        extraClass: class,
+        image: record.header_image,
+        embedded: record.header_embedded,
+        video: record.header_video_file,
+        isParalax: false
+    } %}
+        {% block content %}
+            
+            
+            <div class="container">
+                {% include template_content with { section: record, extraClass: extraClass } %}
+            </div>
+        {% endblock %}
 
+        {% block section_content %}
+            <div class="hero-body">
+                {{ parent() }}
+            </div>
+        {% endblock %}
+    {% endembed %}
 {% endif %}

@@ -10,25 +10,32 @@
     {{ m.script('dist/js/record-bundle.js') }}
 {% endblock %}
 
+{% set themeConfig = config.get('theme/layout/sections/record') %}
+{% set isParalax = themeConfig.is_paralax|default(false) %}
+{% set excludedFieldsMandatory = ['seo', 'teaser', 'header_title', 'header_content', 'title', 'template', 'sections',] %}
+
 {% block document %}
-	{% set htmlClass = theme.layout.sections.record.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+	{% set htmlClass = themeConfig.is_navbar_animated|default == false ? "has-navbar-fixed-top" %}
+
 	{{ parent() }}
 {% endblock %}
 
 {% block navbar %}
 	{% 
 		include "navbar.twig" with { 
-			isTransparent: theme.layout.sections.record.is_navbar_transparent,
-            isFixed: theme.layout.sections.record.is_navbar_fixed,
-			navbarClassSuffix: theme.layout.sections.record.navbar_alignment,
-			hasBrandLogo: theme.layout.sections.record.has_navbar_logo
+			isAnimated: themeConfig.is_navbar_animated,
+            isFixed: themeConfig.is_navbar_fixed,
+			navbarClassSuffix: themeConfig.navbar_alignment,
+			hasBrandLogo: themeConfig.has_navbar_logo
 		}	
 	%}
 {% endblock %}
 
 {% block content %}
-
 	{% if record is defined %}
+
+        {% set ef = excludedFields|default([])|merge(excludedFieldsMandatory) %}
+
         {% block record_edit %}
             {% include "twig/partials/_record_edit.twig" %}
         {% endblock %}
@@ -36,16 +43,14 @@
         <article>
             {% block body %}
                 {% block record_header %}
-                    {% set themeLayout = theme.layout.sections.record %}
-                    {% include "twig/partials/_record_header.twig" with { extraClass: themeLayout.header_extra_class} %}
+                    {% include "twig/partials/_record_header.twig" with { extraClass: themeConfig.header_extra_class} %}
                 {% endblock %}
 
                 {% block record_body %}
-                    {% set ef = excludedFields|default([]) %}
                     {%- set recordContent -%}
                         {% apply spaceless %}
                             {% block fields %}
-                                {% with { 'record': record, exclude: ef|merge(['teaser']) } %}
+                                {% with { 'record': record, exclude: ef } %}
                                 {{ block('sub_fields', 'twig/partials/_sub_blocks_field.twig') }}
                                 {% endwith %}
                             {% endblock %}
@@ -78,8 +83,7 @@
 
 	{# Standard SECTIONS #}
 	{% block sections %}
-        {{ m.sectionsByRecord(record) }}
-		{{ m.sectionsByGroup("record") }}
+        {{ m.sectionsByRecord(record, isParalax) }}
 	{% endblock %}
 
-{% endblock content %}
+{% endblock %}

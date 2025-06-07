@@ -7,8 +7,10 @@
 
 	{% set content %}
 		<div class="container">
-			{# include the 'default' links to taxonomies. Check the documentation for ways to modify and customize
-			                            what is output to the browser: https://docs.bolt.cm/contenttypes/taxonomies#displaying-taxonomies-in-templates #}
+			{# 
+				include the 'default' links to taxonomies. Check the documentation for ways to modify and customize
+				what is output to the browser: https://docs.bolt.cm/contenttypes/taxonomies#displaying-taxonomies-in-templates
+			 #}
 			
 			{{ include('twig/partials/_sub_taxonomylinks.twig', { record: record }) }}
 
@@ -59,15 +61,15 @@
 		</div>
 	{% endset %}
 
-	{% with { 
-        content: content,
-        bgColor: 'primary',
+	{% embed "twig/section/layout/_sub_section_layout.twig" with { 
+		bgColor: 'primary',
         isParalax: false,
-        class: extraClass|default(config.get('theme/layout/class/header_record'))
-    }%}
-	{{ block('section', "section_blocks.twig") }}
-	{%- endwith -%}
-
+		extraClass: "section",
+	} %}
+		{% block section_content %}
+			{{ content }}
+		{% endblock %}
+	{% endembed %}
 {% endif %}
 
 {# This file is inserted as the 'footer' of each listed record. #}

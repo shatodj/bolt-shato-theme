@@ -1,0 +1,10 @@
+{% block section %}
+    {# Actual section with content #}
+    <section class="{{ extraClass|default }} shpr-section">
+        {% block section_content %}
+            {% block content %}
+                <pre>content</pre>	
+            {% endblock %}
+        {% endblock %}
+    </section>
+{% endblock %}

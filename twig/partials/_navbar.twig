@@ -1,13 +1,13 @@
 {# Navbar #}
 
-{% set isTransparentClass = isTransparent|default == true ? "is-transparent" : "" %}
+{% set isAnimatedClass = isAnimated|default == true ? "is-animated" : "" %}
 {% set isFixedClass = isFixed|default == true ? 'is-fixed-top' : "" %}
 {% set navbarClassSuffix = navbarClassSuffix|default("end") %}
 {% if hasBrandLogo is not defined %}
     {% set hasBrandLogo = true %}
 {% endif %}
 
-<nav id="navbar-toggle" class="navbar {{ isTransparentClass }} {{ isFixedClass}} {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
+<nav id="navbar-toggle" class="navbar {{ isAnimatedClass }} {{ isFixedClass }} {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
     <div class="container {{ theme.navbar.is_full_width ? "is-fluid" }}">
        {% if hasBrandLogo  %}
             <div class="navbar-brand shpr-brand">

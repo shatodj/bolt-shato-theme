@@ -1,0 +1,43 @@
+
+{% block section_content_list_blocks %}
+	{% set subBlockContent = [] %}
+
+	{%- if section.section_block_link|default is not empty and not (section.contentlink starts with 'http') %}
+		
+		{% set limitCount = section.section_block_limit|default(0) %}
+
+		{% if limitCount > 0  %}
+			{% setcontent subBlockContent = section.section_block_link where { 
+				status: 'published'
+			}  orderby 'publishedAt' limit limitCount %}
+
+		{% else %}
+			{% setcontent subBlockContent = section.section_block_link where { 
+				status: 'published'
+			}  orderby 'publishedAt' %}
+	
+		{% endif %}
+	{% endif %}
+
+	{% if section.section_block_select|default is not empty %}
+	    {% set selectedBlocks = section.section_block_select|selected|filter(e => e.status == 'published') %}
+		{% set subBlockContent = subBlockContent|merge(selectedBlocks) %}
+	{% endif %}
+
+	{% if subBlockContent is not empty %}
+	
+		{# Generate template name in case is contenttemplate is not defined #}
+		{% if content_list_template|default is not empty %}
+			{% set template = content_list_template %}
+		{% elseif section.section_block_list_template|default is not empty %}
+			{% set template = section.section_block_list_template %}
+		{% else %}
+			{% set templateSubPath = subBlockContent is iterable ? 'listing/_sub_listing' : 'content/_sub_content' %}
+			{% set template = 'twig/section/block/' ~ templateSubPath ~ '.twig' %}
+		{% endif %}
+
+		<div class="block mb-6">
+			{% include template with { content: subBlockContent, section: section } %}		
+		</div>
+	{% endif -%}
+{% endblock %}

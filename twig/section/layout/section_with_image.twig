@@ -1,0 +1,24 @@
+{% extends "twig/section/layout/_sub_section_layout.twig" %}
+
+{# Required: content #}
+{# Optional: isParalax, image, embedded, extraClass  #}
+{% block section %}
+
+	{# Section images initialization #}
+	{% if image|default is not empty %}
+		{% import "twig/partials/_macros.twig" as m %}	
+		{% set bgImages = m.progressive_thumbimage(image) %}
+	{% endif %}
+
+	{% if bgImages|default is not empty %}
+		{% set bgImagesAttr = 'data-src="' ~ bgImages|default ~ '"' %}
+	
+		<div class="shpr-lazy-background" {{ bgImagesAttr|raw }}>
+			<div class="shpr-background shpr-background-overlay"></div>
+
+			{{ parent() }}
+		</div>
+	{% else %}
+		{{ parent() }}
+	{% endif %}
+{% endblock %}

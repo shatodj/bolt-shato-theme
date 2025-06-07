@@ -10,19 +10,20 @@
 	{{ m.script('dist/js/listing-bundle.js') }}
 {% endblock %}
 
-{% block document %}
-	{% set htmlClass = theme.layout.sections.listing.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
+{% set themeConfig = config.get('theme/layout/sections/listing') %}
+
+{% block document %}        
+	{% set htmlClass = themeConfig.is_navbar_fixed|default == true ? "has-navbar-fixed-top" %}
 	{{ parent() }}
 {% endblock %}
-
 
 {% block navbar %}
 	{% 
 		include "navbar.twig" with { 
-			isTransparent: theme.layout.sections.listing.is_navbar_transparent,
-            isFixed: theme.layout.sections.listing.is_navbar_fixed,
-			navbarClassSuffix: theme.layout.sections.listing.navbar_alignment,
-			hasBrandLogo: theme.layout.sections.listing.has_navbar_logo
+			isAnimated: themeConfig.is_navbar_animated,
+            isFixed: themeConfig.is_navbar_fixed,
+			navbarClassSuffix: themeConfig.navbar_alignment,
+			hasBrandLogo: themeConfig.has_navbar_logo
 		}	
 	%}
 {% endblock %}

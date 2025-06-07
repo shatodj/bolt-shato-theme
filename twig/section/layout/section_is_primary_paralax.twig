@@ -1,0 +1,7 @@
+{% extends "twig/section/layout/_sub_section_layout_paralax.twig" %}
+
+{% block section %}
+    {% set extraClass = extraClass|default ~ " is-primary" %}
+    
+    {{ parent() }}
+{% endblock %}

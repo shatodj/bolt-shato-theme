@@ -1,0 +1,30 @@
+{# Required: section #}
+{# Optional: extraClass, isParalax #}
+
+{% set template_layout = section.section_layout_template|default("twig/section/layout/_sub_section_layout.twig") %}
+{% set template_content = section.section_content_template|default("twig/section/content/_sub_section_content.twig") %}
+
+{% block section %}
+
+    {% set extraContent = extraContent|default("") %}
+
+    {% embed template_layout with {
+        extraClass: extraClass,
+        image: section.image|default,
+        section: section,
+        isParalax: isParalax|default(false)
+    } %}
+        {% block section_content %}
+            <div class="hero-body">
+                <div class="container">
+                    {% include template_content with { section: section } %}
+
+                    {{ extraContent }}
+                </div>
+
+                {# Edit section record #}
+                {% include "twig/partials/_record_edit.twig" with { record: section, extraClass: "is-absolute" } %}
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

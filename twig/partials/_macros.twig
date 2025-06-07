@@ -129,68 +129,43 @@
 
 {# Section macro #}
 {# Create section from block content type by the group taxonomy. #}
-{% macro sectionsByGroup(groupName, isFooterSection = false, isParalax = false) %}
+{% macro sectionsByGroup(groupName, isParalax = false) %}
 	{% set themeSection = config.get('theme/section') %}
+	{% set extraClass = config.get("theme/layout/class/section")|default %}
 
 	{# Get All blocks by the group #}
-	{% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): groupName } %}
+	{% setcontent sections = 'sections' where { 'sectiongroups': groupName } %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
-
-		{# Set body of the section #}
-		{% set content %}
-			<div class="container">
-				{% with { 'section': section } %}
-				{{ block('section_content', "section_blocks.twig") }}
-				{%- endwith -%}	
-			</div>
-		{% endset %}
-		
-		
-		{% with { 
+		{% include "twig/partials/_sub_section.twig" with {
 			section: section,
-			content: content,
-			image: section.image,
-			isFooterSection: isFooterSection,
-			isParalax: isParalax|default(false) and loop.index > 1 
+			extraClass: extraClass,
+			isParalax: isParalax|default(false)
 		}%}
-			{{ block('section', "section_blocks.twig") }}
-		{%- endwith -%}
 	{% endfor %}
 {% endmacro %}
 
 {# Section macro #}
 {# Create section from block content type by the record's related #}
 {% macro sectionsByRecord(record, isParalax = false) %}
-	{% set themeSection = config.get('theme/section') %}
+	{% set extraClass = config.get("theme/layout/class/section")|default %}
 
 	{# Get All related blocks mapped to the record #}
-	{# {% set sections = record|related(themeSection.sectionblock_name) %} #}
 	{% set sections = record.sections %}
 
 	{# loop over the section with homepage group #}
 	{% for section in sections %}
 		{% set section = section|selected %}
 
-		{# Set body of the section #}
-		{% set content %}
-			<div class="container">
-				{% with { 'section': section } %}
-				{{ block('section_content', "section_blocks.twig") }}
-				{%- endwith -%}	
-			</div>
-		{% endset %}
+		{% if section|default is not empty and section.status == 'published' %}
+			{% include "twig/partials/_sub_section.twig" with {
+				section: section,
+				extraClass: extraClass,
+				isParalax: isParalax|default(false)
+			}%}
+		{% endif %}
 
-		{# set different color for each section #}
-		{% with { 
-			section: section,
-			content: content,
-			image: section.image|default,
-			isParalax: isParalax|default(false) and loop.index > 1 
-		}%}
-			{{ block('section', "section_blocks.twig") }}
-		{%- endwith -%}
 	{% endfor %}
 {% endmacro %}
 

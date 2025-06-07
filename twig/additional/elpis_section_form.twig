@@ -1,0 +1,22 @@
+{% extends "twig/partials/_form.twig" %}
+
+{% block form %}
+    {% set extraClass = extraClass|default ~ " is-form" %}
+
+    <div class="section {{ extraClass }}">
+        <div class="container">
+            <div class="content">
+                <h2>{{ title }}</h2>
+                <p>{{ description }}</p>
+            </div>
+        </div>
+    </div>
+
+    {% if theme.footer.contact_form_id is not empty %}
+        <div class="container">
+            <div class="content">
+                {{ boltform(theme.footer.contact_form_id) }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

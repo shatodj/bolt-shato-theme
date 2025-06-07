@@ -2,6 +2,9 @@
 /* eslint-disable no-console */
 import inView from "in-view";
 import progressiveImage from "./progressive-image.js";
+import youtubeVideoOverlay from "./youtube-video-overlay.js";
+import videoOverlay from "./video-overlay.js";
+import mapyczOverlay from "./mapycz-overlay.js";
 
 /**
  * Proccess element / section
@@ -21,6 +24,37 @@ const proccessElement = (element) => {
       element.classList.add("is-error");
     },
   );
+
+  if (element.dataset.embedded != null) {
+    youtubeVideoOverlay(
+      element.dataset.embedded,
+      element.querySelector(".shpr-background-video"),
+      () => {
+        element.classList.add("is-loaded");
+      },
+    );
+  }
+
+  if (element.dataset.video != null) {
+    videoOverlay(
+      element.dataset.video,
+      element.querySelector(".shpr-background-video"),
+      () => {
+        element.classList.add("is-loaded");
+      },
+    );
+  }
+
+  if (element.dataset.mapyczId != null) {
+    const { mapyczId } = element.dataset;
+    mapyczOverlay(
+      mapyczId,
+      element.querySelector(".shpr-background-mapycz"),
+      () => {
+        element.classList.add("is-loaded");
+      },
+    );
+  }
 };
 
 export default ({ elementSelector }) => {

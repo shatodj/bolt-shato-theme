@@ -1,70 +1,29 @@
 {% import "twig/partials/_macros.twig" as m %}
 
 {% set footerTaxonomyGroup = 'footer' %}
-{% set themeConfig = config.get('theme') %}
-{% set isParalax = themeConfig.layout.use_paralax|default(true) %}
+{# {% set themeConfig = config.get('theme') %} #}
+{# {% set isParalax = themeConfig.layout.use_paralax|default(true) %} #}
 
 {# Footer #}
 
 {% block footer_section %}
     <footer role="contentinfo">
-        {{ m.sectionsByGroup("footer", isFooterSection = true) }}
+        {# Get All blocks by the group #}
+        {% set themeSection = config.get('theme/section') %}
+        {% set extraClass = config.get("theme/layout/class/footer")|default %}
+        {% set groupName = "footer" %}
+
+	    {% setcontent sections = 'sections' where { 'sectiongroups' : groupName } %}
+
+        {% for section in sections %}
+            {% include "twig/partials/_sub_section.twig" with {
+                section: section,
+                extraClass: extraClass,
+                isParalax: isParalax|default(false)
+            } %}
+        {% endfor %}
     </footer>
-
-    {# <footer role="contentinfo">
-        <div class="{{ theme.layout.class.footer|default }}">
-            <div class="container">
-                {% set themeSection = config.get('theme/section') %}
-                {% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): footerTaxonomyGroup } %}
-
-                {% block footer_content %}
-                    {% set listData = listData|default({
-                        "slides-to-scroll": 1,
-                        "slides-to-show": 2
-                    }) %}
-
-                    <div class="shpr-footer-block">
-                        {% for section in sections %}
-                            {% with { section: section, listdata: listData, columnClass: 'column is-half' }%}
-                            {{ block('section_content', 'section_blocks.twig') }}
-                            {%- endwith -%}
-                        {% endfor %}
-
-                        {% set usedMenu = theme.footer.menu_id|default %}
-                        {% set menuTemplate = theme.footer.menu_template|default %}
-                        {% if usedMenu is defined %}
-                            {{ menu(usedMenu, menuTemplate) }}
-                        {% endif %}
-                    </div>
-                {% endblock %}
-            </div>
-        </div>
-    </footer> #}
-
-    {# <footer id="footer" role="contentinfo">
-        <div class="section is-medium shpr-section {{ theme.layout.class.footer|default('is-section-dark') }}">
-            <div class="container">
-
-                {% set themeSection = config.get('theme/section') %}
-		    	{% setcontent sections = themeSection.sectionblock_name where { (themeSection.taxonomy_name): footerTaxonomyGroup } %}
-
-                {% block footer_content %}  
-                    {% set listData = listData|default({
-                        "slides-to-scroll": 1,
-                        "slides-to-show": 2
-                    }) %}
-
-                    <div class="shpr-footer-block">
-                        {% for section in sections %}
-                            {% with { section: section, listdata: listData, columnClass: 'column is-half' }%}
-                            {{ block('section_content', 'section_blocks.twig') }}
-                            {%- endwith -%}
-                        {% endfor %}
-                    </div>
-                {% endblock %}
-                {{ widgets('footer') }}
-            </div>
-        </div>
+    {#
         <div class="section shpr-section {{ theme.layout.class.copyright|default('is-section-light') }} copyright">
             <div class="container">
                 {% setcontent copyright = 'block/copyright' %}

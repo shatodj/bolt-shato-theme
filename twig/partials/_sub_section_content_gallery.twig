@@ -1,0 +1,17 @@
+{% block section_content_gallery %}
+	{% set gallery = section.galleryContent|selected %}
+	{% set galleryTemplate = section.galleryTemplate|default %}
+
+	{# Generate template name in case is contenttemplate is not defined #}
+	{% if galleryTemplate is not empty %}
+		{% set template = galleryTemplate %}
+	{% else %}
+		{% set template = 'twig/gallery/gallery_grid.twig' %}
+	{% endif %}
+	
+	<div class="shpr-gallery">
+		<div class="use-magnific imagelist">
+			{% include template with { gallery: gallery, section: section } %}	
+		</div>
+	</div>
+{% endblock %}

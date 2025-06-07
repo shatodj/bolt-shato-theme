@@ -6,7 +6,6 @@
 {% set person = people[0]|default %}
 
 {% if person is not empty %}
-
   <article class="media block">
     <div class="media-left">
       {% include "twig/partials/_sub_image.twig" with { image: person.image, thumbname: 'person' } %}

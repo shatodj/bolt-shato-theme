@@ -1,23 +1,40 @@
+
+{% macro submenuMacro(submenu) %}
+	{% import _self as self %}
+	
+	<li class="navbar-item">
+		<a class="navbar-link is-arrowless" href="{{ submenu.link }}">{{ __(submenu.label) }}</a>
+	</li>
+
+	{% if submenu.submenu|default %}
+		<div class="is-pulled-right">
+			{% for submenu in submenu.submenu %}
+				{{ self.submenuMacro(submenu) }}
+			{% endfor %}
+		</div>
+	{% endif %}
+{% endmacro %}
+
 {% block menu %}
+
+	{% import _self as self %}
 
 	{% for item in menu %}
 		{% if item.submenu %}
-			<div class="navbar-item has-dropdown is-hoverable is-dark">
-				<span class="navbar-link is-arrowless">
+			<div class="navbar-item has-dropdown is-hoverable">
+				<span class="navbar-link">
 					{{ __(item.label) }}
 				</span>
 
 				<ul class="navbar-dropdown">
 					{% for submenu in item.submenu %}
-						<li class="navbar-item">
-							<a href="{{ submenu.link }}">{{ __(submenu.label) }}</a>
-						</li>
+						{{ self.submenuMacro(submenu) }}
 					{% endfor %}
 				</ul>
 			</div>
 		{% else %}
 			<li class="navbar-item">
-				<a href="{{ item.link }}">{{ __(item.label) }}</a>
+				<a class="navbar-link is-arrowless" href="{{ item.link }}">{{ __(item.label) }}</a>
 			</li>
 		{% endif %}
 	{% endfor %}

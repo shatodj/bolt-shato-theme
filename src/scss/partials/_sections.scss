@@ -1,23 +1,13 @@
-@use "bulma/sass/utilities/derived-variables" as dv;
-@use "bulma/sass/utilities/initial-variables" as iv;
 @use "bulma/sass/utilities/mixins";
 @use "bulma/sass/utilities/extends";
 
 .shpr-section {
 
+    position: relative;
+    
     .shpr-section-anchor {
         position: absolute;
         top: calc(var(--bulma-navbar-height) * -1);
-    }
-
-    position: relative;
-
-    &::before {
-        content: '';
-        background-color: var(--bulma-scheme-main-bis);
-        position: absolute;
-        top: 0; bottom: 0; left: 0; right: 0;
-        z-index: -2;
     }
 
     &.is-primary::before {

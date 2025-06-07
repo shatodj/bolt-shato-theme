@@ -1,4 +1,4 @@
-{% if app.user|default is not empty %}
+{% if record.author|default is not empty %}
     <div class="notification is-info meta is-italic">
         {{ __('general.phrase.written-by-on', {
             '%name%': record.author.displayname|default(__('Unknown')),

@@ -1,0 +1,11 @@
+{% extends "twig/section/block/listing/_sub_listing.twig" %}
+
+{# Custom Listing - displaying block  #}
+{% block contentlink_block %}
+    {% set listClass = 'columns slider is-size-7' %}
+    {% set listExtraAttributes = 'data-slides-to-show=4' %}
+    {% set columnClass = 'column' %}
+
+    {{ parent() }}
+{% endblock %}
+

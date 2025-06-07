@@ -1,0 +1,14 @@
+{% extends "twig/section/content/_sub_section_content.twig" %}
+
+{% set contactFormId = config.get('theme/feature/contact_form_id') %}
+
+{% block section_content %}
+    <div class="columns">
+        <div class="column">{{ parent() }}</div>
+        {% if contactFormId|default is not empty %}
+            <div class="column">
+                {{ boltform(contactFormId) }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

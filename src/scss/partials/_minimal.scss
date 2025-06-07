@@ -4,7 +4,6 @@
 @forward "sections";
 @forward "lazy";
 @forward "lazy-background";
-@forward "overlays";
 @forward "has-image-centered";
 
 .block:not(:last-child) {
@@ -71,7 +70,15 @@
 }
 
 .edit-record-bar {
-  position: fixed;
+
+  &.is-absolute {
+    position: absolute;
+  }
+
+  &.is-fixed {
+    position: fixed;
+  }
+
   bottom: 0; right: 0; left: 0;
   z-index: 10;
 }
@@ -127,12 +134,6 @@
 
   @media (max-width: 767px) {
     padding-top: 0;
-  }
-}
-
-.navbar {
-  .navbar-item, .navbar-link {
-    // color: var(--bulma-text-strong)
   }
 }
 
