@@ -7,9 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "npx rimraf dist",
     "prepare": "node scripts/prepare.mjs",
-    "build": "npm run format && npm run clear && npx webpack --config ./config/webpack.config.js --mode production",
-    "build:dev": "npm run format && npm run clear && npx webpack --config ./config/webpack.config.js",
-    "format": "eslint --format stylish ./src --fix"
+    "build": "npm run format && npm run clear && npx webpack --config ./config/webpack.config.mjs --mode production",
+    "build:dev": "npm run format && npm run clear && npx webpack --config ./config/webpack.config.mjs",
+    "format": "eslint --format stylish ./src --fix",
+    "archive": "node scripts/archive.mjs"
   },
   "keywords": [
     "Bolt",
@@ -56,10 +57,13 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
+    "archiver": "^7.0.1",
     "bulma": "^1.0.2",
     "bulma-carousel": "^4.0.24",
     "bulma-pricingtable": "^0.2.0",
+    "fs-extra": "^11.3.0",
     "fslightbox": "^3.4.1",
+    "glob": "^11.0.2",
     "in-view": "^0.6.1"
   }
 }
