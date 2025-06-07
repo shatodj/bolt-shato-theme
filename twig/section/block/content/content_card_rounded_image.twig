@@ -1,0 +1,17 @@
+{% extends "twig/section/block/content/content_card.twig" %}
+
+
+{% block contentlink_block_cart_image %}
+    <div class="card-content">
+        <figure class="image is-square">
+          {% set cardContent %}
+                {% import "twig/partials/_macros.twig" as m %}
+                {{ m.lazyImage(content.image, 'square', 'is-rounded') }}
+            {% endset %}
+            
+            {%- with { content: cardContent, link: content|link } -%}
+                {{ block("link_wrapper", "blocks.twig") }}
+            {%- endwith -%}
+        </figure>
+    </div>
+{% endblock %}

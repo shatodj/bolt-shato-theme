@@ -21,7 +21,7 @@ layout:
       is_paralax: true
       is_navbar_fixed: true
       is_navbar_animated: true
-      has_navbar_logo: false
+      has_navbar_logo: true
       navbar_alignment: start # start, end
       header_extra_class: is-large  #is-fullheight is-halfheight
     record:

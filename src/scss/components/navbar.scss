@@ -67,8 +67,7 @@
   background-color: var(--bulma-navbar-background-color);
   min-height: 0px;
   
-  &.is-transparent {
-    // background-color: transparentize($color: var(--bulma-navbar-background-color), $amount: 1);
+  &.is-transparent:not(.is-active) {
     background-color: rgba(var(--bulma-navbar-background-color), 0.8);
     min-height: 120px;
     box-shadow: none;

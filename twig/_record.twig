@@ -12,7 +12,7 @@
 
 {% set themeConfig = config.get('theme/layout/sections/record') %}
 {% set isParalax = themeConfig.is_paralax|default(false) %}
-{% set excludedFieldsMandatory = ['seo', 'teaser', 'header_title', 'title', 'template', 'sections'] %}
+{% set excludedFieldsMandatory = ['seo', 'teaser', 'header_title', 'header_content', 'title', 'template', 'sections',] %}
 
 {% block document %}
 	{% set htmlClass = themeConfig.is_navbar_animated|default == false ? "has-navbar-fixed-top" %}
