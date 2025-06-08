@@ -1,6 +1,6 @@
 {% extends "twig/partials/_navbar.twig" %}
 
-{% set useSearchbar = true %}
+{% set navbarConfig = config.get("theme/navbar") %}
 
 {% block navbar_last_item %}   
     {% if haswidgets('main_top') %}
@@ -10,7 +10,7 @@
     {% endif %}
     
     {# searchbar #}
-    {% if useSearchbar %}
+    {% if navbarConfig.use_search_bar|default %}
         <div class="navbar-item">
             {% include "twig/partials/_sub_search_form.twig" %}
         </div>

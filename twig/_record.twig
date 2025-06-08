@@ -22,11 +22,10 @@
 
 {% block navbar %}
 	{% 
-		include "navbar.twig" with { 
+		include "twig/_navbar.twig" with { 
 			isAnimated: themeConfig.is_navbar_animated,
             isFixed: themeConfig.is_navbar_fixed,
 			navbarClassSuffix: themeConfig.navbar_alignment,
-			hasBrandLogo: themeConfig.has_navbar_logo
 		}	
 	%}
 {% endblock %}

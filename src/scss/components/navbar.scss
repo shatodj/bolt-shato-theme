@@ -39,27 +39,26 @@
     padding: .8em;
   }
 
-  .shpr-brand.navbar-brand {
-    .navbar-item {
-      background-image: url("../../"+fn.image("logo01.svg"));
-      background-size: contain;
-      background-repeat: no-repeat;
-      height: 39px;
-      overflow: hidden;
-      margin-left: 0.5rem;
-      margin-bottom: 0;
-      align-self: center;
-      color: transparentize($color: dv.$light, $amount: 1);
+  // .shpr-brand.navbar-brand {
+  //   .navbar-item {
+  //     background-size: contain;
+  //     background-repeat: no-repeat;
+  //     height: 39px;
+  //     width: 100px;
+  //     overflow: hidden;
+  //     margin-left: 0.5rem;
+  //     margin-bottom: 0;
+  //     align-self: center;
+  //     color: transparentize($color: dv.$light, $amount: 1);
       
-      &:focus,
-      &:hover,
-      &.is-active {
-        color: transparentize($color: dv.$light, $amount: 1)!important;
-
-      }
-    }
+  //     &:focus,
+  //     &:hover,
+  //     &.is-active {
+  //       color: transparentize($color: dv.$light, $amount: 1)!important;
+  //     }
+  //   }
    
-  }
+  // }
 
   // navbar enlarging and animation
   transition: all .5s;

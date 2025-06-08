@@ -12,11 +12,11 @@
 	{{ m.script('dist/js/homepage-bundle.js') }}
 {% endblock %}
 
-{% set themeConfig = config.get('theme/layout/sections/index') %}
-
 {% setcontent record = 'homepage' limit 1 returnsingle %}
 
 {% block body %}
+	{% set themeConfig = config.get('theme/layout/sections/index') %}
+	
 	{{ block("record_header") }}
 	
 	{# {% with { excludedFields: ['image', 'teaser', 'introduction', 'content', 'seo', 'sections'] } %}
