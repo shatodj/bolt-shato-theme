@@ -15,4 +15,11 @@
             {% include "twig/partials/_sub_search_form.twig" %}
         </div>
     {% endif %}
+
+    {% if navbarConfig.use_social_menu|default %}
+        <div class="navbar-item">
+            {{ menu(navbarConfig.social_menu_id|default("social"), 'twig/partials/_sub_menu_social.twig') }}
+        </div>
+    {% endif %}
+        
 {% endblock %}

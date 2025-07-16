@@ -2,12 +2,19 @@
 {% macro submenuMacro(submenu) %}
 	{% import _self as self %}
 	
-	<li class="navbar-item">
+	{# <li class="navbar-item">
 		<a class="navbar-link is-arrowless" href="{{ submenu.link }}">{{ __(submenu.label) }}</a>
-	</li>
+	</li> #}
+	<a href="{{ submenu.link }}" class="navbar-item">{{ __(submenu.label) }}</a>
 
 	{% if submenu.submenu|default %}
-		<div class="is-pulled-right">
+		{# <div class="navbar-item is-flex-direction-column is-align-items-flex-start ">
+			{% for submenu in submenu.submenu %}
+				{{ self.submenuMacro(submenu) }}
+			{% endfor %}
+		</div> #}
+
+		<div class="shpr-menu-pulled-right">
 			{% for submenu in submenu.submenu %}
 				{{ self.submenuMacro(submenu) }}
 			{% endfor %}
@@ -22,9 +29,9 @@
 	{% for item in menu %}
 		{% if item.submenu %}
 			<div class="navbar-item has-dropdown is-hoverable">
-				<span class="navbar-link">
+				<a class="navbar-link">
 					{{ __(item.label) }}
-				</span>
+				</a>
 
 				<ul class="navbar-dropdown">
 					{% for submenu in item.submenu %}
@@ -33,9 +40,7 @@
 				</ul>
 			</div>
 		{% else %}
-			<li class="navbar-item">
-				<a class="navbar-link is-arrowless" href="{{ item.link }}">{{ __(item.label) }}</a>
-			</li>
+			<a class="navbar-item" href="{{ item.link }}">{{ __(item.label) }}</a>
 		{% endif %}
 	{% endfor %}
 

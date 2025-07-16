@@ -5,7 +5,6 @@
 {% set template_content = section.section_content_template|default("twig/section/content/_sub_section_content.twig") %}
 
 {% block section %}
-
     {% set extraContent = extraContent|default("") %}
 
     {% embed template_layout with {

@@ -8,8 +8,12 @@
         .title {
             --bulma-title-color: var(--bulma-primary);
         }
-    
 
+        // contrast wysiwyg content headers
+        .content {
+            --bulma-strong-color: var(--bulma-primary);
+        }
+    
         // contrast buttons
         &.is-primary {
             .button.is-outlined {

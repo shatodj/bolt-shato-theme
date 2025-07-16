@@ -11,8 +11,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const paths = [
-    'dist/**/*.js',
-    'theme.yml',
+    'dist/**/*.*',
+    'theme.yaml',
     '**/*.twig',
 ];
 
@@ -35,6 +35,7 @@ const archiveFiles = async () => {
     // Copy files
     for (const file of filesSet) {
         const destPath = path.join(outputDir, file); // preserves folder structure
+        console.log(`Copying ${file} to ${destPath}`);
         await ensureDir(path.dirname(destPath));
         await copy(file, destPath);
     }

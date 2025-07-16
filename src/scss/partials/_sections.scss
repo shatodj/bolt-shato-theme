@@ -1,4 +1,4 @@
-@use "bulma/sass/utilities/mixins";
+@use "bulma/sass/utilities/mixins" as bulma-mixins;
 @use "bulma/sass/utilities/extends";
 
 .shpr-section {
@@ -16,5 +16,19 @@
 
     .shpr-actions {
         padding: 4rem 0rem 1rem 0rem;
+    }
+}
+
+.shpr-header {
+    @include bulma-mixins.mobile {
+        padding-top: 2em;
+    }
+}
+
+.navbar-item.shpr-navbar-logo {
+    img, svg {
+        // Removem maximum height of the logo to allow it to be resized
+        // check theme.yaml for the logo width
+        max-height: inherit; 
     }
 }

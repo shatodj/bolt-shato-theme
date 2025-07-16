@@ -2,6 +2,15 @@
 {% extends "twig/_index.twig" %}
 {% import "twig/partials/_macros.twig" as m %}
 
+{# Add notification panel to the hero header #}
+{# {% set header_footer_content %}
+	{% include "twig/partials/_sub_notification_panel.twig" %}
+{% endset %} #}
+
+{% block record_header_after %}
+	{% include "twig/partials/_sub_notification_panel.twig" %}
+{% endblock %}
+
 {# Ucomment this to do not render navbar in the homepage #}
 {# 
 {% block document %}

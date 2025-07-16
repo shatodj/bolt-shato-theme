@@ -4,17 +4,21 @@
 		<div class="shpr-section-anchor" id="{{ section.slug }}"></div>
 	{% endif %}
 
-	<div class="block mb-6">
-		<h2 class="title is-3 is-size-4-mobile is-spaced">
-			{{ section.title|default }}
-		</h2>
+	{% if section.title|default is not empty or section.content|default is not empty %}
+		<div class="block mb-6">
+			{% if section.title|default is not empty %}
+				<h2 class="title is-3 is-size-4-mobile is-spaced">
+					{{ section.title }}
+				</h2>
+			{% endif %}
 
-		{%- if section.content|default is not empty %}
-			<div class="content">
-				{{ section.content }}
-			</div>
-		{% endif -%}
-	</div>
+			{%- if section.content|default is not empty %}
+				<div class="content">
+					{{ section.content }}
+				</div>
+			{% endif -%}
+		</div>
+	{% endif %}
 
 	{# Embedded field #}
 	{%- if section.embedded|default is not empty %}
@@ -32,13 +36,13 @@
     } %}
 
 	{# showing the gallery if added to the block #}
-	{# {% if section.galleryContent|default is not empty %}
+	{% if section.galleryContent|default is not empty %}
 		<section>
-            {% include "twig/partials/_sub_section_content_gallery.twig" with {
-                section: section
-            } %}
+			{% include section.galleryTemplate|default("twig/gallery/_sub_gallery.twig") with {
+				gallery: section.galleryContent|selected,
+			} %}
 		</section>
-	{% endif %} #}
+	{% endif %}
 
 	{# Showing links / actions for the Block #}
 

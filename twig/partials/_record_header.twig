@@ -7,8 +7,10 @@
     {% set template_layout = record.header_section_template|default("twig/section/layout/_sub_section_layout.twig") %}
     {% set template_content = record.header_content_template|default("twig/header/_sub_header_content.twig") %}
 
+    {# {{ block("name") }} #}
+
     {% embed template_layout with { 
-        extraClass: class,
+        extraClass: class ~ " shpr-header",
         image: record.header_image,
         embedded: record.header_embedded,
         video: record.header_video_file,
@@ -23,6 +25,12 @@
         {% block section_content %}
             <div class="hero-body">
                 {{ parent() }}
+            </div>
+        {% endblock %}
+
+        {% block section_footer %}
+            <div class="hero-foot">
+                {{ header_footer_content|default("") }}
             </div>
         {% endblock %}
     {% endembed %}

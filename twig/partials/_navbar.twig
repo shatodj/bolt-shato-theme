@@ -4,36 +4,39 @@
 {% set isFixedClass = isFixed|default == true ? 'is-fixed-top' : "" %}
 {% set navbarClassSuffix = navbarClassSuffix|default("end") %}
 
-<nav id="navbar-toggle" class="navbar {{ isAnimatedClass }} {{ isFixedClass }} {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
+<nav id="navbar-toggle" class="navbar shpr-navbar {{ isAnimatedClass }} {{ isFixedClass }} {{ theme.layout.class.navbar|default('is-light') }}" role="navigation" aria-label="main navigation">
     <div class="container {{ theme.navbar.is_full_width ? "is-fluid" }}">
         <div class="navbar-brand">
             {% if theme.navbar.brand_logo|default is not empty %}
                 {% block navbar_brand %}
-                    <a class="navbar-item has-text-weight-bold" href="/"> 
+                    <a class="navbar-item has-text-weight-bold shpr-navbar-logo" href="/"> 
                         {{ asset(theme.navbar.brand_logo)|showimage(theme.navbar.brand_logo_width) }}
+                    </a>
+                {% endblock %}
+                 {% block navbar_burger_menu %}
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </a>
                 {% endblock %}
             {% endif %}
         </div>
-        {% block navbar_burger_menu %}
-            <span class="navbar-burger burger" data-target="navbar-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </span>
-        {% endblock %}
         <div class="navbar-menu">
-            <div class="navbar-{{ navbarClassSuffix }}">
-                <ul class="navbar-item no-link-color">
+            <ul class="navbar-{{ navbarClassSuffix }}">
+                <ul class="navbar-item">
                     {% apply spaceless %}
                         {% set usedMenu = theme.navbar.menu_id|default("main") %}
                         {{ menu(usedMenu, 'twig/partials/_sub_menu_navbar.twig') }}
                     {% endapply %}
                 </ul>
+            </ul>
+            <ul class="navbar-end">
                 {% block navbar_last_item %}
+                    {# This block can be overridden in the theme to add custom items to the end of the navbar #}
                 {% endblock %}
-            </div>
+            </ul>
         </div>
     </div>
 </nav>

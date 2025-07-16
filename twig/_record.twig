@@ -12,7 +12,9 @@
 
 {% set themeConfig = config.get('theme/layout/sections/record') %}
 {% set isParalax = themeConfig.is_paralax|default(false) %}
-{% set excludedFieldsMandatory = ['seo', 'teaser', 'header_title', 'header_content', 'title', 'template', 'sections',] %}
+{% set excludedFieldsMandatory = [
+    'title', 'template', 'sections', 'seo', 'header_title', 'header_content', 'header_image', 'header_video_file', 'header_embedded',
+] %}
 
 {% block document %}
 	{% set htmlClass = themeConfig.is_navbar_animated|default == false ? "has-navbar-fixed-top" %}
@@ -44,6 +46,8 @@
                 {% block record_header %}
                     {% include "twig/partials/_record_header.twig" with { extraClass: themeConfig.header_extra_class} %}
                 {% endblock %}
+
+                {% block record_header_after %}{% endblock %}
 
                 {% block record_body %}
                     {%- set recordContent -%}

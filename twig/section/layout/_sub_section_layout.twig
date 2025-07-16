@@ -3,8 +3,12 @@
     <section class="{{ extraClass|default }} shpr-section">
         {% block section_content %}
             {% block content %}
-                <pre>content</pre>	
+                <pre>section_content.content</pre>	
             {% endblock %}
+        {% endblock %}
+
+        {% block section_footer %}  
+            {# Placeholder for section_footer  #}
         {% endblock %}
     </section>
 {% endblock %}

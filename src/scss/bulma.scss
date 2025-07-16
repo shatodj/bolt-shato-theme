@@ -12,6 +12,11 @@
 
   --bulma-text-strong: hsl(var(--bulma-hero-h), var(--bulma-hero-s), var(--bulma-hero-color-l));
 
+  // fix visibility of the link in the primary section or header
+  &.is-primary {
+      --bulma-link-text: var(--bulma-link)
+  }
+
   // fix visibility of the outlined button
   .button.is-outlined {
     --bulma-button-h: var(--bulma-hero-h);

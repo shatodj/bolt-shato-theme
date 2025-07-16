@@ -19,7 +19,7 @@ layout:
   sections:
     index:
       is_paralax: true
-      is_navbar_fixed: true
+      is_navbar_fixed: false
       is_navbar_animated: true
       navbar_alignment: start # start, end
       header_extra_class: is-large # is-large  is-fullheight is-halfheight
@@ -60,10 +60,12 @@ section:
 
 navbar:
   is_full_width: false
-  use_search_bar: false
+  use_search_bar: false # If true, the search bar will be displayed in the navbar
+  use_social_menu: true # If true, the social menu will be displayed in the navbar
   menu_id: main
+  social_menu_id: social # Social menu ID to be used in the navbar. If empty no social menu will be used in the navbar
   brand_logo: dist/images/logo01.svg # Logo image file name (without path) to be used in the navbar. If empty no logo will be used in the navbar
-  brand_logo_width: 50 # Width of the logo image in pixels. 
+  brand_logo_width: 80 # Width of the logo image in pixels. 
 
 feature:
   contact_form_id: contact # Contact form located in the feature section. If empty no contact form will be used in the feature section
